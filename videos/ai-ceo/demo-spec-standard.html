@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Shift — Demo Spec Standard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; padding: 56px 32px; }
+
+  .page-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
+  .page-title { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 8px; }
+  .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 12px; max-width: 680px; line-height: 1.7; }
+  .page-meta { font-size: 12px; color: #9ca3af; margin-bottom: 56px; }
+
+  .section { margin-bottom: 56px; }
+  .section-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 6px; padding-bottom: 10px; border-bottom: 2px solid #e9d5ff; }
+  .section-subtitle { font-size: 13px; color: #6b7280; margin-bottom: 20px; margin-top: 6px; }
+
+  .why-box { background: #fff; border: 1px solid #e9d5ff; border-left: 4px solid #7c3aed; border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; font-size: 13px; color: #374151; line-height: 1.7; }
+  .why-box strong { color: #111827; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .standing-rule { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 18px 22px; margin-bottom: 12px; }
+  .standing-rule-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .standing-badge { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: #f3e8ff; color: #7c3aed; padding: 3px 9px; border-radius: 99px; flex-shrink: 0; }
+  .standing-title { font-size: 13px; font-weight: 700; color: #111827; }
+  .standing-rule-body { font-size: 13px; color: #6b7280; line-height: 1.6; padding-left: 0; }
+  .standing-rule-body strong { color: #374151; }
+
+  .template-block { background: #1e1e2e; border-radius: 12px; padding: 28px 32px; font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace; font-size: 12.5px; line-height: 1.9; color: #cdd6f4; white-space: pre-wrap; margin-bottom: 0; overflow-x: auto; }
+  .template-block .comment { color: #6c7086; }
+  .template-block .label { color: #cba6f7; font-weight: 700; }
+  .template-block .value { color: #a6e3a1; }
+  .template-block .heading { color: #89b4fa; font-weight: 700; }
+  .template-block .warn { color: #f38ba8; }
+
+  .field-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .field-table th { text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed; padding: 10px 14px; background: #f3e8ff; border-bottom: 2px solid #e9d5ff; }
+  .field-table td { padding: 12px 14px; border-bottom: 1px solid #f3e8ff; vertical-align: top; }
+  .field-table tr:last-child td { border-bottom: none; }
+  .field-table tr:nth-child(even) td { background: #fff; }
+  .field-name { font-weight: 700; color: #111827; font-size: 12px; }
+  .field-why { color: #6b7280; font-size: 12px; line-height: 1.5; }
+
+  .divider { border: none; border-top: 1px solid #e9d5ff; margin: 40px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="page-eyebrow">The AI Shift — Channel Standard</div>
+  <h1 class="page-title">Demo Spec Standard</h1>
+  <p class="page-subtitle">Two parts: (1) standing rules that never change — every demo follows these automatically. (2) what Sai fills out per video — the only things that vary.</p>
+  <p class="page-meta">Last updated: 2026-04-29 &nbsp;|&nbsp; Established after Video 1 (AI CEO) post-mortem</p>
+
+
+  <!-- PART 1: STANDING RULES -->
+  <div class="section">
+    <div class="section-title">Part 1 — Standing Rules</div>
+    <div class="section-subtitle">These are permanent channel decisions. They apply to every video, every demo. Sai does not need to specify any of these in his script — they are already decided. Anyone building or editing demos must know these.</div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Structure</span>
+        <span class="standing-title">Every video has two demo types — always</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Demo 1 (Internal Build):</strong> What Sai actually built using Claude Code. Sophisticated, polished, impressive. Viewers watch it — they cannot replicate it themselves. This is the belief-breaker: shows what AI is capable of at a high level.<br><br>
+        <strong>Demo 2 (Viewer Deliverable):</strong> What the viewer walks away with. Built on a web chat interface (Claude.ai or ChatGPT). Simplified to 70-80% of Demo 1's value with minimum friction. This is the action-driver: something they can use immediately.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Interface</span>
+        <span class="standing-title">Demo 1 = Claude Code custom interface. Demo 2 = web chat only.</span>
+      </div>
+      <div class="standing-rule-body">
+        Demo 1 always shows the custom interface built via Claude Code — Sai will know exactly what this looks like for each video because he built it. Demo 2 always uses a standard web chat interface (Claude.ai or ChatGPT chat). Never show APIs, terminals, code environments, or anything requiring technical setup as the thing the audience replicates. The audience is $1-10M SMB owners using web chat tools, not builders.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Bridge Rule</span>
+        <span class="standing-title">Demo 2 must deliver 70-80% of Demo 1's value via web chat</span>
+      </div>
+      <div class="standing-rule-body">
+        When designing Demo 2, the goal is maximum value for the viewer at minimum friction. If a Demo 2 requires more than pasting a prompt or filling a form, it needs redesigning. The bridge from what Claude Code can do to what a web chat user can do is AP's responsibility to figure out — Sai defines the outcome, AP designs the simplest path to it.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Deliverable</span>
+        <span class="standing-title">Standard two-stage opt-in form + personalized file — every video</span>
+      </div>
+      <div class="standing-rule-body">
+        Every video uses the same delivery mechanism: a multi-step form where step 1 captures name and email (for abandonment recovery), step 2 asks qualifying questions that personalise the output, and delivery is automatic on completion. The viewer receives a personalized file via email. AP recommends this to Sai, Sai approves, AP builds it. Sai defines only what the file contains. AP designs the form questions based on that.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Data &amp; Privacy</span>
+        <span class="standing-title">Real data is blurred. Illustrative data is used where real data would expose PII.</span>
+      </div>
+      <div class="standing-rule-body">
+        Real business numbers (revenue, costs, units) are shown blurred to add authenticity without exposing sensitive figures. Names, client names, and team members are always blurred or replaced with illustrative placeholders. Production applies this — AP takes a call on what's real vs illustrative.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Recording</span>
+        <span class="standing-title">Heavy lifting happens at recording, not in editing</span>
+      </div>
+      <div class="standing-rule-body">
+        The goal is to capture demos cleanly at recording time. Demos should not rely on editing to fix weaknesses. If a live demo is unpredictable (depends on AI output quality in the moment), it should be pre-recorded and polished before the shoot. Editing magic is a tool, not a crutch.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">AI Tool</span>
+        <span class="standing-title">Stay AI-agnostic. Do not push Claude or ChatGPT over each other.</span>
+      </div>
+      <div class="standing-rule-body">
+        Do not advocate for one AI tool over another in the video. Viewers have their preferences and creating friction or polarization hurts conversions. Only specify a tool on screen if there is a genuine functional reason (e.g. voice mode, file upload, a specific capability). The deliverable should work in whatever AI tool the viewer already uses.
+      </div>
+    </div>
+
+  </div>
+
+
+  <hr class="divider">
+
+
+  <!-- PART 2: WHAT SAI FILLS OUT -->
+  <div class="section">
+    <div class="section-title">Part 2 — What Sai Fills Out Per Video</div>
+    <div class="section-subtitle">Everything above is already decided. These are the only things that change video to video. Sai drops one block per demo scenario into his script. If all fields are filled, no follow-up call is needed.</div>
+
+    <table class="field-table" style="margin-bottom:28px;">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Why It's Video-Specific</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="field-name">Business problem</span></td><td class="field-why">One sentence. Confirms the demo is solving the right pain for this video's story.</td></tr>
+        <tr><td><span class="field-name">Exact input</span></td><td class="field-why">The prompt or voice input word-for-word. Different for every use case. Used directly in simulation and dry-run testing.</td></tr>
+        <tr><td><span class="field-name">Expected output</span></td><td class="field-why">What the AI produces. What appears on screen. Varies by use case — builder cannot guess this.</td></tr>
+        <tr><td><span class="field-name">Screen flow</span></td><td class="field-why">Numbered list of screens in order. Different for every video. Drives the demo simulation and editor capture list.</td></tr>
+        <tr><td><span class="field-name">Wow moment</span></td><td class="field-why">The single on-screen beat that must hit hardest. Unique to each video's demo. Production gives this the most polish.</td></tr>
+        <tr><td><span class="field-name">Deliverable substance</span></td><td class="field-why">What is actually inside the personalized file. The format and delivery are standard — the content is video-specific.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- TEMPLATE -->
+  <div class="section">
+    <div class="section-title">The Template</div>
+    <div class="section-subtitle">Copy one block per demo scenario into the script. A video typically has 2-3 demo scenarios (e.g. sales, ops, team) — each gets its own block. All fields are required.</div>
+
+<div class="template-block">
+<span class="comment"><!-- ═══════════════════════════════════════════════════
+     DEMO SCENARIO [N] SPEC
+     Standing rules (structure, interface, deliverable
+     mechanism, blur, recording, AI-agnostic) apply
+     automatically — do not re-specify them here.
+     ═══════════════════════════════════════════════════ --></span>
+
+<span class="heading">### DEMO SCENARIO [N] — [Give it a name, e.g. "Sales Call Analysis"]</span>
+
+<span class="label">Business Problem:</span>
+<span class="value">[One sentence — what specific pain does this scenario solve for the viewer?]</span>
+
+---
+
+<span class="heading">#### Input / Output</span>
+
+<span class="label">Exact Input (word-for-word — what goes into the AI):</span>
+<span class="value">[Write out the full prompt or voice input as it will be spoken/typed. No paraphrasing.]</span>
+
+<span class="label">Expected Output (what appears on screen):</span>
+<span class="value">[Describe what the AI produces. What does the viewer see? If pre-recorded, paste the actual output here.]</span>
+
+---
+
+<span class="heading">#### Screen Flow (in order)</span>
+<span class="comment"># One line per screen. Mark any data that is real (vs illustrative) so blur can be applied.</span>
+
+1. [e.g. ChatGPT open, voice mode ready — no data on screen yet]
+2. [e.g. Sai speaks — voice waveform visible]
+3. [e.g. Generated prompt appears — all figures are illustrative]
+4. [e.g. Prompt pasted into second tab, output running — client name is real, blur it]
+5. [add more as needed]
+
+---
+
+<span class="heading">#### Wow Moment</span>
+
+<span class="label">The wow is when:</span>
+<span class="value">[One sentence — what happens on screen that lands hardest? When in the demo does it occur?]</span>
+
+---
+
+<span class="heading">#### Viewer Deliverable (Demo 2 content only)</span>
+<span class="comment"># Format and delivery are standard (personalized file, auto-emailed after form). Define the content only.</span>
+
+<span class="label">What is inside the file:</span>
+<span class="value">[What does the viewer actually receive? e.g. "The AI Prompt Engineer system prompt — 1 page, ready to paste into any AI tool"]</span>
+
+<span class="comment"># Step 2 form questions are designed by AP based on the deliverable above. Sai does not need to define these.</span>
+</div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div style="font-size:12px;color:#9ca3af;text-align:center;padding-top:32px;border-top:1px solid #e9d5ff;">
+    The AI Shift &nbsp;|&nbsp; Demo Spec Standard &nbsp;|&nbsp; Established after Video 1 post-mortem &nbsp;|&nbsp; 2026-04-29
+  </div>
+
+</div>
+</body>
+</html>
