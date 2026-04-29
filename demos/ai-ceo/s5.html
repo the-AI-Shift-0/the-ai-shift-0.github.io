@@ -127,35 +127,53 @@
                 <div class="table-cell blur">Sarah Chen</div>
                 <div class="table-cell">4.2 hrs</div>
                 <div class="table-cell">Message only if decision costs $X+ or generates $Y+</div>
-                <button class="table-button" onclick="showDraft()">Draft →</button>
+                <button class="table-button" onclick="showDraft(1)">Draft →</button>
             </div>
             <div class="table-row">
                 <div class="table-cell blur">James Okafor</div>
                 <div class="table-cell">2.8 hrs</div>
                 <div class="table-cell">Once-weekly check-in, Tuesdays 10am</div>
-                <button class="table-button" onclick="showDraft()">Draft →</button>
+                <button class="table-button" onclick="showDraft(2)">Draft →</button>
             </div>
             <div class="table-row">
                 <div class="table-cell blur">Priya Mehta</div>
                 <div class="table-cell">1.9 hrs</div>
                 <div class="table-cell">#ops-channel muted except 9am daily standup</div>
-                <button class="table-button" onclick="showDraft()">Draft →</button>
+                <button class="table-button" onclick="showDraft(3)">Draft →</button>
             </div>
         </div>
 
-        <div class="draft-panel" id="draft-panel">
+        <div class="draft-panel" id="draft-1">
             <div class="draft-title">Draft Slack message — ready to send</div>
-            <div class="skeleton-line" style="width: 94%;"></div>
+            <div class="skeleton-line" style="width: 91%;"></div>
             <div class="skeleton-line" style="width: 100%;"></div>
-            <div class="skeleton-line" style="width: 89%;"></div>
-            <div class="skeleton-line" style="width: 96%;"></div>
+            <div class="skeleton-line" style="width: 97%;"></div>
+            <div class="skeleton-line" style="width: 85%;"></div>
+            <div class="skeleton-line" style="width: 78%;"></div>
+        </div>
+
+        <div class="draft-panel" id="draft-2">
+            <div class="draft-title">Draft Slack message — ready to send</div>
+            <div class="skeleton-line" style="width: 88%;"></div>
+            <div class="skeleton-line" style="width: 100%;"></div>
+            <div class="skeleton-line" style="width: 62%;"></div>
+        </div>
+
+        <div class="draft-panel" id="draft-3">
+            <div class="draft-title">Draft Slack message — ready to send</div>
+            <div class="skeleton-line" style="width: 95%;"></div>
+            <div class="skeleton-line" style="width: 71%;"></div>
         </div>
 
         <button class="button" onclick="window.location.href='s6.html'">See week plan →</button>
     </div>
     <script>
-        function showDraft() {
-            document.getElementById('draft-panel').classList.add('visible');
+        function showDraft(n) {
+            [1,2,3].forEach(i => {
+                const el = document.getElementById('draft-' + i);
+                if (el) el.classList.remove('visible');
+            });
+            document.getElementById('draft-' + n).classList.add('visible');
         }
     </script>
 </body>
