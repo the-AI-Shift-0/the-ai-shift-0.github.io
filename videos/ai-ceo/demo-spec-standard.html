@@ -87,7 +87,8 @@
         <span class="standing-title">Demo 2 must deliver 70-80% of Demo 1's value via web chat</span>
       </div>
       <div class="standing-rule-body">
-        When designing Demo 2, the goal is maximum value for the viewer at minimum friction. If a Demo 2 requires more than pasting a prompt or filling a form, it needs redesigning. The bridge from what Claude Code can do to what a web chat user can do is AP's responsibility to figure out — Sai defines the outcome, AP designs the simplest path to it.
+        When designing Demo 2, the goal is maximum value for the viewer at minimum friction. If a Demo 2 requires more than pasting a prompt or filling a form, it needs redesigning. The bridge from what Claude Code can do to what a web chat user can do is AP's responsibility to figure out — Sai defines the outcome, AP designs the simplest path to it.<br><br>
+        <strong>Approval gate:</strong> Before AP builds Demo 2, AP writes a one-paragraph concept (what the viewer does, what they receive) and sends it to Sai for a quick yes. One async message — not a call. No building happens before Sai approves.
       </div>
     </div>
 
@@ -140,22 +141,25 @@
   <!-- PART 2: WHAT SAI FILLS OUT -->
   <div class="section">
     <div class="section-title">Part 2 — What Sai Fills Out Per Video</div>
-    <div class="section-subtitle">Everything above is already decided. These are the only things that change video to video. Sai drops one block per demo scenario into his script. If all fields are filled, no follow-up call is needed.</div>
+    <div class="section-subtitle">Sai fills two blocks per video: one Demo 1 spec and one Demo 2 spec. Both are required. Different fields apply to each.</div>
 
     <table class="field-table" style="margin-bottom:28px;">
       <thead>
         <tr>
           <th>Field</th>
+          <th>Demo 1</th>
+          <th>Demo 2</th>
           <th>Why It's Video-Specific</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td><span class="field-name">Business problem</span></td><td class="field-why">One sentence. Confirms the demo is solving the right pain for this video's story.</td></tr>
-        <tr><td><span class="field-name">Exact input</span></td><td class="field-why">The prompt or voice input word-for-word. Different for every use case. Used directly in simulation and dry-run testing.</td></tr>
-        <tr><td><span class="field-name">Expected output</span></td><td class="field-why">What the AI produces. What appears on screen. Varies by use case — builder cannot guess this.</td></tr>
-        <tr><td><span class="field-name">Screen flow</span></td><td class="field-why">Numbered list of screens in order. Different for every video. Drives the demo simulation and editor capture list.</td></tr>
-        <tr><td><span class="field-name">Wow moment</span></td><td class="field-why">The single on-screen beat that must hit hardest. Unique to each video's demo. Production gives this the most polish.</td></tr>
-        <tr><td><span class="field-name">Deliverable substance</span></td><td class="field-why">What is actually inside the personalized file. The format and delivery are standard — the content is video-specific.</td></tr>
+        <tr><td><span class="field-name">What it shows</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">One sentence. What problem does this demo solve for the viewer?</td></tr>
+        <tr><td><span class="field-name">Recording method</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Live (runs in real time on camera) or Editing magic (pre-recorded, cut for quality). Must be decided before shoot — affects what the editor can fix.</td></tr>
+        <tr><td><span class="field-name">Screen flow</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Numbered list of screens in order. Different for every video. Drives the simulation build and editor capture list.</td></tr>
+        <tr><td><span class="field-name">Wow moment</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">The single on-screen beat that must hit hardest. Production gives this the most polish.</td></tr>
+        <tr><td><span class="field-name">Exact input</span></td><td style="text-align:center;color:#9ca3af;">—</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. The exact prompt or voice input the viewer uses — word for word. AP cannot guess this.</td></tr>
+        <tr><td><span class="field-name">Expected output</span></td><td style="text-align:center;color:#9ca3af;">—</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. What the AI produces on screen. Varies by use case.</td></tr>
+        <tr><td><span class="field-name">Deliverable substance</span></td><td style="text-align:center;color:#9ca3af;">—</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. What is inside the personalized file the viewer receives. Format and delivery are standard — content is video-specific.</td></tr>
       </tbody>
     </table>
   </div>
@@ -163,59 +167,92 @@
 
   <!-- TEMPLATE -->
   <div class="section">
-    <div class="section-title">The Template</div>
-    <div class="section-subtitle">Copy one block per demo scenario into the script. A video typically has 2-3 demo scenarios (e.g. sales, ops, team) — each gets its own block. All fields are required.</div>
+    <div class="section-title">The Template — Demo 1 Block</div>
+    <div class="section-subtitle">Copy this block into the script for Demo 1. Sai built it — he knows what it does. AP needs to know what's on screen and where the impact lands.</div>
 
 <div class="template-block">
 <span class="comment"><!-- ═══════════════════════════════════════════════════
-     DEMO SCENARIO [N] SPEC
-     Standing rules (structure, interface, deliverable
-     mechanism, blur, recording, AI-agnostic) apply
-     automatically — do not re-specify them here.
+     DEMO 1 SPEC (Internal Build)
+     Sai built this in Claude Code. Standing rules apply.
      ═══════════════════════════════════════════════════ --></span>
 
-<span class="heading">### DEMO SCENARIO [N] — [Give it a name, e.g. "Sales Call Analysis"]</span>
+<span class="heading">### DEMO 1 — [Name, e.g. "AI Co-CEO Sunday Assessment"]</span>
 
-<span class="label">Business Problem:</span>
-<span class="value">[One sentence — what specific pain does this scenario solve for the viewer?]</span>
+<span class="label">What It Shows:</span>
+<span class="value">[One sentence — what problem does this demo solve for the viewer?]</span>
 
----
-
-<span class="heading">#### Input / Output</span>
-
-<span class="label">Exact Input (word-for-word — what goes into the AI):</span>
-<span class="value">[Write out the full prompt or voice input as it will be spoken/typed. No paraphrasing.]</span>
-
-<span class="label">Expected Output (what appears on screen):</span>
-<span class="value">[Describe what the AI produces. What does the viewer see? If pre-recorded, paste the actual output here.]</span>
+<span class="label">Recording Method:</span> <span class="value">[Live (Sai clicks through simulation on camera) / Editing magic (pre-recorded, cut in)]</span>
 
 ---
 
 <span class="heading">#### Screen Flow (in order)</span>
-<span class="comment"># One line per screen. Mark any data that is real (vs illustrative) so blur can be applied.</span>
+<span class="comment"># One line per screen. Note any real data that appears so AP can apply blur.</span>
 
-1. [e.g. ChatGPT open, voice mode ready — no data on screen yet]
-2. [e.g. Sai speaks — voice waveform visible]
-3. [e.g. Generated prompt appears — all figures are illustrative]
-4. [e.g. Prompt pasted into second tab, output running — client name is real, blur it]
-5. [add more as needed]
+1. [Screen description — e.g. "Input screen: Sunday question, branded header, Run Assessment button"]
+2. [Screen description — e.g. "Loading: Calendar/Slack/Email spinners, data counts visible"]
+3. [add more screens]
 
 ---
 
 <span class="heading">#### Wow Moment</span>
 
 <span class="label">The wow is when:</span>
-<span class="value">[One sentence — what happens on screen that lands hardest? When in the demo does it occur?]</span>
+<span class="value">[One sentence — what happens on screen that lands hardest?]</span>
+</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">The Template — Demo 2 Block</div>
+    <div class="section-subtitle">Copy this block into the script for Demo 2. This is what the viewer replicates. AP will share a one-paragraph concept with Sai for approval before building.</div>
+
+<div class="template-block">
+<span class="comment"><!-- ═══════════════════════════════════════════════════
+     DEMO 2 SPEC (Viewer Deliverable)
+     Web chat interface only. Standing rules apply.
+     AP shares concept with Sai for approval before building.
+     ═══════════════════════════════════════════════════ --></span>
+
+<span class="heading">### DEMO 2 — [Name, e.g. "AI Co-CEO Claude Project Setup"]</span>
+
+<span class="label">What It Shows:</span>
+<span class="value">[One sentence — same problem as Demo 1, simplified for web chat]</span>
+
+<span class="label">Recording Method:</span> <span class="value">[Live (runs Claude.ai or ChatGPT in real time on camera) / Editing magic (pre-recorded, cut for quality)]</span>
 
 ---
 
-<span class="heading">#### Viewer Deliverable (Demo 2 content only)</span>
-<span class="comment"># Format and delivery are standard (personalized file, auto-emailed after form). Define the content only.</span>
+<span class="heading">#### Input / Output</span>
+
+<span class="label">Exact Input (word-for-word — what the viewer types or pastes into the AI):</span>
+<span class="value">[Write it out in full. No paraphrasing. This is what goes into Claude.ai or ChatGPT.]</span>
+
+<span class="label">Expected Output (what appears on screen):</span>
+<span class="value">[Describe what the AI produces. If pre-recorded, paste the actual output here.]</span>
+
+---
+
+<span class="heading">#### Screen Flow (in order)</span>
+<span class="comment"># One line per screen. Note any real data that appears so AP can apply blur.</span>
+
+1. [e.g. Claude.ai open, Project visible with integrations connected]
+2. [e.g. Sai pastes prompt, output streams]
+3. [add more screens]
+
+---
+
+<span class="heading">#### Wow Moment</span>
+
+<span class="label">The wow is when:</span>
+<span class="value">[One sentence — the moment that proves this is doable for any SMB owner]</span>
+
+---
+
+<span class="heading">#### Viewer Deliverable</span>
+<span class="comment"># Format and delivery are standard (personalized file, auto-emailed after form). Define content only.
+# AP designs the form questions. AP shares Demo 2 concept with Sai before building anything.</span>
 
 <span class="label">What is inside the file:</span>
-<span class="value">[What does the viewer actually receive? e.g. "The AI Prompt Engineer system prompt — 1 page, ready to paste into any AI tool"]</span>
-
-<span class="comment"># Step 2 form questions are designed by AP based on the deliverable above. Sai does not need to define these.</span>
+<span class="value">[e.g. "The AI Co-CEO Starter File — a pre-built context template the viewer pastes into their AI tool"]</span>
 </div>
   </div>
 
