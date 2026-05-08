@@ -30,44 +30,51 @@
         .status-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
         .last-run { font-size: 11px; color: #9ca3af; border-left: 1px solid #e5e7eb; padding-left: 16px; margin-left: 4px; }
-        .container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
-        .content { max-width: 580px; width: 100%; }
-        .label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; font-weight: 600; }
-        .input-field {
-            width: 100%;
-            padding: 16px 18px;
-            font-size: 17px;
-            border: 1.5px solid #ddd6fe;
-            border-radius: 10px;
-            background: #ffffff;
-            color: #111827;
-            font-family: inherit;
-            margin-bottom: 20px;
-            display: block;
+
+        .container { flex: 1; display: flex; align-items: center; justify-content: center; }
+        .content { max-width: 480px; width: 100%; padding: 0 32px; text-align: center; }
+
+        .loading-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; color: #7c3aed; margin-bottom: 28px;
         }
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 20px;
-            background: #7c3aed;
-            animation: blink 1s step-end infinite;
-            margin-left: 1px;
-            vertical-align: middle;
+
+        .integrations {
+            display: flex; gap: 16px; justify-content: center; margin-bottom: 32px;
         }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .button-row { display: flex; justify-content: flex-end; }
-        .button {
-            background: #7c3aed;
-            color: #ffffff;
-            border: none;
-            padding: 11px 22px;
-            font-size: 14px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.15s;
+        .integration-card {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+            padding: 18px 24px; text-align: center; flex: 1; min-width: 110px;
+            transition: border-color 0.3s;
         }
-        .button:hover { background: #6d28d9; }
+        .integration-card.done { border-color: #22c55e; }
+        .int-icon { font-size: 22px; margin-bottom: 6px; }
+        .int-name { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
+        .int-status {
+            font-size: 11px; font-weight: 700; color: #d1d5db;
+            height: 16px; display: flex; align-items: center; justify-content: center;
+        }
+        .int-status.done { color: #22c55e; }
+        .spinner {
+            width: 14px; height: 14px;
+            border: 2px solid #e9d5ff; border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .progress-wrap {
+            background: #e9d5ff; border-radius: 99px; height: 4px;
+            overflow: hidden; margin-bottom: 16px;
+        }
+        .progress-bar {
+            height: 100%; background: #7c3aed; width: 0%;
+            border-radius: 99px; transition: width 1.4s ease;
+        }
+        .progress-text {
+            font-size: 12px; color: #9ca3af;
+        }
     </style>
 </head>
 <body>
@@ -79,17 +86,58 @@
         <div class="header-right">
             <div class="status-badge"><div class="status-dot"></div><span>Calendar connected</span></div>
             <div class="status-badge"><div class="status-dot"></div><span>Slack connected</span></div>
-            <div class="last-run">Last run: Sun, Apr 20 · 8:14 AM</div>
+            <div class="last-run">Last run: Sun, Apr 27 · 8:14 AM</div>
         </div>
     </div>
+
     <div class="container">
         <div class="content">
-            <div class="label">Sunday Assessment</div>
-            <div class="input-field">How did last week actually go?<span class="cursor"></span></div>
-            <div class="button-row">
-                <button class="button" onclick="window.location.href='s2.html'">Run Assessment →</button>
+            <div class="loading-label" id="loading-label">Pulling your data...</div>
+
+            <div class="integrations">
+                <div class="integration-card" id="cal-card">
+                    <div class="int-icon">📅</div>
+                    <div class="int-name">Calendar</div>
+                    <div class="int-status" id="cal-status"><div class="spinner"></div></div>
+                </div>
+                <div class="integration-card" id="slack-card">
+                    <div class="int-icon">💬</div>
+                    <div class="int-name">Slack</div>
+                    <div class="int-status" id="slack-status"><div class="spinner"></div></div>
+                </div>
+                <div class="integration-card" id="email-card">
+                    <div class="int-icon">📧</div>
+                    <div class="int-name">Email</div>
+                    <div class="int-status" id="email-status"><div class="spinner"></div></div>
+                </div>
             </div>
+
+            <div class="progress-wrap">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Mapping time allocation to 12-month targets...</div>
         </div>
     </div>
+
+    <script>
+        function markDone(cardId, statusId) {
+            document.getElementById(cardId).classList.add('done');
+            const s = document.getElementById(statusId);
+            s.classList.add('done');
+            s.innerHTML = '✓ Pulled';
+        }
+
+        setTimeout(() => markDone('cal-card', 'cal-status'), 700);
+        setTimeout(() => markDone('slack-card', 'slack-status'), 1300);
+        setTimeout(() => markDone('email-card', 'email-status'), 1900);
+
+        setTimeout(() => {
+            document.getElementById('progress-bar').style.width = '100%';
+            document.getElementById('loading-label').textContent = 'Analysis ready';
+            document.getElementById('progress-text').textContent = 'Opening your dashboard...';
+        }, 2200);
+
+        setTimeout(() => { window.location.href = 'l1.html'; }, 3800);
+    </script>
 </body>
 </html>

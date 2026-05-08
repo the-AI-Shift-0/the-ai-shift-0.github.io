@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Co-CEO — Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-sub { font-size: 12px; color: #9ca3af; }
+        .loading-steps {
+            display: flex; flex-direction: column; gap: 6px;
+            margin-top: 8px; min-width: 220px;
+        }
+        .loading-step {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 12px; color: #9ca3af;
+        }
+        .step-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #e9d5ff; flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .step-dot.done { background: #7c3aed; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 32px;
+            background: #ffffff; border-bottom: 1px solid #ddd6fe;
+            flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-center { font-size: 13px; color: #6b7280; font-weight: 500; }
+        .header-right { display: flex; gap: 16px; align-items: center; }
+        .status-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+
+        .container {
+            flex: 1; display: flex; flex-direction: column;
+            padding: 24px 32px; gap: 16px; min-height: 0;
+        }
+
+        .alert-bar {
+            background: #fff1f2; border: 1px solid #fecdd3;
+            border-left: 4px solid #ef4444; border-radius: 10px;
+            padding: 14px 20px;
+            display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+        }
+        .alert-icon { font-size: 16px; }
+        .alert-text { font-size: 14px; color: #111827; font-weight: 500; flex: 1; }
+        .alert-text span { color: #ef4444; font-weight: 700; }
+
+        .panels-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 16px; flex: 1; min-height: 0;
+        }
+        .panel {
+            background: #ffffff; border: 1.5px solid #e9d5ff;
+            border-radius: 14px; padding: 24px 28px;
+            display: flex; flex-direction: column; gap: 8px;
+            transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+        }
+        .panel.clickable { cursor: pointer; }
+        .panel.clickable:hover {
+            border-color: #7c3aed;
+            box-shadow: 0 4px 16px rgba(124,58,237,0.1);
+            transform: translateY(-2px);
+        }
+        .panel-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #9ca3af;
+        }
+        .panel-stat {
+            font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1;
+        }
+        .panel-stat.red { color: #ef4444; }
+        .panel-stat.green { color: #16a34a; }
+        .panel-stat.blurred { filter: blur(8px); color: #9ca3af; user-select: none; }
+        .panel-sub { font-size: 13px; font-weight: 600; }
+        .panel-sub.red { color: #ef4444; }
+        .panel-sub.green { color: #16a34a; }
+        .panel-detail { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+        .panel-explore {
+            margin-top: auto;
+            font-size: 12px; color: #7c3aed; font-weight: 600;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .gate-badge {
+            display: inline-flex; align-items: center;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; padding: 3px 9px; border-radius: 99px;
+        }
+        .gate-badge.partial { background: #fff7ed; color: #c2410c; }
+        .gate-badge.track { background: #f0fdf4; color: #15803d; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Building your dashboard...</div>
+        <div class="loading-steps">
+            <div class="loading-step"><div class="step-dot" id="s1"></div><span>Analysing time allocation</span></div>
+            <div class="loading-step"><div class="step-dot" id="s2"></div><span>Scoring gate performance</span></div>
+            <div class="loading-step"><div class="step-dot" id="s3"></div><span>Flagging operational drag</span></div>
+            <div class="loading-step"><div class="step-dot" id="s4"></div><span>Mapping focus vs targets</span></div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">AI Co-CEO</div>
+        </div>
+        <div class="header-center">Week of Apr 21 – 27</div>
+        <div class="header-right">
+            <div class="status-badge"><div class="status-dot"></div><span>Live</span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="alert-bar">
+            <div class="alert-icon">⚠</div>
+            <div class="alert-text">
+                <span>60% of your time last week</span> was not connected to your 12-month target.
+            </div>
+        </div>
+
+        <div class="panels-grid">
+
+            <div class="panel">
+                <div class="panel-label">Gate 1 — Front end &amp; funnel</div>
+                <div class="panel-stat blurred">$0.0M</div>
+                <div class="panel-sub red">↓ 23% vs target</div>
+                <div class="panel-detail">Behind — new leads below pace</div>
+                <div style="margin-top:auto;"><span class="gate-badge partial">Partial</span></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label">Gate 2 — High ticket backend</div>
+                <div class="panel-stat blurred">$0.0M</div>
+                <div class="panel-sub green">↑ 12% ahead of target</div>
+                <div class="panel-detail">On track — close rate holding</div>
+                <div style="margin-top:auto;"><span class="gate-badge track">On track</span></div>
+            </div>
+
+            <div class="panel clickable" onclick="window.location.href='l3.html'">
+                <div class="panel-label">Operational drag</div>
+                <div class="panel-stat red">43</div>
+                <div class="panel-sub red">incidents &nbsp;·&nbsp; 23 hrs consumed</div>
+                <div class="panel-detail">↑ above your 15-hr weekly threshold</div>
+                <div class="panel-explore">Explore what's eating your time →</div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label">CEO focus time</div>
+                <div class="panel-stat red">40%</div>
+                <div class="panel-sub red">of week on priority work</div>
+                <div class="panel-detail">Target: 70% &nbsp;·&nbsp; Gap: 30 pts</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Sequence the step dots then reveal dashboard
+        setTimeout(() => document.getElementById('s1').classList.add('done'), 400);
+        setTimeout(() => document.getElementById('s2').classList.add('done'), 900);
+        setTimeout(() => document.getElementById('s3').classList.add('done'), 1400);
+        setTimeout(() => document.getElementById('s4').classList.add('done'), 1800);
+        setTimeout(() => {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 2200);
+    </script>
+</body>
+</html>
