@@ -252,6 +252,82 @@
       position: absolute;
       left: 8px;
     }
+
+    .case-history {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .history-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e9d5ff;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .timeline-entry {
+      display: flex;
+      gap: 16px;
+      position: relative;
+      padding-left: 0;
+    }
+
+    .timeline-entry:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 40px;
+      width: 2px;
+      height: calc(100% + 20px);
+      background: #ddd6fe;
+    }
+
+    .timeline-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #7c3aed;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .timeline-label {
+      font-weight: 600;
+      font-size: 13px;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .timeline-text {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .timeline-outcome {
+      font-weight: 600;
+      color: #22c55e;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
@@ -271,6 +347,42 @@
     <a href="l2.html" class="back-link">← Back</a>
 
     <div class="page-title">Full Case Analysis & Draft Response</div>
+
+    <div class="case-history">
+      <div class="history-title">Case History</div>
+      <div class="timeline">
+        <div class="timeline-entry">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-label">Round 1: Initial Threat Received</div>
+            <div class="timeline-text">Recording consent claim received from legal firm</div>
+            <div class="timeline-text" style="margin-top: 6px;">AI Assessment: "No legal basis"</div>
+            <div class="timeline-text" style="margin-top: 6px;">Response: Standard dismissal sent</div>
+          </div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-label">Round 2: Escalation Attempt</div>
+            <div class="timeline-text">Claimant replied with additional pressure and demands</div>
+            <div class="timeline-text" style="margin-top: 6px;">AI Assessment: Dismantled new arguments using case law</div>
+            <div class="timeline-text" style="margin-top: 6px;">Response: Detailed legal rebuttal sent</div>
+          </div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-label">Round 3: Final Threat</div>
+            <div class="timeline-text">Claimant sent final demand with court filing threat</div>
+            <div class="timeline-text" style="margin-top: 6px;">AI Assessment: Threat was bluff (no real legal standing)</div>
+            <div class="timeline-text" style="margin-top: 6px;">Response: Strong dismissal sent</div>
+            <div class="timeline-outcome">Outcome: Claim dropped. No further correspondence.</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="two-column">
       <div>
