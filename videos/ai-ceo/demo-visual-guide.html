@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Visual Guide - AI CEO</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
+
+  /* Layout */
+  .page { max-width: 1100px; margin: 0 auto; padding: 48px 32px; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #666; font-size: 15px; margin-bottom: 48px; }
+
+  /* Sections */
+  .section { margin-bottom: 56px; }
+  .section-title { font-size: 19px; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #7c3aed; display: inline-block; }
+
+  /* Callout boxes */
+  .callout { border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px; }
+  .callout.purple { background: #f5f3ff; border-left: 4px solid #7c3aed; }
+  .callout.orange { background: #fff7ed; border-left: 4px solid #f97316; }
+  .callout.green { background: #f0fdf4; border-left: 4px solid #16a34a; }
+  .callout.red { background: #fff1f2; border-left: 4px solid #e11d48; }
+  .callout strong { font-weight: 600; }
+
+  /* Screen cards */
+  .screens-grid { display: flex; flex-direction: column; gap: 32px; }
+  .screen-card { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .screen-header { background: #7c3aed; color: #fff; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+  .screen-num { background: rgba(255,255,255,0.25); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .screen-header h3 { font-size: 16px; font-weight: 600; }
+  .screen-header .beat { font-size: 12px; opacity: 0.85; margin-left: auto; }
+  .screen-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .screen-wireframe { background: #f8f7ff; border-right: 1px solid #e9d5ff; padding: 20px; min-height: 220px; display: flex; flex-direction: column; gap: 10px; }
+  .screen-spec { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* Wireframe components */
+  .wf-header { background: #fff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+  .wf-header-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+  .wf-header-text { color: #374151; font-size: 12px; font-weight: 700; }
+  .wf-input { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; color: #6b7280; font-size: 12px; font-style: italic; }
+  .wf-input-active { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.08); color: #374151; }
+  .wf-output { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 12px; }
+  .wf-highlight { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 6px; padding: 8px 12px; color: #6d28d9; font-size: 12px; font-weight: 600; margin: 4px 0; }
+  .wf-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; border-radius: 6px; background: #f8f7ff; border: 1px solid #f3f4f6; margin-bottom: 4px; font-size: 11px; color: #374151; }
+  .wf-row .gap { color: #ef4444; font-weight: 600; }
+  .wf-row .ok { color: #22c55e; }
+  .wf-tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 600; }
+  .wf-tag.red { background: #fee2e2; color: #ef4444; }
+  .wf-tag.green { background: #dcfce7; color: #16a34a; }
+  .wf-label { font-size: 10px; font-weight: 800; color: #7c3aed; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* Integration panels */
+  .wf-integrations { display: flex; gap: 8px; }
+  .wf-integration { background: #fff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 8px 10px; font-size: 10px; color: #374151; text-align: center; flex: 1; }
+  .wf-integration .icon { font-size: 16px; margin-bottom: 3px; }
+  .wf-spinner { border: 2px solid #e9d5ff; border-top-color: #7c3aed; border-radius: 50%; width: 20px; height: 20px; margin: 4px auto; }
+
+  /* Blur element */
+  .wf-blurred { filter: blur(4px); background: #f3f4f6; border-radius: 4px; color: #9ca3af; padding: 5px 10px; font-size: 11px; display: inline-block; }
+
+  /* Prescription list */
+  .wf-prescription { display: flex; flex-direction: column; gap: 6px; }
+  .wf-person { background: #fff; border: 1px solid #f3f4f6; border-radius: 8px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+  .wf-person-name { filter: blur(5px); background: #f3f4f6; border-radius: 4px; width: 60px; height: 12px; }
+  .wf-person-boundary { font-size: 10px; color: #6b7280; flex: 1; }
+  .wf-person-btn { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; font-size: 9px; font-weight: 600; border-radius: 4px; padding: 3px 7px; }
+
+  /* Slack draft */
+  .wf-slack { background: #fff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 10px; margin-top: 6px; }
+  .wf-slack-line { height: 8px; border-radius: 99px; background: #f3f4f6; margin-bottom: 5px; }
+  .wf-slack-line.short { width: 60%; }
+  .wf-slack-line.medium { width: 80%; }
+
+  /* Spec components */
+  .spec-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #7c3aed; margin-bottom: 4px; }
+  .spec-content { font-size: 13px; color: #374151; margin-bottom: 8px; }
+  .spec-list { list-style: none; padding: 0; }
+  .spec-list li { font-size: 13px; color: #374151; padding: 3px 0 3px 14px; position: relative; }
+  .spec-list li::before { content: '→'; position: absolute; left: 0; color: #7c3aed; font-size: 11px; top: 5px; }
+  .blur-pill { display: inline-block; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 99px; margin: 0 2px; }
+  .show-pill { display: inline-block; background: #dcfce7; color: #166534; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 99px; margin: 0 2px; }
+  .interaction-pill { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 99px; margin: 0 2px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #7c3aed; color: #fff; padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafafa; }
+
+  /* Recording setup */
+  .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .setup-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e5e7eb; }
+  .setup-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: #7c3aed; }
+  .setup-step { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .step-num { background: #7c3aed; color: #fff; font-size: 11px; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-text { font-size: 13px; color: #374151; }
+
+  /* Flow diagram */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 16px 0; }
+  .flow-screen { background: #7c3aed; color: #fff; font-size: 11px; font-weight: 600; padding: 8px 14px; border-radius: 8px; text-align: center; white-space: nowrap; }
+  .flow-arrow { color: #7c3aed; font-size: 18px; padding: 0 6px; }
+  .flow-screen.dim { background: #e0d7f8; color: #6d28d9; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid #e5e7eb; margin: 40px 0; }
+
+  /* Demo 2 */
+  .d2-steps { display: flex; flex-direction: column; gap: 12px; }
+  .d2-step { background: #fff; border-radius: 10px; padding: 16px 20px; border: 1px solid #e5e7eb; display: grid; grid-template-columns: 28px 1fr; gap: 14px; align-items: start; }
+  .d2-step-num { background: #7c3aed; color: #fff; font-size: 12px; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .d2-step-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .d2-step-detail { font-size: 13px; color: #6b7280; }
+
+  @media (max-width: 720px) {
+    .screen-body { grid-template-columns: 1fr; }
+    .setup-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Demo Visual Guide — AI CEO</h1>
+  <p class="subtitle">Production spec for Demo 1 (simulation) and Demo 2 (live Claude). Last updated: 2026-05-12.</p>
+  <div class="callout purple" style="margin-bottom:40px;"><strong>How to read this doc:</strong> Everything here is directional — the concept, structure, and intent. Wireframe values, question chip wording, metric labels, and panel names are illustrative placeholders. AP (with Claude Code) builds the simulation. AP fills the actual content. Sai navigates it on camera. Nothing in here is a pixel-for-pixel requirement.</div>
+
+  <!-- KEY DECISIONS -->
+  <div class="section">
+    <div class="section-title">Decisions From The Call</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="callout purple"><strong>Demo 1 = Simulation.</strong> Claude Code builds a set of linked HTML pages that mimic the branded dashboard. Sai navigates through it live while recording — no real backend needed.</div>
+      <div class="callout purple"><strong>Demo 2 = Live Claude Web Interface.</strong> Real Claude Project, real prompts. Recorded on Sai's Claude account — Sai uses the web interface regularly and already has context on what it can do.</div>
+      <div class="callout orange"><strong>Blurring updated (May 12 call).</strong> During dev/review — all blurs off so AP can review numbers. For recording: blur revenue/financial dollar amounts only. Percentage gaps, incident counts, hours — always show. Names: blur only when shown in negative context (e.g. causing operational drag). Positive name mentions — show.</div>
+      <div class="callout orange"><strong>Recording format:</strong> Sai records himself going through the demo naturally with a floating PiP head (Loom-style circle). Voiceover is live, not post-recorded. Minimal editing needed if the simulation is well-built.</div>
+      <div class="callout red" style="grid-column:1/-1;"><strong>Demo 1 direction updated — May 2026.</strong> The 7-step sequential flow has been replaced with a 3-level dashboard-first structure. Reason: multi-step forces viewers to extrapolate relationships across screens ("how does step 5 relate to step 2?") — cognitive overhead that kills impact. New rule: show everything holistically at Level 2 first, then allow one drill-down. Max 3 levels, always. See full spec below.</div>
+    </div>
+  </div>
+
+  <!-- DEMO 1 OVERVIEW -->
+  <div class="section">
+    <div class="section-title">Demo 1 — Simulation Architecture</div>
+    <p style="font-size:14px; color:#374151; margin-bottom:16px;">Four screens, three levels of interaction. Level 2 (the holistic dashboard) is the centrepiece — everything that matters is visible simultaneously. No sequential steps. No extrapolating. Sai clicks a pre-filled question chip, the full dashboard appears, then he drills one level deeper on one area.</p>
+
+    <div class="flow">
+      <div class="flow-screen">L0<br><span style="font-size:9px;font-weight:400;">Data Load</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-screen">L1<br><span style="font-size:9px;font-weight:400;">Chat + Questions</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-screen">L2<br><span style="font-size:9px;font-weight:400;">Dashboard</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-screen dim">L3<br><span style="font-size:9px;font-weight:400;">Deep Dive</span></div>
+    </div>
+
+    <div class="callout green" style="margin-top:16px;"><strong>Branded wrapper = not raw Claude.</strong> The interface looks like a custom dashboard — branded header, clean panels. Viewer does NOT think "oh that's just ChatGPT." Demo 2 is where they see the real interface.</div>
+  </div>
+
+  <!-- SCREENS -->
+  <div class="section">
+    <div class="section-title">Screen-By-Screen Spec</div>
+    <div class="screens-grid">
+
+      <!-- L0 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <div class="screen-num" style="font-size:10px;">L0</div>
+          <h3>Data Load — Pulling Integrations</h3>
+          <span class="beat">Entry · ~4 sec · auto-advances</span>
+        </div>
+        <div class="screen-body">
+          <div class="screen-wireframe">
+            <div class="wf-header">
+              <div class="wf-header-dot"></div>
+              <div class="wf-header-text">AI Co-CEO</div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:10px;">
+              <div class="wf-label">Analysing your week...</div>
+              <div class="wf-integrations">
+                <div class="wf-integration">
+                  <div class="icon">📅</div>
+                  <div>Calendar</div>
+                  <div style="color:#22c55e; font-size:9px; margin-top:2px; font-weight:600;">✓ Pulled</div>
+                </div>
+                <div class="wf-integration">
+                  <div class="icon">💬</div>
+                  <div>Slack</div>
+                  <div style="color:#22c55e; font-size:9px; margin-top:2px; font-weight:600;">✓ Pulled</div>
+                </div>
+                <div class="wf-integration">
+                  <div class="icon">📧</div>
+                  <div>Email</div>
+                  <div class="wf-spinner"></div>
+                </div>
+              </div>
+              <div style="background:#fff; border:1px solid #e9d5ff; border-radius:8px; padding:10px; font-size:11px; color:#6b7280;">
+                Mapping time allocation to 12-month targets...
+              </div>
+            </div>
+          </div>
+          <div class="screen-spec">
+            <div>
+              <div class="spec-label">Purpose</div>
+              <div class="spec-content">Shows the AI working — not just instant output. The viewer registers "it's pulling from real data sources." Makes the dashboard feel earned, not fabricated.</div>
+            </div>
+            <div>
+              <div class="spec-label">Animation sequence</div>
+              <ul class="spec-list">
+                <li>Calendar: "Pulling..." → spins 0.5s → "✓ Pulled" (green)</li>
+                <li>Slack: "Pulling..." → spins 0.8s → "✓ Pulled" (green)</li>
+                <li>Email: "Pulling..." → spins 1s → "✓ Pulled" (green)</li>
+                <li>Progress bar fills → auto-advances to L1 after ~4 sec total</li>
+              </ul>
+            </div>
+            <div class="callout orange" style="margin-top:4px; font-size:12px; padding:10px 14px;"><strong>Priority note:</strong> Loading animation can be refined in post. The structural priority is L2 (the dashboard) — get that right first, polish L0 after.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- L1 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <div class="screen-num" style="font-size:10px;">L1</div>
+          <h3>Chat Entry — Pre-filled Questions</h3>
+          <span class="beat">Level 1 · ~5 sec on screen</span>
+        </div>
+        <div class="screen-body">
+          <div class="screen-wireframe">
+            <div class="wf-header">
+              <div class="wf-header-dot"></div>
+              <div class="wf-header-text">AI Co-CEO</div>
+              <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+                <div style="font-size:10px;color:#6b7280;">3 sources connected</div>
+              </div>
+            </div>
+            <div class="wf-input wf-input-active" style="margin-top:4px;">Ask anything...<span>▌</span></div>
+            <div style="margin-top:6px;">
+              <div class="wf-label" style="margin-bottom:6px;">Or jump straight in</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                <div style="background:#fff; border:1px solid #e9d5ff; border-radius:8px; padding:8px 10px; font-size:10px; color:#374151; cursor:pointer;">How did last week go?</div>
+                <div style="background:#fff; border:1px solid #e9d5ff; border-radius:8px; padding:8px 10px; font-size:10px; color:#374151; cursor:pointer;">How is my front-end pipeline performing?</div>
+                <div style="background:#f5f3ff; border:1.5px solid #7c3aed; border-radius:8px; padding:8px 10px; font-size:10px; color:#6d28d9; font-weight:600; cursor:pointer;">How much time on non-CEO stuff?</div>
+                <div style="background:#fff; border:1px solid #e9d5ff; border-radius:8px; padding:8px 10px; font-size:10px; color:#374151; cursor:pointer;">How is my focus vs targets?</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-spec">
+            <div>
+              <div class="spec-label">What Sai says</div>
+              <div class="spec-content">"Every week I log in and my usual questions are already there. I just click the one I care about — no typing needed."</div>
+            </div>
+            <div>
+              <div class="spec-label">Interface elements</div>
+              <ul class="spec-list">
+                <li>Branded header with "3 sources connected" status</li>
+                <li>Open chat input — can type any question</li>
+                <li>4 pre-filled question chips — the questions Sai asks every week</li>
+                <li>First chip is highlighted/active — shows which one Sai is about to click</li>
+              </ul>
+            </div>
+            <div>
+              <div class="spec-label">Interaction</div>
+              <div class="spec-content">Sai clicks "How much time on non-CEO stuff?" — this is the chip that leads into the operational drag path demoed in L2→L3. It is highlighted/active to show which one Sai selected.</div>
+            </div>
+            <div class="callout orange" style="margin-top:4px; font-size:12px; padding:10px 14px;"><strong>Content note:</strong> AP (with Claude Code) builds this simulation. The 4 chips shown are illustrative — AP decides the final wording and Gate names. The key chip for this demo path is "How much time on non-CEO stuff?" or equivalent.</div>
+            <div class="callout green" style="margin-top:8px; font-size:12px; padding:10px 14px;"><strong>Multi-set chips (updated May 12):</strong> The live demo now offers 3 selectable chip sets (Option A = Revenue focus, Option B = Time/CEO focus, Option C = Operations focus). AP selects which set to use for filming. All sets use universal SMB language — no internal jargon.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- L2 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <div class="screen-num" style="font-size:10px;">L2</div>
+          <h3>Holistic Dashboard — Everything at Once</h3>
+          <span class="beat">Level 2 · ~25 sec · The centrepiece — main view</span>
+        </div>
+        <div class="screen-body">
+          <div class="screen-wireframe">
+            <div class="wf-header">
+              <div class="wf-header-dot"></div>
+              <div class="wf-header-text">Week of April 21–27</div>
+            </div>
+            <div class="wf-highlight" style="margin-top:6px; font-size:11px;">⚠ 60% of your time not connected to your 12-month target. <span style="color:#7c3aed; font-size:9px; font-weight:600;">Explore ↓</span></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px; flex:1;">
+              <div class="wf-output" style="cursor:pointer; border:1.5px solid #7c3aed;">
+                <div class="wf-label">Front-end pipeline</div>
+                <div class="wf-blurred" style="font-size:11px; font-weight:700; margin:2px 0;">████</div>
+                <div style="font-size:9px; color:#ef4444; font-weight:600;">↓ 23% vs target</div>
+              </div>
+              <div class="wf-output" style="cursor:pointer;">
+                <div class="wf-label">Core revenue track</div>
+                <div class="wf-blurred" style="font-size:11px; font-weight:700; margin:2px 0;">████</div>
+                <div style="font-size:9px; color:#22c55e; font-weight:600;">↑ 12% on track</div>
+              </div>
+              <div class="wf-output" style="cursor:pointer;">
+                <div class="wf-label">Operational Drag</div>
+                <div style="font-size:13px; font-weight:800; color:#ef4444;">43 incidents · 23%</div>
+                <div style="font-size:9px; color:#ef4444; font-weight:600;">↑ above threshold</div>
+              </div>
+              <div class="wf-output" style="cursor:pointer;">
+                <div class="wf-label">CEO Focus</div>
+                <div style="font-size:16px; font-weight:800; color:#ef4444;">40%</div>
+                <div style="font-size:9px; color:#6b7280; font-weight:600;">of week on priorities</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-spec">
+            <div>
+              <div class="spec-label">What Sai says</div>
+              <div class="spec-content">"The moment I click that question, I'm not reading a step — I'm seeing everything. Front-end pipeline behind. Core revenue track fine. Operational drag spiking. My CEO focus is low. One glance, I know exactly where to go."</div>
+            </div>
+            <div>
+              <div class="spec-label">Dashboard panels — all visible simultaneously</div>
+              <ul class="spec-list">
+                <li>Hero alert bar: spans full width — the headline finding</li>
+                <li>Front-end pipeline: $94K — visible in dev mode, blur for recording</li>
+                <li>Core revenue track: $287K — visible in dev mode, blur for recording</li>
+                <li>Operational drag: 43 incidents · 23 hrs — always show (no PII)</li>
+                <li>CEO focus time: 40% vs 70% target — always show</li>
+                <li>Revenue at risk: $38K · 2 stalled deals — added panel, spans full width, blur for recording</li>
+              </ul>
+              <div class="callout green" style="margin-top:8px; font-size:12px; padding:10px 14px;"><strong>Layout switcher (updated May 12):</strong> L2 now has a Layout A / Layout B tab switcher. Layout A = 2×2 grid + full-width Revenue at risk. Layout B = vertical stack. AP selects which layout to use for filming.</div>
+            </div>
+            <div>
+              <div class="spec-label">Wow moment — editor highlights this</div>
+              <div class="spec-content" style="font-style:italic; color:#7c3aed;">"You see everything in one snap. You know exactly where to go without being told."</div>
+            </div>
+            <div>
+              <div class="spec-label">Interaction</div>
+              <div class="spec-content">Sai clicks the "Operational Drag" panel → advances to L3. Any panel is clickable — only Operational Drag is demoed. AP decides which panel Sai drills into and marks it clearly in the recording pathway.</div>
+            </div>
+            <div class="callout green" style="margin-top:4px; font-size:12px; padding:10px 14px;"><strong>Design principle:</strong> This screen replaced five sequential steps. All the information that previously lived across S3–S5 is now visible here simultaneously. Relationships are self-evident — the viewer doesn't extrapolate, they just see.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- L3 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <div class="screen-num" style="font-size:10px;">L3</div>
+          <h3>Deep Dive — Operational Drag Incidents</h3>
+          <span class="beat">Level 3 · ~15 sec · Maximum depth — stop here</span>
+        </div>
+        <div class="screen-body">
+          <div class="screen-wireframe">
+            <div class="wf-header">
+              <div class="wf-header-dot"></div>
+              <div class="wf-header-text">What's eating my time?</div>
+            </div>
+            <div style="margin-top:6px;">
+              <div style="display:flex; gap:16px; align-items:baseline; margin-bottom:2px;">
+                <div style="display:flex; align-items:baseline; gap:4px;">
+                  <div style="font-size:22px; font-weight:800; color:#ef4444;">43</div>
+                  <div style="font-size:9px; color:#6b7280;">incidents</div>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:4px;">
+                  <div style="font-size:22px; font-weight:800; color:#ef4444;">23 hr</div>
+                  <div style="font-size:9px; color:#6b7280;">consumed</div>
+                </div>
+              </div>
+              <div style="font-size:9px; color:#6b7280; margin-bottom:7px;">Last 12 weeks &nbsp;·&nbsp; One person: 41% of all drag</div>
+              <div style="background:#fff; border:1px solid #e9d5ff; border-radius:6px; overflow:hidden; margin-bottom:6px;">
+                <div style="display:grid; grid-template-columns:38px 44px 1fr 52px 28px; gap:3px; padding:4px 7px; background:#f3e8ff; font-size:8px; font-weight:700; color:#7c3aed; text-transform:uppercase; letter-spacing:0.05em;">
+                  <div>Date</div><div>Type</div><div>Incident</div><div>Person</div><div>Time</div>
+                </div>
+                <div style="display:grid; grid-template-columns:38px 44px 1fr 52px 28px; gap:3px; padding:4px 7px; border-top:1px solid #f3f4f6; font-size:8px; color:#374151; align-items:center;">
+                  <div style="color:#9ca3af;">Apr 25</div><div style="color:#ef4444; font-weight:600;">Drag</div><div>Vendor invoice approval</div><div class="wf-blurred" style="font-size:7px; padding:1px 4px;">████</div><div>13h</div>
+                </div>
+                <div style="display:grid; grid-template-columns:38px 44px 1fr 52px 28px; gap:3px; padding:4px 7px; background:#fafafa; border-top:1px solid #f3f4f6; font-size:8px; color:#374151; align-items:center;">
+                  <div style="color:#9ca3af;">Apr 24</div><div style="color:#ef4444; font-weight:600;">Drag</div><div>Customer escalation</div><div class="wf-blurred" style="font-size:7px; padding:1px 4px;">████</div><div>13h</div>
+                </div>
+                <div style="display:grid; grid-template-columns:38px 44px 1fr 52px 28px; gap:3px; padding:4px 7px; border-top:1px solid #f3f4f6; font-size:8px; color:#374151; align-items:center;">
+                  <div style="color:#9ca3af;">Apr 23</div><div style="color:#6b7280;">Thread</div><div>Budget approval</div><div class="wf-blurred" style="font-size:7px; padding:1px 4px;">████</div><div>13h</div>
+                </div>
+                <div style="padding:4px 7px; border-top:1px solid #f3f4f6; font-size:8px; color:#9ca3af; text-align:center;">+ 40 more incidents</div>
+              </div>
+              <div style="font-size:9px; font-weight:600; color:#374151; margin-bottom:2px;">Repeat pattern: 14 of 43 escalations</div>
+              <div style="font-size:9px; color:#6b7280; margin-bottom:7px;">12 decisions she had full authority to make — routed to you anyway</div>
+              <div>
+                <div style="display:inline-block; background:#f5f3ff; color:#7c3aed; border:1px solid #ddd6fe; font-size:9px; font-weight:600; border-radius:4px; padding:4px 10px; cursor:pointer;">Draft empowerment framework &#8594;</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-spec">
+            <div>
+              <div class="spec-label">What Sai says</div>
+              <div class="spec-content">"43 incidents. 23 hours gone. And it found the pattern — 12 of them she already had the authority to solve without pulling me in. It wrote the empowerment framework. I've been stuck on this delegation problem for months."</div>
+            </div>
+            <div>
+              <div class="spec-label">Elements</div>
+              <ul class="spec-list">
+                <li>Dual hero stats: 43 incidents + 23 hr consumed — both <span class="show-pill">SHOW</span> (no PII)</li>
+                <li>Sub-line: "One person: 41% of all drag" — <span class="show-pill">SHOW</span> (no name, just %)</li>
+                <li>Incident table: Date <span class="show-pill">SHOW</span>, Type <span class="show-pill">SHOW</span>, Incident name <span class="show-pill">SHOW</span>, Person <span class="blur-pill">BLUR</span>, Time <span class="show-pill">SHOW</span></li>
+                <li>Repeat pattern block: "X of 43 escalations" + authority insight <span class="show-pill">SHOW</span></li>
+                <li>Sai clicks "Draft empowerment framework" — Slack draft panel appears (blurred lines, visible structure)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="spec-label">Wow moment — the landing beat</div>
+              <div class="spec-content" style="font-style:italic; color:#7c3aed;">"Wait — my AI just solved a delegation problem I've been stuck on for months." The draft is already written and queued. That's the close.</div>
+            </div>
+            <div>
+              <div class="spec-label">Editor note</div>
+              <div class="spec-content">Apply blur to all person cells. Zoom into the dual hero stats (43 / 23 hr) first so they hit hard. Pull back to reveal the full incident table. Hold on the repeat pattern insight, then show the "Draft empowerment framework" click and draft panel appearing.</div>
+            </div>
+            <div class="callout red" style="margin-top:4px; font-size:12px; padding:10px 14px;"><strong>This is the stop.</strong> L0 load &#8594; L1 question &#8594; L2 dashboard &#8594; L3 drill. Never add a 4th level. The viewer has seen enough to believe.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- DEMO 2 -->
+  <div class="section">
+    <div class="section-title">Demo 2 — Live Claude Web Interface</div>
+    <div class="callout purple" style="margin-bottom:24px;"><strong>This is the real thing.</strong> No simulation. Viewer thinks "I can do this right now." Every step is something they already have access to.</div>
+
+    <div class="d2-steps">
+      <div class="d2-step">
+        <div class="d2-step-num">1</div>
+        <div>
+          <div class="d2-step-title">Pre-recording: Use Sai's Claude account</div>
+          <div class="d2-step-detail">Sai uses the Claude web interface regularly — this is his natural environment. Set up the AI Co-CEO Claude Project on Sai's account with the MD context file, calendar, and Slack connected. Sai tests the Sunday assessment prompt end-to-end before going on camera. Apurv uses Claude Code primarily and does not set this up.</div>
+        </div>
+      </div>
+      <div class="d2-step">
+        <div class="d2-step-num">2</div>
+        <div>
+          <div class="d2-step-title">Show the Claude Project interface</div>
+          <div class="d2-step-detail">Open the project. Show the sidebar — project name, integrations connected (calendar, Slack icons visible). Say: "This is a Claude Project — different from a regular chat. It holds persistent context so the AI remembers your business every time."</div>
+        </div>
+      </div>
+      <div class="d2-step">
+        <div class="d2-step-num">3</div>
+        <div>
+          <div class="d2-step-title">Show the MD context file</div>
+          <div class="d2-step-detail">Open the project knowledge file. Scroll through it — viewer sees it's detailed (not just "I'm a CEO"). Say: "This is the context file — it tells the AI who you are, your targets, your team, your revenue lines. We've pre-built this for you."</div>
+        </div>
+      </div>
+      <div class="d2-step">
+        <div class="d2-step-num">4</div>
+        <div>
+          <div class="d2-step-title">Run the Sunday assessment live</div>
+          <div class="d2-step-detail">Type the same assessment prompt as Demo 1. Let the response stream in — don't cut. The AI pulls calendar and Slack. Show the output: same kind of cascade + diagnosis as Demo 1 but in plain interface. Don't skip any of the generation — the streaming IS the proof it's working.</div>
+        </div>
+      </div>
+      <div class="d2-step">
+        <div class="d2-step-num">5</div>
+        <div>
+          <div class="d2-step-title">Show the week plan being generated</div>
+          <div class="d2-step-detail">Ask it to plan the week. Show calendar entries being created with context. Viewer sees: specific priorities, why each one matters, linked to targets. Key message: "The viewer is watching and thinking — I can do this right now."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout green" style="margin-top:20px;"><strong>Apurv's knowledge gap (not Sai's):</strong> Apurv primarily uses Claude Code, not the web interface. Demo 2 setup and testing is Sai's domain — he knows the web interface. Before recording, Sai runs the full assessment flow once on his account to confirm calendar + Slack pull correctly. Only record once it works clean end-to-end.</div>
+  </div>
+
+  <hr>
+
+  <!-- BLUR GUIDE -->
+  <div class="section">
+    <div class="section-title">What to Blur vs Show</div>
+    <div class="callout orange" style="margin-bottom:16px;"><strong>Rule (updated May 12):</strong> Blur revenue/financial dollar amounts and names in negative context. Show everything else — percentages, hours, incident counts, names in positive context.</div>
+    <table>
+      <thead>
+        <tr><th>Element</th><th>Treatment</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Revenue / ARR numbers</td><td><span class="blur-pill">BLUR</span></td><td>Privacy — Coach Foundation data</td></tr>
+        <tr><td>CAC, ROAS, units numbers</td><td><span class="blur-pill">BLUR</span></td><td>Privacy</td></tr>
+        <tr><td>Percentage gaps (↓ 23%, etc.)</td><td><span class="show-pill">SHOW</span></td><td>No PII — visual impact, makes gaps feel real</td></tr>
+        <tr><td>Operational drag % and hours</td><td><span class="show-pill">SHOW</span></td><td>No PII — the alarm is the whole point</td></tr>
+        <tr><td>Names in negative context (drag, escalation)</td><td><span class="blur-pill">BLUR</span></td><td>Privacy. Names in positive context → SHOW</td></tr>
+        <tr><td>Slack draft message content</td><td><span class="blur-pill">BLUR</span> (grey lines)</td><td>Privacy — but show structure so viewer sees it's a real message</td></tr>
+        <tr><td>Calendar events (personal)</td><td><span class="show-pill">USE DUMMY</span></td><td>Don't expose real schedule — build realistic-looking fake entries</td></tr>
+        <tr><td>Coach Foundation brand name</td><td><span class="blur-pill">DON'T SHOW</span></td><td>Channel not publicly linked to CF</td></tr>
+        <tr><td>Boundary rule text</td><td><span class="show-pill">SHOW</span></td><td>Generic — no names, just the rule structure</td></tr>
+        <tr><td>Integration icons (calendar, Slack)</td><td><span class="show-pill">SHOW</span></td><td>Visual proof of connection — this is the point</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- RECORDING SETUP -->
+  <div class="section">
+    <div class="section-title">Recording Setup</div>
+    <div class="setup-grid">
+      <div class="setup-card">
+        <h4>Demo 1 — Simulation</h4>
+        <div class="setup-step"><div class="step-num">1</div><div class="step-text">Build simulation in Claude Code first. Test all 4 screens (L0–L3) flow correctly before shooting.</div></div>
+        <div class="setup-step"><div class="step-num">2</div><div class="step-text">Open simulation in browser, fullscreen (1920×1080). No browser chrome visible if possible.</div></div>
+        <div class="setup-step"><div class="step-num">3</div><div class="step-text">Screen record + face cam simultaneously. Floating PiP head (circle, Loom-style), bottom-right corner.</div></div>
+        <div class="setup-step"><div class="step-num">4</div><div class="step-text">Sai speaks live while navigating — don't post-record VO. Natural pauses and emphasis matter.</div></div>
+        <div class="setup-step"><div class="step-num">5</div><div class="step-text">AP sends Sai a recording pathway — which question chip to click on L1, which panel to drill on L2. Follow it exactly. No improvising the drill path.</div></div>
+        <div class="callout orange" style="margin-top:12px; font-size:12px; padding:10px 14px;"><strong>Studio note:</strong> Recording in studio with teleprompter may be awkward for screen interaction. Consider whether Demo 1 is recorded at home (screen share) vs studio (teleprompter). Decide before shoot day.</div>
+      </div>
+      <div class="setup-card">
+        <h4>Demo 2 — Live Claude</h4>
+        <div class="setup-step"><div class="step-num">1</div><div class="step-text">Use Sai's Claude account. Sai sets up the AI Co-CEO Project on his own account — calendar + Slack connected, MD context file loaded.</div></div>
+        <div class="setup-step"><div class="step-num">2</div><div class="step-text">Test the full Sunday assessment prompt once before going on camera. Confirm calendar + Slack pull correctly.</div></div>
+        <div class="setup-step"><div class="step-num">3</div><div class="step-text">Same screen recording + PiP setup as Demo 1.</div></div>
+        <div class="setup-step"><div class="step-num">4</div><div class="step-text">If the live response goes wrong or is too long — retake. It's live, so have the prompt pre-written in a doc ready to paste.</div></div>
+        <div class="callout green" style="margin-top:12px; font-size:12px; padding:10px 14px;"><strong>Key message:</strong> After Demo 2 plays, viewer thinks "I could set this up today." That's the emotional bridge to the CTA.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- EDITOR BRIEF -->
+  <div class="section">
+    <div class="section-title">Editor Brief — What You Receive + What To Do</div>
+    <table>
+      <thead>
+        <tr><th>What You Receive</th><th>What To Do</th><th>Level</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Screen recording: L0 loading screen</td>
+          <td>Ensure loading animation plays cleanly — all three integration spinners resolve before auto-advance. If not smooth, add CSS animation overlay.</td>
+          <td>L0</td>
+        </tr>
+        <tr>
+          <td>Screen recording: L1 chat entry</td>
+          <td>Keep short. Pulse/highlight the question chip Sai clicks just before the transition. Viewer should register "he just clicked a pre-filled question."</td>
+          <td>L1</td>
+        </tr>
+        <tr>
+          <td>Screen recording: L2 holistic dashboard</td>
+          <td>Zoom/highlight the hero alert bar so it lands. Then hold on the full dashboard for 3–4 seconds — let the viewer take it all in. Pulse the panel Sai clicks before advancing to L3.</td>
+          <td>L2 · Wow moment</td>
+        </tr>
+        <tr>
+          <td>Screen recording: L3 operational drag incidents</td>
+          <td>Apply blur to person cells shown in negative context (escalation, drag). Show time column — hours are not financial data. Revenue numbers ($94K, $287K, $38K) — blur for recording. Zoom into the "43 / 23 hr" hero stats first — let them land. Pull back to full table. Hold on "Repeat pattern" insight. Show "Draft empowerment framework" click and draft panel appearing. This is the emotional close.</td>
+          <td>L3</td>
+        </tr>
+        <tr>
+          <td>Screen recording: Demo 2 (full)</td>
+          <td>Minimal editing. Don't cut the streaming response. Show integrations connected. Let it breathe.</td>
+          <td>Demo 2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
