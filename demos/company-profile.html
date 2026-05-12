@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canonical Company Profile - The AI Shift</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff; color: #111827; padding: 40px;
+        }
+        .page { max-width: 900px; margin: 0 auto; }
+
+        h1 { font-size: 24px; font-weight: 800; color: #111827; margin-bottom: 6px; }
+        .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 40px; line-height: 1.5; }
+
+        .warning-box {
+            background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #f97316;
+            border-radius: 10px; padding: 16px 20px; margin-bottom: 32px;
+            font-size: 13px; color: #374151; line-height: 1.6;
+        }
+        .warning-box strong { color: #c2410c; }
+
+        h2 {
+            font-size: 13px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.1em; color: #7c3aed; margin-bottom: 16px;
+            padding-bottom: 8px; border-bottom: 2px solid #e9d5ff;
+        }
+
+        .section { margin-bottom: 36px; }
+
+        table {
+            width: 100%; border-collapse: collapse; font-size: 13px;
+            background: #fff; border-radius: 10px; overflow: hidden;
+            border: 1px solid #e9d5ff;
+        }
+        th {
+            background: #f5f3ff; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed;
+            padding: 10px 16px; text-align: left;
+        }
+        td { padding: 10px 16px; border-top: 1px solid #f3f4f6; color: #374151; vertical-align: top; }
+        tr:nth-child(even) td { background: #fafafa; }
+        .val { font-weight: 700; color: #111827; }
+        .note { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+        .tag {
+            display: inline-block; font-size: 10px; font-weight: 700;
+            padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .tag-blur { background: #fef3c7; color: #d97706; }
+        .tag-show { background: #dcfce7; color: #15803d; }
+        .tag-derived { background: #e0e7ff; color: #3730a3; }
+        .tag-risk { background: #fee2e2; color: #dc2626; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .rep-card {
+            background: #fff; border: 1px solid #e9d5ff; border-radius: 10px;
+            padding: 14px 18px;
+        }
+        .rep-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+        .rep-score { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+        .rep-score.top { color: #16a34a; }
+        .rep-score.mid { color: #d97706; }
+        .rep-score.low { color: #dc2626; }
+        .rep-meta { font-size: 12px; color: #6b7280; line-height: 1.6; }
+        .rep-meta strong { color: #374151; }
+
+        .note-block {
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px;
+            padding: 16px 20px; font-size: 13px; color: #374151; line-height: 1.6;
+            margin-top: 16px;
+        }
+        .note-block strong { color: #6d28d9; }
+
+        .incident-row { display: grid; grid-template-columns: 70px 70px 1fr 90px 60px; gap: 0; }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <h1>Canonical Company Profile</h1>
+    <p class="subtitle">
+        The fictional $4M B2B company that all AI Shift video demos are built around.<br>
+        Every number in every demo must trace back to this document. Update here first, then update the demos.
+    </p>
+
+    <div class="warning-box">
+        <strong>Rules:</strong> (1) Always blur revenue, financial numbers, and names shown in negative context before filming. (2) Blurring is OFF during review/dev - add at the end. (3) Numbers must be internally consistent - always check the math against this profile. (4) This company is intentionally unnamed - viewers project themselves onto it.
+    </div>
+
+    <!-- Company overview -->
+    <div class="section">
+        <h2>Company Overview</h2>
+        <table>
+            <tr><th>Field</th><th>Value</th><th>Blur?</th><th>Notes</th></tr>
+            <tr>
+                <td>Industry</td>
+                <td class="val">B2B professional services / consulting</td>
+                <td><span class="tag tag-show">Show</span></td>
+                <td class="note">Generic enough to be any SMB. No company name used in demos.</td>
+            </tr>
+            <tr>
+                <td>Founded</td>
+                <td class="val">2019</td>
+                <td><span class="tag tag-show">Show</span></td>
+                <td class="note">6 years old - past early struggle, now scaling</td>
+            </tr>
+            <tr>
+                <td>Team size</td>
+                <td class="val">22 employees</td>
+                <td><span class="tag tag-show">Show</span></td>
+                <td class="note">7 sales + 1 sales mgr + 6 delivery + 4 ops + 3 leadership + 1 admin</td>
+            </tr>
+            <tr>
+                <td>Annual revenue</td>
+                <td class="val">$4.2M</td>
+                <td><span class="tag tag-blur">Blur</span></td>
+                <td class="note">Round to $4M in spoken context. $4.2M in blurred on-screen data.</td>
+            </tr>
+            <tr>
+                <td>Monthly revenue</td>
+                <td class="val">$350K</td>
+                <td><span class="tag tag-blur">Blur</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Weekly revenue</td>
+                <td class="val">$81K</td>
+                <td><span class="tag tag-blur">Blur</span></td>
+                <td class="note">$4.2M / 52 weeks</td>
+            </tr>
+            <tr>
+                <td>Gross margin</td>
+                <td class="val">40%</td>
+                <td><span class="tag tag-show">Show</span></td>
+                <td class="note">$1.68M gross profit</td>
+            </tr>
+            <tr>
+                <td>EBITDA margin</td>
+                <td class="val">18%</td>
+                <td><span class="tag tag-blur">Blur</span></td>
+                <td class="note">$756K EBITDA</td>
+            </tr>
+            <tr>
+                <td>Net margin</td>
+                <td class="val">12%</td>
+                <td><span class="tag tag-blur">Blur</span></td>
+                <td class="note">$504K net profit</td>
+            </tr>
+            <tr>
+                <td>CEO compensation</td>
+                <td class="val">$400K/year</td>
+                <td><span class="tag tag-blur">Blur</span></td>
+                <td class="note">$200/hr blended rate. Used to calculate drag cost ($4,600/week = 23 hrs x $200).</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Sales team -->
+    <div class="section">
+        <h2>Sales Team (7 Reps)</h2>
+        <div class="two-col" style="margin-bottom:16px;">
+            <div class="rep-card">
+                <div class="rep-name">Sarah Mitchell</div>
+                <div class="rep-score top">82%</div>
+                <div class="rep-meta">
+                    <strong>Close rate:</strong> 38%<br>
+                    <strong>Quota:</strong> $420K/year<br>
+                    <strong>Trend:</strong> Stable, top performer<br>
+                    <strong>Used in:</strong> Sales Analyzer L1/L2 (compare target)
+                </div>
+            </div>
+            <div class="rep-card">
+                <div class="rep-name">James Kowalski</div>
+                <div class="rep-score top">78%</div>
+                <div class="rep-meta">
+                    <strong>Close rate:</strong> 35%<br>
+                    <strong>Quota:</strong> $380K/year<br>
+                    <strong>Trend:</strong> Consistent
+                </div>
+            </div>
+            <div class="rep-card">
+                <div class="rep-name">Priya Nair</div>
+                <div class="rep-score top">76%</div>
+                <div class="rep-meta">
+                    <strong>Close rate:</strong> 33%<br>
+                    <strong>Quota:</strong> $360K/year<br>
+                    <strong>Trend:</strong> Slight upward
+                </div>
+            </div>
+            <div class="rep-card">
+                <div class="rep-name">Marcus Webb</div>
+                <div class="rep-score mid">71%</div>
+                <div class="rep-meta">
+                    <strong>Close rate:</strong> 31%<br>
+                    <strong>Quota:</strong> $340K/year<br>
+                    <strong>Trend:</strong> Flat
+                </div>
+            </div>
+            <div class="rep-card">
+                <div class="rep-name">Leila Hassan</div>
+                <div class="rep-score mid">69%</div>
+                <div class="rep-meta">
+                    <strong>Close rate:</strong> 29%<br>
+                    <strong>Quota:</strong> $320K/year<br>
+                    <strong>Trend:</strong> Slight downward
+                </div>
+            </div>
+            <div class="rep-card">
+                <div class="rep-name">Daniel Reeves</div>
+                <div class="rep-score mid">65%</div>
+                <div class="rep-meta">
+                    <strong>Close rate:</strong> 27%<br>
+                    <strong>Quota:</strong> $300K/year<br>
+                    <strong>Trend:</strong> Flat
+                </div>
+            </div>
+        </div>
+        <div class="rep-card" style="border-color:#fca5a5;">
+            <div class="rep-name" style="color:#dc2626;">Kyle Brennan <span style="font-size:11px;font-weight:400;color:#9ca3af;">&mdash; Flagged</span></div>
+            <div class="rep-score low">54% <span style="font-size:14px;color:#9ca3af;">(was 72%)</span></div>
+            <div class="rep-meta">
+                <strong>Joined:</strong> Jan 2025<br>
+                <strong>Close rate:</strong> 22% (was 31%)<br>
+                <strong>Calls analyzed this period:</strong> 12<br>
+                <strong>Pricing objection failures:</strong> 6 of 12 calls<br>
+                <strong>Trend:</strong> Down 18 points over 8 weeks - repeating pattern<br>
+                <strong>Root cause:</strong> Redirects to features when price objection raised. Never anchors ROI. Good rapport (65%) but zero pricing confidence.<br>
+                <strong>Used in:</strong> Sales Analyzer L1 (flagged rep), L2 (rep detail), L3 (call drill-down)
+            </div>
+        </div>
+
+        <div class="note-block">
+            <strong>Name blur rule:</strong> All rep names are blurred in demos (they appear in negative/neutral context showing performance data). The one exception is when displaying a "top performer" in a comparison - positive context names can be shown. Confirm with Sai/Apurv before any recording.
+        </div>
+    </div>
+
+    <!-- Sales metrics -->
+    <div class="section">
+        <h2>Sales Metrics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th><th>Source / Notes</th></tr>
+            <tr>
+                <td>Average contract value (ACV)</td>
+                <td class="val">$22K</td>
+                <td class="note">Range $12K-$38K. Used in Sales Analyzer L3 (deal size: $22K).</td>
+            </tr>
+            <tr>
+                <td>Sales cycle</td>
+                <td class="val">45-60 days</td>
+                <td class="note">From qualified lead to signed contract</td>
+            </tr>
+            <tr>
+                <td>Team close rate (current)</td>
+                <td class="val">31%</td>
+                <td class="note">Sales Analyzer L1. Down from 38% target.</td>
+            </tr>
+            <tr>
+                <td>Team close rate (target)</td>
+                <td class="val">38%</td>
+                <td class="note">Used in Sales Analyzer L1 header stat</td>
+            </tr>
+            <tr>
+                <td>Average call score (team)</td>
+                <td class="val">71%</td>
+                <td class="note">Sales Analyzer L1. Down 4 points from last period. Math: (82+78+76+71+69+65+54)/7 = 70.7%</td>
+            </tr>
+            <tr>
+                <td>Calls analyzed per 2-week period</td>
+                <td class="val">63</td>
+                <td class="note">7 reps x ~4.5 calls/rep/week x 2 weeks. Used in Sales Analyzer L0 (loading) and L1 header.</td>
+            </tr>
+            <tr>
+                <td>Analysis period</td>
+                <td class="val">Apr 28 - May 11</td>
+                <td class="note">2 weeks prior to the "current week" of May 12-18</td>
+            </tr>
+            <tr>
+                <td>Reps flagged</td>
+                <td class="val">1</td>
+                <td class="note">Kyle Brennan - repeating pattern badge</td>
+            </tr>
+            <tr>
+                <td>Weekly new-lead pipeline value</td>
+                <td class="val">$94K</td>
+                <td class="note">AI CEO L2. Behind target of $115K. At 30% win rate = $28K/week new closed = $1.46M/year from new business.</td>
+            </tr>
+            <tr>
+                <td>Monthly closing pipeline</td>
+                <td class="val">$287K</td>
+                <td class="note">AI CEO L2. Ahead of $255K target. At 80% close rate = $230K/month = $2.76M/year from pipeline. Total $4.2M checks out.</td>
+            </tr>
+            <tr>
+                <td>Revenue at risk</td>
+                <td class="val">$38K</td>
+                <td class="note">AI CEO L2. 2 deals stalled 14+ days. $20K + $18K = $38K (both within ACV range).</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- CEO / Operational metrics -->
+    <div class="section">
+        <h2>CEO and Operational Metrics (AI CEO Demo)</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th><th>Notes</th></tr>
+            <tr>
+                <td>CEO focus time (current)</td>
+                <td class="val">40%</td>
+                <td class="note">Of week spent on priority/strategic work. AI CEO L2.</td>
+            </tr>
+            <tr>
+                <td>CEO focus time (target)</td>
+                <td class="val">70%</td>
+                <td class="note">Gap: 30 percentage points</td>
+            </tr>
+            <tr>
+                <td>Weekly off-target activity</td>
+                <td class="val">60%</td>
+                <td class="note">Alert bar in L2: "60% of last week was off your 12-month targets"</td>
+            </tr>
+            <tr>
+                <td>Operational drag incidents</td>
+                <td class="val">43</td>
+                <td class="note">AI CEO L2 and L3. This week.</td>
+            </tr>
+            <tr>
+                <td>Time consumed by drag</td>
+                <td class="val">23 hours</td>
+                <td class="note">AI CEO L2 and L3. Above 15-hr weekly threshold.</td>
+            </tr>
+            <tr>
+                <td>Drag threshold</td>
+                <td class="val">15 hrs/week</td>
+                <td class="note">CEO-defined maximum for operational interruptions</td>
+            </tr>
+            <tr>
+                <td>Estimated drag cost</td>
+                <td class="val">$4,600/week</td>
+                <td class="note">23 hrs x $200/hr CEO rate. AI CEO L3 hero stat.</td>
+            </tr>
+            <tr>
+                <td>Single-person drag share</td>
+                <td class="val">41% (Sarah M.)</td>
+                <td class="note">AI CEO L3: "One person accounts for 41% of all drag"</td>
+            </tr>
+            <tr>
+                <td>Repeat pattern escalations</td>
+                <td class="val">14 of 43</td>
+                <td class="note">Decisions Sarah M. had authority to make, routed to CEO anyway. 9 of 14 approved in under 2 min.</td>
+            </tr>
+            <tr>
+                <td>Analysis window</td>
+                <td class="val">12 weeks</td>
+                <td class="note">AI CEO L3: "Last 12 weeks"</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Incident table (L3) -->
+    <div class="section">
+        <h2>AI CEO L3 - Incident Table (Week of May 12-18)</h2>
+        <table>
+            <tr><th>Date</th><th>Type</th><th>Incident</th><th>Person</th><th>Time</th></tr>
+            <tr><td>May 16</td><td><span style="color:#ef4444;font-weight:700;">Drag</span></td><td>Vendor invoice approval</td><td>Sarah M.</td><td>12 hr</td></tr>
+            <tr><td>May 15</td><td><span style="color:#ef4444;font-weight:700;">Drag</span></td><td>Customer escalation</td><td>Raj P.</td><td>4 hr</td></tr>
+            <tr><td>May 15</td><td><span style="color:#6b7280;font-weight:500;">Thread</span></td><td>Budget approval - single line item</td><td>Sarah M.</td><td>2 hr</td></tr>
+            <tr><td>May 14</td><td><span style="color:#ef4444;font-weight:700;">Drag</span></td><td>Contract clause negotiation</td><td>David K.</td><td>2 hr</td></tr>
+            <tr><td>May 13</td><td><span style="color:#6b7280;font-weight:500;">Thread</span></td><td>Pricing exception &gt;6%</td><td>Sarah M.</td><td>2 hr</td></tr>
+            <tr><td>May 12</td><td><span style="color:#ef4444;font-weight:700;">Drag</span></td><td>Refund approval - under $500</td><td>Sarah M.</td><td>1 hr</td></tr>
+            <tr><td colspan="3" style="color:#9ca3af;text-align:center;">+ 37 more incidents this period</td><td></td><td><strong>23 hr total &#10003;</strong></td></tr>
+        </table>
+        <div class="note-block">
+            <strong>Math check:</strong> 12 + 4 + 2 + 2 + 2 + 1 = 23 hrs shown. + 37 more incidents not itemized = 43 total. Blur: Sarah M., Raj P., David K. names when filming (negative context).
+        </div>
+    </div>
+
+    <!-- Sales Analyzer L3 call -->
+    <div class="section">
+        <h2>Sales Analyzer L3 - Call Detail</h2>
+        <table>
+            <tr><th>Field</th><th>Value</th><th>Notes</th></tr>
+            <tr><td>Call date</td><td class="val">May 8, 2026</td><td class="note">Within the Apr 28-May 11 analysis period</td></tr>
+            <tr><td>Duration</td><td class="val">34 minutes</td><td></td></tr>
+            <tr><td>Rep</td><td class="val">Kyle Brennan</td><td class="note">Blur - negative context</td></tr>
+            <tr><td>Prospect</td><td class="val">Operations Director, retail chain</td><td class="note">Blur - client privacy</td></tr>
+            <tr><td>Deal size</td><td class="val">$22K</td><td class="note">Matches ACV. Blur in recording.</td></tr>
+            <tr><td>Overall score</td><td class="val">48%</td><td class="note">Shown unblurred - it's the point of the demo</td></tr>
+            <tr><td>Occurrence #</td><td class="val">6th in 8 weeks</td><td class="note">Same pricing objection pattern</td></tr>
+            <tr><td>Score breakdown</td><td class="val">Rapport 65% / Objection Handling 28% / Clarity 55% / Needs Matching 40% / Authority 38%</td><td class="note">Average: (65+28+55+40+38)/5 = 45.2% ≈ 48% overall (weighted toward objection handling)</td></tr>
+            <tr><td>Key moments</td><td class="val">1:12 / 8:44 / 17:31 / 21:05 / 28:49</td><td class="note">Lost at 17:31 - "That seems like a lot for our current situation"</td></tr>
+        </table>
+    </div>
+
+    <!-- Dates reference -->
+    <div class="section">
+        <h2>Date Reference - All Demos</h2>
+        <table>
+            <tr><th>Demo</th><th>Date / Period</th><th>Notes</th></tr>
+            <tr><td>AI CEO index (last run)</td><td class="val">Sun, May 11 - 8:14 AM</td><td class="note">Day before the current week starts</td></tr>
+            <tr><td>AI CEO L1/L2 current week</td><td class="val">May 12-18</td><td></td></tr>
+            <tr><td>AI CEO L3 incident dates</td><td class="val">May 12-16 (Mon-Fri)</td><td></td></tr>
+            <tr><td>Sales Analyzer index (last run)</td><td class="val">Mon, May 11 - 9:02 AM</td><td class="note">Ran before the week. Consistent with AI CEO "last run" on same day.</td></tr>
+            <tr><td>Sales Analyzer L1 analysis period</td><td class="val">Apr 28 - May 11</td><td class="note">2-week trailing period</td></tr>
+            <tr><td>Sales Analyzer L3 call</td><td class="val">May 8, 2026</td><td class="note">Within the analysis period</td></tr>
+        </table>
+    </div>
+
+    <!-- Future demos placeholder -->
+    <div class="section">
+        <h2>Future Demo Numbers (To Be Populated)</h2>
+        <table>
+            <tr><th>Demo</th><th>Key Metrics Needed</th><th>Status</th></tr>
+            <tr>
+                <td>Legal Case Handler</td>
+                <td>Number of cases, case value, resolution time, cost per case</td>
+                <td><span class="tag tag-risk">Not built</span></td>
+            </tr>
+            <tr>
+                <td>FB Custom Audience</td>
+                <td>Ad spend, audience size (20K-25K to 100K+), match rate, CPA before/after</td>
+                <td><span class="tag tag-risk">Not built</span></td>
+            </tr>
+            <tr>
+                <td>AI Caller</td>
+                <td>Call volume, connect rate, conversion rate, cost per call</td>
+                <td><span class="tag tag-risk">Not built</span></td>
+            </tr>
+            <tr>
+                <td>Prompt Engineering</td>
+                <td>Time saved per task, output quality score, prompts optimized</td>
+                <td><span class="tag tag-risk">Not built</span></td>
+            </tr>
+        </table>
+        <div class="note-block">
+            <strong>Rule for future demos:</strong> Before building any new demo, add the key metrics for that demo to this table and verify they are consistent with the $4.2M company baseline. Numbers should feel real at this company's scale - not too large, not too small.
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
