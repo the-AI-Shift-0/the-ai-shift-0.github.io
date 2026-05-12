@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Co-CEO — Revenue: What's Holding It Back</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 100;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-ticker {
+            font-size: 12px; color: #9ca3af;
+            min-width: 260px; text-align: center;
+        }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 32px;
+            background: #ffffff; border-bottom: 1px solid #ddd6fe; flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back {
+            font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600;
+        }
+        .header-back:hover { color: #6d28d9; }
+
+        .container {
+            flex: 1; overflow-y: auto; padding: 24px 32px;
+            display: flex; flex-direction: column; gap: 18px;
+        }
+
+        /* Hero */
+        .hero {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .hero-title {
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 16px;
+        }
+        .hero-stats { display: flex; gap: 40px; align-items: flex-end; margin-bottom: 8px; }
+        .hero-stat { display: flex; flex-direction: column; gap: 2px; }
+        .hero-num {
+            font-size: 52px; font-weight: 800; letter-spacing: -2px;
+            line-height: 1; color: #ef4444;
+        }
+        .hero-unit { font-size: 13px; color: #9ca3af; font-weight: 500; }
+        .hero-sub { font-size: 13px; color: #6b7280; margin-top: 4px; }
+        .hero-sub strong { color: #ef4444; }
+
+        /* Deal table */
+        .table-wrap {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 14px;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .table-header-row {
+            display: grid;
+            grid-template-columns: 70px 90px 1fr 90px 70px;
+            padding: 10px 20px;
+            background: #f5f3ff; border-bottom: 1px solid #e9d5ff;
+        }
+        .th {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #7c3aed;
+        }
+        .table-row {
+            display: grid;
+            grid-template-columns: 70px 90px 1fr 90px 70px;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            align-items: center;
+        }
+        .table-row:nth-child(even) { background: #fafafa; }
+        .td { font-size: 13px; color: #374151; }
+        .td.muted { color: #9ca3af; }
+        .td.stalled { color: #ef4444; font-weight: 700; font-size: 12px; }
+        .td.stage { color: #6b7280; font-weight: 500; font-size: 12px; }
+        .td.blurred { overflow: hidden; user-select: none; }
+        .blur-inner {
+            display: inline-block;
+            filter: blur(4px);
+            color: #374151;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Pattern block */
+        .pattern-block {
+            background: #fff7ed; border: 1px solid #fed7aa;
+            border-left: 4px solid #f97316; border-radius: 12px; padding: 18px 22px;
+        }
+        .pattern-title {
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; color: #c2410c; margin-bottom: 8px;
+        }
+        .pattern-line { font-size: 14px; color: #111827; font-weight: 600; margin-bottom: 4px; }
+        .pattern-sub { font-size: 13px; color: #6b7280; line-height: 1.5; }
+
+        /* Draft */
+        .draft-trigger {
+            background: #7c3aed; color: #ffffff;
+            border: none; border-radius: 8px; padding: 13px 22px;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            cursor: pointer; width: 100%; text-align: left;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: background 0.15s;
+        }
+        .draft-trigger:hover { background: #6d28d9; }
+        .draft-trigger .arrow { transition: transform 0.2s; display: inline-block; }
+        .draft-trigger.open .arrow { transform: rotate(90deg); }
+
+        .draft-panel {
+            display: none;
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+            padding: 20px 22px; margin-top: 10px;
+        }
+        .draft-panel.visible { display: block; }
+        .draft-panel-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #7c3aed; margin-bottom: 14px;
+        }
+        .draft-line {
+            height: 11px; border-radius: 99px; background: #e5e7eb; margin-bottom: 10px;
+        }
+        .draft-line.short { width: 55%; }
+        .draft-line.medium { width: 80%; }
+        .draft-line.full { width: 100%; }
+        .draft-line.xshort { width: 35%; }
+        .draft-note {
+            font-size: 12px; color: #9ca3af; margin-top: 14px; font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Analysing revenue pipeline...</div>
+        <div class="loading-ticker" id="ticker">Scanning pipeline, CRM &amp; email data</div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">AI Co-CEO</div>
+        </div>
+        <div class="header-back" onclick="window.location.href='l2.html'">← Dashboard</div>
+    </div>
+
+    <div class="container">
+
+        <div class="hero">
+            <div class="hero-title">What's holding revenue back? &nbsp;·&nbsp; Week of May 12–18</div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-num">$21K</div>
+                    <div class="hero-unit">behind target</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-num">2</div>
+                    <div class="hero-unit">deals stalled</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-num">8 days</div>
+                    <div class="hero-unit">avg follow-up lag</div>
+                </div>
+            </div>
+            <div class="hero-sub">
+                This week &nbsp;·&nbsp; <strong>Both stalled deals: zero follow-up since initial send</strong>
+                &nbsp;·&nbsp; Industry standard: 2 days
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="table-header-row">
+                <div class="th">Entered</div>
+                <div class="th">Stage</div>
+                <div class="th">Deal</div>
+                <div class="th">Rep</div>
+                <div class="th">Stalled</div>
+            </div>
+            <div class="table-row">
+                <div class="td muted">Apr 22</div>
+                <div class="td stage">Proposal</div>
+                <div class="td">Process implementation retainer</div>
+                <div class="td blurred"><span class="blur-inner">Kyle B.</span></div>
+                <div class="td stalled">22 days</div>
+            </div>
+            <div class="table-row">
+                <div class="td muted">Apr 29</div>
+                <div class="td stage">Proposal</div>
+                <div class="td">Enterprise consulting engagement</div>
+                <div class="td blurred"><span class="blur-inner">Kyle B.</span></div>
+                <div class="td stalled">15 days</div>
+            </div>
+        </div>
+
+        <div class="pattern-block">
+            <div class="pattern-title">Repeat pattern &nbsp;·&nbsp; 2 of 2 stalled deals</div>
+            <div class="pattern-line">Zero follow-up touchpoints after initial proposal send</div>
+            <div class="pattern-sub">Both deals entered at proposal stage 15–22 days ago. No call booked, no email sent, no CRM note added. At current pipeline close rate (31%), each day of delay reduces close probability by ~2%.</div>
+        </div>
+
+        <div>
+            <button class="draft-trigger" id="draft-btn" onclick="toggleDraft()">
+                <span>Draft follow-up sequence →</span>
+                <span class="arrow">›</span>
+            </button>
+            <div class="draft-panel" id="draft-panel">
+                <div class="draft-panel-label">Email sequence — ready to review &amp; send</div>
+                <div class="draft-line short"></div>
+                <div class="draft-line full"></div>
+                <div class="draft-line medium"></div>
+                <div class="draft-line full"></div>
+                <div class="draft-line medium"></div>
+                <div class="draft-line xshort"></div>
+                <div class="draft-line full"></div>
+                <div class="draft-line short"></div>
+                <div class="draft-note">Content blurred for recording. Full sequence sent to your review queue.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const ticks = [
+            'Scanning pipeline, CRM &amp; email data',
+            'Identifying stalled opportunities...',
+            'Measuring follow-up lag per deal...',
+            'Calculating close probability decay...',
+            'Drafting follow-up sequence...'
+        ];
+        let i = 0;
+        const ticker = document.getElementById('ticker');
+        const interval = setInterval(() => {
+            i++;
+            if (i < ticks.length) ticker.innerHTML = ticks[i];
+        }, 340);
+
+        setTimeout(() => {
+            clearInterval(interval);
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1800);
+
+        function toggleDraft() {
+            const btn = document.getElementById('draft-btn');
+            const panel = document.getElementById('draft-panel');
+            btn.classList.toggle('open');
+            panel.classList.toggle('visible');
+        }
+    </script>
+</body>
+</html>
