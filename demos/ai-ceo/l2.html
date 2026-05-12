@@ -147,7 +147,8 @@
 
         /* Hidden layout */
         .layout-grid { display: grid; }
-        .layout-grid.hidden { display: none; }
+        .layout-grid.hidden { display: none !important; }
+        .layout-b-flex { display: flex; flex-direction: column; gap: 16px; flex: 1; min-height: 0; }
     </style>
 </head>
 <body>
@@ -168,7 +169,7 @@
             <div class="header-dot"></div>
             <div class="header-logo">AI Co-CEO</div>
         </div>
-        <div class="header-center">Week of Apr 21 – 27</div>
+        <div class="header-center">Week of May 12 - 18</div>
         <div class="header-right">
             <div class="status-badge"><div class="status-dot"></div><span>Live</span></div>
         </div>
@@ -183,7 +184,7 @@
         <div class="alert-bar">
             <div class="alert-icon">⚠</div>
             <div class="alert-text">
-                <span>60% of last week was off your 12-month targets</span> — 3 areas need your attention.
+                <span>60% of last week was off your 12-month targets</span> - 3 areas need your attention.
             </div>
         </div>
 
@@ -229,7 +230,7 @@
 
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 16px; flex: 1; min-height: 0;" class="layout-grid hidden" id="layout-b">
+        <div class="layout-b-flex layout-grid hidden" id="layout-b">
 
             <div class="panel">
                 <div class="panel-label">Front-end pipeline</div>
