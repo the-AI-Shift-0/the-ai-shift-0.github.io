@@ -88,11 +88,33 @@
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
+        .tabs-container { display: flex; gap: 8px; margin-bottom: 20px; }
+        .tab-button {
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1.5px solid #e9d5ff;
+            background: #ffffff;
+            color: #9ca3af;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .tab-button:hover { border-color: #d8b4fe; background: #faf8ff; }
+        .tab-button.active {
+            border-color: #7c3aed;
+            background: #7c3aed;
+            color: #ffffff;
+        }
+
         .chips-label {
             font-size: 11px; font-weight: 700; text-transform: uppercase;
             letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 12px;
         }
         .chips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .chips-grid.hidden { display: none; }
         .chip {
             background: #ffffff;
             border: 1.5px solid #e9d5ff;
@@ -137,12 +159,37 @@
             <div class="chat-input" onclick="go()">
                 Ask anything about your business...<span class="cursor"></span>
             </div>
+
+            <div class="tabs-container">
+                <button class="tab-button active" onclick="switchTab('a')">Option A</button>
+                <button class="tab-button" onclick="switchTab('b')">Option B</button>
+                <button class="tab-button" onclick="switchTab('c')">Option C</button>
+            </div>
+
             <div class="chips-label">Or jump straight in</div>
-            <div class="chips-grid">
-                <div class="chip" onclick="go()">How did last week go?</div>
-                <div class="chip" onclick="go()">How is my front-end pipeline performing?</div>
-                <div class="chip active" onclick="go()">How much time on non-CEO stuff?</div>
-                <div class="chip" onclick="go()">How is my focus vs my targets?</div>
+
+            <!-- Set A: Revenue focus -->
+            <div class="chips-grid" id="chips-a">
+                <div class="chip" onclick="go()">Where's my pipeline at?</div>
+                <div class="chip" onclick="go()">How much did we sell this week?</div>
+                <div class="chip active" onclick="go()">Who's close to buying?</div>
+                <div class="chip" onclick="go()">What's hurting our revenue?</div>
+            </div>
+
+            <!-- Set B: Time/CEO focus -->
+            <div class="chips-grid hidden" id="chips-b">
+                <div class="chip" onclick="go()">Where did my week go?</div>
+                <div class="chip" onclick="go()">How much time on actual CEO work?</div>
+                <div class="chip active" onclick="go()">Am I hitting my priorities?</div>
+                <div class="chip" onclick="go()">What's pulling me away?</div>
+            </div>
+
+            <!-- Set C: Operations focus -->
+            <div class="chips-grid hidden" id="chips-c">
+                <div class="chip" onclick="go()">What's breaking down?</div>
+                <div class="chip" onclick="go()">Where are we losing time?</div>
+                <div class="chip active" onclick="go()">What needs fixing first?</div>
+                <div class="chip" onclick="go()">Who's stuck?</div>
             </div>
         </div>
     </div>
@@ -153,6 +200,21 @@
         }, 1400);
 
         function go() { window.location.href = 'l2.html'; }
+
+        function switchTab(tab) {
+            // Hide all grids
+            document.getElementById('chips-a').classList.add('hidden');
+            document.getElementById('chips-b').classList.add('hidden');
+            document.getElementById('chips-c').classList.add('hidden');
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected grid and mark button active
+            const gridMap = { a: 'chips-a', b: 'chips-b', c: 'chips-c' };
+            document.getElementById(gridMap[tab]).classList.remove('hidden');
+            event.target.classList.add('active');
+        }
     </script>
 </body>
 </html>
