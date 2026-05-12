@@ -97,13 +97,13 @@
                 <div class="integration-card" id="gong-card">
                     <div class="int-icon">🎙️</div>
                     <div class="int-name">Gong</div>
-                    <div class="int-count" id="gong-count">47 calls</div>
+                    <div class="int-count" id="gong-count">63 calls</div>
                     <div class="int-status" id="gong-status"><div class="spinner"></div></div>
                 </div>
                 <div class="integration-card" id="crm-card">
                     <div class="int-icon">📊</div>
                     <div class="int-name">CRM</div>
-                    <div class="int-count" id="crm-count">5 reps</div>
+                    <div class="int-count" id="crm-count">7 reps</div>
                     <div class="int-status" id="crm-status"><div class="spinner"></div></div>
                 </div>
                 <div class="integration-card" id="ai-card">
@@ -132,7 +132,7 @@
         setTimeout(() => markDone('gong-card', 'gong-status'), 800);
         setTimeout(() => markDone('crm-card', 'crm-status'), 1500);
         setTimeout(() => {
-            document.getElementById('ai-count').textContent = '47 scored';
+            document.getElementById('ai-count').textContent = '63 scored';
             markDone('ai-card', 'ai-status');
         }, 2400);
 
