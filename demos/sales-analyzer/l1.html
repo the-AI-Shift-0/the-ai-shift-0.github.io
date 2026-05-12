@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Call Analyzer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loading-overlay {
+            position: fixed; inset: 0; background: #f8f7ff;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 16px; z-index: 100;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px; border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed; border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-sub { font-size: 12px; color: #9ca3af; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 32px; background: #ffffff; border-bottom: 1px solid #ddd6fe;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-right { display: flex; gap: 16px; align-items: center; }
+        .status-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+        .last-run { font-size: 11px; color: #9ca3af; border-left: 1px solid #e5e7eb; padding-left: 16px; margin-left: 4px; }
+
+        .container { flex: 1; padding: 32px; max-width: 960px; margin: 0 auto; width: 100%; }
+
+        .page-header { margin-bottom: 28px; }
+        .page-title { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+        .page-sub { font-size: 13px; color: #6b7280; }
+
+        .summary-row {
+            display: flex; gap: 16px; margin-bottom: 32px;
+        }
+        .summary-card {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+            padding: 16px 20px; flex: 1;
+        }
+        .summary-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 6px; }
+        .summary-value { font-size: 22px; font-weight: 700; color: #111827; }
+        .summary-sub { font-size: 12px; color: #6b7280; margin-top: 2px; }
+        .summary-card.alert { border-color: #fca5a5; }
+        .summary-card.alert .summary-value { color: #dc2626; }
+
+        .reps-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 14px;
+        }
+        .reps-grid { display: flex; flex-direction: column; gap: 10px; }
+
+        .rep-row {
+            background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 12px;
+            padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .rep-row.flagged {
+            border-color: #fca5a5; cursor: pointer;
+        }
+        .rep-row.flagged:hover {
+            border-color: #ef4444; box-shadow: 0 2px 12px rgba(239,68,68,0.12);
+        }
+
+        .rep-name {
+            font-size: 14px; font-weight: 600; color: #111827;
+            min-width: 100px; filter: blur(5px); user-select: none;
+        }
+        .rep-calls { font-size: 12px; color: #9ca3af; min-width: 70px; }
+
+        .score-badge {
+            font-size: 15px; font-weight: 700; min-width: 48px; text-align: right;
+        }
+        .score-green { color: #16a34a; }
+        .score-yellow { color: #d97706; }
+        .score-red { color: #dc2626; }
+
+        .trend-bar-wrap { flex: 1; min-width: 120px; }
+        .trend-bar-bg { background: #f3f4f6; border-radius: 99px; height: 6px; overflow: hidden; }
+        .trend-bar-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
+        .bar-green { background: #22c55e; }
+        .bar-yellow { background: #f59e0b; }
+        .bar-red { background: #ef4444; }
+
+        .trend-arrow { font-size: 16px; min-width: 24px; text-align: center; }
+        .trend-up { color: #16a34a; }
+        .trend-flat { color: #9ca3af; }
+        .trend-down { color: #dc2626; }
+
+        .flag-badge {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; background: #fee2e2; color: #dc2626;
+            padding: 3px 8px; border-radius: 99px; white-space: nowrap;
+        }
+
+        .drill-hint {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 12px; color: #7c3aed; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Building your team view...</div>
+        <div class="loading-sub">47 calls scored across 5 reps</div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">Sales Call Analyzer</div>
+        </div>
+        <div class="header-right">
+            <div class="status-badge"><div class="status-dot"></div><span>Gong connected</span></div>
+            <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+            <div class="last-run">Last updated: Mon, May 11 · 9:02 AM</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="page-title">Team Performance — May 2026</div>
+            <div class="page-sub">47 calls analyzed · Week of Apr 28 – May 11 · 5 reps tracked</div>
+        </div>
+
+        <div class="summary-row">
+            <div class="summary-card">
+                <div class="summary-label">Team Close Rate</div>
+                <div class="summary-value">31%</div>
+                <div class="summary-sub">vs 38% target</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">Calls Analyzed</div>
+                <div class="summary-value">47</div>
+                <div class="summary-sub">last 2 weeks</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">Avg Score</div>
+                <div class="summary-value">71%</div>
+                <div class="summary-sub">↓ 4pts from last period</div>
+            </div>
+            <div class="summary-card alert">
+                <div class="summary-label">Reps Flagged</div>
+                <div class="summary-value">1</div>
+                <div class="summary-sub">repeating pattern detected</div>
+            </div>
+        </div>
+
+        <div class="reps-label">All Reps</div>
+        <div class="reps-grid">
+
+            <div class="rep-row">
+                <div class="rep-name">Sarah Mitchell</div>
+                <div class="rep-calls">11 calls</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar-bg"><div class="trend-bar-fill bar-green" style="width:82%"></div></div>
+                </div>
+                <div class="score-badge score-green">82%</div>
+                <div class="trend-arrow trend-up">↑</div>
+            </div>
+
+            <div class="rep-row">
+                <div class="rep-name">James Kowalski</div>
+                <div class="rep-calls">9 calls</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar-bg"><div class="trend-bar-fill bar-green" style="width:78%"></div></div>
+                </div>
+                <div class="score-badge score-green">78%</div>
+                <div class="trend-arrow trend-flat">→</div>
+            </div>
+
+            <div class="rep-row">
+                <div class="rep-name">Priya Nair</div>
+                <div class="rep-calls">7 calls</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar-bg"><div class="trend-bar-fill bar-yellow" style="width:71%"></div></div>
+                </div>
+                <div class="score-badge score-yellow">71%</div>
+                <div class="trend-arrow trend-up">↑</div>
+            </div>
+
+            <div class="rep-row">
+                <div class="rep-name">Daniel Reeves</div>
+                <div class="rep-calls">8 calls</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar-bg"><div class="trend-bar-fill bar-yellow" style="width:68%"></div></div>
+                </div>
+                <div class="score-badge score-yellow">68%</div>
+                <div class="trend-arrow trend-flat">→</div>
+            </div>
+
+            <div class="rep-row flagged" onclick="window.location.href='l2.html'">
+                <div class="rep-name">Kyle Brennan</div>
+                <div class="rep-calls">12 calls</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar-bg"><div class="trend-bar-fill bar-red" style="width:54%"></div></div>
+                </div>
+                <div class="score-badge score-red">54%</div>
+                <div class="trend-arrow trend-down">↓</div>
+                <div class="flag-badge">⚠ Repeating pattern</div>
+                <div class="drill-hint">View details →</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1400);
+    </script>
+</body>
+</html>
