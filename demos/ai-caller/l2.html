@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call Transcript - AI Caller</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      color: #111827;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #6b7280;
+      animation: fadeOut 0.8s ease-out 0.2s forwards;
+      z-index: 1000;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #7c3aed;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6d28d9; }
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .transcript-container {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .message {
+      margin-bottom: 24px;
+      display: flex;
+      animation: fadeInMessage 0.4s ease-out;
+    }
+    @keyframes fadeInMessage {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .message.ai {
+      flex-direction: row;
+    }
+    .message.lead {
+      flex-direction: row-reverse;
+    }
+    .message-bubble {
+      max-width: 65%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+    .message.ai .message-bubble {
+      background: #f0e9ff;
+      color: #111827;
+      border: 1px solid #e9d5ff;
+    }
+    .message.lead .message-bubble {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid #e5e7eb;
+    }
+    .message-time {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 6px;
+      padding: 0 12px;
+    }
+    .message.ai .message-time { text-align: left; }
+    .message.lead .message-time { text-align: right; }
+    .message-speaker {
+      font-weight: 600;
+      color: #7c3aed;
+      margin-bottom: 4px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .message.lead .message-speaker {
+      color: #111827;
+    }
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .insight-card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .insight-label {
+      font-size: 11px;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .insight-text {
+      font-size: 14px;
+      color: #111827;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .cta-button {
+      display: inline-block;
+      background: #7c3aed;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .cta-button:hover {
+      background: #6d28d9;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay">Loading transcript...</div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">AI Caller</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+      <div class="status-badge"><div class="status-dot"></div><span>Twilio connected</span></div>
+      <div class="last-run">Last updated: Mon, May 12 · 3:47 PM</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <a href="l1.html" class="back-link">← Back to dashboard</a>
+
+    <div class="page-header">
+      <h1 class="page-title">Call Transcript</h1>
+      <p class="page-subtitle">Call placed 47 seconds after lead submitted · Duration: 1:42 · Lead: <span style="filter: blur(5px); user-select: none;">Samantha Mitchell</span></p>
+    </div>
+
+    <div class="transcript-container">
+      <div class="message ai">
+        <div>
+          <div class="message-speaker">AI Caller</div>
+          <div class="message-bubble">Hi, is this Samantha? It's Maya calling from Sales Academy — you just registered for our information session, I wanted to reach out and make sure you had everything you need.</div>
+          <div class="message-time">0:00</div>
+        </div>
+      </div>
+
+      <div class="message lead">
+        <div>
+          <div class="message-bubble">Oh wow, yeah that's me! I only just filled in the form.</div>
+          <div class="message-time">0:09</div>
+        </div>
+      </div>
+
+      <div class="message ai">
+        <div>
+          <div class="message-speaker">AI Caller</div>
+          <div class="message-bubble">Ha, we try to be quick! So you're coming to the session on Thursday at 2pm — does that still work for your schedule?</div>
+          <div class="message-time">0:14</div>
+        </div>
+      </div>
+
+      <div class="message lead">
+        <div>
+          <div class="message-bubble">Yes, Thursday works great for me.</div>
+          <div class="message-time">0:21</div>
+        </div>
+      </div>
+
+      <div class="message ai">
+        <div>
+          <div class="message-speaker">AI Caller</div>
+          <div class="message-bubble">Perfect. And just so our team can best support you on the call — what's the main challenge you're looking to solve right now?</div>
+          <div class="message-time">0:25</div>
+        </div>
+      </div>
+
+      <div class="message lead">
+        <div>
+          <div class="message-bubble">Honestly, I'm trying to scale my business but I'm stuck doing everything myself. I need systems.</div>
+          <div class="message-time">0:31</div>
+        </div>
+      </div>
+
+      <div class="message ai">
+        <div>
+          <div class="message-speaker">AI Caller</div>
+          <div class="message-bubble">That's exactly what the session covers. I'll make sure your advisor knows that going in. You'll get a calendar invite within a few minutes — see you Thursday at 2!</div>
+          <div class="message-time">0:41</div>
+        </div>
+      </div>
+
+      <div class="message lead">
+        <div>
+          <div class="message-bubble">Great, thank you! Really appreciate the quick follow-up.</div>
+          <div class="message-time">0:49</div>
+        </div>
+      </div>
+
+      <div class="message ai">
+        <div>
+          <div class="message-speaker">AI Caller</div>
+          <div class="message-bubble">Of course, looking forward to speaking with you. Have a great afternoon!</div>
+          <div class="message-time">0:53</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-label">Pain Point</div>
+        <div class="insight-text">Scaling bottleneck - doing everything herself, needs systems</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Sentiment</div>
+        <div class="insight-text">Positive - impressed by fast follow-up and ready to book</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Booking</div>
+        <div class="insight-text">Confirmed: Thursday 2PM - calendar invite sent</div>
+      </div>
+    </div>
+
+    <a href="l3.html" class="cta-button">View post-call summary →</a>
+  </div>
+</body>
+</html>

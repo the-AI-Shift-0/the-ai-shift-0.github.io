@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Lead Database - Audience Enrichment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(248, 247, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 1;
+      animation: fadeOutOverlay 0.5s ease 0.8s forwards;
+    }
+    @keyframes fadeOutOverlay {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #ddd6fe;
+      border-top-color: #7c3aed;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .content {
+      flex: 1;
+      padding: 48px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .page-header {
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+    .warning-callout {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 12px;
+    }
+    .warning-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .warning-content {
+      flex: 1;
+    }
+    .warning-title {
+      font-weight: 700;
+      color: #92400e;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .warning-text {
+      color: #b45309;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .warning-number {
+      font-weight: 700;
+      font-size: 18px;
+      color: #d97706;
+    }
+    .table-section {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .table-title {
+      padding: 16px 20px;
+      border-bottom: 1px solid #ddd6fe;
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      background: #f3f0ff;
+      padding: 12px 20px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      color: #6b7280;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    td {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f3f0ff;
+      font-size: 13px;
+      color: #111827;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .source-name {
+      font-weight: 500;
+      color: #111827;
+    }
+    .metric-percent {
+      color: #6b7280;
+    }
+    .quality-low {
+      color: #dc2626;
+      font-weight: 500;
+    }
+    .quality-medium {
+      color: #f59e0b;
+      font-weight: 500;
+    }
+    .quality-high {
+      color: #22c55e;
+      font-weight: 500;
+    }
+    .info-section {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .info-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    .info-text {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .info-highlight {
+      background: #ddd6fe;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 0 2px;
+      color: #111827;
+      font-weight: 500;
+    }
+    .cta-section {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button-primary {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+    .button-primary:hover {
+      background: #6d28d9;
+      transform: translateY(-1px);
+    }
+    .button-secondary {
+      background: transparent;
+      color: #7c3aed;
+      border: 1px solid #ddd6fe;
+    }
+    .button-secondary:hover {
+      background: #f3f0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">Audience Enrichment</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+      <div class="status-badge"><div class="status-dot"></div><span>Drive connected</span></div>
+      <div class="last-run">Last run: Mon, May 12 · 10:30 AM</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-header">
+      <div class="page-title">Your Lead Database</div>
+      <div class="page-subtitle">600,000 leads across 5 systems - May 12, 2026</div>
+    </div>
+
+    <div class="warning-callout">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-content">
+        <div class="warning-title">Current Facebook match rate: <span class="warning-number">10%</span></div>
+        <div class="warning-text">60,000 of 600,000 leads matched — 540,000 are invisible to your ads</div>
+      </div>
+    </div>
+
+    <div class="table-section">
+      <div class="table-title">Data Sources & Quality Assessment</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Records</th>
+            <th>Has Email</th>
+            <th>Has Phone</th>
+            <th>Has Name</th>
+            <th>Has Location</th>
+            <th>Match Quality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="source-name">CRM</td>
+            <td>180K</td>
+            <td class="metric-percent">98%</td>
+            <td class="metric-percent">45%</td>
+            <td class="metric-percent">92%</td>
+            <td class="metric-percent">31%</td>
+            <td class="quality-medium">Medium</td>
+          </tr>
+          <tr>
+            <td class="source-name">Typeform</td>
+            <td>95K</td>
+            <td class="metric-percent">100%</td>
+            <td class="metric-percent">12%</td>
+            <td class="metric-percent">78%</td>
+            <td class="metric-percent">8%</td>
+            <td class="quality-low">Low</td>
+          </tr>
+          <tr>
+            <td class="source-name">Zoho</td>
+            <td>145K</td>
+            <td class="metric-percent">89%</td>
+            <td class="metric-percent">67%</td>
+            <td class="metric-percent">95%</td>
+            <td class="metric-percent">54%</td>
+            <td class="quality-medium">Medium</td>
+          </tr>
+          <tr>
+            <td class="source-name">InfusionSoft</td>
+            <td>112K</td>
+            <td class="metric-percent">94%</td>
+            <td class="metric-percent">38%</td>
+            <td class="metric-percent">88%</td>
+            <td class="metric-percent">22%</td>
+            <td class="quality-low">Low</td>
+          </tr>
+          <tr>
+            <td class="source-name">Legacy CSVs</td>
+            <td>68K</td>
+            <td class="metric-percent">71%</td>
+            <td class="metric-percent">23%</td>
+            <td class="metric-percent">62%</td>
+            <td class="metric-percent">11%</td>
+            <td class="quality-low">Very Low</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-section">
+      <div class="info-title">What Facebook Needs to Match</div>
+      <div class="info-text">
+        Facebook matches on: <span class="info-highlight">email</span> + <span class="info-highlight">phone</span> + <span class="info-highlight">first name</span> + <span class="info-highlight">last name</span> + <span class="info-highlight">city</span> + <span class="info-highlight">state</span> + <span class="info-highlight">country</span> + <span class="info-highlight">zip</span>
+        <br><br>
+        More fields = more matches. Your current data is incomplete and unstructured.
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <a href="l2.html" class="button button-primary">Run AI Enrichment</a>
+      <a href="index.html" class="button button-secondary">Back</a>
+    </div>
+  </div>
+</body>
+</html>

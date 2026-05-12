@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Caller Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      color: #111827;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #6b7280;
+      animation: fadeOut 0.6s ease-out 0.2s forwards;
+      z-index: 1000;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .stat-value {
+      font-size: 40px;
+      font-weight: 700;
+      color: #7c3aed;
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .stat-sub {
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.4;
+    }
+    .calls-table {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .table-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 140px 200px 120px;
+      gap: 16px;
+      padding: 16px 24px;
+      background: #fafbff;
+      border-bottom: 1px solid #e9d5ff;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .table-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 140px 200px 120px;
+      gap: 16px;
+      padding: 16px 24px;
+      border-bottom: 1px solid #f3f0ff;
+      align-items: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .table-row:last-child { border-bottom: none; }
+    .table-row:hover { background: #fafbff; }
+    .table-row.clickable { cursor: pointer; }
+    .table-time {
+      color: #6b7280;
+      font-weight: 500;
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+    }
+    .table-lead {
+      color: #111827;
+      font-weight: 500;
+    }
+    .blurred { filter: blur(5px); user-select: none; }
+    .table-source {
+      color: #9ca3af;
+      font-size: 12px;
+    }
+    .table-response {
+      color: #6b7280;
+      line-height: 1.4;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .status-badge-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .status-confirmed {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .status-rescheduled {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .status-voicemail {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .status-icon {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay">Loading dashboard...</div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">AI Caller</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+      <div class="status-badge"><div class="status-dot"></div><span>Twilio connected</span></div>
+      <div class="last-run">Last updated: Mon, May 12 · 3:47 PM</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-header">
+      <h1 class="page-title">AI Caller Dashboard - Today</h1>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-label">Show-Up Rate</div>
+        <div class="stat-value">82%</div>
+        <div class="stat-sub">↑ from 31% before AI Caller</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Calls Placed</div>
+        <div class="stat-value">23</div>
+        <div class="stat-sub">Avg: 47 sec after lead submits</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Confirmed Bookings</div>
+        <div class="stat-value">19</div>
+        <div class="stat-sub">83% confirmation rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Revenue Protected</div>
+        <div class="stat-value blurred">$190K</div>
+        <div class="stat-sub">Est. bookings × $10K ACV</div>
+      </div>
+    </div>
+
+    <div class="calls-table">
+      <div class="table-header">
+        <div>Time</div>
+        <div>Lead</div>
+        <div>Source</div>
+        <div>Response</div>
+        <div>Status</div>
+      </div>
+
+      <div class="table-row clickable" onclick="window.location.href='l2.html'">
+        <div class="table-time">3:47 PM</div>
+        <div class="table-lead blurred">Samantha Mitchell</div>
+        <div class="table-source">Facebook Ad</div>
+        <div class="table-response">Confirmed booking</div>
+        <div class="status-badge-inline status-confirmed">
+          <span class="status-icon">✅</span>
+          <span>CONFIRMED</span>
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-time">3:22 PM</div>
+        <div class="table-lead blurred">Marcus Chen</div>
+        <div class="table-source">Webinar signup</div>
+        <div class="table-response">"Sounds great, see you then"</div>
+        <div class="status-badge-inline status-confirmed">
+          <span class="status-icon">✅</span>
+          <span>CONFIRMED</span>
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-time">2:58 PM</div>
+        <div class="table-lead blurred">Rachel Torres</div>
+        <div class="table-source">Instagram Ad</div>
+        <div class="table-response">Rescheduled to Thursday</div>
+        <div class="status-badge-inline status-rescheduled">
+          <span class="status-icon">📅</span>
+          <span>RESCHEDULED</span>
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-time">2:31 PM</div>
+        <div class="table-lead blurred">Jordan Price</div>
+        <div class="table-source">Facebook Ad</div>
+        <div class="table-response">Confirmed booking</div>
+        <div class="status-badge-inline status-confirmed">
+          <span class="status-icon">✅</span>
+          <span>CONFIRMED</span>
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-time">1:47 PM</div>
+        <div class="table-lead blurred">Alex Kumar</div>
+        <div class="table-source">Organic signup</div>
+        <div class="table-response">No answer, left voicemail</div>
+        <div class="status-badge-inline status-voicemail">
+          <span class="status-icon">📞</span>
+          <span>VOICEMAIL</span>
+        </div>
+      </div>
+
+      <div class="table-row">
+        <div class="table-time">1:12 PM</div>
+        <div class="table-lead blurred">Jessica Wong</div>
+        <div class="table-source">Facebook Ad</div>
+        <div class="table-response">Confirmed booking</div>
+        <div class="status-badge-inline status-confirmed">
+          <span class="status-icon">✅</span>
+          <span>CONFIRMED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

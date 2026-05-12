@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audience Enrichment - Loading</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+    }
+    .loading-section {
+      text-align: center;
+      max-width: 800px;
+    }
+    .loading-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    .loading-subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 48px;
+    }
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .integration-card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 20px;
+      width: 140px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .integration-card.loaded {
+      border-color: #22c55e;
+      background: #dcfce7;
+    }
+    .card-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .card-source {
+      font-weight: 600;
+      font-size: 13px;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    .card-records {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .card-status {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+    .card-checkmark {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: #22c55e;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 10px;
+      line-height: 16px;
+      margin-top: 4px;
+    }
+    .progress-section {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 32px;
+    }
+    .progress-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e9d5ff;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7c3aed, #a855f7);
+      width: 0%;
+      animation: fillProgress 3.5s ease forwards;
+    }
+    @keyframes fillProgress {
+      to { width: 100%; }
+    }
+    .status-text {
+      font-size: 12px;
+      color: #6b7280;
+      transition: all 0.3s ease;
+    }
+    .total-found {
+      font-size: 18px;
+      font-weight: 700;
+      color: #7c3aed;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">Audience Enrichment</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+      <div class="status-badge"><div class="status-dot"></div><span>Drive connected</span></div>
+      <div class="last-run">Last run: Mon, May 12 · 10:30 AM</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="loading-section">
+      <div class="loading-title">Gathering your leads...</div>
+      <div class="loading-subtitle">Connecting to your data sources</div>
+
+      <div class="cards-grid">
+        <div class="integration-card" id="card-crm">
+          <div class="card-emoji">📊</div>
+          <div class="card-source">CRM</div>
+          <div class="card-records">180K records</div>
+          <div class="card-status" id="status-crm">Connecting...</div>
+        </div>
+
+        <div class="integration-card" id="card-typeform">
+          <div class="card-emoji">📝</div>
+          <div class="card-source">Typeform</div>
+          <div class="card-records">95K records</div>
+          <div class="card-status" id="status-typeform">Waiting...</div>
+        </div>
+
+        <div class="integration-card" id="card-zoho">
+          <div class="card-emoji">🗃️</div>
+          <div class="card-source">Zoho</div>
+          <div class="card-records">145K records</div>
+          <div class="card-status" id="status-zoho">Waiting...</div>
+        </div>
+
+        <div class="integration-card" id="card-infusionsoft">
+          <div class="card-emoji">📦</div>
+          <div class="card-source">InfusionSoft</div>
+          <div class="card-records">112K records</div>
+          <div class="card-status" id="status-infusionsoft">Waiting...</div>
+        </div>
+
+        <div class="integration-card" id="card-csv">
+          <div class="card-emoji">💾</div>
+          <div class="card-source">Legacy CSVs</div>
+          <div class="card-records">68K records</div>
+          <div class="card-status" id="status-csv">Waiting...</div>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-label">
+          <span id="progress-status">Extracting records...</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <div class="status-text" id="status-message">Connecting to CRM...</div>
+        <div class="total-found" id="total-found" style="opacity: 0;">600K leads found</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const timeline = [
+      { card: 'card-crm', status: 'status-crm', time: 800, records: 180000 },
+      { card: 'card-typeform', status: 'status-typeform', time: 1400, records: 95000 },
+      { card: 'card-zoho', status: 'status-zoho', time: 2000, records: 145000 },
+      { card: 'card-infusionsoft', status: 'status-infusionsoft', time: 2500, records: 112000 },
+      { card: 'card-csv', status: 'status-csv', time: 3000, records: 68000 }
+    ];
+
+    timeline.forEach((item, idx) => {
+      setTimeout(() => {
+        const card = document.getElementById(item.card);
+        const status = document.getElementById(item.status);
+        card.classList.add('loaded');
+        status.innerHTML = '<span class="card-checkmark">✓</span>';
+      }, item.time);
+    });
+
+    setTimeout(() => {
+      document.getElementById('progress-status').textContent = 'Merging records...';
+      document.getElementById('status-message').textContent = 'Deduplicating across sources...';
+    }, 3500);
+
+    setTimeout(() => {
+      document.getElementById('progress-status').textContent = 'Analysis ready';
+      document.getElementById('progress-percent').textContent = '100%';
+      document.getElementById('status-message').textContent = 'All 600,000 leads gathered and deduplicated';
+      document.getElementById('total-found').style.opacity = '1';
+    }, 3500);
+
+    setTimeout(() => {
+      window.location.href = 'l1.html';
+    }, 4500);
+  </script>
+</body>
+</html>

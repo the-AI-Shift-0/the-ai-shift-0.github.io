@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enrichment Complete - Audience Enrichment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(248, 247, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 1;
+      animation: fadeOutOverlay 0.5s ease 0.8s forwards;
+      gap: 16px;
+    }
+    @keyframes fadeOutOverlay {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #ddd6fe;
+      border-top-color: #7c3aed;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-text {
+      font-size: 14px;
+      color: #6b7280;
+    }
+    .content {
+      flex: 1;
+      padding: 48px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .page-header {
+      margin-bottom: 48px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: #6b7280;
+    }
+    .comparison-section {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+      align-items: center;
+    }
+    .comparison-card {
+      background: #ffffff;
+      border: 2px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    .comparison-card.before {
+      border-color: #fca5a5;
+      background: #fef2f2;
+    }
+    .comparison-card.after {
+      border-color: #86efac;
+      background: #f0fdf4;
+      transform: scale(1.08);
+    }
+    .card-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .card-big-number {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .comparison-card.before .card-big-number {
+      color: #dc2626;
+    }
+    .comparison-card.after .card-big-number {
+      color: #22c55e;
+    }
+    .card-sublabel {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .card-percent {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .comparison-card.before .card-percent {
+      color: #dc2626;
+    }
+    .comparison-card.after .card-percent {
+      color: #22c55e;
+    }
+    .card-note {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .arrow {
+      font-size: 32px;
+      color: #7c3aed;
+      text-align: center;
+    }
+    .arrow-label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .summary-card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .summary-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    .summary-item {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .summary-item:last-child {
+      margin-bottom: 0;
+    }
+    .summary-highlight {
+      color: #111827;
+      font-weight: 500;
+    }
+    .impact-section {
+      background: linear-gradient(135deg, #ddd6fe 0%, #c7d2fe 100%);
+      border: 2px solid #7c3aed;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .impact-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    .impact-content {
+      font-size: 14px;
+      color: #111827;
+      line-height: 1.6;
+    }
+    .impact-blur {
+      filter: blur(4px);
+      user-select: none;
+      display: inline-block;
+      background: rgba(124, 58, 237, 0.1);
+      padding: 2px 6px;
+      border-radius: 2px;
+      cursor: default;
+    }
+    .cta-section {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .cta-text {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+    .button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button-primary {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+    .button-primary:hover {
+      background: #6d28d9;
+      transform: translateY(-1px);
+    }
+    .button-secondary {
+      background: transparent;
+      color: #7c3aed;
+      border: 1px solid #ddd6fe;
+      padding: 10px 20px;
+    }
+    .button-secondary:hover {
+      background: #f3f0ff;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Computing results...</div>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">Audience Enrichment</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+      <div class="status-badge"><div class="status-dot"></div><span>Drive connected</span></div>
+      <div class="last-run">Last run: Mon, May 12 · 10:30 AM</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-header">
+      <div class="page-title">Enrichment Complete</div>
+      <div class="page-subtitle">600,000 records processed · Ready to upload to Facebook</div>
+    </div>
+
+    <div class="comparison-section">
+      <div class="comparison-card before">
+        <div class="card-label">Before Enrichment</div>
+        <div class="card-big-number" id="before-number">60,000</div>
+        <div class="card-sublabel">Facebook matches</div>
+        <div class="card-percent">10%</div>
+        <div class="card-note">match rate</div>
+        <div class="card-note" style="margin-top: 12px;">Retargeting pool burns out in 3 weeks</div>
+      </div>
+
+      <div class="arrow">
+        <div>→</div>
+        <div class="arrow-label" id="arrow-label">+290,000</div>
+      </div>
+
+      <div class="comparison-card after">
+        <div class="card-label">After Enrichment</div>
+        <div class="card-big-number" id="after-number">60,000</div>
+        <div class="card-sublabel">Facebook matches</div>
+        <div class="card-percent">58%</div>
+        <div class="card-note">match rate</div>
+        <div class="card-note" style="margin-top: 12px;">Retargeting pool lasts 5+ months</div>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-title">What was missing</div>
+        <div class="summary-item"><span class="summary-highlight">47%</span> of records had no location data → filled via phone/timezone inference</div>
+        <div class="summary-item"><span class="summary-highlight">31%</span> had incomplete name fields → standardized + inferred</div>
+        <div class="summary-item"><span class="summary-highlight">8%</span> had email typos → auto-corrected</div>
+        <div class="summary-item"><span class="summary-highlight">1%</span> were exact duplicates → merged (saved budget)</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-title">What Facebook gets now</div>
+        <div class="summary-item"><span class="summary-highlight">350,000</span> fully matched records</div>
+        <div class="summary-item">Average <span class="summary-highlight">6.2</span> fields per record (was 2.8)</div>
+        <div class="summary-item"><span class="summary-highlight">8,341</span> email variants added for Gmail users</div>
+        <div class="summary-item">File format: <span class="summary-highlight">Facebook Custom Audience CSV</span>, ready to upload</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-title">What this means</div>
+        <div class="summary-item">Your retargeting audience is <span class="summary-highlight">5.8x larger</span></div>
+        <div class="summary-item">Cost per retargeted sale drops <span class="summary-highlight">significantly</span></div>
+        <div class="summary-item">You can run longer retargeting campaigns before needing cold traffic</div>
+        <div class="summary-item">Higher quality matches = better conversion rates on ads</div>
+      </div>
+    </div>
+
+    <div class="impact-section">
+      <div class="impact-title">Business impact</div>
+      <div class="impact-content">
+        At your current CAC of <span class="impact-blur">$85</span> on cold traffic:<br>
+        Retargeting saves <span class="impact-blur">$XX per conversion</span> vs cold.<br>
+        350,000 warm audience = <span class="impact-blur">months of cheap traffic</span> before cold spend needed.
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-text">Your Facebook-ready audience is prepared</div>
+      <button class="button button-primary">Download Facebook-Ready CSV</button>
+    </div>
+
+    <div class="nav-buttons">
+      <a href="l2.html" class="button button-secondary">Back</a>
+    </div>
+  </div>
+
+  <script>
+    function animateCounter(fromNum, toNum, elementId, duration = 2000) {
+      const element = document.getElementById(elementId);
+      const increment = (toNum - fromNum) / (duration / 16);
+      let current = fromNum;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= toNum) {
+          current = toNum;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current).toLocaleString();
+      }, 16);
+    }
+
+    // Wait for loading overlay to fade, then start animation
+    setTimeout(() => {
+      animateCounter(60000, 350000, 'after-number', 2000);
+
+      // Update arrow label with animated difference
+      setTimeout(() => {
+        document.getElementById('arrow-label').textContent = '+290,000 people unlocked';
+      }, 500);
+    }, 900);
+  </script>
+</body>
+</html>

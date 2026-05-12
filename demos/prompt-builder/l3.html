@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Builder - Results</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      color: #111827;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(248, 247, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    .loading-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      text-align: center;
+    }
+
+    .spinner-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+      margin: 0 4px;
+      animation: spin 1.4s infinite;
+    }
+
+    .spinner-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .spinner-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes spin {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .loading-text {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 40px;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .column-label.good {
+      color: #22c55e;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card.bad {
+      background: #fafaf9;
+      border-color: #e7e5e4;
+    }
+
+    .card.good {
+      border-color: #dcfce7;
+      border-width: 2px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 14px;
+    }
+
+    .card-content {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #6b7280;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .prompt-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: "Monaco", "Menlo", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #374151;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .prompt-box.good {
+      background: #f0fdf4;
+      border-color: #dcfce7;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+      align-self: flex-start;
+    }
+
+    .badge.bad {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .badge.good {
+      background: #dcfce7;
+      color: #22c55e;
+    }
+
+    .results-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .results-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .result-card.good {
+      border-color: #dcfce7;
+      background: #f0fdf4;
+    }
+
+    .result-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .result-content {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #6b7280;
+    }
+
+    .result-content.good {
+      color: #15803d;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #7c3aed;
+      color: #ffffff;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #6d28d9;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .note {
+      text-align: center;
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 16px;
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #7c3aed;
+      text-decoration: none;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay" id="overlay">
+    <div class="loading-spinner">
+      <div class="spinner-dot"></div>
+      <div class="spinner-dot"></div>
+      <div class="spinner-dot"></div>
+      <div class="loading-text">Preparing results...</div>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">Prompt Builder</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>Complete</span></div>
+      <div class="last-run">Built in 28 seconds</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="l1.html" class="back-link">← Back to Input</a>
+
+    <div class="title">Your Prompt is Ready</div>
+    <div class="subtitle">Built in 28 seconds - Ready to paste into any AI tool</div>
+
+    <div class="comparison">
+      <div class="column">
+        <div class="column-label">Your Input</div>
+        <div class="card bad">
+          <div class="card-title">What you wrote</div>
+          <div class="prompt-box">I need to analyze our monthly sales data and figure out why revenue dropped this month. I have a spreadsheet with all the deals - closed, lost, pipeline. I want to understand what happened, who underperformed, compare to last month, and also give me something I can share with the team that explains it simply. Maybe like a summary or a report. Should cover the main numbers but also the why behind them if possible.</div>
+          <div class="badge bad">Inconsistent results</div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="column-label good">Your Prompt</div>
+        <div class="card good">
+          <div class="card-title">What AI built for you</div>
+          <div class="prompt-box good">You are a sales performance analyst with expertise in B2B revenue analysis and executive communication.
+
+I'm sharing a CSV export of our sales data for the current and prior month. It includes: deal name, assigned rep, deal value, status (Closed Won / Closed Lost / Pipeline), close date, and lead source.
+
+Please analyze this data and complete the following steps:
+
+1. REVENUE SUMMARY: Calculate total revenue this month vs last month. Show the absolute and percentage change.
+
+2. REP PERFORMANCE: Rank all reps by revenue this month. Flag any rep who is more than 20% below their prior month performance.
+
+3. ROOT CAUSE ANALYSIS: Identify the top 2-3 reasons for the revenue change. Consider: deal volume, average deal size, conversion rate, rep performance, and lead source quality.
+
+4. TEAM SUMMARY: Write a 150-word plain-language summary suitable for sharing with the full team. Avoid jargon. Focus on what happened and what we are doing about it.
+
+Format your response with clear section headers. Use tables where helpful. Keep the tone factual and constructive.</div>
+          <div class="badge good">Consistent, structured results every time</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-panel">
+      <div class="result-card">
+        <div class="result-title">With your original prompt</div>
+        <div class="result-content">Output: A vague paragraph. Missing rep breakdown. No structure. Team summary buried at the end. You'd need 3 more follow-up prompts to get what you needed.</div>
+      </div>
+
+      <div class="result-card good">
+        <div class="result-title">With the AI-built prompt</div>
+        <div class="result-content good">Output: Complete analysis in one pass. Rep table, root cause, team summary - all in one response. Works every time, for any team member.</div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="buildAnother()">Build Another Prompt</button>
+    </div>
+
+    <div class="note">Works with ChatGPT, Claude, Gemini, or any AI tool</div>
+  </div>
+
+  <script>
+    // Fade out loading overlay after 0.6s
+    setTimeout(() => {
+      document.getElementById('overlay').classList.add('fade-out');
+    }, 600);
+
+    function buildAnother() {
+      window.location.href = 'l1.html';
+    }
+  </script>
+</body>
+</html>

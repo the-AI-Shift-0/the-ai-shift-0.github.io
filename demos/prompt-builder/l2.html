@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Builder - Building</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      color: #111827;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(248, 247, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    .loading-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      text-align: center;
+    }
+
+    .spinner-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+      margin: 0 4px;
+      animation: spin 1.4s infinite;
+    }
+
+    .spinner-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .spinner-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes spin {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .loading-text {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 40px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 20px;
+      opacity: 0.5;
+      transition: all 0.3s ease;
+    }
+
+    .step.active {
+      opacity: 1;
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+
+    .step.done {
+      border-color: #dcfce7;
+      background: #f0fdf4;
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .step-status {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .step.done .step-status {
+      color: #22c55e;
+    }
+
+    .step-content {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .button-group.show {
+      opacity: 1;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #7c3aed;
+      color: #ffffff;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #6d28d9;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #7c3aed;
+      text-decoration: none;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay" id="overlay">
+    <div class="loading-spinner">
+      <div class="spinner-dot"></div>
+      <div class="spinner-dot"></div>
+      <div class="spinner-dot"></div>
+      <div class="loading-text">Building your prompt...</div>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">Prompt Builder</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>Building</span></div>
+      <div class="last-run">Processing</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="l1.html" class="back-link">← Back</a>
+
+    <div class="title">Building Your Prompt</div>
+    <div class="subtitle">Analyzing your goal and applying best practices...</div>
+
+    <div class="steps">
+      <div class="step active" id="step1">
+        <div class="step-header">
+          <div class="step-title">Goal Identified</div>
+          <div class="step-status">Processing</div>
+        </div>
+        <div class="step-content">Analyze sales performance data to understand a revenue drop and create a shareable team summary.</div>
+      </div>
+
+      <div class="step" id="step2">
+        <div class="step-header">
+          <div class="step-title">Context Requirements Extracted</div>
+          <div class="step-status">Waiting</div>
+        </div>
+        <div class="step-content">Needs: data format spec (CSV/spreadsheet), time comparison (current vs prior month), output format (shareable summary), audience (team, non-technical).</div>
+      </div>
+
+      <div class="step" id="step3">
+        <div class="step-header">
+          <div class="step-title">Best Practices Applied</div>
+          <div class="step-status">Waiting</div>
+        </div>
+        <div class="step-content">Applied: role-framing, step-by-step instruction pattern, output format spec, chain-of-thought reasoning request, audience calibration.</div>
+      </div>
+
+      <div class="step" id="step4">
+        <div class="step-header">
+          <div class="step-title">Prompt Structured</div>
+          <div class="step-status">Waiting</div>
+        </div>
+        <div class="step-content">Full prompt built with context, role, task breakdown, output format, and tone specification.</div>
+      </div>
+    </div>
+
+    <div class="button-group" id="buttonGroup">
+      <a href="l3.html" class="btn btn-primary">View Your Prompt →</a>
+    </div>
+  </div>
+
+  <script>
+    // Fade out loading overlay after 0.6s
+    setTimeout(() => {
+      document.getElementById('overlay').classList.add('fade-out');
+    }, 600);
+
+    // Step 1 completes at 0.5s
+    setTimeout(() => {
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step1').classList.add('done');
+      document.querySelector('#step1 .step-status').textContent = 'Done';
+      document.getElementById('step2').classList.add('active');
+    }, 500);
+
+    // Step 2 completes at 1.2s
+    setTimeout(() => {
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step2').classList.add('done');
+      document.querySelector('#step2 .step-status').textContent = 'Done';
+      document.getElementById('step3').classList.add('active');
+    }, 1200);
+
+    // Step 3 completes at 2.0s
+    setTimeout(() => {
+      document.getElementById('step3').classList.remove('active');
+      document.getElementById('step3').classList.add('done');
+      document.querySelector('#step3 .step-status').textContent = 'Done';
+      document.getElementById('step4').classList.add('active');
+    }, 2000);
+
+    // Step 4 completes at 2.8s
+    setTimeout(() => {
+      document.getElementById('step4').classList.remove('active');
+      document.getElementById('step4').classList.add('done');
+      document.querySelector('#step4 .step-status').textContent = 'Done';
+    }, 2800);
+
+    // Show button at 3.2s
+    setTimeout(() => {
+      document.getElementById('buttonGroup').classList.add('show');
+    }, 3200);
+
+    // Auto-advance at 4s
+    setTimeout(() => {
+      window.location.href = 'l3.html';
+    }, 4000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post-Call Summary - AI Caller</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      color: #111827;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #6b7280;
+      animation: fadeOut 0.6s ease-out 0.2s forwards;
+      z-index: 1000;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+    }
+    .header-logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      letter-spacing: -0.4px;
+    }
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .last-run {
+      font-size: 11px;
+      color: #9ca3af;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #7c3aed;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6d28d9; }
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .blurred { filter: blur(5px); user-select: none; }
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 900px) {
+      .two-column { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #7c3aed;
+    }
+    .field-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f3f0ff;
+    }
+    .field-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .field-label {
+      font-size: 12px;
+      color: #9ca3af;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .field-value {
+      font-size: 13px;
+      color: #111827;
+      font-weight: 500;
+      text-align: right;
+      max-width: 60%;
+      line-height: 1.4;
+    }
+    .pain-point {
+      background: #fef3c7;
+      border-left: 3px solid #f59e0b;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #111827;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .sentiment-score {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .prediction-score {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      display: inline-block;
+      background: #f0e9ff;
+      color: #7c3aed;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid #e9d5ff;
+    }
+    .briefing-box {
+      background: #f9fafb;
+      border-left: 3px solid #7c3aed;
+      padding: 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #111827;
+      margin-top: 16px;
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+    }
+    .briefing-header {
+      font-weight: 700;
+      color: #7c3aed;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-size: 11px;
+    }
+    .crm-field {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f3f0ff;
+      font-size: 13px;
+    }
+    .crm-field:last-child { border-bottom: none; }
+    .crm-label {
+      color: #9ca3af;
+      font-weight: 600;
+    }
+    .crm-value {
+      color: #111827;
+      font-weight: 500;
+    }
+    .crm-check {
+      color: #22c55e;
+    }
+    .bottom-banner {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      padding: 32px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .banner-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .banner-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .banner-stat {
+      text-align: center;
+    }
+    .banner-stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .banner-stat-label {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    .banner-comparison {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .comparison-label {
+      opacity: 0.8;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay">Loading summary...</div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-dot"></div>
+      <div class="header-logo">AI Caller</div>
+    </div>
+    <div class="header-right">
+      <div class="status-badge"><div class="status-dot"></div><span>CRM connected</span></div>
+      <div class="status-badge"><div class="status-dot"></div><span>Twilio connected</span></div>
+      <div class="last-run">Last updated: Mon, May 12 · 3:47 PM</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <a href="l2.html" class="back-link">← Back to transcript</a>
+
+    <div class="page-header">
+      <h1 class="page-title">Post-Call Summary</h1>
+      <p class="page-subtitle"><span class="blurred">Samantha Mitchell</span> · Booked for Thursday 2PM · Updated in CRM automatically</p>
+    </div>
+
+    <div class="two-column">
+      <!-- Left Column -->
+      <div>
+        <div class="card">
+          <div class="card-title">Lead Profile</div>
+
+          <div class="field-row">
+            <div class="field-label">Name</div>
+            <div class="field-value blurred">Samantha Mitchell</div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">Source</div>
+            <div class="field-value">Facebook Ad</div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">Booked for</div>
+            <div class="field-value">Thursday, May 15 · 2:00 PM</div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">Pain Point</div>
+            <div class="field-value"></div>
+          </div>
+        </div>
+
+        <div class="pain-point">Scaling bottleneck - doing everything herself, needs systems</div>
+
+        <div class="field-row">
+          <div class="field-label">Sentiment</div>
+          <div class="field-value"><span class="sentiment-score">8.4/10 - Positive</span></div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Show-up Prediction</div>
+          <div class="field-value"><span class="prediction-score">91%</span></div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Tags Added</div>
+          <div class="field-value">
+            <div class="tag-list">
+              <div class="tag">Systems-focused</div>
+              <div class="tag">Scale-ready</div>
+              <div class="tag">High intent</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-title">Rep Briefing</div>
+          <div class="briefing-box">
+            <div class="briefing-header">Your 2PM Thursday Call</div>
+            <div style="margin-bottom: 12px;">Lead wants to scale but is the bottleneck in their own business. Open with: "Maya mentioned you're doing everything yourself — let's talk about how that changes."</div>
+            <div><strong>Use case fit:</strong> Strong (systems + scale = core offer)</div>
+            <div><strong>Likely objection:</strong> Time to implement</div>
+            <div><strong>Suggested close:</strong> Done-for-you vs DIY angle</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div>
+        <div class="card">
+          <div class="card-title">CRM Update</div>
+
+          <div class="crm-field">
+            <div class="crm-label">Status</div>
+            <div class="crm-value">Booked <span class="crm-check">✅</span></div>
+          </div>
+
+          <div class="crm-field">
+            <div class="crm-label">Call Duration</div>
+            <div class="crm-value">1:42</div>
+          </div>
+
+          <div class="crm-field">
+            <div class="crm-label">Transcript</div>
+            <div class="crm-value">Saved <span class="crm-check">✅</span></div>
+          </div>
+
+          <div class="crm-field">
+            <div class="crm-label">Calendar Invite</div>
+            <div class="crm-value">Sent <span class="crm-check">✅</span></div>
+          </div>
+
+          <div class="crm-field">
+            <div class="crm-label">Rep Assigned</div>
+            <div class="crm-value blurred">James Richardson</div>
+          </div>
+
+          <div class="crm-field">
+            <div class="crm-label">Next Action</div>
+            <div class="crm-value">Thursday 2PM call</div>
+          </div>
+
+          <div class="crm-field">
+            <div class="crm-label">Notes</div>
+            <div class="crm-value" style="font-size: 12px; max-width: 100%;">Auto-filled from call summary. Pain point: scaling. Sentiment positive. Ready for strategy session.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-banner">
+      <div class="banner-title">Today's AI Caller Performance</div>
+      <div class="banner-stats">
+        <div class="banner-stat">
+          <div class="banner-stat-value">23</div>
+          <div class="banner-stat-label">Calls Placed</div>
+        </div>
+        <div class="banner-stat">
+          <div class="banner-stat-value">19</div>
+          <div class="banner-stat-label">Confirmed</div>
+        </div>
+        <div class="banner-stat">
+          <div class="banner-stat-value">0</div>
+          <div class="banner-stat-label">No-shows (so far)</div>
+        </div>
+        <div class="banner-stat">
+          <div class="banner-stat-value">82%</div>
+          <div class="banner-stat-label">Show-up Rate</div>
+        </div>
+      </div>
+      <div class="banner-comparison">
+        <div class="comparison-label">Before AI Caller:</div>
+        31% show-up rate · <span class="blurred">$47K</span>/month lost to no-shows
+      </div>
+    </div>
+  </div>
+</body>
+</html>
