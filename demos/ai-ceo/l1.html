@@ -161,9 +161,9 @@
             </div>
 
             <div class="tabs-container">
-                <button class="tab-button active" onclick="switchTab('a')">Option A</button>
-                <button class="tab-button" onclick="switchTab('b')">Option B</button>
-                <button class="tab-button" onclick="switchTab('c')">Option C</button>
+                <button class="tab-button active" onclick="switchTab('a', this)">Option A</button>
+                <button class="tab-button" onclick="switchTab('b', this)">Option B</button>
+                <button class="tab-button" onclick="switchTab('c', this)">Option C</button>
             </div>
 
             <div class="chips-label">Or jump straight in</div>
@@ -201,19 +201,14 @@
 
         function go() { window.location.href = 'l2.html'; }
 
-        function switchTab(tab) {
-            // Hide all grids
+        function switchTab(tab, btn) {
             document.getElementById('chips-a').classList.add('hidden');
             document.getElementById('chips-b').classList.add('hidden');
             document.getElementById('chips-c').classList.add('hidden');
-
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-
-            // Show selected grid and mark button active
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
             const gridMap = { a: 'chips-a', b: 'chips-b', c: 'chips-c' };
             document.getElementById(gridMap[tab]).classList.remove('hidden');
-            event.target.classList.add('active');
+            btn.classList.add('active');
         }
     </script>
 </body>
