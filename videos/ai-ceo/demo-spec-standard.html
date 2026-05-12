@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The AI Shift — Demo Spec Standard</title>
+<title>The AI Shift - Demo Spec Standard</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
@@ -49,24 +49,24 @@
 <body>
 <div class="page">
 
-  <div class="page-eyebrow">The AI Shift — Channel Standard</div>
+  <div class="page-eyebrow">The AI Shift - Channel Standard</div>
   <h1 class="page-title">Demo Spec Standard</h1>
-  <p class="page-subtitle">Two parts: (1) standing rules that never change — every demo follows these automatically. (2) what Sai fills out per video — the only things that vary.</p>
-  <p class="page-meta">Last updated: 2026-04-29 &nbsp;|&nbsp; Established after Video 1 (AI CEO) post-mortem</p>
+  <p class="page-subtitle">Two parts: (1) standing rules that never change - every demo follows these automatically. (2) what Sai fills out per video - the only things that vary.</p>
+  <p class="page-meta">Last updated: 2026-05-08 &nbsp;|&nbsp; Established after Video 1 (AI CEO) post-mortem</p>
 
 
   <!-- PART 1: STANDING RULES -->
   <div class="section">
-    <div class="section-title">Part 1 — Standing Rules</div>
-    <div class="section-subtitle">These are permanent channel decisions. They apply to every video, every demo. Sai does not need to specify any of these in his script — they are already decided. Anyone building or editing demos must know these.</div>
+    <div class="section-title">Part 1 - Standing Rules</div>
+    <div class="section-subtitle">These are permanent channel decisions. They apply to every video, every demo. Sai does not need to specify any of these in his script - they are already decided. Anyone building or editing demos must know these.</div>
 
     <div class="standing-rule">
       <div class="standing-rule-header">
         <span class="standing-badge">Structure</span>
-        <span class="standing-title">Every video has two demo types — always</span>
+        <span class="standing-title">Every video has two demo types - always</span>
       </div>
       <div class="standing-rule-body">
-        <strong>Demo 1 (Internal Build):</strong> What Sai actually built using Claude Code. Sophisticated, polished, impressive. Viewers watch it — they cannot replicate it themselves. This is the belief-breaker: shows what AI is capable of at a high level.<br><br>
+        <strong>Demo 1 (Internal Build):</strong> What Sai actually built using Claude Code. Sophisticated, polished, impressive. Viewers watch it - they cannot replicate it themselves. This is the belief-breaker: shows what AI is capable of at a high level.<br><br>
         <strong>Demo 2 (Viewer Deliverable):</strong> What the viewer walks away with. Built on a web chat interface (Claude.ai or ChatGPT). Simplified to 70-80% of Demo 1's value with minimum friction. This is the action-driver: something they can use immediately.
       </div>
     </div>
@@ -77,7 +77,7 @@
         <span class="standing-title">Demo 1 = Claude Code custom interface. Demo 2 = web chat only.</span>
       </div>
       <div class="standing-rule-body">
-        Demo 1 always shows the custom interface built via Claude Code — Sai will know exactly what this looks like for each video because he built it. Demo 2 always uses a standard web chat interface (Claude.ai or ChatGPT chat). Never show APIs, terminals, code environments, or anything requiring technical setup as the thing the audience replicates. The audience is $1-10M SMB owners using web chat tools, not builders.
+        Demo 1 always shows the custom interface built via Claude Code - Sai will know exactly what this looks like for each video because he built it. Demo 2 always uses a standard web chat interface (Claude.ai or ChatGPT chat). Never show APIs, terminals, code environments, or anything requiring technical setup as the thing the audience replicates. The audience is $1-10M SMB owners using web chat tools, not builders.
       </div>
     </div>
 
@@ -87,15 +87,15 @@
         <span class="standing-title">Demo 2 must deliver 70-80% of Demo 1's value via web chat</span>
       </div>
       <div class="standing-rule-body">
-        When designing Demo 2, the goal is maximum value for the viewer at minimum friction. If a Demo 2 requires more than pasting a prompt or filling a form, it needs redesigning. The bridge from what Claude Code can do to what a web chat user can do is AP's responsibility to figure out — Sai defines the outcome, AP designs the simplest path to it.<br><br>
-        <strong>Approval gate:</strong> Before AP builds Demo 2, AP writes a one-paragraph concept (what the viewer does, what they receive) and sends it to Sai for a quick yes. One async message — not a call. No building happens before Sai approves.
+        When designing Demo 2, the goal is maximum value for the viewer at minimum friction. If a Demo 2 requires more than pasting a prompt or filling a form, it needs redesigning. The bridge from what Claude Code can do to what a web chat user can do is AP's responsibility to figure out - Sai defines the outcome, AP designs the simplest path to it.<br><br>
+        <strong>Approval gate:</strong> Before AP builds Demo 2, AP writes a one-paragraph concept (what the viewer does, what they receive) and sends it to Sai for a quick yes. One async message - not a call. No building happens before Sai approves.
       </div>
     </div>
 
     <div class="standing-rule">
       <div class="standing-rule-header">
         <span class="standing-badge">Deliverable</span>
-        <span class="standing-title">Standard two-stage opt-in form + personalized file — every video</span>
+        <span class="standing-title">Standard two-stage opt-in form + personalized file - every video</span>
       </div>
       <div class="standing-rule-body">
         Every video uses the same delivery mechanism: a multi-step form where step 1 captures name and email (for abandonment recovery), step 2 asks qualifying questions that personalise the output, and delivery is automatic on completion. The viewer receives a personalized file via email. AP recommends this to Sai, Sai approves, AP builds it. Sai defines only what the file contains. AP designs the form questions based on that.
@@ -105,10 +105,37 @@
     <div class="standing-rule">
       <div class="standing-rule-header">
         <span class="standing-badge">Data &amp; Privacy</span>
-        <span class="standing-title">Real data is blurred. Illustrative data is used where real data would expose PII.</span>
+        <span class="standing-title">Revenue is always blurred. Names are blurred only in negative context.</span>
       </div>
       <div class="standing-rule-body">
-        Real business numbers (revenue, costs, units) are shown blurred to add authenticity without exposing sensitive figures. Names, client names, and team members are always blurred or replaced with illustrative placeholders. Production applies this — AP takes a call on what's real vs illustrative.
+        <strong>Revenue and financial numbers (ARR, CAC, ROAS, units, costs):</strong> Always blurred - no exceptions. These are sensitive and must never be readable on screen.<br><br>
+        <strong>Names and team members:</strong> Context-dependent. Blur names only when the context is negative (e.g. "Sarah is creating operational drag"). If the mention is neutral or positive, names can show - blurring everything creates artificial distance that weakens the demo. Use judgment: would you be comfortable if this person saw the screen?<br><br>
+        <strong>Percentage gaps and trend directions (↓ 23%, ↑ 12%):</strong> Always show - no PII, and the gap is what creates the visual alarm.<br><br>
+        <strong>Illustrative data:</strong> Where real data would expose PII regardless of blurring, use realistic illustrative placeholders. Calibrated to a $4M revenue, 40% margin business so numbers feel credible across videos.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Data &amp; Privacy</span>
+        <span class="standing-title">Numbers must stay consistent across all videos.</span>
+      </div>
+      <div class="standing-rule-body">
+        Loyal subscribers will notice if revenue is $X in Video 1 and $Y in Video 2. Pick a canonical business profile once - $4M annual revenue, 40% margin - and use it as the reference for all illustrative data across every video. Specific numbers (quarterly targets, team sizes, unit counts) can vary by use case, but the overall scale must stay coherent. Document the canonical numbers here as they are decided so every video stays consistent.
+        <br><br><strong>Canonical reference business:</strong> $4M annual revenue · 40% gross margin · ~8-12 person team.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Viewer Experience</span>
+        <span class="standing-title">Every label, chip, and panel name must be universally understood - no internal jargon.</span>
+      </div>
+      <div class="standing-rule-body">
+        Question chips and dashboard panel labels must be instantly legible to any SMB owner watching, not just to Sai and AP. If a viewer would pause and think "what does that mean?", it has already broken the demo - they cannot stop the narrator to ask.<br><br>
+        <strong>Test:</strong> Would a plumbing company owner with $3M revenue understand this label without context? If no, rewrite it.<br><br>
+        <strong>Example of the failure:</strong> "How is Gate 1 performing?" - "Gate" is internal Coach Foundation terminology. Replace with "How is my front-end pipeline performing?" or equivalent.<br><br>
+        Internal business-specific dashboards are fine to show (the AI Co-CEO IS configured for your business) - but the framing around them must explain itself. A panel titled "Gate 1 - Front-end pipeline" is acceptable; "Gate 1" alone is not.
       </div>
     </div>
 
@@ -132,6 +159,24 @@
       </div>
     </div>
 
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Demo Structure</span>
+        <span class="standing-title">Demo 1: Dashboard-first, max 3 levels deep. Demo 2: step-by-step is fine.</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Demo 1 rule:</strong> Simulations must never require the viewer to extrapolate relationships across sequential steps. Instead: show everything that matters holistically at Level 2, then allow one level of drill-down. Maximum 3 user interactions total - always.<br><br>
+        <strong>Standard Demo 1 structure:</strong><br>
+        L0 - Data load (auto, ~4 sec): shows integrations pulling - makes the dashboard feel earned<br>
+        L1 - Chat entry: open input + 4 pre-filled question chips; one chip is highlighted as the demo path<br>
+        L2 - Holistic dashboard: all key metrics visible simultaneously - no scrolling required to see the full picture<br>
+        L3 - Deep dive: one panel clicked, one area expanded in detail - stop here, no 4th level<br><br>
+        <strong>Why:</strong> Multi-step sequential demos force the viewer to mentally map "how does step 5 relate to step 2?" That cognitive overhead kills the impact. A holistic dashboard makes relationships self-evident at a glance.<br><br>
+        <strong>Demo 2 is different:</strong> Step-by-step is appropriate for Demo 2. The viewer is watching a process they will replicate - walking them through it linearly is correct. The dashboard-first rule does not apply to Demo 2.<br><br>
+        <strong>This applies to all Demo 1 simulations</strong> across every video. If a topic needs more than 3 levels, the demo scope is too large - cut it or split it across two videos.
+      </div>
+    </div>
+
   </div>
 
 
@@ -140,7 +185,7 @@
 
   <!-- PART 2: WHAT SAI FILLS OUT -->
   <div class="section">
-    <div class="section-title">Part 2 — What Sai Fills Out Per Video</div>
+    <div class="section-title">Part 2 - What Sai Fills Out Per Video</div>
     <div class="section-subtitle">Sai fills two blocks per video: one Demo 1 spec and one Demo 2 spec. Both are required. Different fields apply to each.</div>
 
     <table class="field-table" style="margin-bottom:28px;">
@@ -154,12 +199,14 @@
       </thead>
       <tbody>
         <tr><td><span class="field-name">What it shows</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">One sentence. What problem does this demo solve for the viewer?</td></tr>
-        <tr><td><span class="field-name">Recording method</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Live (runs in real time on camera) or Editing magic (pre-recorded, cut for quality). Must be decided before shoot — affects what the editor can fix.</td></tr>
+        <tr><td><span class="field-name">Recording method</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Live (runs in real time on camera) or Editing magic (pre-recorded, cut for quality). Must be decided before shoot - affects what the editor can fix.</td></tr>
         <tr><td><span class="field-name">Screen flow</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Numbered list of screens in order. Different for every video. Drives the simulation build and editor capture list.</td></tr>
         <tr><td><span class="field-name">Wow moment</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">The single on-screen beat that must hit hardest. Production gives this the most polish.</td></tr>
-        <tr><td><span class="field-name">Exact input</span></td><td style="text-align:center;color:#9ca3af;">—</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. The exact prompt or voice input the viewer uses — word for word. AP cannot guess this.</td></tr>
-        <tr><td><span class="field-name">Expected output</span></td><td style="text-align:center;color:#9ca3af;">—</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. What the AI produces on screen. Varies by use case.</td></tr>
-        <tr><td><span class="field-name">Deliverable substance</span></td><td style="text-align:center;color:#9ca3af;">—</td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. What is inside the personalized file the viewer receives. Format and delivery are standard — content is video-specific.</td></tr>
+        <tr><td><span class="field-name">Question chip options</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#9ca3af;"> - </td><td class="field-why">Demo 1 only. Sai provides 6-8 candidate question chips; AP selects the final 4. Must be universally understood (see standing rule).</td></tr>
+        <tr><td><span class="field-name">Dashboard panel options</span></td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td style="text-align:center;color:#9ca3af;"> - </td><td class="field-why">Demo 1 only. Sai provides 2-3 candidate L2 dashboard layouts with pre-filled data; AP selects the one to build to completion.</td></tr>
+        <tr><td><span class="field-name">Exact input</span></td><td style="text-align:center;color:#9ca3af;"> - </td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. The exact prompt or voice input the viewer uses - word for word. AP cannot guess this.</td></tr>
+        <tr><td><span class="field-name">Expected output</span></td><td style="text-align:center;color:#9ca3af;"> - </td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. What the AI produces on screen. Varies by use case.</td></tr>
+        <tr><td><span class="field-name">Deliverable substance</span></td><td style="text-align:center;color:#9ca3af;"> - </td><td style="text-align:center;color:#16a34a;font-weight:700;">✓</td><td class="field-why">Demo 2 only. What is inside the personalized file the viewer receives. Format and delivery are standard - content is video-specific.</td></tr>
       </tbody>
     </table>
   </div>
@@ -167,8 +214,8 @@
 
   <!-- TEMPLATE -->
   <div class="section">
-    <div class="section-title">The Template — Demo 1 Block</div>
-    <div class="section-subtitle">Copy this block into the script for Demo 1. Sai built it — he knows what it does. AP needs to know what's on screen and where the impact lands.</div>
+    <div class="section-title">The Template - Demo 1 Block</div>
+    <div class="section-subtitle">Copy this block into the script for Demo 1. Sai built it - he knows what it does. AP needs to know what's on screen and where the impact lands.</div>
 
 <div class="template-block">
 <span class="comment"><!-- ═══════════════════════════════════════════════════
@@ -176,10 +223,10 @@
      Sai built this in Claude Code. Standing rules apply.
      ═══════════════════════════════════════════════════ --></span>
 
-<span class="heading">### DEMO 1 — [Name, e.g. "AI Co-CEO Sunday Assessment"]</span>
+<span class="heading">### DEMO 1 - [Name, e.g. "AI Co-CEO Sunday Assessment"]</span>
 
 <span class="label">What It Shows:</span>
-<span class="value">[One sentence — what problem does this demo solve for the viewer?]</span>
+<span class="value">[One sentence - what problem does this demo solve for the viewer?]</span>
 
 <span class="label">Recording Method:</span> <span class="value">[Live (Sai clicks through simulation on camera) / Editing magic (pre-recorded, cut in)]</span>
 
@@ -188,8 +235,8 @@
 <span class="heading">#### Screen Flow (in order)</span>
 <span class="comment"># One line per screen. Note any real data that appears so AP can apply blur.</span>
 
-1. [Screen description — e.g. "Input screen: Sunday question, branded header, Run Assessment button"]
-2. [Screen description — e.g. "Loading: Calendar/Slack/Email spinners, data counts visible"]
+1. [Screen description - e.g. "Input screen: Sunday question, branded header, Run Assessment button"]
+2. [Screen description - e.g. "Loading: Calendar/Slack/Email spinners, data counts visible"]
 3. [add more screens]
 
 ---
@@ -197,12 +244,12 @@
 <span class="heading">#### Wow Moment</span>
 
 <span class="label">The wow is when:</span>
-<span class="value">[One sentence — what happens on screen that lands hardest?]</span>
+<span class="value">[One sentence - what happens on screen that lands hardest?]</span>
 </div>
   </div>
 
   <div class="section">
-    <div class="section-title">The Template — Demo 2 Block</div>
+    <div class="section-title">The Template - Demo 2 Block</div>
     <div class="section-subtitle">Copy this block into the script for Demo 2. This is what the viewer replicates. AP will share a one-paragraph concept with Sai for approval before building.</div>
 
 <div class="template-block">
@@ -212,10 +259,10 @@
      AP shares concept with Sai for approval before building.
      ═══════════════════════════════════════════════════ --></span>
 
-<span class="heading">### DEMO 2 — [Name, e.g. "AI Co-CEO Claude Project Setup"]</span>
+<span class="heading">### DEMO 2 - [Name, e.g. "AI Co-CEO Claude Project Setup"]</span>
 
 <span class="label">What It Shows:</span>
-<span class="value">[One sentence — same problem as Demo 1, simplified for web chat]</span>
+<span class="value">[One sentence - same problem as Demo 1, simplified for web chat]</span>
 
 <span class="label">Recording Method:</span> <span class="value">[Live (runs Claude.ai or ChatGPT in real time on camera) / Editing magic (pre-recorded, cut for quality)]</span>
 
@@ -223,7 +270,7 @@
 
 <span class="heading">#### Input / Output</span>
 
-<span class="label">Exact Input (word-for-word — what the viewer types or pastes into the AI):</span>
+<span class="label">Exact Input (word-for-word - what the viewer types or pastes into the AI):</span>
 <span class="value">[Write it out in full. No paraphrasing. This is what goes into Claude.ai or ChatGPT.]</span>
 
 <span class="label">Expected Output (what appears on screen):</span>
@@ -243,7 +290,7 @@
 <span class="heading">#### Wow Moment</span>
 
 <span class="label">The wow is when:</span>
-<span class="value">[One sentence — the moment that proves this is doable for any SMB owner]</span>
+<span class="value">[One sentence - the moment that proves this is doable for any SMB owner]</span>
 
 ---
 
@@ -252,7 +299,7 @@
 # AP designs the form questions. AP shares Demo 2 concept with Sai before building anything.</span>
 
 <span class="label">What is inside the file:</span>
-<span class="value">[e.g. "The AI Co-CEO Starter File — a pre-built context template the viewer pastes into their AI tool"]</span>
+<span class="value">[e.g. "The AI Co-CEO Starter File - a pre-built context template the viewer pastes into their AI tool"]</span>
 </div>
   </div>
 
