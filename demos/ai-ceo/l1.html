@@ -122,6 +122,44 @@
         .chip.active::before { content: '\2192 '; color: #7c3aed; }
 
         .divider { border: none; border-top: 1px dashed #e9d5ff; margin: 4px 0 36px; }
+
+        .goals-block {
+            background: #f5f3ff; border: 1px solid #ddd6fe;
+            border-radius: 12px; padding: 16px;
+            margin-bottom: 20px;
+        }
+        .goals-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 12px;
+        }
+        .goals-targets {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+            margin-bottom: 12px;
+        }
+        .goal-item {
+            font-size: 13px; color: #374151;
+        }
+        .goal-value {
+            font-weight: 700; color: #7c3aed;
+        }
+        .goal-desc {
+            font-size: 11px; color: #9ca3af; margin-top: 2px;
+        }
+        .goals-gates {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .gate-pill {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 8px;
+            padding: 10px 12px; font-size: 12px; color: #374151;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .gate-text { font-weight: 600; }
+        .gate-status {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; padding: 3px 8px; border-radius: 4px;
+        }
+        .gate-status.amber { background: #fef08a; color: #b45309; }
+        .gate-status.red { background: #fee2e2; color: #dc2626; }
     </style>
 </head>
 <body>
@@ -147,6 +185,33 @@
     <div class="container">
         <div class="content">
             <div class="greeting">Week of May 12 - 18 &nbsp;&middot;&nbsp; 3 sources synced</div>
+            <div class="goals-block">
+                <div class="goals-label">Your targets — ingested</div>
+                <div class="goals-targets">
+                    <div class="goal-item">
+                        <div class="goal-value">$5.5M</div>
+                        <div class="goal-desc">12-month closed revenue</div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-value">$2.5M</div>
+                        <div class="goal-desc">6-month checkpoint (Nov)</div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-value">$1.1M</div>
+                        <div class="goal-desc">Q2 2026 new closed</div>
+                    </div>
+                </div>
+                <div class="goals-gates">
+                    <div class="gate-pill">
+                        <span class="gate-text">Close rate ≥35%</span>
+                        <span class="gate-status amber">In progress</span>
+                    </div>
+                    <div class="gate-pill">
+                        <span class="gate-text">CEO focus ≥60%</span>
+                        <span class="gate-status red">Off track</span>
+                    </div>
+                </div>
+            </div>
             <div class="chat-input" onclick="go()">
                 Ask anything about your business...<span class="cursor"></span>
             </div>
