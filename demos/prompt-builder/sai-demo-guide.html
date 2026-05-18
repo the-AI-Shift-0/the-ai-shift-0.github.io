@@ -234,23 +234,15 @@
   <div class="step">
     <div class="step-num">Step 1</div>
     <h3>Create a new empty folder</h3>
-    <p>Open your terminal and run this command. It creates a folder called <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85rem;">ai-shift-demo</code> on your desktop and opens it.</p>
-    <div class="code-wrap">
-      <div class="code-block">mkdir ~/Desktop/ai-shift-demo && cd ~/Desktop/ai-shift-demo</div>
-      <button class="copy-btn" onclick="copyCode(this, 'mkdir ~/Desktop/ai-shift-demo && cd ~/Desktop/ai-shift-demo')">Copy</button>
-    </div>
+    <p>Create a new empty folder anywhere on your computer &mdash; your Desktop is fine. Name it something like <strong>ai-shift-demo</strong>. You can right-click your Desktop and choose <strong>New Folder</strong>.</p>
   </div>
 
   <!-- Step 2 -->
   <div class="step">
     <div class="step-num">Step 2</div>
     <h3>Open Claude Code in that folder</h3>
-    <p>Still in the terminal (now inside the <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85rem;">ai-shift-demo</code> folder), run:</p>
-    <div class="code-wrap">
-      <div class="code-block">claude</div>
-      <button class="copy-btn" onclick="copyCode(this, 'claude')">Copy</button>
-    </div>
-    <div class="note">This opens a new Claude Code session inside that empty folder. Leave it open &mdash; the next steps happen inside Claude Code.</div>
+    <p>Open Claude Code. When it asks where to start, point it to the empty folder you just created. Leave that Claude Code session open &mdash; the next steps happen inside it.</p>
+    <div class="note">In Claude Code: File &rarr; Open Folder &rarr; select your ai-shift-demo folder. Or drag the folder onto the Claude Code icon.</div>
   </div>
 
   <!-- Step 3 -->
@@ -305,10 +297,10 @@ Tell me once it confirms it is running at http://localhost:5000</div>
   <div class="step">
     <div class="step-num">Step 5 &mdash; Every time you film</div>
     <h3>Start the server (after the first setup)</h3>
-    <p>After the first-time setup, you only need to run this each time you film:</p>
+    <p>After the first-time setup, open Claude Code in the same folder and paste this:</p>
     <div class="code-wrap">
-      <div class="code-block">cd ~/Desktop/ai-shift-demo/the-ai-shift-demo && python3 server/prompt-builder-server.py</div>
-      <button class="copy-btn" onclick="copyCode(this, 'cd ~/Desktop/ai-shift-demo/the-ai-shift-demo && python3 server/prompt-builder-server.py')">Copy</button>
+      <div class="code-block">Start the Prompt Builder server. Run: python3 the-ai-shift-demo/server/prompt-builder-server.py</div>
+      <button class="copy-btn" onclick="copyCode(this, 'Start the Prompt Builder server. Run: python3 the-ai-shift-demo/server/prompt-builder-server.py')">Copy</button>
     </div>
   </div>
 
