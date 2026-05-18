@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Builder - Sai's Filming Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f7ff;
+      color: #1a1a2e;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #7c3aed;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #e8e4f8;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #7c3aed;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-circle.setup { background: #1a1a2e; }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .steps li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7c3aed;
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .note {
+      background: #f3f0ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: #4a3070;
+      margin-top: 1rem;
+    }
+
+    .code-block {
+      background: #1a1a2e;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-top: 0.5rem;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .copy-btn:hover { background: #6d28d9; }
+    .copy-btn.copied { background: #059669; }
+
+    .demo-url {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f3f0ff;
+      border: 1px solid #c4b5fd;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      color: #7c3aed;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 0.5rem;
+    }
+
+    .demo-url:hover { background: #ede9fe; }
+
+    .filming-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .filming-card {
+      background: #f8f7ff;
+      border: 1px solid #e8e4f8;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .filming-card h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #7c3aed;
+      margin-bottom: 0.5rem;
+    }
+
+    .filming-card p {
+      font-size: 0.88rem;
+      color: #444;
+    }
+
+    .script-line {
+      background: #f3f0ff;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #3b1f7a;
+      border-left: 3px solid #7c3aed;
+      margin-top: 0.75rem;
+    }
+
+    .script-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7c3aed;
+      margin-bottom: 0.25rem;
+      font-style: normal;
+    }
+
+    @media (max-width: 600px) {
+      .filming-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="badge">Filming Guide - Sai Only</div>
+  <h1>Prompt Builder Demo</h1>
+  <p class="subtitle">This demo requires a local server. Follow the setup steps below before filming.</p>
+
+  <!-- SETUP: Step 1 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle setup">1</div>
+      <h2>One-Time Setup - Clone the repo</h2>
+    </div>
+    <p style="font-size:0.92rem;color:#444;margin-bottom:0.75rem;">Open your terminal and run:</p>
+    <div class="code-block" style="position:relative;">gh repo clone the-AI-Shift-0/the-ai-shift-0.github.io
+<button class="copy-btn" onclick="copyCode(this, 'gh repo clone the-AI-Shift-0/the-ai-shift-0.github.io')">Copy</button></div>
+    <div class="note">Only do this once. After cloning, just open the folder each time you film.</div>
+  </div>
+
+  <!-- SETUP: Step 2 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle setup">2</div>
+      <h2>One-Time Setup - Start the server via Claude Code</h2>
+    </div>
+    <p style="font-size:0.92rem;color:#444;margin-bottom:0.75rem;">Open the cloned folder in Claude Code. Apurv will send you a message to paste into Claude Code - it contains the setup instructions and credentials. Paste it and hit Enter.</p>
+
+    <div class="note" style="margin-top:0;">Claude Code will install dependencies, create the credentials file, and start the server automatically. You only need to do this once - after that, just run step 3 below each time.</div>
+  </div>
+
+  <!-- EVERY TIME: Step 3 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">3</div>
+      <h2>Every filming session - Start the server</h2>
+    </div>
+    <p style="font-size:0.92rem;color:#444;margin-bottom:0.75rem;">After the first setup, just run this in your terminal each time you film:</p>
+    <div style="position:relative;">
+      <div class="code-block">python3 server/prompt-builder-server.py
+<button class="copy-btn" onclick="copyCode(this, 'python3 server/prompt-builder-server.py')">Copy</button></div>
+    </div>
+    <p style="font-size:0.88rem;color:#555;margin-top:0.75rem;">Then open the demo in your browser:</p>
+    <a class="demo-url" href="http://localhost:5000" target="_blank">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      http://localhost:5000
+    </a>
+  </div>
+
+  <!-- STEP 4: Running the demo -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">4</div>
+      <h2>Running the demo - Step by step</h2>
+    </div>
+    <ul class="steps">
+      <li>
+        <div class="dot"></div>
+        <span><strong>Screen 1 (Main page):</strong> Show the input area. Click the microphone button and speak your task. Example: "Write a follow-up email to a client who hasn't responded in two weeks."</span>
+      </li>
+      <li>
+        <div class="dot"></div>
+        <span><strong>Let it transcribe:</strong> After speaking, the voice gets converted to text automatically. You'll see it appear in the text box.</span>
+      </li>
+      <li>
+        <div class="dot"></div>
+        <span><strong>Click "Build my prompt":</strong> The AI analyzes your task and builds an optimised prompt using prompting best practices.</span>
+      </li>
+      <li>
+        <div class="dot"></div>
+        <span><strong>Screen 3 (Results):</strong> Show the final structured prompt. Point out how it's broken into clear sections - role, context, task, format.</span>
+      </li>
+      <li>
+        <div class="dot"></div>
+        <span><strong>Copy and use it:</strong> Paste the generated prompt into Claude, ChatGPT, or any AI tool. Show the output you get vs a basic prompt.</span>
+      </li>
+    </ul>
+
+    <div class="script-label" style="margin-top:1.25rem;">Suggested opening line</div>
+    <div class="script-line">"Most people just type a one-liner into ChatGPT and wonder why the output is average. This tool takes what you actually want to do - in plain English - and turns it into a proper prompt that gets you 10x better results."</div>
+  </div>
+
+  <!-- FILMING TIPS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">5</div>
+      <h2>Filming tips</h2>
+    </div>
+    <div class="filming-grid">
+      <div class="filming-card">
+        <h3>Use a real example</h3>
+        <p>Pick a business task that sounds like something an SMB owner actually does - sales follow-up, a refund policy email, a job post.</p>
+      </div>
+      <div class="filming-card">
+        <h3>Show the before/after</h3>
+        <p>Run the same task as a basic one-liner in ChatGPT, then show the output with the generated prompt. The contrast sells it.</p>
+      </div>
+      <div class="filming-card">
+        <h3>Keep voice recording short</h3>
+        <p>10-15 seconds is enough. You don't need a perfect sentence - just a clear task description.</p>
+      </div>
+      <div class="filming-card">
+        <h3>Server must be running</h3>
+        <p>GitHub Pages fallback uses static data. For the voice button and live AI to work, the local server must be running at localhost:5000.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function copyCode(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function copyBlock(btn, id) {
+    const text = document.getElementById(id).innerText.replace('Copy', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
