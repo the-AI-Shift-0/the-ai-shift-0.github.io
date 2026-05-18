@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prompt Builder - Sai's Filming Guide</title>
+  <title>Prompt Builder - Setup &amp; Demo Guide</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,13 +12,10 @@
       background: #f8f7ff;
       color: #1a1a2e;
       line-height: 1.6;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 4rem;
     }
 
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-    }
+    .container { max-width: 780px; margin: 0 auto; }
 
     .badge {
       display: inline-block;
@@ -33,108 +30,80 @@
       margin-bottom: 0.75rem;
     }
 
-    h1 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 0.4rem;
-    }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .subtitle { color: #555; font-size: 1rem; margin-bottom: 2rem; }
 
-    .subtitle {
-      color: #555;
-      font-size: 1rem;
+    /* WHY BANNER */
+    .why-banner {
+      background: #ede9fe;
+      border: 1px solid #c4b5fd;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
       margin-bottom: 2.5rem;
     }
+    .why-banner h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #7c3aed; margin-bottom: 0.5rem; }
+    .why-banner p { font-size: 0.93rem; color: #3b1f7a; line-height: 1.65; }
 
-    .section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 1.75rem;
-      margin-bottom: 1.5rem;
-      border: 1px solid #e8e4f8;
-    }
-
-    .section-header {
+    /* PART HEADERS */
+    .part-header {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 1rem;
       margin-bottom: 1.25rem;
     }
-
-    .step-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #7c3aed;
+    .part-label {
+      background: #1a1a2e;
       color: #fff;
+      font-size: 0.72rem;
       font-weight: 700;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      white-space: nowrap;
     }
+    .part-label.demo { background: #7c3aed; }
+    .part-title { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; }
 
-    .step-circle.setup { background: #1a1a2e; }
-
-    h2 {
-      font-size: 1.1rem;
+    /* STEP CARDS */
+    .step {
+      background: #fff;
+      border: 1px solid #e8e4f8;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .step-num {
+      font-size: 0.7rem;
       font-weight: 700;
-      color: #1a1a2e;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7c3aed;
+      margin-bottom: 0.4rem;
     }
+    .step h3 { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.65rem; }
+    .step p { font-size: 0.9rem; color: #444; margin-bottom: 0.75rem; }
+    .step p:last-child { margin-bottom: 0; }
 
-    .steps {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .steps li {
-      display: flex;
-      gap: 0.75rem;
-      align-items: flex-start;
-      font-size: 0.95rem;
-      color: #333;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #7c3aed;
-      margin-top: 0.45rem;
-      flex-shrink: 0;
-    }
-
-    .note {
-      background: #f3f0ff;
-      border-left: 3px solid #7c3aed;
-      border-radius: 0 8px 8px 0;
-      padding: 0.75rem 1rem;
-      font-size: 0.88rem;
-      color: #4a3070;
-      margin-top: 1rem;
-    }
-
+    /* CODE BLOCKS */
+    .code-wrap { position: relative; margin-top: 0.5rem; }
     .code-block {
       background: #1a1a2e;
       color: #e2e8f0;
       border-radius: 10px;
-      padding: 1.25rem 1.5rem;
+      padding: 1.1rem 1.25rem;
+      padding-right: 5.5rem;
       font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 0.82rem;
       line-height: 1.7;
       white-space: pre-wrap;
       word-break: break-all;
-      margin-top: 0.5rem;
-      position: relative;
     }
-
     .copy-btn {
       position: absolute;
-      top: 0.75rem;
-      right: 0.75rem;
+      top: 0.65rem;
+      right: 0.65rem;
       background: #7c3aed;
       color: #fff;
       border: none;
@@ -144,186 +113,257 @@
       font-weight: 600;
       cursor: pointer;
       transition: background 0.15s;
+      font-family: inherit;
     }
-
     .copy-btn:hover { background: #6d28d9; }
     .copy-btn.copied { background: #059669; }
 
-    .demo-url {
+    /* CREDENTIAL INPUT */
+    .cred-field {
+      width: 100%;
+      background: #f8f7ff;
+      border: 2px solid #c4b5fd;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.82rem;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-top: 0.5rem;
+    }
+    .cred-field:focus { border-color: #7c3aed; }
+    .cred-field::placeholder { color: #aaa; }
+
+    .field-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+      margin-top: 0.75rem;
+      display: block;
+    }
+
+    .prompt-status {
+      font-size: 0.8rem;
+      color: #7c3aed;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    /* NOTE */
+    .note {
+      background: #f3f0ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 8px 8px 0;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      color: #4a3070;
+      margin-top: 0.75rem;
+    }
+
+    /* DEMO STEPS */
+    .demo-steps { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .demo-steps li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.92rem; color: #333; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #7c3aed; margin-top: 0.48rem; flex-shrink: 0; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 2px dashed #e0d9f7; margin: 2rem 0; }
+
+    /* OPEN DEMO BUTTON */
+    .open-demo-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: #f3f0ff;
-      border: 1px solid #c4b5fd;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      font-size: 0.9rem;
-      color: #7c3aed;
-      font-weight: 600;
-      text-decoration: none;
-      margin-top: 0.5rem;
-    }
-
-    .demo-url:hover { background: #ede9fe; }
-
-    .filming-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .filming-card {
-      background: #f8f7ff;
-      border: 1px solid #e8e4f8;
-      border-radius: 8px;
-      padding: 1rem;
-    }
-
-    .filming-card h3 {
-      font-size: 0.82rem;
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.85rem 1.75rem;
+      font-size: 1rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #7c3aed;
-      margin-bottom: 0.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 0.75rem;
+      transition: background 0.15s;
     }
+    .open-demo-btn:hover { background: #6d28d9; }
 
-    .filming-card p {
-      font-size: 0.88rem;
-      color: #444;
-    }
-
+    .script-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed; margin-top: 1.25rem; margin-bottom: 0.35rem; }
     .script-line {
       background: #f3f0ff;
-      border-radius: 8px;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 8px 8px 0;
       padding: 0.85rem 1rem;
       font-size: 0.9rem;
       font-style: italic;
       color: #3b1f7a;
-      border-left: 3px solid #7c3aed;
-      margin-top: 0.75rem;
     }
 
-    .script-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #7c3aed;
-      margin-bottom: 0.25rem;
-      font-style: normal;
-    }
+    .filming-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 0.75rem; }
+    .filming-card { background: #f8f7ff; border: 1px solid #e8e4f8; border-radius: 8px; padding: 0.9rem; }
+    .filming-card h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #7c3aed; margin-bottom: 0.35rem; }
+    .filming-card p { font-size: 0.86rem; color: #444; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 580px) {
       .filming-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 1.5rem; }
+      h1 { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
 <div class="container">
 
-  <div class="badge">Filming Guide - Sai Only</div>
-  <h1>Prompt Builder Demo</h1>
-  <p class="subtitle">This demo requires a local server. Follow the setup steps below before filming.</p>
+  <div class="badge">Sai's Guide - Prompt Builder</div>
+  <h1>Prompt Builder</h1>
+  <p class="subtitle">Setup + Demo Guide &mdash; follow this page from top to bottom</p>
 
-  <!-- SETUP: Step 1 -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-circle setup">1</div>
-      <h2>One-Time Setup - Clone the repo</h2>
-    </div>
-    <p style="font-size:0.92rem;color:#444;margin-bottom:0.75rem;">Open your terminal and run:</p>
-    <div class="code-block" style="position:relative;">gh repo clone the-AI-Shift-0/the-ai-shift-0.github.io
-<button class="copy-btn" onclick="copyCode(this, 'gh repo clone the-AI-Shift-0/the-ai-shift-0.github.io')">Copy</button></div>
-    <div class="note">Only do this once. After cloning, just open the folder each time you film.</div>
+  <!-- WHY -->
+  <div class="why-banner">
+    <h2>Why you need to do the setup</h2>
+    <p>The voice recording and AI prompt generation in this demo require a local server running on your laptop. The live website on GitHub Pages can't do this on its own &mdash; it needs a small Python server running in the background on your machine to handle the AI calls. Setup takes about 5 minutes and only needs to happen once.</p>
   </div>
 
-  <!-- SETUP: Step 2 -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-circle setup">2</div>
-      <h2>One-Time Setup - Start the server via Claude Code</h2>
-    </div>
-    <p style="font-size:0.92rem;color:#444;margin-bottom:0.75rem;">Open the cloned folder in Claude Code. Apurv will send you a message to paste into Claude Code - it contains the setup instructions and credentials. Paste it and hit Enter.</p>
-
-    <div class="note" style="margin-top:0;">Claude Code will install dependencies, create the credentials file, and start the server automatically. You only need to do this once - after that, just run step 3 below each time.</div>
+  <!-- PART 1 -->
+  <div class="part-header">
+    <span class="part-label">Part 1</span>
+    <span class="part-title">One-Time Server Setup</span>
   </div>
 
-  <!-- EVERY TIME: Step 3 -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-circle">3</div>
-      <h2>Every filming session - Start the server</h2>
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="step-num">Step 1</div>
+    <h3>Create a new empty folder</h3>
+    <p>Open your terminal and run this command. It creates a folder called <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85rem;">ai-shift-demo</code> on your desktop and opens it.</p>
+    <div class="code-wrap">
+      <div class="code-block">mkdir ~/Desktop/ai-shift-demo && cd ~/Desktop/ai-shift-demo</div>
+      <button class="copy-btn" onclick="copyCode(this, 'mkdir ~/Desktop/ai-shift-demo && cd ~/Desktop/ai-shift-demo')">Copy</button>
     </div>
-    <p style="font-size:0.92rem;color:#444;margin-bottom:0.75rem;">After the first setup, just run this in your terminal each time you film:</p>
-    <div style="position:relative;">
-      <div class="code-block">python3 server/prompt-builder-server.py
-<button class="copy-btn" onclick="copyCode(this, 'python3 server/prompt-builder-server.py')">Copy</button></div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="step-num">Step 2</div>
+    <h3>Open Claude Code in that folder</h3>
+    <p>Still in the terminal (now inside the <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85rem;">ai-shift-demo</code> folder), run:</p>
+    <div class="code-wrap">
+      <div class="code-block">claude</div>
+      <button class="copy-btn" onclick="copyCode(this, 'claude')">Copy</button>
     </div>
-    <p style="font-size:0.88rem;color:#555;margin-top:0.75rem;">Then open the demo in your browser:</p>
-    <a class="demo-url" href="http://localhost:5000" target="_blank">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      http://localhost:5000
+    <div class="note">This opens a new Claude Code session inside that empty folder. Leave it open &mdash; the next steps happen inside Claude Code.</div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step">
+    <div class="step-num">Step 3</div>
+    <h3>Enter your API key</h3>
+    <p>Apurv sent you an API key. Paste it in the field below &mdash; this will fill it into the Claude Code prompt in Step 4 so you can copy it in one click.</p>
+    <span class="field-label">Your API key (from Apurv):</span>
+    <input
+      class="cred-field"
+      id="api-key-input"
+      type="text"
+      placeholder="Paste the API key here..."
+      oninput="updatePrompt()"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div class="prompt-status" id="prompt-status">Prompt updated - ready to copy below</div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step">
+    <div class="step-num">Step 4</div>
+    <h3>Paste this prompt into Claude Code</h3>
+    <p>Copy the message below and paste it into the Claude Code session you just opened. Claude will set everything up automatically &mdash; installing dependencies, creating the credentials file, and starting the server.</p>
+    <div class="code-wrap" style="margin-top:0.75rem;">
+      <div class="code-block" id="claude-prompt">Set up the Prompt Builder server for The AI Shift demos. Do all of these steps:
+
+1. Clone this repo:
+   gh repo clone the-AI-Shift-0/the-ai-shift-0.github.io the-ai-shift-demo
+
+2. Install dependencies:
+   pip install flask openai python-dotenv
+
+3. Create a file called .env inside the-ai-shift-demo/server/ with these exact contents:
+   AZURE_OPENAI_API_KEY=PASTE_YOUR_KEY_HERE
+   AZURE_OPENAI_ENDPOINT=https://sai-mo2tz038-swedencentral.openai.azure.com/
+   AZURE_OPENAI_WHISPER_DEPLOYMENT=whisper
+   AZURE_OPENAI_GPT4O_DEPLOYMENT=gpt-4o-Apurv
+   AZURE_OPENAI_API_VERSION=2025-01-01-preview
+
+4. Start the server:
+   python3 the-ai-shift-demo/server/prompt-builder-server.py
+
+Tell me once it confirms it is running at http://localhost:5000</div>
+      <button class="copy-btn" id="prompt-copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="note">Once Claude Code confirms the server is running at localhost:5000, you're done with setup.</div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step">
+    <div class="step-num">Step 5 &mdash; Every time you film</div>
+    <h3>Start the server (after the first setup)</h3>
+    <p>After the first-time setup, you only need to run this each time you film:</p>
+    <div class="code-wrap">
+      <div class="code-block">cd ~/Desktop/ai-shift-demo/the-ai-shift-demo && python3 server/prompt-builder-server.py</div>
+      <button class="copy-btn" onclick="copyCode(this, 'cd ~/Desktop/ai-shift-demo/the-ai-shift-demo && python3 server/prompt-builder-server.py')">Copy</button>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 2 -->
+  <div class="part-header">
+    <span class="part-label demo">Part 2</span>
+    <span class="part-title">Running the Demo</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Before you start</div>
+    <h3>Make sure the server is running</h3>
+    <p>Check your terminal &mdash; you should see something like <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85rem;">Running on http://localhost:5000</code>. Then open the demo:</p>
+    <a class="open-demo-btn" href="http://localhost:5000" target="_blank">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Open Prompt Builder Demo
     </a>
   </div>
 
-  <!-- STEP 4: Running the demo -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-circle">4</div>
-      <h2>Running the demo - Step by step</h2>
-    </div>
-    <ul class="steps">
-      <li>
-        <div class="dot"></div>
-        <span><strong>Screen 1 (Main page):</strong> Show the input area. Click the microphone button and speak your task. Example: "Write a follow-up email to a client who hasn't responded in two weeks."</span>
-      </li>
-      <li>
-        <div class="dot"></div>
-        <span><strong>Let it transcribe:</strong> After speaking, the voice gets converted to text automatically. You'll see it appear in the text box.</span>
-      </li>
-      <li>
-        <div class="dot"></div>
-        <span><strong>Click "Build my prompt":</strong> The AI analyzes your task and builds an optimised prompt using prompting best practices.</span>
-      </li>
-      <li>
-        <div class="dot"></div>
-        <span><strong>Screen 3 (Results):</strong> Show the final structured prompt. Point out how it's broken into clear sections - role, context, task, format.</span>
-      </li>
-      <li>
-        <div class="dot"></div>
-        <span><strong>Copy and use it:</strong> Paste the generated prompt into Claude, ChatGPT, or any AI tool. Show the output you get vs a basic prompt.</span>
-      </li>
+  <div class="step">
+    <div class="step-num">Demo walkthrough</div>
+    <h3>Step by step on screen</h3>
+    <ul class="demo-steps">
+      <li><div class="dot"></div><span><strong>Main page:</strong> Show the input area. Click the microphone button and speak your task (10-15 seconds is enough). Example: <em>"Write a follow-up email to a client who hasn't replied in two weeks."</em></span></li>
+      <li><div class="dot"></div><span><strong>Let it transcribe:</strong> The voice gets converted to text and appears in the input box automatically.</span></li>
+      <li><div class="dot"></div><span><strong>Click "Build my prompt":</strong> The AI analyses your task and builds an optimised prompt using prompting best practices.</span></li>
+      <li><div class="dot"></div><span><strong>Results page:</strong> Show the generated prompt. Point out how it's structured &mdash; role, context, task, and output format are all spelled out clearly.</span></li>
+      <li><div class="dot"></div><span><strong>The payoff:</strong> Paste the generated prompt into Claude or ChatGPT. Show the output. Then show what you get from a basic one-liner. The contrast makes the point.</span></li>
     </ul>
 
-    <div class="script-label" style="margin-top:1.25rem;">Suggested opening line</div>
-    <div class="script-line">"Most people just type a one-liner into ChatGPT and wonder why the output is average. This tool takes what you actually want to do - in plain English - and turns it into a proper prompt that gets you 10x better results."</div>
+    <div class="script-label">Suggested opening line</div>
+    <div class="script-line">"Most people type a one-liner into ChatGPT and wonder why the results are average. This tool takes what you actually want - in plain English - and turns it into a proper prompt that gets you dramatically better output."</div>
   </div>
 
-  <!-- FILMING TIPS -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-circle">5</div>
-      <h2>Filming tips</h2>
-    </div>
+  <div class="step">
+    <div class="step-num">Filming tips</div>
+    <h3>Things to keep in mind</h3>
     <div class="filming-grid">
       <div class="filming-card">
-        <h3>Use a real example</h3>
-        <p>Pick a business task that sounds like something an SMB owner actually does - sales follow-up, a refund policy email, a job post.</p>
+        <h4>Use a real business task</h4>
+        <p>Sales follow-up, a refund policy, a job listing &mdash; anything an SMB owner would actually do.</p>
       </div>
       <div class="filming-card">
-        <h3>Show the before/after</h3>
-        <p>Run the same task as a basic one-liner in ChatGPT, then show the output with the generated prompt. The contrast sells it.</p>
+        <h4>Show the before/after</h4>
+        <p>Run the same task as a basic prompt in ChatGPT first, then show the output using the generated one. The difference sells it.</p>
       </div>
       <div class="filming-card">
-        <h3>Keep voice recording short</h3>
-        <p>10-15 seconds is enough. You don't need a perfect sentence - just a clear task description.</p>
+        <h4>Keep voice input short</h4>
+        <p>10-15 seconds of natural speech is enough. No need for a perfect sentence.</p>
       </div>
       <div class="filming-card">
-        <h3>Server must be running</h3>
-        <p>GitHub Pages fallback uses static data. For the voice button and live AI to work, the local server must be running at localhost:5000.</p>
+        <h4>Server must be running</h4>
+        <p>If the voice button doesn't work, check your terminal. The server must be running at localhost:5000 for the demo to work.</p>
       </div>
     </div>
   </div>
@@ -331,6 +371,39 @@
 </div>
 
 <script>
+  const STATIC_PROMPT_TEMPLATE = `Set up the Prompt Builder server for The AI Shift demos. Do all of these steps:
+
+1. Clone this repo:
+   gh repo clone the-AI-Shift-0/the-ai-shift-0.github.io the-ai-shift-demo
+
+2. Install dependencies:
+   pip install flask openai python-dotenv
+
+3. Create a file called .env inside the-ai-shift-demo/server/ with these exact contents:
+   AZURE_OPENAI_API_KEY={API_KEY}
+   AZURE_OPENAI_ENDPOINT=https://sai-mo2tz038-swedencentral.openai.azure.com/
+   AZURE_OPENAI_WHISPER_DEPLOYMENT=whisper
+   AZURE_OPENAI_GPT4O_DEPLOYMENT=gpt-4o-Apurv
+   AZURE_OPENAI_API_VERSION=2025-01-01-preview
+
+4. Start the server:
+   python3 the-ai-shift-demo/server/prompt-builder-server.py
+
+Tell me once it confirms it is running at http://localhost:5000`;
+
+  function updatePrompt() {
+    const key = document.getElementById('api-key-input').value.trim();
+    const display = key || 'PASTE_YOUR_KEY_HERE';
+    const prompt = STATIC_PROMPT_TEMPLATE.replace('{API_KEY}', display);
+    document.getElementById('claude-prompt').textContent = prompt;
+    const status = document.getElementById('prompt-status');
+    if (key) {
+      status.style.display = 'block';
+    } else {
+      status.style.display = 'none';
+    }
+  }
+
   function copyCode(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = 'Copied!';
@@ -339,8 +412,8 @@
     });
   }
 
-  function copyBlock(btn, id) {
-    const text = document.getElementById(id).innerText.replace('Copy', '').trim();
+  function copyPrompt(btn) {
+    const text = document.getElementById('claude-prompt').textContent;
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = 'Copied!';
       btn.classList.add('copied');
