@@ -318,6 +318,13 @@
   </div>
 
   <div class="content">
+    <div style="background: #1f2937; color: #d1d5db; padding: 16px; border-radius: 8px; margin-bottom: 32px; font-family: monospace; font-size: 12px; line-height: 1.6;">
+      <div style="margin-bottom: 8px;"><span style="color: #6ee7b7;">Job ID:</span> AE-2026-0512-001</div>
+      <div style="margin-bottom: 8px;"><span style="color: #6ee7b7;">Started:</span> Mon May 12, 10:31 AM · <span style="color: #6ee7b7;">Completed:</span> Wed May 14, 10:48 AM (48hrs 17min)</div>
+      <div style="margin-bottom: 8px;"><span style="color: #6ee7b7;">Records processed:</span> 600,000 · <span style="color: #6ee7b7;">Tokens consumed:</span> 2,147,893 · <span style="color: #6ee7b7;">Cost:</span> $4.21</div>
+      <div><span style="color: #6ee7b7;">Sources queried:</span> LinkedIn, Facebook Graph, Instagram, email registry, phone registry</div>
+    </div>
+
     <div class="page-header">
       <div class="page-title">Enrichment Complete</div>
       <div class="page-subtitle">600,000 records processed · Ready to upload to Facebook</div>
@@ -335,12 +342,12 @@
 
       <div class="arrow">
         <div>→</div>
-        <div class="arrow-label" id="arrow-label">+350,000</div>
+        <div class="arrow-label">+350,000</div>
       </div>
 
       <div class="comparison-card after">
         <div class="card-label">After Enrichment</div>
-        <div class="card-big-number" id="after-number">83,000</div>
+        <div class="card-big-number" id="after-number">433,000</div>
         <div class="card-sublabel">Facebook matches</div>
         <div class="card-percent">72%</div>
         <div class="card-note">match rate</div>
@@ -392,18 +399,9 @@
       </div>
     </div>
 
-    <div class="impact-section">
-      <div class="impact-title">Business impact</div>
-      <div class="impact-content">
-        At your current CAC of <span class="impact-blur">$85</span> on cold traffic:<br>
-        Retargeting saves <span class="impact-blur">$XX per conversion</span> vs cold.<br>
-        433,000 warm audience = <span class="impact-blur">months of cheap traffic</span> before cold spend needed.
-      </div>
-    </div>
-
     <div class="cta-section">
       <div class="cta-text">Your Facebook-ready audience is prepared</div>
-      <button class="button button-primary">Download Facebook-Ready CSV</button>
+      <button class="button button-primary">Download CSV (47 MB · 433,000 records · Facebook Custom Audience format)</button>
     </div>
 
     <div class="nav-buttons">
@@ -411,31 +409,5 @@
     </div>
   </div>
 
-  <script>
-    function animateCounter(fromNum, toNum, elementId, duration = 2000) {
-      const element = document.getElementById(elementId);
-      const increment = (toNum - fromNum) / (duration / 16);
-      let current = fromNum;
-
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= toNum) {
-          current = toNum;
-          clearInterval(timer);
-        }
-        element.textContent = Math.floor(current).toLocaleString();
-      }, 16);
-    }
-
-    // Wait for loading overlay to fade, then start animation
-    setTimeout(() => {
-      animateCounter(83000, 433000, 'after-number', 2000);
-
-      // Update arrow label with animated difference
-      setTimeout(() => {
-        document.getElementById('arrow-label').textContent = '+350,000 people unlocked';
-      }, 500);
-    }, 900);
-  </script>
 </body>
 </html>

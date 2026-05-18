@@ -91,6 +91,28 @@
         }
         .moment.lost { background: #fff5f5; border-color: #fecaca; }
         .moment-time { font-size: 11px; color: #9ca3af; font-weight: 700; min-width: 42px; padding-top: 1px; }
+        .moment-time a { color: #7c3aed; text-decoration: none; cursor: pointer; }
+        .moment-time a:hover { text-decoration: underline; }
+
+        /* Transcript section */
+        .transcript-block {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 14px; padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+        .transcript-title {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 16px;
+        }
+        .transcript-excerpt { margin-bottom: 20px; }
+        .transcript-excerpt:last-child { margin-bottom: 0; }
+        .excerpt-quote {
+            background: #f9fafb; border-left: 3px solid #7c3aed; padding: 12px 16px;
+            border-radius: 0 6px 6px 0; font-size: 13px; color: #374151;
+            line-height: 1.6; margin-bottom: 6px; font-style: italic;
+        }
+        .excerpt-note {
+            font-size: 12px; color: #9ca3af; line-height: 1.5;
+        }
         .moment-text { font-size: 12px; color: #374151; line-height: 1.45; }
         .moment-tag {
             font-size: 9px; font-weight: 700; text-transform: uppercase;
@@ -207,27 +229,27 @@
                 <div class="card-title">Key Moments</div>
                 <div class="moment-list">
                     <div class="moment">
-                        <div class="moment-time">1:12</div>
+                        <div class="moment-time"><a href="#t-112">1:12</a></div>
                         <div class="moment-text">Friendly open, prospect engaged - but no authority frame established. Rep didn't position why the prospect should trust their diagnosis.</div>
                         <div class="moment-tag tag-miss">Weak open</div>
                     </div>
                     <div class="moment">
-                        <div class="moment-time">8:44</div>
+                        <div class="moment-time"><a href="#t-844">8:44</a></div>
                         <div class="moment-text">Prospect names their biggest pain — rep doesn't tie it to outcome, pivots to feature list</div>
                         <div class="moment-tag tag-miss">Missed</div>
                     </div>
                     <div class="moment lost">
-                        <div class="moment-time">17:31</div>
+                        <div class="moment-time"><a href="#t-1731">17:31</a></div>
                         <div class="moment-text">"That seems like a lot for our current situation" — rep adds third product feature. Prospect tone shifts.</div>
                         <div class="moment-tag tag-lost">Lost here</div>
                     </div>
                     <div class="moment lost">
-                        <div class="moment-time">21:05</div>
+                        <div class="moment-time"><a href="#t-2105">21:05</a></div>
                         <div class="moment-text">Second budget concern raised — rep redirects again. No ROI anchor, no acknowledgment.</div>
                         <div class="moment-tag tag-lost">Pattern</div>
                     </div>
                     <div class="moment lost">
-                        <div class="moment-time">28:49</div>
+                        <div class="moment-time"><a href="#t-2849">28:49</a></div>
                         <div class="moment-text">Third budget concern. Prospect disengaged for final 5 minutes. Never re-engaged.</div>
                         <div class="moment-tag tag-lost">Pattern</div>
                     </div>
@@ -248,6 +270,59 @@
 
             <div class="assessment-text">
                 The pattern here is not a one-off. <strong>This is the 6th call in 8 weeks where pricing objections were redirected rather than addressed.</strong> The rep scores well on rapport (65%) — they're comfortable in conversation — but consistently avoids confrontation on price. This is a specific skill gap, not a general performance issue. Combined with a failure to connect client needs to outcomes (40%), the prospect never had a reason to trust the value enough to move past price.
+            </div>
+        </div>
+
+        <div class="transcript-block">
+            <div class="transcript-title">Call Transcript — Key Excerpts</div>
+
+            <div class="transcript-excerpt" id="t-112">
+                <div class="excerpt-quote">
+                    "Hey, appreciate you taking the call. So, quick thing before we dive in — how are you tracking against your Q2 targets right now?"
+                </div>
+                <div class="excerpt-note">
+                    <strong>Rep establishes friendly tone, but no authority frame.</strong> Prospect is conversational but has no reason yet to trust the rep's diagnosis of their situation.
+                </div>
+            </div>
+
+            <div class="transcript-excerpt" id="t-844">
+                <div class="excerpt-quote">
+                    Prospect: "So the biggest challenge we're facing is just pipeline predictability. We never know what's going to close."<br><br>
+                    Rep: "Right, yeah, that's why our reporting module is actually..."
+                </div>
+                <div class="excerpt-note">
+                    <strong>Prospect names pain. Rep pivots to features instead of anchoring the outcome.</strong> This is the first missed opportunity. Instead of tying the outcome (predictable pipeline) to value, the rep launches into product features.
+                </div>
+            </div>
+
+            <div class="transcript-excerpt" id="t-1731">
+                <div class="excerpt-quote">
+                    Prospect: "That seems like a lot for our current situation."<br><br>
+                    Rep: "Sure, but what I'd also want to show you is the integrations piece, which actually..."
+                </div>
+                <div class="excerpt-note">
+                    <strong>The turn. Prospect raises price concern, tone shifts noticeably.</strong> Rep doesn't acknowledge the concern. Instead, adds a third feature. By this point, prospect sees rep as vendor, not advisor.
+                </div>
+            </div>
+
+            <div class="transcript-excerpt" id="t-2105">
+                <div class="excerpt-quote">
+                    Prospect: "I hear you, but we're really conscious of budget right now."<br><br>
+                    Rep: "Totally understandable, and that's actually why the ROI tracking..."
+                </div>
+                <div class="excerpt-note">
+                    <strong>Second budget concern, second feature redirect.</strong> Pattern emerging: rep avoids price confrontation by adding more features. No anchoring of ROI to the outcome prospect named.
+                </div>
+            </div>
+
+            <div class="transcript-excerpt" id="t-2849">
+                <div class="excerpt-quote">
+                    Prospect: "Let me think about it and we can circle back."<br><br>
+                    Rep: "For sure, happy to send over some more info..."
+                </div>
+                <div class="excerpt-note">
+                    <strong>Prospect disengaged. Call ends without re-engagement.</strong> By this point, prospect's mind is made up. Rep never anchored value, never confronted price directly, and lost credibility along the way.
+                </div>
             </div>
         </div>
 

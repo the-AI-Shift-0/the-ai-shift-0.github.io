@@ -432,6 +432,15 @@ Format your response with clear section headers. Use tables where helpful. Keep 
   </div>
 
   <script>
+    // Check sessionStorage for real prompt from server
+    const storedPrompt = sessionStorage.getItem('structured_prompt');
+    if (storedPrompt) {
+      const promptBox = document.querySelector('.prompt-box.good');
+      if (promptBox) {
+        promptBox.textContent = storedPrompt;
+      }
+    }
+
     // Fade out loading overlay after 0.6s
     setTimeout(() => {
       document.getElementById('overlay').classList.add('fade-out');

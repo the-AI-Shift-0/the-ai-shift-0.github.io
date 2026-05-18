@@ -259,6 +259,66 @@
     .back-link:hover {
       text-decoration: underline;
     }
+
+    .record-button {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #7c3aed;
+      color: #ffffff;
+      width: 100%;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .record-button:hover {
+      background: #6d28d9;
+    }
+
+    .record-button:active {
+      transform: scale(0.98);
+    }
+
+    .record-button.recording {
+      background: #dc2626;
+    }
+
+    .record-button.disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .transcript-note {
+      font-size: 12px;
+      color: #16a34a;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .transcript-note.show {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -288,6 +348,11 @@
     <div class="title">What do you want to achieve?</div>
     <div class="subtitle">Describe your goal in plain English. Don't worry about structure.</div>
 
+    <div class="button-group">
+      <button class="btn record-button" id="recordBtn" onclick="toggleRecording()">🎤 Record voice</button>
+      <div class="transcript-note" id="transcriptNote">✓ Transcribed — edit if needed</div>
+    </div>
+
     <div class="textarea-wrapper">
       <textarea id="input" placeholder="Enter your goal here...">I need to analyze our monthly sales data and figure out why revenue dropped this month. I have a spreadsheet with all the deals - closed, lost, pipeline. I want to understand what happened, who underperformed, compare to last month, and also give me something I can share with the team that explains it simply. Maybe like a summary or a report. Should cover the main numbers but also the why behind them if possible.</textarea>
     </div>
@@ -315,12 +380,151 @@
       "Create a weekly ops report template for the team"
     ];
 
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
     function setExample(idx) {
       document.getElementById('input').value = examples[idx];
     }
 
+    function isLocalhost() {
+      return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    }
+
+    function toggleRecording() {
+      if (!isLocalhost()) {
+        alert('Voice recording requires the local server. Run: python scripts/prompt-builder-server.py');
+        return;
+      }
+
+      if (!mediaRecorder) {
+        startRecording();
+      } else if (isRecording) {
+        stopRecording();
+      }
+    }
+
+    function startRecording() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert('Your browser does not support voice recording.');
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = e => {
+            audioChunks.push(e.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            isRecording = false;
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            transcribeAudio(audioBlob);
+          };
+
+          mediaRecorder.start();
+          isRecording = true;
+
+          const btn = document.getElementById('recordBtn');
+          btn.classList.add('recording');
+          btn.innerHTML = '⏹ Stop recording <span class="pulse-dot"></span>';
+        })
+        .catch(err => {
+          alert('Microphone permission denied: ' + err.message);
+        });
+    }
+
+    function stopRecording() {
+      if (mediaRecorder) {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        mediaRecorder = null;
+
+        const btn = document.getElementById('recordBtn');
+        btn.classList.remove('recording');
+        btn.classList.add('disabled');
+        btn.textContent = 'Transcribing...';
+        btn.disabled = true;
+      }
+    }
+
+    function transcribeAudio(audioBlob) {
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'audio.wav');
+
+      fetch('http://localhost:5000/api/transcribe', {
+        method: 'POST',
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          const btn = document.getElementById('recordBtn');
+          btn.classList.remove('disabled');
+          btn.disabled = false;
+
+          if (data.error) {
+            btn.textContent = '🎤 Record voice';
+            alert('Transcription failed: ' + data.error);
+          } else {
+            document.getElementById('input').value = data.transcript;
+            btn.innerHTML = '🎤 Record voice';
+            document.getElementById('transcriptNote').classList.add('show');
+            setTimeout(() => {
+              document.getElementById('transcriptNote').classList.remove('show');
+            }, 3000);
+          }
+        })
+        .catch(err => {
+          const btn = document.getElementById('recordBtn');
+          btn.classList.remove('disabled');
+          btn.disabled = false;
+          btn.textContent = '🎤 Record voice';
+          alert('Could not reach server. Make sure it\'s running.');
+        });
+    }
+
     function buildPrompt() {
-      window.location.href = 'l2.html';
+      const text = document.getElementById('input').value.trim();
+      if (!text) {
+        alert('Please enter a goal or record your voice.');
+        return;
+      }
+
+      if (isLocalhost()) {
+        document.getElementById('overlay').classList.remove('fade-out');
+        document.getElementById('overlay').style.display = 'flex';
+
+        fetch('http://localhost:5000/api/build-prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              alert('Prompt building failed: ' + data.error);
+              document.getElementById('overlay').classList.add('fade-out');
+            } else {
+              sessionStorage.setItem('structured_prompt', data.structured_prompt);
+              window.location.href = 'l3.html';
+            }
+          })
+          .catch(err => {
+            alert('Server error: ' + err.message);
+            document.getElementById('overlay').classList.add('fade-out');
+          });
+      } else {
+        window.location.href = 'l2.html';
+      }
+    }
+
+    // Hide record button if MediaRecorder not supported
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      document.getElementById('recordBtn').style.display = 'none';
     }
 
     // Fade out loading overlay after 0.6s
