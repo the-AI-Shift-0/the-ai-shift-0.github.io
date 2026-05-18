@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prompt Builder - Loading</title>
+  <title>Prompt Builder - Input</title>
   <style>
     * {
       margin: 0;
@@ -15,6 +15,59 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #f8f7ff;
       color: #111827;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(248, 247, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    .loading-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      text-align: center;
+    }
+
+    .spinner-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7c3aed;
+      margin: 0 4px;
+      animation: spin 1.4s infinite;
+    }
+
+    .spinner-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .spinner-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes spin {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .loading-text {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 12px;
     }
 
     .header {
@@ -76,8 +129,8 @@
     }
 
     .container {
-      max-width: 600px;
-      margin: 60px auto;
+      max-width: 680px;
+      margin: 40px auto;
       padding: 0 24px;
     }
 
@@ -91,150 +144,393 @@
     .subtitle {
       font-size: 14px;
       color: #6b7280;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
-    .cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 40px;
+    .textarea-wrapper {
+      margin-bottom: 24px;
     }
 
-    .card {
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111827;
       background: #ffffff;
       border: 1px solid #e9d5ff;
       border-radius: 12px;
-      padding: 20px;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+
+    .examples {
+      margin-bottom: 28px;
+    }
+
+    .examples-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .chips {
       display: flex;
-      gap: 16px;
-      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .card-icon {
-      font-size: 28px;
-      flex-shrink: 0;
-    }
-
-    .card-content {
-      flex: 1;
-    }
-
-    .card-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #111827;
-      margin-bottom: 4px;
-    }
-
-    .card-desc {
+    .chip {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #f3e8ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 20px;
       font-size: 13px;
-      color: #6b7280;
-      margin-bottom: 10px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 4px;
-      background: #e9d5ff;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #7c3aed;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    .card.done .progress-fill {
-      width: 100%;
-    }
-
-    .card.done .card-icon::after {
-      content: " ✓";
-      color: #22c55e;
-    }
-
-    .ready-message {
-      text-align: center;
-      font-size: 16px;
       color: #7c3aed;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      margin-top: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .ready-message.show {
-      opacity: 1;
+    .chip:hover {
+      background: #e9d5ff;
+      border-color: #7c3aed;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #7c3aed;
+      color: #ffffff;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #6d28d9;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .note {
+      text-align: center;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #7c3aed;
+      text-decoration: none;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .record-button {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #7c3aed;
+      color: #ffffff;
+      width: 100%;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .record-button:hover {
+      background: #6d28d9;
+    }
+
+    .record-button:active {
+      transform: scale(0.98);
+    }
+
+    .record-button.recording {
+      background: #dc2626;
+    }
+
+    .record-button.disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .transcript-note {
+      font-size: 12px;
+      color: #16a34a;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .transcript-note.show {
+      display: block;
     }
   </style>
 </head>
 <body>
+  <div class="loading-overlay" id="overlay">
+    <div class="loading-spinner">
+      <div class="spinner-dot"></div>
+      <div class="spinner-dot"></div>
+      <div class="spinner-dot"></div>
+      <div class="loading-text">Building your interface...</div>
+    </div>
+  </div>
+
   <div class="header">
     <div class="header-left">
       <div class="header-dot"></div>
       <div class="header-logo">Prompt Builder</div>
     </div>
     <div class="header-right">
-      <div class="status-badge"><div class="status-dot"></div><span>Loading</span></div>
-      <div class="last-run">Initializing</div>
+      <div class="status-badge"><div class="status-dot"></div><span>Ready</span></div>
+      <div class="last-run">Used 847 times this month</div>
     </div>
   </div>
 
   <div class="container">
-    <div class="title">Initializing</div>
-    <div class="subtitle">Loading resources...</div>
+    <a href="index.html" class="back-link">← Back</a>
 
-    <div class="cards">
-      <div class="card" id="card1">
-        <div class="card-icon">📚</div>
-        <div class="card-content">
-          <div class="card-title">Best Practices Library</div>
-          <div class="card-desc">14,000+ patterns loaded</div>
-          <div class="progress-bar">
-            <div class="progress-fill"></div>
-          </div>
-        </div>
-      </div>
+    <div class="title">What do you want to achieve?</div>
+    <div class="subtitle">Describe your goal in plain English. Don't worry about structure.</div>
 
-      <div class="card" id="card2">
-        <div class="card-icon">🗂️</div>
-        <div class="card-content">
-          <div class="card-title">Use Case Database</div>
-          <div class="card-desc">847 business cases</div>
-          <div class="progress-bar">
-            <div class="progress-fill"></div>
-          </div>
-        </div>
+    <div class="button-group">
+      <button class="btn record-button" id="recordBtn" onclick="toggleRecording()">🎤 Record voice</button>
+      <div class="transcript-note" id="transcriptNote">✓ Transcribed — edit if needed</div>
+    </div>
+
+    <div class="textarea-wrapper">
+      <textarea id="input" placeholder="Enter your goal here...">I need to analyze our monthly sales data and figure out why revenue dropped this month. I have a spreadsheet with all the deals - closed, lost, pipeline. I want to understand what happened, who underperformed, compare to last month, and also give me something I can share with the team that explains it simply. Maybe like a summary or a report. Should cover the main numbers but also the why behind them if possible.</textarea>
+    </div>
+
+    <div class="examples">
+      <div class="examples-label">Try these</div>
+      <div class="chips">
+        <div class="chip" onclick="setExample(0)">Write a hiring rubric for a sales role</div>
+        <div class="chip" onclick="setExample(1)">Analyze customer churn reasons</div>
+        <div class="chip" onclick="setExample(2)">Create a weekly ops report template</div>
       </div>
     </div>
 
-    <div class="ready-message" id="readyMsg">Ready to build your prompt</div>
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="buildPrompt()">Build My Prompt</button>
+    </div>
+
+    <div class="note">Your input → structured prompt in under 30 seconds</div>
   </div>
 
   <script>
-    // Complete card 1 at 0.8s
-    setTimeout(() => {
-      document.getElementById('card1').classList.add('done');
-    }, 800);
+    const examples = [
+      "Write a hiring rubric for a sales role with clear evaluation criteria",
+      "Analyze customer churn reasons from our product usage data",
+      "Create a weekly ops report template for the team"
+    ];
 
-    // Complete card 2 at 1.5s
-    setTimeout(() => {
-      document.getElementById('card2').classList.add('done');
-    }, 1500);
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
 
-    // Show ready message at 2.2s
-    setTimeout(() => {
-      document.getElementById('readyMsg').classList.add('show');
-    }, 2200);
+    function setExample(idx) {
+      document.getElementById('input').value = examples[idx];
+    }
 
-    // Redirect to L1 at 3.5s
+    function isLocalhost() {
+      return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    }
+
+    function toggleRecording() {
+      if (!isLocalhost()) {
+        alert('Voice recording requires the local server. Run: python scripts/prompt-builder-server.py');
+        return;
+      }
+
+      if (!mediaRecorder) {
+        startRecording();
+      } else if (isRecording) {
+        stopRecording();
+      }
+    }
+
+    function startRecording() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert('Your browser does not support voice recording.');
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = e => {
+            audioChunks.push(e.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            isRecording = false;
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            transcribeAudio(audioBlob);
+          };
+
+          mediaRecorder.start();
+          isRecording = true;
+
+          const btn = document.getElementById('recordBtn');
+          btn.classList.add('recording');
+          btn.innerHTML = '⏹ Stop recording <span class="pulse-dot"></span>';
+        })
+        .catch(err => {
+          alert('Microphone permission denied: ' + err.message);
+        });
+    }
+
+    function stopRecording() {
+      if (mediaRecorder) {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        mediaRecorder = null;
+
+        const btn = document.getElementById('recordBtn');
+        btn.classList.remove('recording');
+        btn.classList.add('disabled');
+        btn.textContent = 'Transcribing...';
+        btn.disabled = true;
+      }
+    }
+
+    function transcribeAudio(audioBlob) {
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'audio.wav');
+
+      fetch('http://localhost:5000/api/transcribe', {
+        method: 'POST',
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          const btn = document.getElementById('recordBtn');
+          btn.classList.remove('disabled');
+          btn.disabled = false;
+
+          if (data.error) {
+            btn.textContent = '🎤 Record voice';
+            alert('Transcription failed: ' + data.error);
+          } else {
+            document.getElementById('input').value = data.transcript;
+            btn.innerHTML = '🎤 Record voice';
+            document.getElementById('transcriptNote').classList.add('show');
+            setTimeout(() => {
+              document.getElementById('transcriptNote').classList.remove('show');
+            }, 3000);
+          }
+        })
+        .catch(err => {
+          const btn = document.getElementById('recordBtn');
+          btn.classList.remove('disabled');
+          btn.disabled = false;
+          btn.textContent = '🎤 Record voice';
+          alert('Could not reach server. Make sure it\'s running.');
+        });
+    }
+
+    function buildPrompt() {
+      const text = document.getElementById('input').value.trim();
+      if (!text) {
+        alert('Please enter a goal or record your voice.');
+        return;
+      }
+
+      if (isLocalhost()) {
+        document.getElementById('overlay').classList.remove('fade-out');
+        document.getElementById('overlay').style.display = 'flex';
+
+        fetch('http://localhost:5000/api/build-prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              alert('Prompt building failed: ' + data.error);
+              document.getElementById('overlay').classList.add('fade-out');
+            } else {
+              sessionStorage.setItem('structured_prompt', data.structured_prompt);
+              window.location.href = 'l3.html';
+            }
+          })
+          .catch(err => {
+            alert('Server error: ' + err.message);
+            document.getElementById('overlay').classList.add('fade-out');
+          });
+      } else {
+        window.location.href = 'l2.html';
+      }
+    }
+
+    // Hide record button if MediaRecorder not supported
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      document.getElementById('recordBtn').style.display = 'none';
+    }
+
+    // Fade out loading overlay after 0.6s
     setTimeout(() => {
-      window.location.href = 'l1.html';
-    }, 3500);
+      document.getElementById('overlay').classList.add('fade-out');
+    }, 600);
   </script>
 </body>
 </html>

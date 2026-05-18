@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Audience Enrichment - Loading</title>
+  <title>Your Lead Database - Audience Enrichment</title>
   <style>
     * {
       margin: 0;
@@ -67,127 +67,208 @@
       padding-left: 16px;
       margin-left: 4px;
     }
-    .container {
-      flex: 1;
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(248, 247, 255, 0.95);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      z-index: 999;
+      opacity: 1;
+      animation: fadeOutOverlay 0.5s ease 0.8s forwards;
+    }
+    @keyframes fadeOutOverlay {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #ddd6fe;
+      border-top-color: #7c3aed;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .content {
+      flex: 1;
       padding: 48px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
     }
-    .loading-section {
-      text-align: center;
-      max-width: 800px;
-    }
-    .loading-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 12px;
-    }
-    .loading-subtitle {
-      font-size: 15px;
-      color: #6b7280;
-      margin-bottom: 48px;
-    }
-    .cards-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-    .integration-card {
-      background: #ffffff;
-      border: 1px solid #e9d5ff;
-      border-radius: 12px;
-      padding: 20px;
-      width: 140px;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 0.4s ease forwards;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    .integration-card.loaded {
-      border-color: #22c55e;
-      background: #dcfce7;
-    }
-    .card-emoji {
-      font-size: 32px;
+    .page-header {
       margin-bottom: 8px;
     }
-    .card-source {
-      font-weight: 600;
-      font-size: 13px;
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
       color: #111827;
       margin-bottom: 4px;
     }
-    .card-records {
-      font-size: 12px;
+    .page-subtitle {
+      font-size: 15px;
       color: #6b7280;
-      margin-bottom: 8px;
-    }
-    .card-status {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-    .card-checkmark {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      background: #22c55e;
-      border-radius: 50%;
-      color: #ffffff;
-      font-size: 10px;
-      line-height: 16px;
-      margin-top: 4px;
-    }
-    .progress-section {
-      width: 100%;
-      max-width: 400px;
       margin-bottom: 32px;
     }
-    .progress-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #111827;
-      margin-bottom: 8px;
+    .warning-callout {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 32px;
       display: flex;
-      justify-content: space-between;
+      gap: 12px;
     }
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      background: #e9d5ff;
-      border-radius: 3px;
+    .warning-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .warning-content {
+      flex: 1;
+    }
+    .warning-title {
+      font-weight: 700;
+      color: #92400e;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .warning-text {
+      color: #b45309;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .warning-number {
+      font-weight: 700;
+      font-size: 18px;
+      color: #d97706;
+    }
+    .table-section {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
       overflow: hidden;
-      margin-bottom: 8px;
+      margin-bottom: 32px;
     }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #7c3aed, #a855f7);
-      width: 0%;
-      animation: fillProgress 3.5s ease forwards;
+    .table-title {
+      padding: 16px 20px;
+      border-bottom: 1px solid #ddd6fe;
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
     }
-    @keyframes fillProgress {
-      to { width: 100%; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
-    .status-text {
+    th {
+      background: #f3f0ff;
+      padding: 12px 20px;
+      text-align: left;
+      font-weight: 600;
       font-size: 12px;
       color: #6b7280;
-      transition: all 0.3s ease;
+      border-bottom: 1px solid #ddd6fe;
     }
-    .total-found {
-      font-size: 18px;
+    td {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f3f0ff;
+      font-size: 13px;
+      color: #111827;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .source-name {
+      font-weight: 500;
+      color: #111827;
+    }
+    .metric-percent {
+      color: #6b7280;
+    }
+    .quality-low {
+      color: #dc2626;
+      font-weight: 500;
+    }
+    .quality-medium {
+      color: #f59e0b;
+      font-weight: 500;
+    }
+    .quality-high {
+      color: #22c55e;
+      font-weight: 500;
+    }
+    .info-section {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .info-title {
       font-weight: 700;
+      font-size: 15px;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    .info-text {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .info-highlight {
+      background: #ddd6fe;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 0 2px;
+      color: #111827;
+      font-weight: 500;
+    }
+    .cta-section {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button-primary {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+    .button-primary:hover {
+      background: #6d28d9;
+      transform: translateY(-1px);
+    }
+    .button-secondary {
+      background: transparent;
       color: #7c3aed;
-      margin-top: 16px;
+      border: 1px solid #ddd6fe;
+    }
+    .button-secondary:hover {
+      background: #f3f0ff;
     }
   </style>
 </head>
 <body>
+  <div class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
   <div class="header">
     <div class="header-left">
       <div class="header-dot"></div>
@@ -200,95 +281,97 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="loading-section">
-      <div class="loading-title">Gathering your leads...</div>
-      <div class="loading-subtitle">Connecting to your data sources</div>
+  <div class="content">
+    <div class="page-header">
+      <div class="page-title">Your Lead Database</div>
+      <div class="page-subtitle">600,000 leads across 5 systems - May 12, 2026</div>
+    </div>
 
-      <div class="cards-grid">
-        <div class="integration-card" id="card-crm">
-          <div class="card-emoji">📊</div>
-          <div class="card-source">CRM</div>
-          <div class="card-records">180K records</div>
-          <div class="card-status" id="status-crm">Connecting...</div>
-        </div>
-
-        <div class="integration-card" id="card-typeform">
-          <div class="card-emoji">📝</div>
-          <div class="card-source">Typeform</div>
-          <div class="card-records">95K records</div>
-          <div class="card-status" id="status-typeform">Waiting...</div>
-        </div>
-
-        <div class="integration-card" id="card-zoho">
-          <div class="card-emoji">🗃️</div>
-          <div class="card-source">Zoho</div>
-          <div class="card-records">145K records</div>
-          <div class="card-status" id="status-zoho">Waiting...</div>
-        </div>
-
-        <div class="integration-card" id="card-infusionsoft">
-          <div class="card-emoji">📦</div>
-          <div class="card-source">InfusionSoft</div>
-          <div class="card-records">112K records</div>
-          <div class="card-status" id="status-infusionsoft">Waiting...</div>
-        </div>
-
-        <div class="integration-card" id="card-csv">
-          <div class="card-emoji">💾</div>
-          <div class="card-source">Legacy CSVs</div>
-          <div class="card-records">68K records</div>
-          <div class="card-status" id="status-csv">Waiting...</div>
-        </div>
-      </div>
-
-      <div class="progress-section">
-        <div class="progress-label">
-          <span id="progress-status">Extracting records...</span>
-          <span id="progress-percent">0%</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-        </div>
-        <div class="status-text" id="status-message">Connecting to CRM...</div>
-        <div class="total-found" id="total-found" style="opacity: 0;">600K leads found</div>
+    <div class="warning-callout">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-content">
+        <div class="warning-title">Current Facebook match rate: <span class="warning-number">14%</span></div>
+        <div class="warning-text">83,000 of 600,000 leads matched — 517,000 are invisible to your ads</div>
       </div>
     </div>
+
+    <div class="table-section">
+      <div class="table-title">Data Sources & Quality Assessment</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Records</th>
+            <th>Has Email</th>
+            <th>Has Phone</th>
+            <th>Has Name</th>
+            <th>Has Location</th>
+            <th>Match Quality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="source-name">CRM</td>
+            <td>180K</td>
+            <td class="metric-percent">98%</td>
+            <td class="metric-percent">45%</td>
+            <td class="metric-percent">92%</td>
+            <td class="metric-percent">31%</td>
+            <td class="quality-medium">Medium</td>
+          </tr>
+          <tr>
+            <td class="source-name">Typeform</td>
+            <td>95K</td>
+            <td class="metric-percent">100%</td>
+            <td class="metric-percent">12%</td>
+            <td class="metric-percent">78%</td>
+            <td class="metric-percent">8%</td>
+            <td class="quality-low">Low</td>
+          </tr>
+          <tr>
+            <td class="source-name">Zoho</td>
+            <td>145K</td>
+            <td class="metric-percent">89%</td>
+            <td class="metric-percent">67%</td>
+            <td class="metric-percent">95%</td>
+            <td class="metric-percent">54%</td>
+            <td class="quality-medium">Medium</td>
+          </tr>
+          <tr>
+            <td class="source-name">InfusionSoft</td>
+            <td>112K</td>
+            <td class="metric-percent">94%</td>
+            <td class="metric-percent">38%</td>
+            <td class="metric-percent">88%</td>
+            <td class="metric-percent">22%</td>
+            <td class="quality-low">Low</td>
+          </tr>
+          <tr>
+            <td class="source-name">Legacy CSVs</td>
+            <td>68K</td>
+            <td class="metric-percent">71%</td>
+            <td class="metric-percent">23%</td>
+            <td class="metric-percent">62%</td>
+            <td class="metric-percent">11%</td>
+            <td class="quality-low">Very Low</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-section">
+      <div class="info-title">What Facebook Needs to Match</div>
+      <div class="info-text">
+        Facebook matches on: <span class="info-highlight">email</span> + <span class="info-highlight">phone</span> + <span class="info-highlight">first name</span> + <span class="info-highlight">last name</span> + <span class="info-highlight">city</span> + <span class="info-highlight">state</span> + <span class="info-highlight">country</span> + <span class="info-highlight">zip</span>
+        <br><br>
+        More fields = more matches. Your current data is incomplete and unstructured.
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <a href="l2.html" class="button button-primary">Run AI Enrichment</a>
+      <a href="index.html" class="button button-secondary">Back</a>
+    </div>
   </div>
-
-  <script>
-    const timeline = [
-      { card: 'card-crm', status: 'status-crm', time: 800, records: 180000 },
-      { card: 'card-typeform', status: 'status-typeform', time: 1400, records: 95000 },
-      { card: 'card-zoho', status: 'status-zoho', time: 2000, records: 145000 },
-      { card: 'card-infusionsoft', status: 'status-infusionsoft', time: 2500, records: 112000 },
-      { card: 'card-csv', status: 'status-csv', time: 3000, records: 68000 }
-    ];
-
-    timeline.forEach((item, idx) => {
-      setTimeout(() => {
-        const card = document.getElementById(item.card);
-        const status = document.getElementById(item.status);
-        card.classList.add('loaded');
-        status.innerHTML = '<span class="card-checkmark">✓</span>';
-      }, item.time);
-    });
-
-    setTimeout(() => {
-      document.getElementById('progress-status').textContent = 'Merging records...';
-      document.getElementById('status-message').textContent = 'Deduplicating across sources...';
-    }, 3500);
-
-    setTimeout(() => {
-      document.getElementById('progress-status').textContent = 'Analysis ready';
-      document.getElementById('progress-percent').textContent = '100%';
-      document.getElementById('status-message').textContent = 'All 600,000 leads gathered and deduplicated';
-      document.getElementById('total-found').style.opacity = '1';
-    }, 3500);
-
-    setTimeout(() => {
-      window.location.href = 'l1.html';
-    }, 4500);
-  </script>
 </body>
 </html>

@@ -10,11 +10,36 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background: #f8f7ff;
             color: #111827;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 100;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-sub { font-size: 12px; color: #9ca3af; }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -22,6 +47,7 @@
             padding: 14px 32px;
             background: #ffffff;
             border-bottom: 1px solid #ddd6fe;
+            flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; gap: 8px; }
         .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
@@ -29,55 +55,121 @@
         .header-right { display: flex; gap: 16px; align-items: center; }
         .status-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
-        .last-run { font-size: 11px; color: #9ca3af; border-left: 1px solid #e5e7eb; padding-left: 16px; margin-left: 4px; }
 
-        .container { flex: 1; display: flex; align-items: center; justify-content: center; }
-        .content { max-width: 480px; width: 100%; padding: 0 32px; text-align: center; }
+        .container { flex: 1; display: flex; justify-content: center; padding: 40px 40px 60px; }
+        .content { max-width: 540px; width: 100%; }
 
-        .loading-label {
+        .greeting { font-size: 13px; color: #9ca3af; margin-bottom: 20px; font-weight: 500; }
+        .chat-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid #ddd6fe;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 15px;
+            color: #9ca3af;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 36px;
+            cursor: text;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px; height: 17px;
+            background: #7c3aed;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Review mode - all sets stacked */
+        .set-block { margin-bottom: 36px; }
+        .set-block:last-child { margin-bottom: 0; }
+
+        .set-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 14px;
+        }
+        .set-badge {
+            font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.1em; color: #ffffff;
+            background: #7c3aed; border-radius: 6px;
+            padding: 3px 8px;
+        }
+        .set-label {
+            font-size: 12px; font-weight: 600; color: #6b7280;
+            text-transform: uppercase; letter-spacing: 0.06em;
+        }
+
+        .chips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .chip {
+            background: #ffffff;
+            border: 1.5px solid #e9d5ff;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 13px; color: #374151;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            line-height: 1.4;
+        }
+        .chip:hover { border-color: #7c3aed; background: #faf8ff; transform: translateY(-1px); }
+        .chip.active {
+            background: #f5f3ff; border-color: #7c3aed;
+            color: #6d28d9; font-weight: 600;
+        }
+        .chip.active::before { content: '\2192 '; color: #7c3aed; }
+
+        .divider { border: none; border-top: 1px dashed #e9d5ff; margin: 4px 0 36px; }
+
+        .goals-block {
+            background: #f5f3ff; border: 1px solid #ddd6fe;
+            border-radius: 12px; padding: 16px;
+            margin-bottom: 20px;
+        }
+        .goals-label {
             font-size: 11px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.1em; color: #7c3aed; margin-bottom: 28px;
+            letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 12px;
         }
-
-        .integrations {
-            display: flex; gap: 16px; justify-content: center; margin-bottom: 32px;
+        .goals-targets {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+            margin-bottom: 12px;
         }
-        .integration-card {
-            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
-            padding: 18px 24px; text-align: center; flex: 1; min-width: 110px;
-            transition: border-color 0.3s;
+        .goal-item {
+            font-size: 13px; color: #374151;
         }
-        .integration-card.done { border-color: #22c55e; }
-        .int-icon { font-size: 22px; margin-bottom: 6px; }
-        .int-name { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
-        .int-status {
-            font-size: 11px; font-weight: 700; color: #d1d5db;
-            height: 16px; display: flex; align-items: center; justify-content: center;
+        .goal-value {
+            font-weight: 700; color: #7c3aed;
         }
-        .int-status.done { color: #22c55e; }
-        .spinner {
-            width: 14px; height: 14px;
-            border: 2px solid #e9d5ff; border-top-color: #7c3aed;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            margin: 0 auto;
+        .goal-desc {
+            font-size: 11px; color: #9ca3af; margin-top: 2px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .progress-wrap {
-            background: #e9d5ff; border-radius: 99px; height: 4px;
-            overflow: hidden; margin-bottom: 16px;
+        .goals-gates {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
         }
-        .progress-bar {
-            height: 100%; background: #7c3aed; width: 0%;
-            border-radius: 99px; transition: width 1.4s ease;
+        .gate-pill {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 8px;
+            padding: 10px 12px; font-size: 12px; color: #374151;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .progress-text {
-            font-size: 12px; color: #9ca3af;
+        .gate-text { font-weight: 600; }
+        .gate-status {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; padding: 3px 8px; border-radius: 4px;
         }
+        .gate-status.amber { background: #fef08a; color: #b45309; }
+        .gate-status.red { background: #fee2e2; color: #dc2626; }
     </style>
 </head>
 <body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Preparing your weekly view...</div>
+        <div class="loading-sub">Checking 3 connected sources</div>
+    </div>
+
     <div class="header">
         <div class="header-left">
             <div class="header-dot"></div>
@@ -86,58 +178,99 @@
         <div class="header-right">
             <div class="status-badge"><div class="status-dot"></div><span>Calendar connected</span></div>
             <div class="status-badge"><div class="status-dot"></div><span>Slack connected</span></div>
-            <div class="last-run">Last run: Sun, May 11 · 8:14 AM</div>
+            <div class="status-badge"><div class="status-dot"></div><span>Email connected</span></div>
         </div>
     </div>
 
     <div class="container">
         <div class="content">
-            <div class="loading-label" id="loading-label">Pulling your data...</div>
+            <div class="greeting">Week of May 12 - 18 &nbsp;&middot;&nbsp; 3 sources synced</div>
+            <div class="goals-block">
+                <div class="goals-label">Your targets — ingested</div>
+                <div class="goals-targets">
+                    <div class="goal-item">
+                        <div class="goal-value">$5.5M</div>
+                        <div class="goal-desc">12-month closed revenue</div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-value">$2.5M</div>
+                        <div class="goal-desc">6-month checkpoint (Nov)</div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-value">$1.1M</div>
+                        <div class="goal-desc">Q2 2026 new closed</div>
+                    </div>
+                </div>
+                <div class="goals-gates">
+                    <div class="gate-pill">
+                        <span class="gate-text">Close rate ≥35%</span>
+                        <span class="gate-status amber">In progress</span>
+                    </div>
+                    <div class="gate-pill">
+                        <span class="gate-text">CEO focus ≥60%</span>
+                        <span class="gate-status red">Off track</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input" onclick="go()">
+                Ask anything about your business...<span class="cursor"></span>
+            </div>
 
-            <div class="integrations">
-                <div class="integration-card" id="cal-card">
-                    <div class="int-icon">📅</div>
-                    <div class="int-name">Calendar</div>
-                    <div class="int-status" id="cal-status"><div class="spinner"></div></div>
+            <!-- Set A: Revenue focus -->
+            <div class="set-block">
+                <div class="set-header">
+                    <span class="set-badge">A</span>
+                    <span class="set-label">Revenue focus</span>
                 </div>
-                <div class="integration-card" id="slack-card">
-                    <div class="int-icon">💬</div>
-                    <div class="int-name">Slack</div>
-                    <div class="int-status" id="slack-status"><div class="spinner"></div></div>
-                </div>
-                <div class="integration-card" id="email-card">
-                    <div class="int-icon">📧</div>
-                    <div class="int-name">Email</div>
-                    <div class="int-status" id="email-status"><div class="spinner"></div></div>
+                <div class="chips-grid">
+                    <div class="chip" onclick="go()">Where's my pipeline at?</div>
+                    <div class="chip" onclick="go()">How much did we sell this week?</div>
+                    <div class="chip active" onclick="go()">Who's close to buying?</div>
+                    <div class="chip" onclick="go()">What's hurting our revenue?</div>
                 </div>
             </div>
 
-            <div class="progress-wrap">
-                <div class="progress-bar" id="progress-bar"></div>
+            <hr class="divider">
+
+            <!-- Set B: Time/CEO focus -->
+            <div class="set-block">
+                <div class="set-header">
+                    <span class="set-badge">B</span>
+                    <span class="set-label">Time &amp; CEO focus</span>
+                </div>
+                <div class="chips-grid">
+                    <div class="chip" onclick="go()">Where did my week go?</div>
+                    <div class="chip" onclick="go()">How much time on actual CEO work?</div>
+                    <div class="chip active" onclick="go()">Am I hitting my priorities?</div>
+                    <div class="chip" onclick="go()">What's pulling me away?</div>
+                </div>
             </div>
-            <div class="progress-text" id="progress-text">Mapping time allocation to 12-month targets...</div>
+
+            <hr class="divider">
+
+            <!-- Set C: Operations focus -->
+            <div class="set-block">
+                <div class="set-header">
+                    <span class="set-badge">C</span>
+                    <span class="set-label">Operations focus</span>
+                </div>
+                <div class="chips-grid">
+                    <div class="chip" onclick="go()">What's breaking down?</div>
+                    <div class="chip" onclick="go()">Where are we losing time?</div>
+                    <div class="chip active" onclick="go()">What needs fixing first?</div>
+                    <div class="chip" onclick="go()">Who's stuck?</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
-        function markDone(cardId, statusId) {
-            document.getElementById(cardId).classList.add('done');
-            const s = document.getElementById(statusId);
-            s.classList.add('done');
-            s.innerHTML = '✓ Pulled';
-        }
-
-        setTimeout(() => markDone('cal-card', 'cal-status'), 700);
-        setTimeout(() => markDone('slack-card', 'slack-status'), 1300);
-        setTimeout(() => markDone('email-card', 'email-status'), 1900);
-
         setTimeout(() => {
-            document.getElementById('progress-bar').style.width = '100%';
-            document.getElementById('loading-label').textContent = 'Analysis ready';
-            document.getElementById('progress-text').textContent = 'Opening your dashboard...';
-        }, 2200);
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1400);
 
-        setTimeout(() => { window.location.href = 'l1.html'; }, 3800);
+        function go() { window.location.href = 'l2.html'; }
     </script>
 </body>
 </html>
