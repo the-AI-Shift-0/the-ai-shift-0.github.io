@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Prompting System - The AI Shift</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
+  .page { max-width: 720px; margin: 0 auto; padding: 48px 32px; }
+
+  /* Header */
+  .header { margin-bottom: 48px; text-align: center; }
+  .page-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
+  .page-title { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 8px; }
+  .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 0; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  /* Section */
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6; }
+  .section-body { font-size: 14px; line-height: 1.7; color: #6b7280; margin-bottom: 16px; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid #e9d5ff; }
+  .tab-btn { flex: 1; padding: 12px 16px; background: none; border: none; font-size: 14px; font-weight: 700; color: #9ca3af; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s ease; }
+  .tab-btn:hover { color: #7c3aed; }
+  .tab-btn.active { color: #7c3aed; border-bottom-color: #7c3aed; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Setup steps */
+  .steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .step { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 16px 18px; }
+  .step-num { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 6px; }
+  .step-text { font-size: 14px; line-height: 1.6; color: #374151; }
+  .step-highlight { background: #f5f3ff; padding: 2px 4px; border-radius: 3px; color: #6d28d9; }
+
+  /* Copy box */
+  .copy-box-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
+  .copy-box { background: #fff; border: 1.5px solid #e9d5ff; border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
+  .copy-box-header { background: #f8f7ff; border-bottom: 1px solid #e9d5ff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .copy-box-title { font-size: 12px; font-weight: 700; color: #374151; font-family: 'SF Mono', 'Fira Code', monospace; }
+  .copy-btn { background: #7c3aed; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s ease; }
+  .copy-btn:hover { background: #6d28d9; }
+  .copy-btn.copied { background: #22c55e; }
+
+  .copy-box-content { padding: 16px; }
+  .system-prompt { font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace; font-size: 13px; line-height: 1.6; color: #374151; white-space: pre-wrap; word-break: break-word; background: #f8f7ff; border-radius: 6px; padding: 12px; }
+
+  /* Info box */
+  .info-box { background: #f5f3ff; border: 1px solid #ddd6fe; border-left: 3px solid #7c3aed; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; }
+  .info-text { font-size: 13px; line-height: 1.6; color: #374151; }
+  .info-text strong { color: #111827; }
+
+  /* Footer CTA */
+  .footer-cta { background: #7c3aed; border-radius: 12px; padding: 24px 28px; text-align: center; margin-top: 48px; }
+  .footer-cta-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #ddd6fe; margin-bottom: 8px; }
+  .footer-cta-text { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 16px; }
+  .footer-cta-btn { display: inline-block; background: #fff; color: #7c3aed; font-size: 15px; font-weight: 800; padding: 14px 32px; border-radius: 8px; text-decoration: none; cursor: pointer; border: none; }
+
+  /* Divider */
+  .divider { height: 1px; background: #f3f4f6; margin: 32px 0; }
+
+  /* Responsive */
+  @media (max-width: 680px) {
+    .page { padding: 32px 20px; }
+    .page-title { font-size: 22px; }
+    .tabs { flex-direction: column; gap: 4px; }
+    .tab-btn { border-bottom: 1px solid #f3f4f6; padding: 10px 14px; font-size: 13px; }
+    .tab-btn.active { border-left: 3px solid #7c3aed; border-bottom: 1px solid #f3f4f6; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="page-eyebrow">Your AI Just Got Smarter</div>
+    <h1 class="page-title">Your AI Just Got 10x Smarter</h1>
+    <p class="page-subtitle">Paste this once. Every conversation gets better automatically.</p>
+  </div>
+
+  <!-- Explanation -->
+  <div class="section">
+    <div class="section-title">What Is A System Prompt?</div>
+    <p class="section-body">A system prompt (or custom instruction) is a set of rules you give to Claude or ChatGPT before every conversation. Once set, it governs how the AI responds - asking better questions, thinking deeper, avoiding fluff, and citing its reasoning. Think of it as hiring a smarter assistant without changing your workflow.</p>
+  </div>
+
+  <!-- Setup Instructions -->
+  <div class="section">
+    <div class="section-title">How To Set It Up</div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event, 'claude')">Claude</button>
+      <button class="tab-btn" onclick="switchTab(event, 'chatgpt')">ChatGPT</button>
+    </div>
+
+    <!-- Claude Tab -->
+    <div id="claude" class="tab-content active">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">Step 1</div>
+          <div class="step-text">Go to <span class="step-highlight">claude.ai</span> and click your profile icon (top-right corner).</div>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 2</div>
+          <div class="step-text">Select <span class="step-highlight">Settings</span> from the menu.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 3</div>
+          <div class="step-text">Click <span class="step-highlight">Custom Instructions</span> in the left sidebar.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 4</div>
+          <div class="step-text">Paste the prompt below into the text box and click <span class="step-highlight">Save</span>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ChatGPT Tab -->
+    <div id="chatgpt" class="tab-content">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">Step 1</div>
+          <div class="step-text">Go to <span class="step-highlight">chat.openai.com</span> and click your profile icon (bottom-left).</div>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 2</div>
+          <div class="step-text">Select <span class="step-highlight">Settings</span> from the menu.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 3</div>
+          <div class="step-text">Click <span class="step-highlight">Personalization</span> then <span class="step-highlight">Custom Instructions</span>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 4</div>
+          <div class="step-text">Paste the prompt below into the first text box and click <span class="step-highlight">Save</span>.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Prompt -->
+  <div class="section">
+    <div class="copy-box-label">System Prompt - Copy and Paste</div>
+
+    <div class="copy-box">
+      <div class="copy-box-header">
+        <span class="copy-box-title">custom-instructions.txt</span>
+        <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">Copy</button>
+      </div>
+      <div class="copy-box-content">
+        <div class="system-prompt" id="promptText">You are an expert advisor and strategic partner. Your role is to provide clear, actionable guidance that drives real business outcomes. Follow these principles in every interaction:
+
+FRAMING & PERSPECTIVE
+- Always understand the user's underlying business goal, not just the literal question
+- Ask clarifying questions before answering when context is missing
+- Point out assumptions you're making and flag when more information would improve your advice
+
+RESPONSE STRUCTURE
+- Lead with the most important insight, not the most obvious one
+- Be direct and specific - avoid generic advice
+- When recommending an approach, explain the reasoning, not just the steps
+- Cite sources, data, or logic where relevant
+
+DEPTH & CALIBRATION
+- Match complexity to the question - don't oversimplify strategic decisions or over-elaborate on tactical ones
+- For decisions: surface the tradeoffs and their business impact
+- For implementation: be concrete with timelines and next steps
+
+WHAT TO AVOID
+- Avoid filler phrases like "it's important to" or "as mentioned" - they waste space
+- Don't hedge every statement; be confident in your recommendations
+- Never pretend certainty where uncertainty exists - flag it
+- Don't give the same advice to every business type - context matters
+
+ALWAYS
+- Reason through the problem, even if briefly
+- Flag the cost or downside of your recommendation
+- Suggest how to measure if your recommendation worked
+- End with the single most important next step</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-text"><strong>What this prompt does:</strong> It trains Claude/ChatGPT to think like a strategic partner rather than a generic assistant. It prioritizes clarity over verbosity, asks better questions, avoids filler, and always ties advice back to business outcomes - perfect for SMB owners making decisions under uncertainty.</div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Why It Works -->
+  <div class="section">
+    <div class="section-title">Why This Works</div>
+    <p class="section-body">Most people use AI reactively - asking a question, getting an answer, moving on. This system prompt makes AI proactive. It forces the model to ask clarifying questions, surface tradeoffs, and explain reasoning. Over hundreds of conversations, the difference compounds: better questions → better decisions → measurable outcomes.</p>
+  </div>
+
+  <!-- Footer CTA -->
+  <div class="footer-cta">
+    <div class="footer-cta-eyebrow">Want More AI Edge?</div>
+    <p class="footer-cta-text">Check out the full Prompt Builder video to learn how to craft custom instructions for any workflow - sales, operations, content, hiring, and more.</p>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid #f3f4f6;">
+    <p style="font-size: 13px; color: #9ca3af;">From The AI Shift - helping SMB owners use AI without the fluff.</p>
+  </div>
+
+</div>
+
+<script>
+function switchTab(event, tabName) {
+  // Hide all tab contents
+  const contents = document.querySelectorAll('.tab-content');
+  contents.forEach(content => {
+    content.classList.remove('active');
+  });
+
+  // Remove active class from all buttons
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  // Show selected tab content and mark button as active
+  document.getElementById(tabName).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function copyToClipboard() {
+  const promptText = document.getElementById('promptText').innerText;
+  const copyBtn = document.getElementById('copyBtn');
+
+  navigator.clipboard.writeText(promptText).then(() => {
+    copyBtn.textContent = 'Copied!';
+    copyBtn.classList.add('copied');
+
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy';
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy:', err);
+  });
+}
+</script>
+
+</body>
+</html>

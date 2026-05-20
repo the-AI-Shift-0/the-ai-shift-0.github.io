@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Legal Advisor Generator - The AI Shift</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f7ff;
+            color: #1f2937;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .subheading {
+            font-size: 16px;
+            color: #6b7280;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #1f2937;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 4px;
+            cursor: pointer;
+            accent-color: #7c3aed;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item label {
+            margin-bottom: 0;
+            font-weight: 400;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .state-field {
+            display: none;
+        }
+
+        .state-field.show {
+            display: block;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 16px;
+        }
+
+        .generate-btn:hover {
+            background-color: #6d28d9;
+        }
+
+        .generate-btn:active {
+            background-color: #5b21b6;
+        }
+
+        .output-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .output-section.show {
+            display: block;
+        }
+
+        .output-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #7c3aed;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .prompt-box {
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #374151;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #6d28d9;
+        }
+
+        .copy-btn:active {
+            background-color: #5b21b6;
+        }
+
+        .copy-feedback {
+            text-align: center;
+            color: #059669;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .copy-feedback.show {
+            display: block;
+        }
+
+        .instructions {
+            background-color: #f0fdf4;
+            border-left: 3px solid #059669;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #166534;
+            margin-bottom: 16px;
+        }
+
+        .disclaimer {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .form-section {
+                padding: 24px;
+            }
+
+            .subheading {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Build Your Own AI Legal Advisor in 60 Seconds</h1>
+            <p class="subheading">Tell us about your business. We'll generate a custom Claude prompt — paste it once and you have a legal advisor that knows your situation.</p>
+        </header>
+
+        <div class="form-section">
+            <form id="legalForm">
+                <div class="form-group">
+                    <label for="businessType">Business Type *</label>
+                    <select id="businessType" required>
+                        <option value="">Select your business type</option>
+                        <option value="LLC">LLC</option>
+                        <option value="S-Corp">S-Corp</option>
+                        <option value="C-Corp">C-Corp</option>
+                        <option value="Sole Proprietor">Sole Proprietor</option>
+                        <option value="Partnership">Partnership</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="industry">Industry *</label>
+                    <select id="industry" required>
+                        <option value="">Select your industry</option>
+                        <option value="E-commerce & Retail">E-commerce & Retail</option>
+                        <option value="Coaching & Education">Coaching & Education</option>
+                        <option value="SaaS & Software">SaaS & Software</option>
+                        <option value="Professional Services">Professional Services</option>
+                        <option value="Healthcare & Wellness">Healthcare & Wellness</option>
+                        <option value="Construction & Trades">Construction & Trades</option>
+                        <option value="Food & Hospitality">Food & Hospitality</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Primary Country of Operation *</label>
+                    <select id="country" required>
+                        <option value="">Select your country</option>
+                        <option value="United States">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group state-field" id="stateField">
+                    <label for="state">State/Province *</label>
+                    <input type="text" id="state" placeholder="e.g., California, Ontario">
+                </div>
+
+                <div class="form-group">
+                    <label>Biggest Legal Worries (select all that apply) *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry1" value="Contracts & vendor agreements">
+                            <label for="worry1">Contracts & vendor agreements</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry2" value="Employment & contractor disputes">
+                            <label for="worry2">Employment & contractor disputes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry3" value="IP / copyright protection">
+                            <label for="worry3">IP / copyright protection</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry4" value="Regulatory compliance">
+                            <label for="worry4">Regulatory compliance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry5" value="Data privacy / GDPR / CCPA">
+                            <label for="worry5">Data privacy / GDPR / CCPA</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry6" value="Lease & property disputes">
+                            <label for="worry6">Lease & property disputes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry7" value="Tax structure questions">
+                            <label for="worry7">Tax structure questions</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="worry8" value="Liability exposure">
+                            <label for="worry8">Liability exposure</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="generate-btn">Generate My Legal Advisor Prompt</button>
+            </form>
+        </div>
+
+        <div class="output-section" id="outputSection">
+            <div class="output-label">Your Custom Legal Advisor Prompt</div>
+
+            <div class="instructions">
+                Paste this into Claude > Settings > Custom Instructions, or start a new conversation and paste at the top.
+            </div>
+
+            <div class="prompt-box" id="promptBox"></div>
+
+            <button class="copy-btn" id="copyBtn">Copy Prompt to Clipboard</button>
+            <div class="copy-feedback" id="copyFeedback">Copied to clipboard!</div>
+        </div>
+
+        <div class="disclaimer">
+            This is not legal advice. AI-generated content should be reviewed by a licensed attorney for significant decisions.
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('legalForm');
+        const countrySelect = document.getElementById('country');
+        const stateField = document.getElementById('stateField');
+        const stateInput = document.getElementById('state');
+        const outputSection = document.getElementById('outputSection');
+        const promptBox = document.getElementById('promptBox');
+        const copyBtn = document.getElementById('copyBtn');
+        const copyFeedback = document.getElementById('copyFeedback');
+
+        const countriesWithStates = ['United States', 'Canada', 'Australia'];
+
+        countrySelect.addEventListener('change', function() {
+            if (countriesWithStates.includes(this.value)) {
+                stateField.classList.add('show');
+                stateInput.setAttribute('required', 'required');
+            } else {
+                stateField.classList.remove('show');
+                stateInput.removeAttribute('required');
+                stateInput.value = '';
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate at least one checkbox is selected
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checkedAny = Array.from(checkboxes).some(cb => cb.checked);
+
+            if (!checkedAny) {
+                alert('Please select at least one legal concern.');
+                return;
+            }
+
+            // Gather form data
+            const businessType = document.getElementById('businessType').value;
+            const industry = document.getElementById('industry').value;
+            const country = document.getElementById('country').value;
+            const state = document.getElementById('state').value;
+            const locationStr = state ? `${state}, ${country}` : country;
+
+            const selectedWorries = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            // Generate prompt
+            const prompt = generateLegalAdvisorPrompt(businessType, industry, locationStr, selectedWorries);
+
+            // Display output
+            promptBox.textContent = prompt;
+            outputSection.classList.add('show');
+            copyFeedback.classList.remove('show');
+
+            // Scroll to output
+            setTimeout(() => {
+                outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        });
+
+        copyBtn.addEventListener('click', function() {
+            const promptText = promptBox.textContent;
+            navigator.clipboard.writeText(promptText).then(() => {
+                copyFeedback.classList.add('show');
+                setTimeout(() => {
+                    copyFeedback.classList.remove('show');
+                }, 2500);
+            }).catch(() => {
+                alert('Failed to copy. Please try again.');
+            });
+        });
+
+        function generateLegalAdvisorPrompt(businessType, industry, location, worries) {
+            const worriesList = worries.join(', ');
+
+            return `You are an expert AI legal advisor specializing in supporting small business owners. Your client operates a ${businessType} in the ${industry} industry, based in ${location}.
+
+CORE RESPONSIBILITIES:
+Your primary role is to help with legal strategy, document analysis, risk identification, and compliance guidance. You have deep knowledge of:
+- Business entity structures (LLC, S-Corp, C-Corp, etc.)
+- Contract law and commercial agreements
+- Employment law and contractor relationships
+- Intellectual property and copyright protection
+- Regulatory compliance for ${industry}
+- Data privacy laws (GDPR, CCPA, etc.)
+- Tax structure considerations
+- Liability and risk management
+
+PRIMARY CONCERNS FOR THIS CLIENT:
+${worries.map((w, i) => `${i + 1}. ${w}`).join('\n')}
+
+YOUR ANALYSIS FRAMEWORK:
+When analyzing any document, legal question, or situation:
+
+1. IDENTIFY APPLICABLE LAWS: Pinpoint all relevant federal, state, and local laws that apply to their specific situation in ${location}.
+
+2. FLAG RISKS: Assess each risk by severity (HIGH - immediate action needed | MEDIUM - address within 30-60 days | LOW - monitor and document).
+
+3. RECOMMEND NEXT STEPS: Provide specific, actionable recommendations prioritized by urgency and impact.
+
+4. ATTORNEY ESCALATION: Always clearly note when a licensed attorney should review before final decisions on high-risk items.
+
+TONE & APPROACH:
+- Be direct and practical. No legal jargon without explanation.
+- Focus on what the business owner can control and act on.
+- Provide templates, checklists, or frameworks where helpful.
+- Acknowledge when you lack jurisdiction-specific expertise and recommend they consult a local attorney.
+
+DISCLAIMER:
+Always preface your analysis with: "This is general legal information, not legal advice. Consult a licensed attorney before making final decisions on significant matters."
+
+Your goal is to give this business owner confidence that legal issues are identified and managed.`;
+        }
+    </script>
+</body>
+</html>
