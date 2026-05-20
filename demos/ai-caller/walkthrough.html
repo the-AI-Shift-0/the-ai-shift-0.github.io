@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Caller Demo Walkthrough - Filming Guide</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7ff;
+      color: #111827;
+      line-height: 1.6;
+    }
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6fe;
+      padding: 24px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #7c3aed;
+      margin-bottom: 4px;
+    }
+    .header p {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #ddd6fe;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #7c3aed;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .step {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f0e9ff;
+      color: #7c3aed;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
+    .step-row {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f3f0ff;
+    }
+    .step-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .step-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .step-content {
+      font-size: 14px;
+      color: #111827;
+      line-height: 1.5;
+    }
+    .highlight-box {
+      background: #fef3c7;
+      border-left: 3px solid #f59e0b;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #111827;
+    }
+    .highlight-box strong {
+      color: #92400e;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .wow-moment {
+      background: linear-gradient(135deg, #fecaca 0%, #fecaca 100%);
+      border-left: 4px solid #ef4444;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #7f1d1d;
+    }
+    .script-text {
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+      background: #f9fafb;
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 3px solid #7c3aed;
+      font-size: 13px;
+      color: #111827;
+      line-height: 1.5;
+      margin: 8px 0;
+    }
+    .key-point {
+      background: #dcfce7;
+      border-left: 3px solid #22c55e;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #166534;
+      margin: 8px 0;
+      font-weight: 500;
+    }
+    .transition-box {
+      background: #dbeafe;
+      border-left: 3px solid #0284c7;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #1e40af;
+    }
+    .transition-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #0c4a6e;
+    }
+    .lead-magnet-section {
+      background: #f0e9ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+    .lead-magnet-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #7c3aed;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+    }
+    .lead-magnet-item {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .lead-magnet-item:last-child {
+      margin-bottom: 0;
+    }
+    .lead-magnet-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .lead-magnet-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+    .talking-point {
+      background: #ffffff;
+      border-left: 3px solid #7c3aed;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #111827;
+      font-style: italic;
+    }
+    .page-link {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #7c3aed;
+      font-weight: 500;
+      display: inline-block;
+      margin: 4px 0;
+    }
+    .timing {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f3f0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>AI Caller Demo Walkthrough</h1>
+    <p>Filming guide for the demo video. Open on a second monitor while recording.</p>
+  </div>
+
+  <div class="container">
+    <!-- DEMO 1: THE LIVE DEMO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-badge">1</div>
+        <h2 class="section-title">The Live Demo</h2>
+      </div>
+
+      <!-- STEP 1: INTRO -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">Intro & Hook</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say (opening line)</div>
+          <div class="script-text">"This AI made 23 calls today. I didn't make a single one. Let me show you what it found."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Why it lands</div>
+          <div class="step-content">SMB owner is tired of doing everything themselves. This says: the tech handles the volume, so you can focus on closing.</div>
+        </div>
+      </div>
+
+      <!-- STEP 2: DASHBOARD LOAD -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">Load Dashboard (index.html)</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Screen</div>
+          <div class="page-link">the-AI-Shift-95.github.io/demos/ai-caller/</div>
+          <p style="margin-top: 8px; font-size: 13px; color: #6b7280;">Watch loading overlay fade. Page will show header, then hero stats, then charts, then calls table.</p>
+        </div>
+        <div class="step-row">
+          <div class="step-label">What Sai sees</div>
+          <div class="step-content">Clean dashboard with 3 stats cards: Show-Up Rate 82% | Calls Placed 23 | Confirmed Bookings 19. CRM and Twilio connected (green dots). Last updated May 12 · 3:47 PM.</div>
+        </div>
+        <div class="timing">~3-5 seconds total for page to fully load</div>
+      </div>
+
+      <!-- STEP 3: HERO STATS -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">3</div>
+          <div class="step-title">Highlight Hero Stats</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"23 calls placed. 19 bookings confirmed. That's an 82% show-up rate. Let me put that in context."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Action</div>
+          <div class="step-content">Pause here. Let the numbers sink in. You're establishing baseline credibility with numbers.</div>
+        </div>
+        <div class="key-point">82% show-up rate is 2-3x the typical no-show rate for most SMBs (30-50% is the industry baseline).</div>
+      </div>
+
+      <!-- STEP 4: WEEKLY CHART & SOURCE PERFORMANCE -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">4</div>
+          <div class="step-title">Show Charts: Trend & Channel Performance</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"This shows show-up rate trending up through the week. And here's where the real decision-making power comes in."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Then point to Source Performance chart</div>
+          <div class="step-content">Facebook Ad: 88% | Instagram Ad: 82% | Webinar signup: 79% | Organic: 71%</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"Facebook is crushing it at 88%. Instagram 82%. Organic is 71%. I now know exactly where to put my ad budget."</div>
+        </div>
+        <div class="highlight-box">
+          <strong>Why it lands:</strong> SMB owners spend money on guesses. You're showing them data that tells them exactly where to spend next.
+        </div>
+      </div>
+
+      <!-- STEP 5: CALLS TABLE - FIRST ROW CLICK -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">5</div>
+          <div class="step-title">Click Into First Call (3:47 PM)</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Action</div>
+          <div class="step-content">Scroll down to the calls table. Click on the first row (3:47 PM, Samantha, Facebook Ad, "Confirmed booking").</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"Let me click into this confirmed booking to show you what actually happened."</div>
+        </div>
+        <div class="wow-moment">WOW MOMENT COMING NEXT: The call was placed 47 seconds after the lead filled out the form. She says "I only just filled in the form."</div>
+        <div class="timing">~2 seconds to click. Page (l2.html) will load.</div>
+      </div>
+
+      <!-- STEP 6: TRANSCRIPT PAGE -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">6</div>
+          <div class="step-title">Transcript Page (l2.html) - The Wow Moment</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">What shows on screen</div>
+          <div class="page-link">l2.html</div>
+          <p style="margin-top: 8px; font-size: 13px; color: #6b7280;">Full conversation transcript, timestamps, and 3 insight cards (Pain Point | Sentiment | Booking).</p>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"This call was placed 47 seconds after she filled in the form. Total duration: 1 minute 42 seconds. Listen to what she says right at the top."</div>
+        </div>
+        <div class="wow-moment">
+          <strong>THE WOW MOMENT:</strong><br>
+          AI: "I wanted to reach out and make sure you had everything you need."<br>
+          LEAD: "Oh wow, yeah that's me! I only just filled in the form."<br><br>
+          She was STILL ON THE PAGE when the AI called. That's speed and relevance.
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say (reading the transcript)</div>
+          <div class="script-text">"The AI asked what her main challenge is. She said: 'I'm trying to scale my business but I'm stuck doing everything myself. I need systems.' AI captured that. The rep will walk into their call knowing exactly what she wants to solve. Calendar invite already sent."</div>
+        </div>
+        <div class="key-point">The AI captured pain point (scaling bottleneck), confirmed the booking, AND briefed the rep - all in 102 seconds. Zero manual work.</div>
+      </div>
+
+      <!-- STEP 7: INSIGHTS -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">7</div>
+          <div class="step-title">Highlight Insight Cards</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Point to three cards below transcript</div>
+          <div class="step-content">
+            <strong>Pain Point:</strong> "Scaling bottleneck - doing everything herself, needs systems"<br>
+            <strong>Sentiment:</strong> "Positive - impressed by fast follow-up and ready to book"<br>
+            <strong>Booking:</strong> "Confirmed: Thursday 2PM - calendar invite sent"
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"Three things happened instantly: pain point captured, sentiment scored, booking confirmed. The AI didn't just make a call. It gathered intelligence."</div>
+        </div>
+      </div>
+
+      <!-- STEP 8: POST-CALL SUMMARY -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">8</div>
+          <div class="step-title">Click "View post-call summary →" (l3.html)</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Action</div>
+          <div class="step-content">Click the purple button at the bottom of the transcript page.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"Now here's where it gets really interesting. Let me show you what the rep sees before they ever pick up the phone."</div>
+        </div>
+        <div class="timing">l3.html will load with Lead Profile, Sentiment Score, Rep Briefing, and CRM Update.</div>
+      </div>
+
+      <!-- STEP 9: REP BRIEFING BOX -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">9</div>
+          <div class="step-title">Focus on Rep Briefing</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">What's visible on l3.html</div>
+          <div class="step-content">Left column has a "Rep Briefing" box. It reads:<br><br>"Your 2PM Thursday Call - Lead wants to scale but is the bottleneck in their own business. Open with: 'Maya mentioned you're doing everything yourself — let's talk about how that changes.'"<br><br>Use case fit: Strong<br>Likely objection: Time to implement<br>Suggested close: Done-for-you vs DIY angle</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"The closer walks in with a briefing: her pain point, what to say, the objection to expect, the close to use. No prep work. She's never touched this lead before but she has everything she needs."</div>
+        </div>
+        <div class="highlight-box">
+          <strong>Why it lands:</strong> SMB owners' teams spend 30-45 minutes prepping per call. This is instant, automated prep. That's a full day back per rep per week.
+        </div>
+      </div>
+
+      <!-- STEP 10: CRM UPDATE -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">10</div>
+          <div class="step-title">Show CRM Update (Right Column)</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Point to right column card "CRM Update"</div>
+          <div class="step-content">
+            Status: Booked ✅<br>
+            Call Duration: 1:42<br>
+            Transcript: Saved ✅<br>
+            Calendar Invite: Sent ✅<br>
+            Rep Assigned: James Richardson<br>
+            Next Action: Thursday 2PM call
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"Status updated. Transcript saved. Calendar invite sent. Rep assigned. All automatic. No manual data entry. This is what happens when you connect AI to your CRM and calendar."</div>
+        </div>
+        <div class="key-point">Zero manual data entry. The rep's calendar, CRM, and briefing are all live.</div>
+      </div>
+
+      <!-- STEP 11: BOTTOM BANNER - THE CLOSER -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">11</div>
+          <div class="step-title">Scroll to Bottom Banner - The Numbers</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">What's visible</div>
+          <div class="step-content">Purple gradient banner with "Today's AI Caller Performance":<br><br>23 calls | 19 confirmed | 0 no-shows (so far) | 82% show-up rate<br><br>Below: "Before AI Caller vs. After: 30% show-up (human team: 50%, inconsistent) | AI: 82% (24/7, consistent) · Revenue recovered: +$1.5M/year"<br><br>Bottom line: "AI Detection Rate: 300 calls analyzed · 3 clients detected AI (1%)"</div>
+        </div>
+        <div class="wow-moment">
+          <strong>THE CLOSER:</strong><br>
+          Before: 30% show-up rate.<br>
+          After: 82% show-up rate.<br>
+          Revenue impact: +$1.5M/year<br><br>
+          Detection rate: 1% (people don't even know it was AI)
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say (this is the mic drop)</div>
+          <div class="script-text">"30% show-up before. 82% after. That's not a percentage. That's a million-five in recovered revenue. And here's the thing — clients don't even know it was AI. It sounded human because the AI isn't following a robotic script. It's reading the script I trained it on, in real time, adapting to what they say. That's the magic. It's conversational, not mechanical."</div>
+        </div>
+        <div class="highlight-box">
+          <strong>Key talking point for Sai:</strong> "The AI sounds human because it IS having a real conversation - it's just reading the script I trained it on, in real time, adapting to what the person says." This defangs the "people hate AI calls" objection.
+        </div>
+      </div>
+
+      <!-- STEP 12: END OF DEMO 1 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">12</div>
+          <div class="step-title">End Demo 1 - Transition Pause</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"That's the system. Calls in 47 seconds. No-show rate cut by 50%. Revenue per rep up by a multiple. Now here's the part where most people screw up."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Timing</div>
+          <div class="step-content">Pause for 2 seconds. Let silence build. This is a natural beat before Demo 2.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO 2: THE SPOKEN SEGMENT + LEAD MAGNETS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-badge">2</div>
+        <h2 class="section-title">The Spoken Segment (No Screen Demo)</h2>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">The Setup - Acknowledge the Temptation</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"You've just seen this working. You want it. But you know what's about to happen — you're going to hire someone to build it, and they're going to charge you $40-60K for a custom app that should cost $8-12K, and then you'll find out they used the wrong tools and the whole thing falls apart in six months."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Why it lands</div>
+          <div class="step-content">SMB owner has been burned before on dev projects. Sai is naming the pain: they got ripped off. He's positioning as the insider who knows better.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">Position Sai as the Insider</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"I've built this. I know exactly what stack to use, what vendors to trust, what to demand from a builder, and what corners NOT to cut. I've seen the $40K failures. I know what the difference is between $40K garbage and $10K gold."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Why it lands</div>
+          <div class="step-content">Authority move. You've been in the trenches. You know the difference between good and bad. You're the expert, not the upseller.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">3</div>
+          <div class="step-title">Transition to Offerings</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"So I've packaged everything you need into two things. And honestly, you only need one of them."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Tone</div>
+          <div class="step-content">Conversational. Not salesy. You're giving them tools, not selling them a product.</div>
+        </div>
+      </div>
+
+      <!-- LEAD MAGNET 1 -->
+      <div class="lead-magnet-section">
+        <div class="lead-magnet-title">Lead Magnet #1: The AI Caller Blueprint</div>
+        <div class="lead-magnet-item">
+          <div class="lead-magnet-name">What It Is</div>
+          <div class="lead-magnet-desc">Full stack breakdown: which tools to use (AI model, voice provider, CRM connector), which vendors are solid vs. which are garbage, cost breakdown (what consultants charge vs. what it actually costs), what to demand from a builder.</div>
+        </div>
+        <div class="lead-magnet-item">
+          <div class="lead-magnet-name">Sai's Pitch</div>
+          <div class="script-text">"The Blueprint is the technical roadmap. It's literally what I used. The tools I chose, the vendors I vetted, the budget line items. You get to know: this vendor is a trap, use this one instead. This feature looks cool but you don't need it. This is where 80% of projects blow budget."</div>
+        </div>
+        <div class="lead-magnet-item">
+          <div class="lead-magnet-name">Who It's For</div>
+          <div class="lead-magnet-desc">Builders. Engineers. Tech co-founders who want to build it themselves or brief a dev team from a position of authority.</div>
+        </div>
+      </div>
+
+      <!-- LEAD MAGNET 2 -->
+      <div class="lead-magnet-section">
+        <div class="lead-magnet-title">Lead Magnet #2: The AI Caller Project Brief</div>
+        <div class="lead-magnet-item">
+          <div class="lead-magnet-name">What It Is</div>
+          <div class="lead-magnet-desc">A production-ready project brief you can paste into Claude or hand to a developer. Covers your use case, the architecture, API contracts, success metrics, the scripts the AI should use, CRM integration specs, everything.</div>
+        </div>
+        <div class="lead-magnet-item">
+          <div class="lead-magnet-name">Sai's Pitch</div>
+          <div class="script-text">"The Project Brief is the playbook. Copy and paste it into Claude or hand it to a dev. They'll build from that brief. No guessing. No 'well what did you want exactly?' — it's all there. Use case, stack, success metrics, timelines. Either build it yourself or pay a dev with a clear spec. Either way, you're not getting ripped off."</div>
+        </div>
+        <div class="lead-magnet-item">
+          <div class="lead-magnet-name">Who It's For</div>
+          <div class="lead-magnet-desc">Builders and SMB owners who want to hire a dev. You have a clear spec, so you can evaluate whether the price is fair. You're not guessing.</div>
+        </div>
+      </div>
+
+      <!-- CLOSER -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">4</div>
+          <div class="step-title">The Closer</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Say</div>
+          <div class="script-text">"Download one or both. If you're building it yourself, get the Blueprint. If you're hiring someone, get the Project Brief. Either way, you're walking into that conversation knowing more than the guy you're paying. That's power."</div>
+        </div>
+        <div class="talking-point">Short. Direct. No hard sell. You're giving them a tool that makes them smarter about their next move.</div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">5</div>
+          <div class="step-title">Optional: End with Callout (Choose One)</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Option A (Consultative)</div>
+          <div class="script-text">"You're going to see a lot of people try to sell you 'AI solutions.' Most of them are just wrappers around an API. This is not that. This is a system. It's built to work with your CRM, your sales team, your offer. Not a plug-and-play toy."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Option B (Cheeky)</div>
+          <div class="script-text">"And yeah, someone's going to try to do this for you for $50K. Maybe don't."</div>
+        </div>
+        <div class="step-row">
+          <div class="step-label">Use whichever fits your energy</div>
+          <div class="step-content">A feels more authoritative and educational. B feels more Sai.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFERENCE SECTION -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-badge">REF</div>
+        <h2 class="section-title">Quick Reference</h2>
+      </div>
+
+      <div class="step">
+        <div class="step-title">Demo 1 URL Sequence</div>
+        <div class="step-content">
+          1. <strong>Start:</strong> the-AI-Shift-95.github.io/demos/ai-caller/ (index.html)<br>
+          2. <strong>Click into 3:47 PM call →</strong> l2.html (transcript)<br>
+          3. <strong>Click "View post-call summary →"</strong> l3.html (summary)
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">Wow Moments to Emphasize</div>
+        <div class="key-point">
+          ✓ "I only just filled in the form" — 47 seconds<br>
+          ✓ Pain point captured automatically<br>
+          ✓ Rep briefing auto-generated<br>
+          ✓ Before: 30% | After: 82%<br>
+          ✓ Revenue: +$1.5M/year<br>
+          ✓ Detection rate: 1%
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">Demo 2 Talking Points (No Screen)</div>
+        <div class="step-content">
+          • Name the problem: "You'll hire someone and get ripped off"<br>
+          • Position yourself: "I've built this, I know the difference"<br>
+          • Offer the solution: "Two blueprints to protect you"<br>
+          • Blueprint = How to build it right (vendors, stack, budget)<br>
+          • Brief = What to hand to a dev (no guessing)<br>
+          • Close = "You're walking in smarter than the guy you're paying"
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">Lead Magnet File Names & Content</div>
+        <div class="step-content">
+          <strong>The AI Caller Blueprint</strong><br>
+          Format: HTML or PDF. Content: Stack, vendors, cost breakdown, what to avoid, setup timeline, success metrics.<br><br>
+          <strong>The AI Caller Project Brief</strong><br>
+          Format: HTML or PDF. Content: Full project spec, API details, CRM integration, AI scripts, success criteria, deliverables, timeline.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

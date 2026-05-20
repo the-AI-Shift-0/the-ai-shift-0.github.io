@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Call Analyzer - Demo Walkthrough</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .page { max-width: 1000px; margin: 0 auto; padding: 48px 32px; }
+
+        .page-header {
+            margin-bottom: 48px;
+            border-bottom: 2px solid #e9d5ff;
+            padding-bottom: 32px;
+        }
+        .page-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 8px; }
+        .page-title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 8px; }
+        .page-subtitle { font-size: 16px; color: #6b7280; max-width: 700px; }
+
+        .section { margin-bottom: 56px; }
+        .section-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #e9d5ff; }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step {
+            background: #ffffff;
+            border: 1.5px solid #e9d5ff;
+            border-radius: 12px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .step-number {
+            font-size: 22px;
+            font-weight: 800;
+            color: #7c3aed;
+            line-height: 1.2;
+        }
+
+        .step-content { display: flex; flex-direction: column; gap: 12px; }
+
+        .step-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .step-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        .step-text {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .step-say {
+            background: #faf8ff;
+            border-left: 3px solid #7c3aed;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #111827;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .step-why {
+            background: #f5f3ff;
+            border-left: 3px solid #d8b4fe;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .wow-moment {
+            background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+            border: 1.5px solid #fcd34d;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .wow-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .wow-text {
+            flex: 1;
+        }
+
+        .wow-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #92400e;
+            margin-bottom: 6px;
+        }
+
+        .wow-content {
+            font-size: 15px;
+            color: #111827;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .timing {
+            display: inline-block;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+
+        .prompt-box {
+            background: #111827;
+            color: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 16px 0;
+            border: 1px solid #374151;
+        }
+
+        .prompt-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            color: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .demo-badge {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .demo-desc {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            background: #7c3aed;
+            border-radius: 12px;
+            padding: 32px;
+            color: #fff;
+            margin-top: 48px;
+        }
+
+        .cta-eyebrow {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ddd6fe;
+            margin-bottom: 8px;
+        }
+
+        .cta-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cta-text {
+            font-size: 15px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="page-header">
+            <div class="page-eyebrow">Filming Guide</div>
+            <h1 class="page-title">Sales Call Analyzer Demo</h1>
+            <p class="page-subtitle">Two-part walkthrough: the built demo + what your viewers can build themselves with Claude. Follow each step on camera.</p>
+        </div>
+
+        <!-- DEMO 1 -->
+        <div class="section">
+            <div class="demo-header">
+                <div class="demo-badge">DEMO 1</div>
+                <div class="demo-desc">The Built Analyzer (3 pages, 90 seconds total)</div>
+            </div>
+            <p class="section-title">Team View: The Opening Move</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Loading screen (1.4 seconds)</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"I never listened to a single one of these 63 calls. AI did it for me — in seconds."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Sets up the promise: no listening to hours of audio. The AI did the work.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Index.html fully loaded. Page shows: "Sales Call Analyzer" header, Team Performance title, four summary cards, seven reps listed</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Here's my team. Seven reps, 63 calls, all scored. On the surface — looks fine. Everyone's in the 50s, 60s, 70s. Normal distribution."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">The team looks healthy. Set expectations low so Kyle's red flag hits harder next.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Scroll/point to summary cards. Read aloud: "Team Close Rate 31% vs 38% target" · "Calls Analyzed 63" · "Avg Score 71%, down 4 points" · "1 rep flagged — repeating pattern detected"</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"But look at this — we're 7 points below target. Team average dropped 4 points in eight weeks. And one rep has a repeating pattern."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Flags the pattern before showing Kyle. Builds curiosity: which rep? What pattern?</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Scroll down to rep list. Locate Kyle Brennan: 54%, red border, "⚠ Repeating pattern" badge, "View details →" link</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"There's Kyle — 54%, down 18 points in eight weeks. And AI flagged a repeating pattern. Let me see what it is."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Kyle is visibly worse than everyone else. The red styling and badge make it impossible to miss.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Action</div>
+                            <div class="step-text">Click "View details →" on Kyle's row</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Timing</div>
+                            <div class="timing">Wait 1.2s for l2.html to load</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-title" style="margin-top: 48px;">Rep Detail View: The Diagnosis</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">l2.html: Kyle's card with 54% score, trend chart (declining red line), behavior breakdown</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"His score dropped from 72% to 54% in eight weeks. But here's the interesting part — it's not everything. Rapport's actually OK at 72%. So what's broken?"</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">You're ruling out "Kyle is bad at sales." This is specific. Watch how the diagnosis narrows.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Point to score breakdown (Rapport 72% · Objection Handling 38% RED · Clarity 62% · Needs Matching 48% · Authority/Frame 50%)</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Objection handling — 38%. That's the leak. Everything else is yellow or green. One skill."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">This is the money shot: it's not a general problem. It's one specific weakness with a name.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Scroll down to "Recurring Weaknesses" cards. First card: "Pricing objection fumbled in 6 of last 8 calls — getting worse each week" · PATTERN badge · "View details →" link</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"And it's the same thing over and over — pricing objections. Same mistake, six times in eight calls. It's not random. It's a pattern."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Patterns are trainable. This isn't "Kyle needs to improve." It's "Kyle needs one specific coaching session."</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Action</div>
+                            <div class="step-text">Click on the pricing weakness card or "View details →"</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Timing</div>
+                            <div class="timing">Wait 1.2s for l3.html to load</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-title" style="margin-top: 48px;">Call Detail: The Moment</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">10</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">l3.html: "Discovery call — May 8, 2026 · 34 min" · Prospect: Operations Director · Deal size: $12K · Score: 48%</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Here's one call. Thirty-four minutes. I didn't listen to a second of it."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Reinforces: you're not doing this manually. AI extracted the exact moments from 34 minutes of audio.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">11</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">RED banner: "⚠ Same pricing objection pattern as 5 previous calls - this is the 6th occurrence in 8 weeks"</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"AI flagged this as the sixth time Kyle hit this exact pattern."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Cross-call pattern detection. This isn't one bad call — it's systematic.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">12</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Key Moments timeline. Locate 17:31 moment with label: "That seems like a lot for our current situation" → rep adds third feature. Tone shifts ("Lost here")</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Here's the moment — 17:31. Prospect says 'That seems like a lot for our current situation.' That's a budget concern. Kyle adds a third feature. And here — the tone shifts. Prospect disengages."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">You're showing, not telling. The exact timestamp, the exact words, the exact wrong move.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wow-moment">
+                    <div class="wow-icon">✨</div>
+                    <div class="wow-text">
+                        <div class="wow-label">WOW Moment</div>
+                        <div class="wow-content">The 17:31 clip is the payoff. AI extracted the exact second where the call was lost from 34 minutes of audio. Without listening.</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">13</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Scroll to "Call Assessment" or "Coaching Note" section</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"And here's the thing — this call was lost because Kyle redirected to features three times when the prospect raised budget. He never addressed the price."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Root cause identified. Clear, actionable diagnosis.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">14</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Read coaching note: "This is not a general training issue. It is one specific skill gap: pricing confidence. Do not send to general sales training. One focused session on price confrontation will move the needle faster."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"And here's the coaching note — this isn't Kyle needing sales training. One focused session on price confrontation. That's it."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">This is the payoff. The demo delivers what every sales manager wants: specific, actionable coaching. Not generic advice.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-title" style="margin-top: 48px;">Optional: Compare View</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">15</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Go back to index.html. Click "Compare" tab (top of page)</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"And if you want to see what top performers do differently, the Compare view shows Sarah — 82%, up nine points — side by side with Kyle."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Optional but strong: shows the contrast. What's working vs what's broken.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEMO 2 -->
+        <div class="section">
+            <div class="demo-header">
+                <div class="demo-badge">DEMO 2</div>
+                <div class="demo-desc">What Your Viewers Can Build (Claude or ChatGPT, 2 minutes)</div>
+            </div>
+
+            <p class="section-title">Getting Started: Open Claude</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Open Claude.ai in browser. Click "New conversation"</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Now, here's what you can build yourself. No API, no code. Just Claude or ChatGPT."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Removes the barrier. This isn't some custom tool. It's the same AI everyone has access to.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Empty message box, ready to paste</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"You'll need sales call transcripts — three to five calls from your team. Export them from Otter, Fathom, Fireflies, or any recorder. Paste them here."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Sets expectation: they own their data. No sign-ups, no platforms — just their transcripts.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Paste this prompt (copy-paste ready below) into Claude</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Then paste this prompt. It'll analyze your calls and give you exactly what we saw in the demo."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">The prompt is the bridge. Same analysis, same output, no build required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-label">COPY AND PASTE THIS EXACT PROMPT:</span>
+You are a sales call performance analyst. I'm going to give you [X] sales call transcripts from my team. Your job is to:
+
+1. Identify the top 3 recurring objections across all calls
+2. Flag the moment in each call where engagement dropped (if it did)
+3. Score each rep on: Rapport, Objection Handling, Clarity, Needs Matching (1-10)
+4. Identify which rep has a REPEATING pattern (same mistake across multiple calls)
+5. Give me one specific coaching recommendation per rep - not general advice
+
+Format your output as:
+- Summary (2 sentences: what's the biggest problem in this team right now?)
+- Per-rep breakdown (one card per rep)
+- The one thing to fix first
+
+Here are the transcripts:
+[PASTE TRANSCRIPTS HERE]
+            </div>
+
+            <p class="section-title" style="margin-top: 48px;">Running the Analysis</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Action</div>
+                            <div class="step-text">Click Send. Claude processes the transcripts (wait 30-60 seconds)</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"Hit enter. Claude's analyzing your team now."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Pacing. Keep energy up while Claude thinks.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Claude returns output. Scroll through to show:
+                            <br>— Summary (what's the biggest problem?)
+                            <br>— Rep-by-rep breakdown (Rapport, Objection Handling, etc.)
+                            <br>— Which rep has the repeating pattern
+                            <br>— One specific coaching note per rep</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"And there's your team audit. Top three objections. Who has the pattern. Specific coaching for each rep. Not a generic report. Actionable."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">This mirrors the built demo. Same insight, no custom analytics platform required. Empowers viewers: they can do this today.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-title" style="margin-top: 48px;">The Payoff</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <div class="step-field">
+                            <div class="step-label">Screen</div>
+                            <div class="step-text">Show the coaching recommendations section of Claude's output</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Say</div>
+                            <div class="step-say">"You get names, patterns, and one thing to fix for each rep. No listening. No 10-hour coaching sessions for general training. One focused skill gap, one focused fix."</div>
+                        </div>
+                        <div class="step-field">
+                            <div class="step-label">Why it lands</div>
+                            <div class="step-why">Callback to the built demo's coaching note. Same promise. Available right now.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEAD MAGNET -->
+        <div class="cta-section">
+            <div class="cta-eyebrow">Next Step</div>
+            <h2 class="cta-title">Sales Call Audit Starter</h2>
+            <p class="cta-text">End the video with: "If you want the prompt pre-built with scoring templates, team comparison, and a guide for running it on your calls, grab the Sales Call Audit Starter from the link in the description. Everything's ready — just paste your transcripts."</p>
+        </div>
+    </div>
+</body>
+</html>
