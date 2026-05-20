@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Brief — The AI Shift</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            background-color: #f8f7ff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #7c3aed;
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #7c3aed;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: #7c3aed;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e0d9ff;
+            border-left: 4px solid #7c3aed;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .highlight {
+            color: #7c3aed;
+            font-weight: 600;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border: 1px solid #e0d9ff;
+            border-radius: 6px;
+        }
+
+        .timeline-time {
+            font-weight: 700;
+            color: #7c3aed;
+            min-width: 80px;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .reference-card {
+            background: white;
+            border: 1px solid #e0d9ff;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+        }
+
+        .reference-title {
+            font-weight: 700;
+            color: #7c3aed;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .reference-link {
+            display: inline-block;
+            color: #7c3aed;
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 0.9rem;
+            font-family: monospace;
+            margin-bottom: 0.75rem;
+        }
+
+        .reference-link:hover {
+            text-decoration: underline;
+        }
+
+        .ref-detail {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border: 1px solid #e0d9ff;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #f8f7ff;
+            border-bottom: 2px solid #7c3aed;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: #7c3aed;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e0d9ff;
+            color: #333;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .question-list {
+            background: white;
+            border: 1px solid #e0d9ff;
+            border-left: 4px solid #7c3aed;
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .question-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e0d9ff;
+        }
+
+        .question-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #7c3aed;
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-value {
+            font-weight: 700;
+            color: #7c3aed;
+        }
+
+        .tone-example {
+            font-style: italic;
+            color: #666;
+            padding: 1rem;
+            background: #fafaf8;
+            border-left: 3px solid #7c3aed;
+            margin: 1rem 0;
+            border-radius: 3px;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0d9ff;
+            font-size: 0.9rem;
+            color: #999;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Editor Brief — The AI Shift</h1>
+            <p class="subtitle">Harris — here's what we need for this channel. Different format to anything we've done before, so read through before touching the footage.</p>
+        </header>
+
+        <section>
+            <h2>The Project</h2>
+
+            <div class="card">
+                <h3>What This Is</h3>
+                <p>A new YouTube channel: <span class="spec-value">The AI Shift</span>. Sai on camera, showing SMB owners ($2–10M revenue) how to use AI tools in their business. Not theory — actual tool demos, screen recordings, real workflows.</p>
+                <p><span class="spec-value">Launch:</span> June 2026 &nbsp;|&nbsp; <span class="spec-value">Cadence:</span> 2 videos/week &nbsp;|&nbsp; <span class="spec-value">Format:</span> Long-form, 10–20 min</p>
+                <p><span class="spec-value">First month goal:</span> 2 published + 8 fully edited and buffered.</p>
+            </div>
+
+            <div class="card">
+                <h3>Brand Voice — Important</h3>
+                <p>This channel has a specific tone: direct, smart, no fluff. Not corporate, not hype. Think <em>smart friend who works in tech and saves you from getting ripped off.</em> The editing should match — fast, clean, confident. Nothing should feel bloated or overdone.</p>
+                <p class="tone-example">"Here's the tool everyone's talking about. Here's what it actually does. Here's what you'd pay. Here's why that's a bad deal for most of you."</p>
+                <p>The audience is business owners, not tech enthusiasts. Don't dumb it down, but keep effects purposeful — every graphic should help a non-technical person understand, not just look cool.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Video Structure (Every Episode)</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">0:00–0:45</div>
+                    <div class="timeline-content">
+                        <strong>Hook</strong><br>
+                        Sai to camera. Problem statement. Usually a stat or pain point. Fast cuts. Urgency.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">0:45–3:00</div>
+                    <div class="timeline-content">
+                        <strong>Setup / Hero's Journey</strong><br>
+                        Context. Why this matters. Sai to camera. Build credibility and frame the demo.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">3:00–10:00</div>
+                    <div class="timeline-content">
+                        <strong>Demo 1 (Advanced)</strong><br>
+                        Screen recording. Sai narrates. Sai in PiP bottom-right. Shows what a sophisticated version looks like.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">10:00–15:00</div>
+                    <div class="timeline-content">
+                        <strong>Demo 2 (Practical)</strong><br>
+                        Simpler version the audience can do themselves. Same format as Demo 1.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">15:00–end</div>
+                    <div class="timeline-content">
+                        <strong>CTA + Lead Magnet</strong><br>
+                        Sai to camera. Points to link in description. Clean close.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Editing Standards</h2>
+
+            <div class="card">
+                <h3>Captions</h3>
+                <ul>
+                    <li><strong>Animation:</strong> Word-by-word animated reveal. Not static white text.</li>
+                    <li><strong>Emphasis:</strong> Key phrases highlighted in <span class="highlight">#7c3aed</span> (brand purple).</li>
+                    <li><strong>Font:</strong> Clean sans-serif, large enough to read on mobile (16px minimum).</li>
+                    <li><strong>Accuracy:</strong> Grammatically perfect. Native-level English. Zero spelling errors.</li>
+                    <li><strong>Placement:</strong> Never cover Sai's face or key screen content.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Talking Head (Sai on Camera)</h3>
+                <ul>
+                    <li><strong>Pacing:</strong> Cut dead air ruthlessly. If there's a 0.5s pause that adds nothing, cut it.</li>
+                    <li><strong>Cuts:</strong> Jump cuts are fine—this audience expects them.</li>
+                    <li><strong>Energy:</strong> Keep it up. If a sentence sounds flat, flag it for re-record rather than papering over it with effects.</li>
+                    <li><strong>Effects:</strong> Minimal. Sai's delivery will improve over time—don't auto-correct with too many effects.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Screen Recordings (Demo Sections)</h3>
+                <ul>
+                    <li><strong>PiP:</strong> Sai in bottom-right corner. Circular crop preferred.</li>
+                    <li><strong>Highlights:</strong> Add zoom/pan to emphasize the part of the screen being discussed.</li>
+                    <li><strong>Callouts:</strong> Arrows or highlight boxes when pointing to specific UI elements (brand purple <span class="highlight">#7c3aed</span>).</li>
+                    <li><strong>Cursor:</strong> Visible and smooth. Remove jitter.</li>
+                    <li><strong>Sound Effects:</strong> Subtle click sounds if they aid clarity. Don't overdo it.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Motion Graphics</h3>
+                <ul>
+                    <li><strong>Concept Breakdowns:</strong> Clean diagrams with numbered steps or flow arrows.</li>
+                    <li><strong>Data/Stats:</strong> Large text, animated entry, brand purple accent.</li>
+                    <li><strong>Frameworks:</strong> Simple boxes or flow charts. No 3D. No gradients. Flat design.</li>
+                    <li><strong>Lower Thirds:</strong> Sai's name (episode 1 only). Clean, simple, on-brand.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>B-Roll</h3>
+                <ul>
+                    <li><strong>Subject Matter:</strong> Business-appropriate. Office, laptop, phone, meetings.</li>
+                    <li><strong>Avoid:</strong> Lifestyle stock (coffee shops, generic "people typing").</li>
+                    <li><strong>AI-Related:</strong> Data visualisations, code on screen, chat interfaces are fine.</li>
+                    <li><strong>Usage:</strong> Keep it short. Don't pad with B-roll. This is a demo channel—screen recordings are primary.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Music</h3>
+                <ul>
+                    <li><strong>Level:</strong> Background only. Never louder than 15–20% of voice track.</li>
+                    <li><strong>Type:</strong> Instrumental. No lyrics.</li>
+                    <li><strong>Vibe:</strong> Slightly upbeat but not gimmicky. Think "focused work" playlist, not TikTok trending audio.</li>
+                    <li><strong>CTA Section:</strong> Fade out before CTA so Sai's voice is clean.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Pacing</h3>
+                <ul>
+                    <li><strong>Target:</strong> 140–160 words per minute effective pace after edits.</li>
+                    <li><strong>Hook:</strong> Should feel urgent.</li>
+                    <li><strong>Demos:</strong> Can breathe slightly more than hook.</li>
+                    <li><strong>Static Screens:</strong> Never let a cut land more than 4 seconds on a static screen without narration or visual movement.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Thumbnails</h2>
+
+            <div class="card">
+                <h3>Design Requirements</h3>
+                <ul>
+                    <li><strong>Sai's Face:</strong> Expressive, clearly visible.</li>
+                    <li><strong>Text Overlay:</strong> 2–5 words max. Bold, high contrast.</li>
+                    <li><strong>Background:</strong> Contrasting to Sai's clothing. Consider brand purple accent.</li>
+                    <li><strong>A/B Testing:</strong> Deliver 2 variants per video. Test performance on YouTube.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Reference Channels</h2>
+            <p style="margin-bottom: 1.5rem;">Watch at least 10 videos each before cutting the first episode. These define the production bar — we're targeting somewhere between the two in terms of energy and structure.</p>
+
+            <div class="reference-card">
+                <div class="reference-title">Reference 1: Structure + Pacing</div>
+                <a href="https://www.youtube.com/watch?v=4rmoJ_wc5Jw" class="reference-link">youtube.com/watch?v=4rmoJ_wc5Jw</a>
+                <div class="ref-detail">Whiteboard framing style. Sets context before diving into demos. Clean transitions between concepts. Strong hook and pacing.</div>
+            </div>
+
+            <div class="reference-card">
+                <div class="reference-title">Reference 2: Energy + Production</div>
+                <a href="https://www.youtube.com/watch?v=w413mkOJ9es" class="reference-link">youtube.com/watch?v=w413mkOJ9es</a>
+                <div class="ref-detail">Memes, sound effects, full edutainment energy. Fast cuts. Graphics that land hard. Keep the pace relentless without feeling chaotic.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Workflow & Communication</h2>
+
+            <div class="card">
+                <h3>Deliverables & Timeline</h3>
+                <p><span class="spec-value">First Cut:</span> Within 5 business days of receiving raw footage.</p>
+                <p><span class="spec-value">Revisions:</span> 1–2 rounds max. Ask questions before starting, not after.</p>
+                <p><span class="spec-value">File Delivery:</span> Unlisted YouTube link for review (not Drive folders).</p>
+                <p><span class="spec-value">Feedback:</span> Sai and Apurv will review and leave timestamped comments on YouTube.</p>
+                <p><span class="spec-value">Raw Footage:</span> Whatever Sai delivers. Separate audio/video tracks are preferred.</p>
+            </div>
+
+            <div class="card">
+                <h3>Before You Start: 5 Questions to Answer</h3>
+                <div class="question-list">
+                    <div class="question-item">
+                        <div class="question-text">1. Is the audio clean or does it need noise reduction?</div>
+                        <p>Check: background hum, AC noise, room echo, mic quality. Flag any need for processing before editing.</p>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-text">2. Are the screen and webcam recordings synced?</div>
+                        <p>Confirm: which file is master, are there any sync issues, drift, or frame rate mismatches?</p>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-text">3. Did the host flag any retakes or unusable sections?</div>
+                        <p>Ask: are there parts Sai wants to skip, re-record, or fix in the rough cut?</p>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-text">4. What's the exact topic and main takeaway?</div>
+                        <p>Confirm: title, hook, and which concepts need visual emphasis so your graphics land.</p>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-text">5. Are there branding assets or templates to use (fonts, colors, overlays)?</div>
+                        <p>Check: provided graphics kit, approved fonts, and any existing motion templates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>The AI Shift | Editor Brief | May 2026 | Questions — message Apurv on WhatsApp</p>
+        </footer>
+    </div>
+</body>
+</html>
