@@ -272,7 +272,7 @@
 <body>
   <div class="loading-overlay">
     <div class="spinner"></div>
-    <div class="loading-text">Enriching 600,000 records...</div>
+    <div class="loading-text">Enriching 100,000 records...</div>
   </div>
 
   <div class="header">
@@ -290,9 +290,9 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">AI Enrichment Running</div>
-      <div class="page-subtitle">Processing 600,000 records · Started 10:31 AM</div>
+      <div class="page-subtitle">Processing 100,000 records · Started 10:31 AM</div>
       <div style="margin-top: 16px; padding: 12px; background: #fef3c7; border-left: 4px solid #f59e0b; font-size: 13px; color: #92400e; border-radius: 4px; font-family: monospace;">
-        Estimated total runtime: 48 hrs for 600,000 records · Running batch 1 of 4 · Started Mon May 12 · 10:31 AM
+        Estimated total runtime: 8 hrs for 100,000 records · Running batch 1 of 4 · Started Mon May 12 · 10:31 AM
       </div>
     </div>
 
@@ -306,9 +306,9 @@
         <div class="action-icon">✓</div>
         <div class="action-content">
           <div class="action-title">Email Deduplication</div>
-          <div class="action-detail">Found 23,847 duplicate records across systems. Merged using email as primary key.</div>
-          <div class="action-detail">Fixed 1,204 typos (gamil.com → gmail.com, yhaoo.com → yahoo.com)</div>
-          <div class="action-detail">Generated email variants: dot permutations for Gmail addresses (+8,341 variants)</div>
+          <div class="action-detail">Found 3,982 duplicate records across systems. Merged using email as primary key.</div>
+          <div class="action-detail">Fixed 201 typos (gamil.com → gmail.com, yhaoo.com → yahoo.com)</div>
+          <div class="action-detail">Generated email variants: dot permutations for Gmail addresses (+1,390 variants)</div>
         </div>
       </div>
 
@@ -316,9 +316,9 @@
         <div class="action-icon">✓</div>
         <div class="action-content">
           <div class="action-title">Country Inference</div>
-          <div class="action-detail">Inferred country from phone prefix for 89,432 records with no location data</div>
+          <div class="action-detail">Inferred country from phone prefix for 14,905 records with no location data</div>
           <div class="action-detail">+61 → Australia, +44 → United Kingdom, +1 → US/Canada</div>
-          <div class="action-detail">Cross-referenced timezone data for 12,891 ambiguous records</div>
+          <div class="action-detail">Cross-referenced timezone data for 2,149 ambiguous records</div>
         </div>
       </div>
 
@@ -326,8 +326,8 @@
         <div class="action-icon">✓</div>
         <div class="action-content">
           <div class="action-title">Name Standardization</div>
-          <div class="action-detail">Separated full names into first + last for 34,221 records</div>
-          <div class="action-detail">Fixed case formatting: JOHN SMITH → John Smith (67,432 records)</div>
+          <div class="action-detail">Separated full names into first + last for 5,704 records</div>
+          <div class="action-detail">Fixed case formatting: JOHN SMITH → John Smith (11,239 records)</div>
           <div class="action-detail">Filled missing names from email prefix patterns (j.smith@ → J. Smith)</div>
         </div>
       </div>
@@ -338,26 +338,26 @@
           <div class="action-title">Location Enrichment</div>
           <div class="action-detail">Inferring city/state from area codes...</div>
           <div class="action-detail">Cross-referencing zip codes with city database...</div>
-          <div class="action-detail">Progress: 487,230 / 600,000 records</div>
+          <div class="action-detail">Progress: 81,205 / 100,000 records</div>
         </div>
       </div>
     </div>
 
     <div class="stats-row">
       <div class="stat-card">
-        <div class="stat-number">487,230</div>
+        <div class="stat-number">81,205</div>
         <div class="stat-label">Records processed</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">1.2M</div>
+        <div class="stat-number">200K</div>
         <div class="stat-label">New fields added</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">23,847</div>
+        <div class="stat-number">3,982</div>
         <div class="stat-label">Duplicates merged</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">8,341</div>
+        <div class="stat-number">1,390</div>
         <div class="stat-label">Email variants</div>
       </div>
     </div>
@@ -374,11 +374,11 @@
     </div>
 
     <div style="background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px; padding: 16px; margin-bottom: 32px; font-size: 13px; color: #6b7280; font-family: monospace;">
-      Tokens consumed: 847,293 of est. 2.1M total (40%)
+      Tokens consumed: 141,215 of est. 352,983 total (40%)
     </div>
 
     <div class="eta-section">
-      <div class="eta-text">Estimated completion: 32 hrs remaining</div>
+      <div class="eta-text">Estimated completion: 2 hrs remaining</div>
       <a href="l3.html" class="button button-primary">View Results</a>
     </div>
 
