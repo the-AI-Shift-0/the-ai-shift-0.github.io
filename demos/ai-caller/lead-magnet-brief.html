@@ -311,13 +311,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="revenue">Monthly revenue range:</label>
+                    <label for="revenue">Annual revenue range:</label>
                     <select id="revenue" required>
                         <option value="">-- Select a range --</option>
-                        <option value="$500K-1M">$500K-1M</option>
-                        <option value="$1M-3M">$1M-3M</option>
-                        <option value="$3M-7M">$3M-7M</option>
-                        <option value="$7M-15M">$7M-15M</option>
+                        <option value="$500K–$1M">$500K – $1M</option>
+                        <option value="$1M–$3M">$1M – $3M</option>
+                        <option value="$3M–$7M">$3M – $7M</option>
+                        <option value="$7M–$15M">$7M – $15M</option>
                     </select>
                 </div>
 
@@ -467,12 +467,12 @@
                         <div class="cta-card">
                             <h4>Paste into Claude</h4>
                             <p>Start a new Claude conversation. Paste this at the top. Then ask: "What should I build first?"</p>
-                            <button class="copy-button" onclick="copyBrief()">Copy Brief</button>
+                            <button class="copy-button" onclick="copyBrief(this)">Copy Brief</button>
                         </div>
                         <div class="cta-card">
                             <h4>Hand to a Developer</h4>
                             <p>This is your requirements document. A developer should be able to quote from this.</p>
-                            <button class="copy-button" onclick="copyBrief()">Copy for Dev</button>
+                            <button class="copy-button" onclick="copyBrief(this)">Copy for Dev</button>
                         </div>
                     </div>
                 </div>
@@ -496,22 +496,46 @@
         });
 
         function generateBrief() {
-            // Collect form data
+            // Validate required fields manually (button is type="button", browser validation won't run)
             const industry = document.getElementById('industry').value;
             const revenue = document.getElementById('revenue').value;
             const teamSize = document.getElementById('teamSize').value;
+            const callVolume = document.getElementById('callVolume').value;
+            const outcome = document.getElementById('outcome').value.trim();
 
-            const triggerValue = document.querySelector('input[name="trigger"]:checked').value;
-            const trigger = triggerValue === 'Other' ? document.getElementById('triggerText').value : triggerValue;
-
+            const triggerChecked = document.querySelector('input[name="trigger"]:checked');
+            const concernChecked = document.querySelector('input[name="concern"]:checked');
             const actionValues = Array.from(document.querySelectorAll('input[name="action"]:checked')).map(el => el.value);
+
+            if (!industry || !revenue || !teamSize || !callVolume) {
+                alert('Please complete all dropdown fields in Section 1 and Section 2.');
+                return;
+            }
+            if (!triggerChecked) {
+                alert('Please select what triggers the AI to call.');
+                return;
+            }
+            if (actionValues.length === 0) {
+                alert('Please select at least one call objective.');
+                return;
+            }
+            if (!outcome) {
+                alert('Please describe the outcome you want.');
+                return;
+            }
+            if (!concernChecked) {
+                alert('Please select your biggest concern.');
+                return;
+            }
+
+            const triggerValue = triggerChecked.value;
+            const trigger = triggerValue === 'Other' ? (document.getElementById('triggerText').value || 'Other') : triggerValue;
+
             const actionText = actionValues.includes('Other') ? document.getElementById('actionText').value : '';
-            const actions = actionValues.filter(v => v !== 'Other').concat(actionText ? [actionText] : []).join(', ');
+            const actions = actionValues.filter(v => v !== 'Other').concat(actionText ? [actionText] : []).join('\n- ');
 
             const crm = document.getElementById('crm').value || 'not specified';
-            const callVolume = document.getElementById('callVolume').value;
-            const outcome = document.getElementById('outcome').value;
-            const concern = document.querySelector('input[name="concern"]:checked').value;
+            const concern = concernChecked.value;
 
             // Generate brief content
             const briefContent = `PROJECT BRIEF: AI Caller Implementation — ${industry} Use Case
@@ -519,7 +543,7 @@
 === BUSINESS CONTEXT ===
 
 Industry: ${industry}
-Monthly Revenue: ${revenue}
+Annual Revenue: ${revenue}
 Team Size: ${teamSize} people
 Estimated Call Volume: ${callVolume} calls/day
 Current CRM/Booking: ${crm}
@@ -529,7 +553,7 @@ Current CRM/Booking: ${crm}
 Trigger Event: ${trigger}
 
 Call Objectives:
-${actions}
+- ${actions}
 
 === BUSINESS OUTCOME ===
 
@@ -639,10 +663,9 @@ Total: 5-8 weeks (assuming no blockers)
             }, 100);
         }
 
-        function copyBrief() {
+        function copyBrief(button) {
             const briefText = document.getElementById('briefOutput').innerText;
             navigator.clipboard.writeText(briefText).then(() => {
-                const button = event.target;
                 const originalText = button.innerText;
                 button.innerText = 'Copied!';
                 button.classList.add('copied');

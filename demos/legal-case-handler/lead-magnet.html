@@ -174,8 +174,6 @@
             font-size: 13px;
             line-height: 1.6;
             color: #374151;
-            max-height: 300px;
-            overflow-y: auto;
             white-space: pre-wrap;
             word-break: break-word;
             font-family: 'Monaco', 'Courier New', monospace;
@@ -226,14 +224,15 @@
         }
 
         .disclaimer {
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background-color: #fef3c7;
+            border: 1px solid #fcd34d;
             border-radius: 6px;
             padding: 16px;
-            font-size: 12px;
-            color: #6b7280;
+            font-size: 13px;
+            color: #92400e;
             text-align: center;
             line-height: 1.5;
+            margin-bottom: 24px;
         }
 
         @media (max-width: 600px) {
@@ -257,6 +256,10 @@
             <h1>Build Your Own AI Legal Advisor in 60 Seconds</h1>
             <p class="subheading">Tell us about your business. We'll generate a custom Claude prompt — paste it once and you have a legal advisor that knows your situation.</p>
         </header>
+
+        <div class="disclaimer">
+            Not legal advice. AI-generated prompts are a starting point — consult a licensed attorney before acting on significant legal matters.
+        </div>
 
         <div class="form-section">
             <form id="legalForm">
@@ -351,7 +354,7 @@
             <div class="output-label">Your Custom Legal Advisor Prompt</div>
 
             <div class="instructions">
-                Paste this into Claude > Settings > Custom Instructions, or start a new conversation and paste at the top.
+                Paste this into Claude (Settings &gt; Custom Instructions or Personalization, depending on your version) — or simply paste it at the top of any new conversation. Works the same way in ChatGPT under Settings &gt; Personalization &gt; Custom Instructions.
             </div>
 
             <div class="prompt-box" id="promptBox"></div>
@@ -360,9 +363,6 @@
             <div class="copy-feedback" id="copyFeedback">Copied to clipboard!</div>
         </div>
 
-        <div class="disclaimer">
-            This is not legal advice. AI-generated content should be reviewed by a licensed attorney for significant decisions.
-        </div>
     </div>
 
     <script>
