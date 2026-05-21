@@ -3,257 +3,548 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Prompting System - The AI Shift</title>
+<title>Get Your Custom AI System Prompt — The AI Shift</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
-  .page { max-width: 720px; margin: 0 auto; padding: 48px 32px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f8f7ff;
+  color: #1f2937;
+  line-height: 1.6;
+}
+.container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
 
-  /* Header */
-  .header { margin-bottom: 48px; text-align: center; }
-  .page-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
-  .page-title { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 8px; }
-  .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 0; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; }
+/* Header */
+header { text-align: center; margin-bottom: 40px; }
+.eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #7c3aed; margin-bottom: 12px;
+}
+h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 12px; line-height: 1.2; }
+.subtitle { font-size: 15px; color: #6b7280; max-width: 520px; margin: 0 auto 28px; }
 
-  /* Section */
-  .section { margin-bottom: 36px; }
-  .section-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6; }
-  .section-body { font-size: 14px; line-height: 1.7; color: #6b7280; margin-bottom: 16px; }
+/* What you get */
+.what-you-get {
+  background: white; border: 1px solid #e5e7eb;
+  border-radius: 10px; padding: 20px 24px; margin-bottom: 36px;
+}
+.what-you-get-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #7c3aed; margin-bottom: 12px;
+}
+.what-you-get ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.what-you-get li { font-size: 14px; color: #374151; padding-left: 20px; position: relative; }
+.what-you-get li::before { content: "✓"; position: absolute; left: 0; color: #7c3aed; font-weight: 700; }
 
-  /* Tabs */
-  .tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid #e9d5ff; }
-  .tab-btn { flex: 1; padding: 12px 16px; background: none; border: none; font-size: 14px; font-weight: 700; color: #9ca3af; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s ease; }
-  .tab-btn:hover { color: #7c3aed; }
-  .tab-btn.active { color: #7c3aed; border-bottom-color: #7c3aed; }
+/* Tab bar */
+.tab-bar {
+  display: flex; gap: 0; border-bottom: 2px solid #e9d5ff; margin-bottom: 32px;
+}
+.tab-btn {
+  flex: 1; padding: 12px 20px; background: none; border: none;
+  font-size: 14px; font-weight: 700; color: #9ca3af; cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: all 0.2s ease;
+}
+.tab-btn:hover { color: #7c3aed; }
+.tab-btn.active { color: #7c3aed; border-bottom-color: #7c3aed; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+/* Form card */
+.form-card {
+  background: white; border: 1px solid #e5e7eb;
+  border-radius: 10px; padding: 32px; margin-bottom: 24px;
+}
 
-  /* Setup steps */
-  .steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-  .step { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 16px 18px; }
-  .step-num { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 6px; }
-  .step-text { font-size: 14px; line-height: 1.6; color: #374151; }
-  .step-highlight { background: #f5f3ff; padding: 2px 4px; border-radius: 3px; color: #6d28d9; }
+/* Progress */
+.progress-wrap { margin-bottom: 28px; }
+.progress-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #9ca3af; margin-bottom: 10px;
+}
+.progress-bar-bg { height: 4px; background: #f3f4f6; border-radius: 4px; }
+.progress-bar-fill { height: 4px; background: #7c3aed; border-radius: 4px; transition: width 0.4s ease; }
 
-  /* Copy box */
-  .copy-box-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
-  .copy-box { background: #fff; border: 1.5px solid #e9d5ff; border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
-  .copy-box-header { background: #f8f7ff; border-bottom: 1px solid #e9d5ff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
-  .copy-box-title { font-size: 12px; font-weight: 700; color: #374151; font-family: 'SF Mono', 'Fira Code', monospace; }
-  .copy-btn { background: #7c3aed; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s ease; }
-  .copy-btn:hover { background: #6d28d9; }
-  .copy-btn.copied { background: #22c55e; }
+/* Form steps */
+.form-step { display: none; }
+.form-step.active { display: block; }
+.step-title { font-size: 18px; font-weight: 800; color: #111827; margin-bottom: 6px; }
+.step-sub { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
 
-  .copy-box-content { padding: 16px; }
-  .system-prompt { font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace; font-size: 13px; line-height: 1.6; color: #374151; white-space: pre-wrap; word-break: break-word; background: #f8f7ff; border-radius: 6px; padding: 12px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 8px; }
+.form-group input, .form-group select {
+  width: 100%; padding: 11px 14px; border: 1.5px solid #d1d5db;
+  border-radius: 8px; font-size: 14px; color: #111827;
+  background: white; transition: border-color 0.2s ease;
+  appearance: none; -webkit-appearance: none;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+}
+.form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237c3aed' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-  /* Info box */
-  .info-box { background: #f5f3ff; border: 1px solid #ddd6fe; border-left: 3px solid #7c3aed; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; }
-  .info-text { font-size: 13px; line-height: 1.6; color: #374151; }
-  .info-text strong { color: #111827; }
+/* Buttons */
+.btn-primary {
+  width: 100%; padding: 14px 24px; background: #7c3aed; color: white;
+  font-size: 15px; font-weight: 700; border: none; border-radius: 8px;
+  cursor: pointer; margin-top: 8px; transition: background 0.2s ease;
+}
+.btn-primary:hover { background: #6d28d9; }
+.btn-primary:disabled { background: #c4b5fd; cursor: not-allowed; }
+.privacy-note { font-size: 12px; color: #9ca3af; text-align: center; margin-top: 12px; }
+.privacy-note a { color: #7c3aed; text-decoration: none; }
 
-  /* Footer CTA */
-  .footer-cta { background: #7c3aed; border-radius: 12px; padding: 24px 28px; text-align: center; margin-top: 48px; }
-  .footer-cta-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #ddd6fe; margin-bottom: 8px; }
-  .footer-cta-text { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 16px; }
-  .footer-cta-btn { display: inline-block; background: #fff; color: #7c3aed; font-size: 15px; font-weight: 800; padding: 14px 32px; border-radius: 8px; text-decoration: none; cursor: pointer; border: none; }
+/* Processing state */
+.processing-state { display: none; text-align: center; padding: 48px 24px; }
+.spinner {
+  width: 44px; height: 44px; border: 3px solid #e9d5ff;
+  border-top-color: #7c3aed; border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 20px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.processing-title { font-size: 18px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+.processing-sub { font-size: 14px; color: #6b7280; }
+.processing-steps { list-style: none; margin-top: 20px; text-align: left; max-width: 320px; margin-left: auto; margin-right: auto; }
+.processing-steps li { font-size: 13px; color: #6b7280; padding: 6px 0 6px 24px; position: relative; border-bottom: 1px solid #f3f4f6; }
+.processing-steps li::before { content: "→"; position: absolute; left: 0; color: #7c3aed; }
 
-  /* Divider */
-  .divider { height: 1px; background: #f3f4f6; margin: 32px 0; }
+/* Success state */
+.success-state { display: none; text-align: center; padding: 40px 24px; }
+.success-icon {
+  width: 56px; height: 56px; background: #f0fdf4; border: 2px solid #86efac;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 24px;
+}
+.success-title { font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 8px; }
+.success-sub { font-size: 15px; color: #6b7280; margin-bottom: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
+.success-preview-cta {
+  display: inline-block; padding: 10px 20px; background: #f5f3ff;
+  color: #7c3aed; font-size: 14px; font-weight: 700; border-radius: 8px;
+  cursor: pointer; border: 1px solid #e9d5ff; transition: all 0.2s ease;
+}
+.success-preview-cta:hover { background: #ede9fe; }
 
-  /* Responsive */
-  @media (max-width: 680px) {
-    .page { padding: 32px 20px; }
-    .page-title { font-size: 22px; }
-    .tabs { flex-direction: column; gap: 4px; }
-    .tab-btn { border-bottom: 1px solid #f3f4f6; padding: 10px 14px; font-size: 13px; }
-    .tab-btn.active { border-left: 3px solid #7c3aed; border-bottom: 1px solid #f3f4f6; }
-  }
+/* Example output tab */
+.example-output { }
+.example-persona {
+  background: #f5f3ff; border: 1px solid #e9d5ff; border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 28px;
+}
+.example-persona-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #7c3aed; margin-bottom: 6px;
+}
+.example-persona-desc { font-size: 14px; color: #374151; }
+
+.output-section { margin-bottom: 32px; }
+.output-section-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #7c3aed; margin-bottom: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.copy-btn {
+  background: #7c3aed; color: white; font-size: 12px; font-weight: 700;
+  padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer;
+  transition: all 0.2s ease; text-transform: none; letter-spacing: 0;
+}
+.copy-btn:hover { background: #6d28d9; }
+.copy-btn.copied { background: #16a34a; }
+
+.prompt-box {
+  background: #111827; border-radius: 10px; padding: 20px;
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 13px; line-height: 1.7; color: #e5e7eb;
+  white-space: pre-wrap; word-break: break-word;
+}
+
+/* Setup tabs */
+.setup-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.setup-tab-btn {
+  padding: 8px 16px; border: 1.5px solid #e5e7eb; border-radius: 6px;
+  background: white; font-size: 13px; font-weight: 700; color: #6b7280;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.setup-tab-btn.active { border-color: #7c3aed; color: #7c3aed; background: #f5f3ff; }
+.setup-tab-content { display: none; }
+.setup-tab-content.active { display: block; }
+
+.setup-steps-list { list-style: none; }
+.setup-step-item {
+  display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid #f3f4f6;
+}
+.setup-step-item:last-child { border-bottom: none; }
+.setup-step-num {
+  width: 24px; height: 24px; background: #7c3aed; color: white;
+  border-radius: 50%; font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.setup-step-text { font-size: 14px; color: #374151; line-height: 1.6; }
+.setup-step-text code {
+  background: #f3f4f6; color: #7c3aed; font-size: 12px;
+  padding: 2px 6px; border-radius: 4px; font-family: monospace;
+}
+
+/* Starter prompts */
+.starter-prompts { display: flex; flex-direction: column; gap: 12px; }
+.starter-prompt {
+  background: white; border: 1px solid #e5e7eb; border-radius: 10px;
+  padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start;
+}
+.starter-prompt-icon {
+  font-size: 18px; flex-shrink: 0; margin-top: 2px;
+}
+.starter-prompt-text { font-size: 14px; color: #374151; line-height: 1.6; font-style: italic; }
+.starter-prompt-note { font-size: 12px; color: #9ca3af; margin-top: 4px; font-style: normal; }
+
+.example-cta {
+  text-align: center; padding: 28px; background: white;
+  border: 1px solid #e5e7eb; border-radius: 10px; margin-top: 32px;
+}
+.example-cta p { font-size: 15px; color: #374151; margin-bottom: 14px; }
+.example-cta button {
+  padding: 12px 24px; background: #7c3aed; color: white;
+  font-size: 14px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer;
+}
+.example-cta button:hover { background: #6d28d9; }
+
+@media (max-width: 540px) {
+  .what-you-get ul { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+}
 </style>
 </head>
 <body>
+<div class="container">
 
-<div class="page">
+  <header>
+    <div class="eyebrow">The AI Shift — Prompt Builder</div>
+    <h1>Get Your Custom AI System Prompt</h1>
+    <p class="subtitle">Answer a few questions about how you use AI. We'll build you a research-backed system prompt — personalised to your role and use case — and send it to your inbox in 60 seconds.</p>
+  </header>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="page-eyebrow">The AI Shift</div>
-    <h1 class="page-title">Your AI Just Got 10x Smarter</h1>
-    <p class="page-subtitle">Paste this once. Every conversation gets better automatically.</p>
+  <div class="what-you-get">
+    <div class="what-you-get-label">What you'll receive</div>
+    <ul>
+      <li>A system prompt built on Anthropic + OpenAI research</li>
+      <li>Role, context and constraints tuned to your work</li>
+      <li>Setup instructions for Claude, ChatGPT or Gemini</li>
+      <li>3 starter prompts to get results immediately</li>
+    </ul>
   </div>
 
-  <!-- Explanation -->
-  <div class="section">
-    <div class="section-title">What Is A System Prompt?</div>
-    <p class="section-body">A system prompt (or custom instruction) is a set of rules you give to Claude or ChatGPT before every conversation. Once set, it governs how the AI responds - asking better questions, thinking deeper, avoiding fluff, and citing its reasoning. Think of it as hiring a smarter assistant without changing your workflow.</p>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchMainTab('form', this)">Get Yours</button>
+    <button class="tab-btn" onclick="switchMainTab('example', this)">See Example Output</button>
   </div>
 
-  <!-- Setup Instructions -->
-  <div class="section">
-    <div class="section-title">How To Set It Up</div>
+  <!-- FORM TAB -->
+  <div id="tab-form" class="tab-content active">
+    <div class="form-card">
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab(event, 'claude')">Claude</button>
-      <button class="tab-btn" onclick="switchTab(event, 'chatgpt')">ChatGPT</button>
+      <div class="progress-wrap">
+        <div class="progress-label" id="progress-label">Step 1 of 2 — Where to send it</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar" style="width: 50%"></div></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="form-step active" id="step-1">
+        <div class="step-title">Where should we send your system prompt?</div>
+        <p class="step-sub">Takes 60 seconds to fill out. Delivered to your inbox instantly.</p>
+        <div class="form-group">
+          <label for="first-name">First name</label>
+          <input type="text" id="first-name" placeholder="Your first name" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@yourcompany.com" autocomplete="email">
+        </div>
+        <button class="btn-primary" onclick="goToStep2()">Next: About Your Work →</button>
+        <p class="privacy-note">We'll only use your email to send your system prompt and occasional AI insights. Unsubscribe anytime.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step" id="step-2">
+        <div class="step-title">Tell us how you use AI</div>
+        <p class="step-sub">Four quick questions — this is what we use to personalise your system prompt.</p>
+        <div class="form-group">
+          <label for="role">Your role</label>
+          <select id="role">
+            <option value="">Select your role</option>
+            <option value="business-owner">Business Owner / Founder</option>
+            <option value="sales-manager">Sales Manager</option>
+            <option value="marketing-manager">Marketing Manager</option>
+            <option value="operations-manager">Operations Manager</option>
+            <option value="consultant">Consultant / Advisor</option>
+            <option value="finance">Finance / Accounts</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ai-tool">Which AI tool do you use most?</label>
+          <select id="ai-tool">
+            <option value="">Select your tool</option>
+            <option value="claude">Claude (Anthropic)</option>
+            <option value="chatgpt">ChatGPT (OpenAI)</option>
+            <option value="gemini">Gemini (Google)</option>
+            <option value="multiple">I use multiple tools</option>
+            <option value="none">I haven't settled on one yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="main-task">What's the main thing you want AI to help with?</label>
+          <select id="main-task">
+            <option value="">Select your main use case</option>
+            <option value="writing">Writing emails and communications</option>
+            <option value="analysis">Analysing data and reports</option>
+            <option value="content">Creating content for customers</option>
+            <option value="research">Research and summarising information</option>
+            <option value="operations">Streamlining operations and processes</option>
+            <option value="sales">Sales conversations and follow-ups</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ai-tone">How should your AI sound when helping you?</label>
+          <select id="ai-tone">
+            <option value="">Select a tone</option>
+            <option value="professional">Professional and direct — lead with the answer</option>
+            <option value="friendly">Friendly and approachable — conversational</option>
+            <option value="analytical">Data-driven and analytical — show reasoning</option>
+            <option value="creative">Creative and engaging — ideas over formality</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="submitForm()">Generate My System Prompt →</button>
+        <p class="privacy-note"><span style="cursor:pointer; text-decoration:underline; color:#7c3aed;" onclick="goBackToStep1()">← Back</span></p>
+      </div>
+
     </div>
 
-    <!-- Claude Tab -->
-    <div id="claude" class="tab-content active">
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">Step 1</div>
-          <div class="step-text">Go to <span class="step-highlight">claude.ai</span> and click your profile icon (top-right corner).</div>
+    <!-- Processing state -->
+    <div class="processing-state" id="processing-state">
+      <div class="spinner"></div>
+      <div class="processing-title">Building your system prompt...</div>
+      <p class="processing-sub">Applying research from Anthropic and OpenAI to your profile</p>
+      <ul class="processing-steps">
+        <li>Mapping your role and use case to best-practice structure</li>
+        <li>Writing role definition, context and constraints</li>
+        <li>Adding output format rules and examples</li>
+        <li>Generating your 3 starter prompts</li>
+      </ul>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Your system prompt is on its way!</div>
+      <p class="success-sub">Check your inbox — it'll arrive in the next 60 seconds. Open it, copy the prompt, and paste it into your AI tool. You'll notice the difference immediately.</p>
+      <div class="success-preview-cta" onclick="switchMainTab('example', document.querySelectorAll('.tab-btn')[1])">
+        See what you're getting →
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAMPLE OUTPUT TAB -->
+  <div id="tab-example" class="tab-content">
+    <div class="example-persona">
+      <div class="example-persona-label">Example output</div>
+      <div class="example-persona-desc">Operations Manager at a $4M manufacturing business who uses ChatGPT daily for internal comms and process analysis</div>
+    </div>
+
+    <!-- Section 1: System Prompt -->
+    <div class="output-section">
+      <div class="output-section-label">
+        <span>Your Custom System Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)" id="copy-prompt-btn">Copy Prompt</button>
+      </div>
+      <div class="prompt-box" id="system-prompt-text">You are an operations advisor working exclusively for this business owner.
+
+ROLE
+Help them analyse operational data, prepare for team meetings, evaluate supplier performance, and communicate clearly with their team — without requiring them to be a management consultant.
+
+CONTEXT
+They run a $4M/year manufacturing operation with around 10 staff. They are time-poor and need direct, actionable guidance. They have access to production reports, supplier data, and team performance metrics. Main challenges: supplier reliability, production downtime, and keeping team communication clear.
+
+HOW TO RESPOND
+- Lead with the recommendation. Put reasoning after.
+- Use bullet points by default. Short paragraphs for explanations only.
+- Keep responses under 400 words unless explicitly asked to go deeper.
+- Use plain English. No corporate jargon or filler phrases.
+- If a question is ambiguous, ask ONE clarifying question before answering — not multiple.
+
+WHAT YOU HELP WITH
+- Process bottleneck analysis and improvement recommendations
+- Supplier performance evaluation (late deliveries, quality issues, escalation)
+- Meeting prep: agenda drafts, pre-read summaries, talking points
+- Team communications: briefings, update emails, escalation messages
+- KPI interpretation: downtime %, throughput, OEE, yield rate
+
+WHAT YOU DO NOT DO
+- Give legal or financial advice — flag when a professional is needed
+- Make final decisions — you inform and recommend, they decide
+- Speculate about outcomes without data to support it
+
+EXAMPLES OF WHAT I WANT
+Request: "A supplier has been late on 3 of my last 5 deliveries. What do I do?"
+Format your response as: (1) Issue summary in one sentence, (2) Immediate action to take this week, (3) Three-step escalation path, (4) When to start qualifying alternatives.
+
+Request: "Summarise this week's ops report" [file attached]
+Format your response as: On-track items | Off-track items | Decisions needed | Action items | One key metric vs last week — five bullets, nothing else.</div>
+    </div>
+
+    <!-- Section 2: Setup instructions -->
+    <div class="output-section">
+      <div class="output-section-label"><span>How to Set It Up</span></div>
+      <div class="setup-tabs">
+        <button class="setup-tab-btn active" onclick="switchSetupTab('chatgpt', this)">ChatGPT</button>
+        <button class="setup-tab-btn" onclick="switchSetupTab('claude', this)">Claude</button>
+        <button class="setup-tab-btn" onclick="switchSetupTab('gemini', this)">Gemini</button>
+      </div>
+      <div id="setup-chatgpt" class="setup-tab-content active">
+        <ol class="setup-steps-list">
+          <li class="setup-step-item">
+            <span class="setup-step-num">1</span>
+            <span class="setup-step-text">Click your profile icon (top right) → <code>Customize ChatGPT</code></span>
+          </li>
+          <li class="setup-step-item">
+            <span class="setup-step-num">2</span>
+            <span class="setup-step-text">In the <code>What would you like ChatGPT to know about you?</code> field, paste the system prompt above</span>
+          </li>
+          <li class="setup-step-item">
+            <span class="setup-step-num">3</span>
+            <span class="setup-step-text">Click <code>Save</code>. Every new conversation now starts with this context — no re-pasting needed.</span>
+          </li>
+        </ol>
+      </div>
+      <div id="setup-claude" class="setup-tab-content">
+        <ol class="setup-steps-list">
+          <li class="setup-step-item">
+            <span class="setup-step-num">1</span>
+            <span class="setup-step-text">Go to <code>claude.ai</code> → click your name (bottom left) → <code>Settings</code></span>
+          </li>
+          <li class="setup-step-item">
+            <span class="setup-step-num">2</span>
+            <span class="setup-step-text">Under <code>Profile</code>, find the <code>What should Claude know about you?</code> section — paste the prompt there</span>
+          </li>
+          <li class="setup-step-item">
+            <span class="setup-step-num">3</span>
+            <span class="setup-step-text">Or for project-specific use: create a <code>Project</code> → paste as the project instructions. Claude will use it for every conversation in that project.</span>
+          </li>
+        </ol>
+      </div>
+      <div id="setup-gemini" class="setup-tab-content">
+        <ol class="setup-steps-list">
+          <li class="setup-step-item">
+            <span class="setup-step-num">1</span>
+            <span class="setup-step-text">Go to <code>gemini.google.com</code> → click <code>Gems</code> in the left sidebar</span>
+          </li>
+          <li class="setup-step-item">
+            <span class="setup-step-num">2</span>
+            <span class="setup-step-text">Click <code>Create a gem</code> → give it a name (e.g. "My Ops Advisor") → paste the system prompt in the instructions field</span>
+          </li>
+          <li class="setup-step-item">
+            <span class="setup-step-num">3</span>
+            <span class="setup-step-text">Click <code>Save</code>. Open your Gem whenever you want AI with this context active.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Section 3: Starter prompts -->
+    <div class="output-section">
+      <div class="output-section-label"><span>3 Starter Prompts — Try These First</span></div>
+      <div class="starter-prompts">
+        <div class="starter-prompt">
+          <div class="starter-prompt-icon">💬</div>
+          <div>
+            <div class="starter-prompt-text">"We have a production bottleneck at [step in your process]. What questions should I ask my team to diagnose the root cause?"</div>
+            <div class="starter-prompt-note">Replace [step] with the actual step causing delays — e.g. "quality inspection" or "packing"</div>
+          </div>
         </div>
-        <div class="step">
-          <div class="step-num">Step 2</div>
-          <div class="step-text">Select <span class="step-highlight">Settings</span> from the menu.</div>
+        <div class="starter-prompt">
+          <div class="starter-prompt-icon">💬</div>
+          <div>
+            <div class="starter-prompt-text">"A supplier has missed [X] of our last [Y] deliveries. Draft me a performance conversation agenda for our meeting next week."</div>
+            <div class="starter-prompt-note">Fill in your actual numbers — the AI will tailor the agenda to the severity</div>
+          </div>
         </div>
-        <div class="step">
-          <div class="step-num">Step 3</div>
-          <div class="step-text">Look for <span class="step-highlight">Custom Instructions</span> — it may be under a Profile or Personalization section depending on your Claude version.</div>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 4</div>
-          <div class="step-text">Paste the prompt below into the text box and click <span class="step-highlight">Save</span>. Alternatively, paste it at the top of any new conversation.</div>
+        <div class="starter-prompt">
+          <div class="starter-prompt-icon">💬</div>
+          <div>
+            <div class="starter-prompt-text">"Summarise this week's operations report and tell me the 3 things I need to act on before Friday." [attach your report]</div>
+            <div class="starter-prompt-note">Works with PDF, Word, or pasted text. The AI follows the exact output format you set in your system prompt.</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ChatGPT Tab -->
-    <div id="chatgpt" class="tab-content">
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">Step 1</div>
-          <div class="step-text">Go to <span class="step-highlight">chat.openai.com</span> and click your profile icon (bottom-left).</div>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 2</div>
-          <div class="step-text">Select <span class="step-highlight">Settings</span> from the menu.</div>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 3</div>
-          <div class="step-text">Click <span class="step-highlight">Personalization</span> then <span class="step-highlight">Custom Instructions</span>.</div>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 4</div>
-          <div class="step-text">Paste the prompt below into the first text box and click <span class="step-highlight">Save</span>.</div>
-        </div>
-      </div>
+    <div class="example-cta">
+      <p>This was built for an operations manager. Yours will be personalised to your role, your tool, and your use case.</p>
+      <button onclick="switchMainTab('form', document.querySelectorAll('.tab-btn')[0])">Get My Custom Prompt →</button>
     </div>
-
-  </div>
-
-  <!-- Divider -->
-  <div class="divider"></div>
-
-  <!-- Prompt -->
-  <div class="section">
-    <div class="copy-box-label">System Prompt - Copy and Paste</div>
-
-    <div class="copy-box">
-      <div class="copy-box-header">
-        <span class="copy-box-title">custom-instructions.txt</span>
-        <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">Copy</button>
-      </div>
-      <div class="copy-box-content">
-        <div class="system-prompt" id="promptText">You are an expert advisor and strategic partner. Your role is to provide clear, actionable guidance that drives real business outcomes. Follow these principles in every interaction:
-
-FRAMING & PERSPECTIVE
-- Always understand the user's underlying business goal, not just the literal question
-- Ask clarifying questions before answering when context is missing
-- Point out assumptions you're making and flag when more information would improve your advice
-
-RESPONSE STRUCTURE
-- Lead with the most important insight, not the most obvious one
-- Be direct and specific - avoid generic advice
-- When recommending an approach, explain the reasoning, not just the steps
-- Cite sources, data, or logic where relevant
-
-DEPTH & CALIBRATION
-- Match complexity to the question - don't oversimplify strategic decisions or over-elaborate on tactical ones
-- For decisions: surface the tradeoffs and their business impact
-- For implementation: be concrete with timelines and next steps
-
-WHAT TO AVOID
-- Avoid filler phrases like "it's important to" or "as mentioned" - they waste space
-- Don't hedge every statement; be confident in your recommendations
-- Never pretend certainty where uncertainty exists - flag it
-- Don't give the same advice to every business type - context matters
-
-ALWAYS
-- Reason through the problem, even if briefly
-- Flag the cost or downside of your recommendation
-- Suggest how to measure if your recommendation worked
-- End with the single most important next step</div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <div class="info-text"><strong>What this prompt does:</strong> It trains Claude/ChatGPT to think like a strategic partner rather than a generic assistant. It prioritizes clarity over verbosity, asks better questions, avoids filler, and always ties advice back to business outcomes - perfect for SMB owners making decisions under uncertainty.</div>
-    </div>
-  </div>
-
-  <!-- Divider -->
-  <div class="divider"></div>
-
-  <!-- Why It Works -->
-  <div class="section">
-    <div class="section-title">Why This Works</div>
-    <p class="section-body">Most people use AI reactively - asking a question, getting an answer, moving on. This system prompt makes AI proactive. It forces the model to ask clarifying questions, surface tradeoffs, and explain reasoning. Over hundreds of conversations, the difference compounds: better questions → better decisions → measurable outcomes.</p>
-  </div>
-
-  <!-- Footer CTA -->
-  <div class="footer-cta">
-    <div class="footer-cta-eyebrow">Want More AI Edge?</div>
-    <p class="footer-cta-text">Watch the full Prompt Builder video to learn how to craft custom instructions for any workflow - sales, operations, content, hiring, and more.</p>
-    <a href="https://www.youtube.com/@theaishift" class="footer-cta-btn">Watch on YouTube</a>
-  </div>
-
-  <!-- Footer -->
-  <div style="text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid #f3f4f6;">
-    <p style="font-size: 13px; color: #9ca3af;">From The AI Shift - helping SMB owners use AI without the fluff.</p>
   </div>
 
 </div>
 
 <script>
-function switchTab(event, tabName) {
-  // Hide all tab contents
-  const contents = document.querySelectorAll('.tab-content');
-  contents.forEach(content => {
-    content.classList.remove('active');
-  });
-
-  // Remove active class from all buttons
-  const buttons = document.querySelectorAll('.tab-btn');
-  buttons.forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  // Show selected tab content and mark button as active
-  document.getElementById(tabName).classList.add('active');
-  event.target.classList.add('active');
+function switchMainTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
 }
 
-function copyToClipboard() {
-  const promptText = document.getElementById('promptText').innerText;
-  const copyBtn = document.getElementById('copyBtn');
+function goToStep2() {
+  const name = document.getElementById('first-name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!name) { document.getElementById('first-name').focus(); return; }
+  if (!email || !email.includes('@')) { document.getElementById('email').focus(); return; }
+  document.getElementById('step-1').classList.remove('active');
+  document.getElementById('step-2').classList.add('active');
+  document.getElementById('progress-label').textContent = 'Step 2 of 2 — About your work';
+  document.getElementById('progress-bar').style.width = '100%';
+}
 
-  navigator.clipboard.writeText(promptText).then(() => {
-    copyBtn.textContent = 'Copied!';
-    copyBtn.classList.add('copied');
+function goBackToStep1() {
+  document.getElementById('step-2').classList.remove('active');
+  document.getElementById('step-1').classList.add('active');
+  document.getElementById('progress-label').textContent = 'Step 1 of 2 — Where to send it';
+  document.getElementById('progress-bar').style.width = '50%';
+}
 
-    setTimeout(() => {
-      copyBtn.textContent = 'Copy';
-      copyBtn.classList.remove('copied');
-    }, 2000);
-  }).catch(err => {
-    console.error('Failed to copy:', err);
+function submitForm() {
+  const role = document.getElementById('role').value;
+  const tool = document.getElementById('ai-tool').value;
+  const task = document.getElementById('main-task').value;
+  const tone = document.getElementById('ai-tone').value;
+  if (!role || !tool || !task || !tone) return;
+
+  document.querySelector('.form-card').style.display = 'none';
+  document.getElementById('processing-state').style.display = 'block';
+
+  setTimeout(() => {
+    document.getElementById('processing-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+  }, 2200);
+}
+
+function switchSetupTab(tab, btn) {
+  document.querySelectorAll('.setup-tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.setup-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('setup-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function copyPrompt(btn) {
+  const text = document.getElementById('system-prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.classList.remove('copied'); }, 2000);
   });
 }
 </script>
-
 </body>
 </html>
