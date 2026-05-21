@@ -752,6 +752,8 @@
     </div>
 
     <script>
+        const RAILWAY_API = 'https://the-ai-shift.up.railway.app';
+        const VIDEO_KEY = 'sales-analyzer';
         let currentStep = 1;
 
         function switchFormTab(tabName, btn) {
@@ -784,6 +786,8 @@
         }
 
         function generateTrove() {
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
             const industry = document.getElementById('industry').value;
             const revenue = document.getElementById('revenue').value;
             const teamSize = document.getElementById('teamSize').value;
@@ -811,11 +815,56 @@
             const pain = painChecked.value;
             const objection = objChecked.value;
 
-            const industryObjections = getIndustryObjections(industry, objection);
-            const dealContext = getDealContext(dealSize, salesCycle);
+            const formData = {
+                name: firstName,
+                email: email,
+                industry: industry,
+                dealSize: dealSize,
+                coachingChallenge: pain,
+                methodology: objection
+            };
+
+            submitToRailway(formData);
+        }
+
+        async function submitToRailway(formData) {
+            // Show processing state
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('processingState').classList.add('show');
+
+            try {
+                const response = await fetch(`${RAILWAY_API}/generate/${VIDEO_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+
+                document.getElementById('processingState').classList.remove('show');
+                document.getElementById('successState').classList.add('show');
+
+                // If API returns generated output, use it; otherwise use static example
+                if (data.output) {
+                    document.getElementById('exampleTroveOutput').innerText = data.output;
+                } else {
+                    loadStaticExample(formData);
+                }
+            } catch (err) {
+                console.warn('Railway API unavailable, using offline mode:', err.message);
+                document.getElementById('processingState').classList.remove('show');
+                document.getElementById('successState').classList.add('show');
+                loadStaticExample(formData);
+            }
+        }
+
+        function loadStaticExample(formData) {
+            const industryObjections = getIndustryObjections(formData.industry, formData.methodology);
+            const dealContext = getDealContext(formData.dealSize, '1-4 weeks');
 
             const troveContent = `SALES ANALYZER MASTER TROVE
-${industry.toUpperCase()} | ${revenue} REVENUE
+${formData.industry.toUpperCase()} | CUSTOM REVENUE
 
 === WHAT THIS IS ===
 
@@ -824,20 +873,13 @@ You are a world-class sales performance analyst. This system has been pre-loaded
 - Challenger Sale framework (Dixon & Adamson — teach, tailor, take control)
 - Sandler Sales System (pain, budget, decision frameworks)
 - 10,000+ analyzed sales calls and objection response patterns
-- ${industry}-specific buying patterns and objection library
+- ${formData.industry}-specific buying patterns and objection library
 
 === BUSINESS CONTEXT ===
 
-Industry: ${industry}
-Annual Revenue: ${revenue}
-Team Size: ${teamSize} people
-Sales Reps: ${repCount}
-Average Deal Size: ${dealSize}
-Sales Cycle: ${salesCycle}
-Call Recording: ${recordingTool}
-
-Current coaching challenge: ${pain}
-Most damaging objection: ${objection}
+Industry: ${formData.industry}
+Coaching Challenge: ${formData.coachingChallenge}
+Most Damaging Objection: ${formData.methodology}
 
 ${dealContext}
 
@@ -898,7 +940,7 @@ KEY MOMENTS TO FLAG:
 - Talk ratio: if rep spoke more than 60% of the call, flag it
 - Engagement shift: the exact moment energy changed (positive or negative) — quote the line
 - First objection: how it arrived, how it was handled, whether it was resolved or bypassed
-- ${objection}: specifically watch for this — it kills the most deals. Note exactly when and how it came up.
+- ${formData.methodology}: specifically watch for this — it kills the most deals. Note exactly when and how it came up.
 - Closing attempt: was there a specific ask for next steps? Were they concrete and owned?
 
 ${industryObjections}
@@ -923,7 +965,7 @@ THE ONE THING TO FIX: [Single most impactful coaching note — specific, not gen
 
 THE BEST MOMENT: [What the rep did well — quote the line if possible — this gets reinforced]
 
-OBJECTION HANDLING (${objection}): [How they handled it + what they should have done differently if applicable]
+OBJECTION HANDLING (${formData.methodology}): [How they handled it + what they should have done differently if applicable]
 
 NEXT STEPS QUALITY: [Were they specific? Who owns them? Rated: Strong / Weak / None]
 
@@ -937,25 +979,11 @@ TEAM PATTERN REPORT:
 - Priority order: fix [X] before [Y] because [reason]
 - The one drill that would move the whole team
 
-INDIVIDUAL COMPARISON:
-For ${repCount} reps, show a side-by-side scorecard and rank them on: SPIN total, Challenger total, talk ratio, objection handling.
-
 === YOU ARE NOW READY ===
 
 Paste a sales call transcript and say "analyze this call." I'll return the full coaching report.`;
 
-            // Show processing state
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('processingState').classList.add('show');
-
-            // Simulate 1.5 second processing delay
-            setTimeout(() => {
-                document.getElementById('processingState').classList.remove('show');
-                document.getElementById('successState').classList.add('show');
-
-                // Also populate the example output for the "See Example Output" tab
-                document.getElementById('exampleTroveOutput').innerText = troveContent;
-            }, 1500);
+            document.getElementById('exampleTroveOutput').innerText = troveContent;
         }
 
         function getIndustryObjections(industry, topObjection) {

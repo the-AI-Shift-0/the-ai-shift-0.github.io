@@ -225,6 +225,33 @@ h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #111827;
     <p class="subtitle">Answer a few questions about how you use AI. We'll build you a research-backed system prompt — personalised to your role and use case — and send it to your inbox in 60 seconds.</p>
   </header>
 
+  <!-- VALUE PROP SECTION -->
+  <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 28px; margin-bottom: 32px;">
+    <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 16px;">The problem most people face</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+      <div style="padding: 0; ">
+        <div style="font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px;">Most AI input</div>
+        <div style="font-size: 13px; color: #6b7280; line-height: 1.6;">Type a one-liner into ChatGPT and get output that needs 3 rounds of editing</div>
+      </div>
+      <div style="padding: 0; ">
+        <div style="font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px;">The difference</div>
+        <div style="font-size: 13px; color: #6b7280; line-height: 1.6;">A well-structured prompt (role, context, task, format) gets it right in one shot</div>
+      </div>
+      <div style="padding: 0; ">
+        <div style="font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px;">The real cost</div>
+        <div style="font-size: 13px; color: #6b7280; line-height: 1.6;">40 minutes editing vs. copying output straight to a client</div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #f3f4f6; padding-top: 24px;">
+      <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 12px;">What you'll generate</div>
+      <ul style="list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <li style="font-size: 14px; color: #374151; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #7c3aed; font-weight: 700;">✓</span>A custom AI System Prompt for your exact role and workflow</li>
+        <li style="font-size: 14px; color: #374151; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #7c3aed; font-weight: 700;">✓</span>Platform-specific setup instructions (Claude / ChatGPT / Gemini)</li>
+        <li style="font-size: 14px; color: #374151; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #7c3aed; font-weight: 700;">✓</span>3 starter prompts you can use this week</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="what-you-get">
     <div class="what-you-get-label">What you'll receive</div>
     <ul>
@@ -489,6 +516,9 @@ Format your response as: On-track items | Off-track items | Decisions needed | A
 </div>
 
 <script>
+const RAILWAY_API = 'https://the-ai-shift.up.railway.app';
+const VIDEO_KEY = 'prompt-builder';
+
 function switchMainTab(tab, btn) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -515,19 +545,52 @@ function goBackToStep1() {
 }
 
 function submitForm() {
+  const name = document.getElementById('first-name').value;
+  const email = document.getElementById('email').value;
   const role = document.getElementById('role').value;
   const tool = document.getElementById('ai-tool').value;
   const task = document.getElementById('main-task').value;
   const tone = document.getElementById('ai-tone').value;
   if (!role || !tool || !task || !tone) return;
 
+  const formData = {
+    name: name,
+    email: email,
+    role: role,
+    aiTool: tool,
+    mainTask: task,
+    tone: tone
+  };
+
+  submitToRailway(formData);
+}
+
+async function submitToRailway(formData) {
   document.querySelector('.form-card').style.display = 'none';
   document.getElementById('processing-state').style.display = 'block';
 
-  setTimeout(() => {
+  try {
+    const response = await fetch(`${RAILWAY_API}/generate/${VIDEO_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+
     document.getElementById('processing-state').style.display = 'none';
     document.getElementById('success-state').style.display = 'block';
-  }, 2200);
+
+    // If API returns prompt, use it
+    if (data.prompt) {
+      document.getElementById('system-prompt-text').textContent = data.prompt;
+    }
+  } catch (err) {
+    console.warn('Railway API unavailable, using offline mode:', err.message);
+    document.getElementById('processing-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+  }
 }
 
 function switchSetupTab(tab, btn) {

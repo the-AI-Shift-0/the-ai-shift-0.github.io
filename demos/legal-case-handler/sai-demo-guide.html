@@ -24,6 +24,20 @@
             margin: 0 auto;
         }
 
+        .demo-section {
+            margin-bottom: 3rem;
+        }
+
+        .demo-heading {
+            background: #7c3aed;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
         .header {
             margin-bottom: 2rem;
             border-bottom: 2px solid #7c3aed;
@@ -143,40 +157,194 @@
     <div class="container">
         <div class="header">
             <h1>Legal Case Handler — Demo Guide</h1>
-            <p class="subtitle">For Sai · Keep this open while recording on Claude.ai</p>
+            <p class="subtitle">For Sai · Keep this open while recording</p>
         </div>
 
-        <div class="before-section">
-            <strong>Before you start</strong>
-            <p>This demo shows Claude.ai Projects handling a real legal threat. You'll film yourself in Claude.ai while following these steps. The goal: audience sees AI go from messy legal threat → clear verdict in 2 minutes.</p>
-        </div>
+        <!-- DEMO 2: MASTER TROVE + LIVE CLAUDE.AI -->
+        <div class="demo-section">
+            <div class="demo-heading">Demo 2: Master Trove First, Then Live Claude</div>
 
-        <!-- Step 1 -->
-        <div class="step">
-            <div>
-                <span class="step-number">1</span>
-                <span class="step-heading">Set up the Claude Project</span>
+            <div class="before-section">
+                <strong>Before you start</strong>
+                <p>This demo shows the Master Trove form, then switches to Claude.ai Projects for the live analysis. Goal: audience sees the free tool gets them 80% of the way there, then Claude finishes the job. Film this by sharing your screen, starting with the Master Trove link.</p>
             </div>
-            <div class="step-content">
-                <p>Open <strong>claude.ai</strong> → click <strong>"Projects"</strong> in sidebar → <strong>"New Project"</strong></p>
-                <p>Fill in these details:</p>
-                <div style="margin-left: 1rem;">
-                    <p><strong>Name:</strong> Legal Case Handler</p>
-                    <p><strong>Description:</strong> Reviews incoming legal threats and recommends action</p>
+
+            <!-- Step 1 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">1</span>
+                    <span class="step-heading">Navigate to the Master Trove</span>
+                </div>
+                <div class="step-content">
+                    <p>Open your browser and go to:</p>
+                    <div class="copy-label">LINK</div>
+                    <div class="copy-block">https://the-ai-shift-0.github.io/demos/legal-case-handler/master-trove</div>
+                    <p><strong>Say to camera:</strong> "Here's the free tool I built for you. First, it asks the basics about your situation..."</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">2</span>
+                    <span class="step-heading">Show Step 1 of the form briefly</span>
+                </div>
+                <div class="step-content">
+                    <p>Scroll to the "Get Your Master Trove" tab and show the form. You'll see name + email fields are visible.</p>
+                    <p><strong>Say to camera:</strong> "Step one asks for your name and email. Step two asks about your situation — jurisdiction, threat type, business type."</p>
+                    <p>Do NOT fill out or submit the form. Just show it's there, then move to the Example tab.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">3</span>
+                    <span class="step-heading">Click "See Example Output" tab</span>
+                </div>
+                <div class="step-content">
+                    <p>Switch to the "See Example Output" tab and show the full preview.</p>
+                    <p><strong>Say to camera:</strong> "Without filling anything out, here's what you'd get in your inbox. Three things: the system prompt, documents to upload, and the first questions to ask Claude."</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">4</span>
+                    <span class="step-heading">Walk through the system prompt</span>
+                </div>
+                <div class="step-content">
+                    <p>Scroll through the "Personalised System Prompt" section. Read it aloud to show clarity:</p>
+                    <div class="copy-label">EXAMPLE TEXT</div>
+                    <div class="copy-block">You are a legal risk analyst specialising in Australian business law.
+
+When given a legal document or threat, you must:
+1. Identify the jurisdiction and applicable law
+2. Assess the legal merit on a scale of 1-10
+3. Estimate potential financial exposure
+4. Recommend one of three actions: IGNORE / RESPOND / FIRE A LAWYER
+5. Draft a brief response if recommending RESPOND</div>
+                    <p><strong>Say to camera:</strong> "This prompt is job-specific. It tells Claude exactly what to do, why jurisdiction matters, and how to be concise. No fluff."</p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">5</span>
+                    <span class="step-heading">Show the document checklist</span>
+                </div>
+                <div class="step-content">
+                    <p>Scroll to "Documents to Upload to Claude" and point out the checklist:</p>
+                    <div class="copy-label">WHAT THEY'LL SEE</div>
+                    <div class="copy-block">☐ The threatening letter or cease & desist (PDF or pasted text)
+☐ The contract or agreement they're claiming was violated (if applicable)
+☐ Any prior correspondence (emails, prior letters)
+☐ Your business registration / ABN (to confirm jurisdiction)</div>
+                    <p><strong>Say to camera:</strong> "This checklist tells you exactly what to upload. No guessing."</p>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">6</span>
+                    <span class="step-heading">Show the first 3 questions</span>
+                </div>
+                <div class="step-content">
+                    <p>Scroll to "First 3 Questions to Ask Claude" and read them:</p>
+                    <div class="copy-label">WHAT THEY'LL ASK</div>
+                    <div class="copy-block">1. Review this cease & desist. What's the actual legal merit of their claim under Australian law? (1-10)
+2. What's my financial exposure if this goes to court? What damages could they realistically recover?
+3. Should I respond, ignore this, or hire a lawyer? If I should respond, draft a one-paragraph reply.</div>
+                    <p><strong>Say to camera:</strong> "These three questions get you from 'scared' to 'clear' in 30 seconds. Now let me show you what Claude actually does."</p>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">7</span>
+                    <span class="step-heading">Switch to Claude.ai Projects (already open)</span>
+                </div>
+                <div class="step-content">
+                    <p>Alt+Tab (or Cmd+Tab on Mac) to Claude.ai, which should already have a Project set up called "Legal Case Handler".</p>
+                    <p><strong>Say to camera:</strong> "Now I paste that system prompt into a Claude Project, upload the legal threat, and ask those three questions. Watch what happens."</p>
+                </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">8</span>
+                    <span class="step-heading">Show Claude's assessment</span>
+                </div>
+                <div class="step-content">
+                    <p>Claude should have already completed the analysis. Show the output: the legal merit score, financial exposure, and the three-word verdict (IGNORE / RESPOND / FIRE A LAWYER).</p>
+                    <p><strong>Say to camera:</strong> "This is what clarity looks like. A 2/10 legal merit. Low financial exposure. The verdict: IGNORE. We know what to do."</p>
+                </div>
+            </div>
+
+            <!-- Step 9 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">9</span>
+                    <span class="step-heading">Show the draft response (if recommending RESPOND)</span>
+                </div>
+                <div class="step-content">
+                    <p>If Claude recommended RESPOND, show the draft letter. If IGNORE (which is likely), mention it.</p>
+                    <p><strong>Say to camera:</strong> "If there's something to say back, Claude drafts it for you. If not, you're done. No lawyer fees. No sleepless nights."</p>
+                </div>
+            </div>
+
+            <!-- Step 10 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">10</span>
+                    <span class="step-heading">CTA: Link to Master Trove</span>
+                </div>
+                <div class="step-content">
+                    <p><strong>Say to camera:</strong> "Get your version free. Link in the description. It takes 60 seconds. You'll know what to do, and you'll save thousands in unnecessary lawyer fees."</p>
                 </div>
             </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="step">
-            <div>
-                <span class="step-number">2</span>
-                <span class="step-heading">Add the system instruction</span>
+        <!-- DEMO 1: LIVE CLAUDE.AI PROJECTS ONLY -->
+        <div class="demo-section">
+            <div class="demo-heading">Demo 1: Live Claude.ai Projects Demo</div>
+
+            <div class="before-section">
+                <strong>Before you start</strong>
+                <p>This demo shows Claude.ai Projects handling a real legal threat. You'll film yourself in Claude.ai while following these steps. The goal: audience sees AI go from messy legal threat → clear verdict in 2 minutes.</p>
             </div>
-            <div class="step-content">
-                <p>In the Project settings, paste this into the system instruction field:</p>
-                <div class="copy-label">COPY THIS</div>
-                <div class="copy-block">You are a legal risk analyst specialising in Australian business law.
+
+            <!-- Step 1 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">1</span>
+                    <span class="step-heading">Set up the Claude Project</span>
+                </div>
+                <div class="step-content">
+                    <p>Open <strong>claude.ai</strong> → click <strong>"Projects"</strong> in sidebar → <strong>"New Project"</strong></p>
+                    <p>Fill in these details:</p>
+                    <div style="margin-left: 1rem;">
+                        <p><strong>Name:</strong> Legal Case Handler</p>
+                        <p><strong>Description:</strong> Reviews incoming legal threats and recommends action</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">2</span>
+                    <span class="step-heading">Add the system instruction</span>
+                </div>
+                <div class="step-content">
+                    <p>In the Project settings, paste this into the system instruction field:</p>
+                    <div class="copy-label">COPY THIS</div>
+                    <div class="copy-block">You are a legal risk analyst specialising in Australian business law.
 
 When given a legal document or threat, you must:
 1. Identify the jurisdiction and applicable law
@@ -186,19 +354,19 @@ When given a legal document or threat, you must:
 5. Draft a brief response if recommending RESPOND
 
 Be direct and concise. Do not hedge excessively.</div>
+                </div>
             </div>
-        </div>
 
-        <!-- Step 3 -->
-        <div class="step">
-            <div>
-                <span class="step-number">3</span>
-                <span class="step-heading">Upload the legal document</span>
-            </div>
-            <div class="step-content">
-                <p>In the chat, paste this cease & desist letter:</p>
-                <div class="copy-label">COPY THIS</div>
-                <div class="copy-block">LEGAL NOTICE - Recording Consent Violation
+            <!-- Step 3 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">3</span>
+                    <span class="step-heading">Upload the legal document</span>
+                </div>
+                <div class="step-content">
+                    <p>In the chat, paste this cease & desist letter:</p>
+                    <div class="copy-label">COPY THIS</div>
+                    <div class="copy-block">LEGAL NOTICE - Recording Consent Violation
 
 To: [Business Name]
 From: Hargreaves & Associates Legal
@@ -211,32 +379,32 @@ Under the Surveillance Devices Act 2004, recording a conversation without the co
 The evidence indicates that you recorded at least five sales calls without informing participants of the recording.
 
 We demand you cease all recording activities immediately and pay compensation of $15,000 within 14 days or we will commence proceedings.</div>
+                </div>
             </div>
-        </div>
 
-        <!-- Step 4 -->
-        <div class="step">
-            <div>
-                <span class="step-number">4</span>
-                <span class="step-heading">Ask Claude for the assessment</span>
+            <!-- Step 4 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">4</span>
+                    <span class="step-heading">Ask Claude for the assessment</span>
+                </div>
+                <div class="step-content">
+                    <p>In the same message or a follow-up, ask:</p>
+                    <div class="copy-label">COPY THIS</div>
+                    <div class="copy-block">Review this legal threat and give me your assessment. What's the legal merit? What should I do?</div>
+                </div>
             </div>
-            <div class="step-content">
-                <p>In the same message or a follow-up, ask:</p>
-                <div class="copy-label">COPY THIS</div>
-                <div class="copy-block">Review this legal threat and give me your assessment. What's the legal merit? What should I do?</div>
-            </div>
-        </div>
 
-        <!-- Step 5 -->
-        <div class="step">
-            <div>
-                <span class="step-number">5</span>
-                <span class="step-heading">Expected output</span>
-            </div>
-            <div class="step-content">
-                <p>Claude should produce a clear verdict. Here's what you'll likely see:</p>
-                <div class="copy-label">EXAMPLE OUTPUT</div>
-                <div class="copy-block">ASSESSMENT
+            <!-- Step 5 -->
+            <div class="step">
+                <div>
+                    <span class="step-number">5</span>
+                    <span class="step-heading">Expected output</span>
+                </div>
+                <div class="step-content">
+                    <p>Claude should produce a clear verdict. Here's what you'll likely see:</p>
+                    <div class="copy-label">EXAMPLE OUTPUT</div>
+                    <div class="copy-block">ASSESSMENT
 Jurisdiction: Australia (Surveillance Devices Act 2004)
 Legal merit: 2/10 — single-party consent applies. Recording your own calls is lawful.
 Financial exposure: Low. No demonstrated damages. Speculative claim.
@@ -246,7 +414,8 @@ RECOMMENDATION: IGNORE
 REASONING: Under the Surveillance Devices Act 2004, a party to a conversation may legally record it without notifying others. This threat misrepresents the law. Firm sending this letter (Hargreaves & Associates) has sent 47 similar letters; 0 resulted in litigation.
 
 DRAFT RESPONSE (optional): "We have reviewed your correspondence. The alleged recording consent violation has no legal basis under the Surveillance Devices Act 2004. We do not intend to engage further with this matter."</div>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;"><em>Note: The actual output will vary based on Claude's reasoning, but the structure and recommendation should be clear.</em></p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;"><em>Note: The actual output will vary based on Claude's reasoning, but the structure and recommendation should be clear.</em></p>
+                </div>
             </div>
         </div>
     </div>

@@ -465,6 +465,9 @@
 </div>
 
 <script>
+    const RAILWAY_API = 'https://the-ai-shift.up.railway.app';
+    const VIDEO_KEY = 'ai-caller';
+
     function switchFormTab(tab, btn) {
         document.querySelectorAll('.form-tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('[id$="-content"]').forEach(c => c.classList.remove('active'));
@@ -504,6 +507,8 @@
     }
 
     function generateTrove() {
+        const firstName = document.getElementById('firstName').value;
+        const email = document.getElementById('email').value;
         const industry = document.getElementById('industry').value;
         const revenue = document.getElementById('revenue').value;
         const callVolume = document.getElementById('callVolume').value;
@@ -524,20 +529,57 @@
         const goal = goalEl.value;
         const showup = showupEl.value;
 
+        const formData = {
+            name: firstName,
+            email: email,
+            industry: industry,
+            callVolume: callVolume,
+            trigger: trigger,
+            goal: goal,
+            showUpRate: showup
+        };
+
+        submitToRailway(formData);
+    }
+
+    async function submitToRailway(formData) {
         // Show processing state
         document.getElementById('step-2').classList.remove('active');
         document.getElementById('processingState').classList.add('show');
 
-        // Simulate 1.5 second processing
-        setTimeout(() => {
-            document.getElementById('costOutput').innerText = buildCost(callVolume, industry, showup);
-            document.getElementById('stackOutput').innerText = buildStack(callVolume, industry, goal);
-            document.getElementById('scriptsOutput').innerText = buildScripts(industry, trigger, goal, revenue);
+        try {
+            const response = await fetch(`${RAILWAY_API}/generate/${VIDEO_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
 
-            // Show success state
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+
             document.getElementById('processingState').classList.remove('show');
             document.getElementById('successState').classList.add('show');
-        }, 1500);
+
+            // If API returns generated output, use it
+            if (data.cost) {
+                document.getElementById('costOutput').innerText = data.cost;
+                document.getElementById('stackOutput').innerText = data.stack || '';
+                document.getElementById('scriptsOutput').innerText = data.scripts || '';
+            } else {
+                loadStaticExample(formData);
+            }
+        } catch (err) {
+            console.warn('Railway API unavailable, using offline mode:', err.message);
+            document.getElementById('processingState').classList.remove('show');
+            document.getElementById('successState').classList.add('show');
+            loadStaticExample(formData);
+        }
+    }
+
+    function loadStaticExample(formData) {
+        document.getElementById('costOutput').innerText = buildCost(formData.callVolume, formData.industry, formData.showUpRate);
+        document.getElementById('stackOutput').innerText = buildStack(formData.callVolume, formData.industry, formData.goal);
+        document.getElementById('scriptsOutput').innerText = buildScripts(formData.industry, formData.trigger, formData.goal, formData.revenue);
     }
 
     function buildCost(callVolume, industry, showup) {
