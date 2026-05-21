@@ -193,6 +193,126 @@
             line-height: 1.5;
         }
 
+        .prep-section {
+            background: #fff;
+            border: 2px solid #fcd34d;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+
+        .prep-eyebrow {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .prep-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .prep-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .prep-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .prep-step {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .prep-step-num {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 12px;
+            font-weight: 800;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .prep-step-text {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.6;
+            padding-top: 4px;
+        }
+
+        .prep-step-text strong {
+            color: #111827;
+        }
+
+        .prep-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        .transcript-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .output-preview {
+            background: #111827;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 12.5px;
+            color: #d1d5db;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            overflow-x: auto;
+        }
+
+        .output-preview strong {
+            color: #f9fafb;
+        }
+
+        .output-preview .score-line {
+            color: #a78bfa;
+        }
+
+        .output-preview .verdict {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .output-preview .highlight {
+            color: #86efac;
+        }
+
         .cta-section {
             background: #7c3aed;
             border-radius: 12px;
@@ -525,6 +645,98 @@
             </div>
         </div>
 
+        <!-- PRE-FILMING PREP -->
+        <div class="prep-section">
+            <div class="prep-eyebrow">Night Before Filming</div>
+            <div class="prep-title">Demo 2 Prep — Set Up Your Claude Project</div>
+            <div class="prep-subtitle">Do this the evening before. On camera you just switch to the existing conversation and scroll. No typing, no waiting, no live API calls.</div>
+
+            <div class="prep-steps">
+                <div class="prep-step">
+                    <div class="prep-step-num">1</div>
+                    <div class="prep-step-text">Go to <strong>the-ai-shift-0.github.io/demos/sales-analyzer/master-trove</strong> and fill out the form as a coaching business: <em>Online coaching / education, $1M–$3M, 3–5 reps, $5K–$15K deals, "Can't identify patterns", Price / budget</em>. Switch to the <strong>See Example Output</strong> tab.</div>
+                </div>
+                <div class="prep-step">
+                    <div class="prep-step-num">2</div>
+                    <div class="prep-step-text">Click <strong>Copy Master Trove</strong>.</div>
+                </div>
+                <div class="prep-step">
+                    <div class="prep-step-num">3</div>
+                    <div class="prep-step-text">Open <strong>claude.ai</strong> → click <strong>Projects</strong> in the left sidebar → <strong>New Project</strong> → name it "Sales Analyzer".</div>
+                </div>
+                <div class="prep-step">
+                    <div class="prep-step-num">4</div>
+                    <div class="prep-step-text">Click <strong>Set Project Instructions</strong> → paste the Master Trove → Save.</div>
+                </div>
+                <div class="prep-step">
+                    <div class="prep-step-num">5</div>
+                    <div class="prep-step-text">Start a new conversation inside the Project. Paste the call transcript below and send it. Let Claude generate the full analysis. Scroll through it — confirm it looks good. Keep this tab open for filming.</div>
+                </div>
+            </div>
+
+            <div class="prep-label">Call Transcript to Use (copy this exactly)</div>
+            <div class="transcript-box">SALES CALL — Kyle (rep) + Prospect (online fitness coaching, 2 coaches, ~$800K revenue)
+Duration: 22 minutes
+
+Kyle: Hey thanks for jumping on. So I looked at your funnel — you're getting sign-ups but I'm guessing the drop-off happens before the strategy session?
+
+Prospect: Yeah exactly. Like we get them interested but by the time we do the strategy session, half of them have gone cold. It's really frustrating.
+
+Kyle: Right, so what we typically do is automate the nurture sequence between opt-in and session — emails, reminders, a quick video — so they show up warmed up and ready to buy.
+
+Prospect: Okay but can you tell me more about what that actually looks like?
+
+Kyle: Sure so we build the whole thing out in ActiveCampaign, write all the emails, set up the tracking. You'd basically just hand us your login and we handle it. Takes about 3 weeks to set up.
+
+Prospect: Okay. And what does this cost?
+
+Kyle: So the investment is $8,500 for the full build and first 90 days support. After that it's $1,200 a month if you want us to manage it ongoing.
+
+Prospect: That's quite a lot honestly. We're already paying for ActiveCampaign and a VA. Can I think about it and maybe come back to you next week?
+
+Kyle: Of course, totally understand. It's a big decision. I'll send you a summary of everything we talked about and you can have a read through.
+
+Prospect: Yeah that would be great. Thanks Kyle.
+
+Kyle: Brilliant. Talk soon.</div>
+
+            <div class="prep-label">What the Output Should Look Like (verified real Claude output)</div>
+            <div class="output-preview"><span class="verdict">CALL VERDICT: Struggled</span>
+
+<span class="highlight">SCORECARD:</span>
+Situation Questions:    3/10 — One implied question; Kyle assumed the drop-off rather than asking
+Problem Questions:      2/10 — Prospect volunteered the problem; Kyle didn't dig deeper
+Implication Questions:  0/10 — Never asked; cost of the drop-off was never surfaced
+Need-Payoff Questions:  0/10 — Prospect never said why solving this matters to them
+Teach:                  3/10 — Process description read as a pitch, not a reframe
+Tailor:                 2/10 — "Nurture automation" is generic; not tied to fitness/coaching
+Take Control:           1/10 — Fully surrendered when price came up; no pushback
+Talk Ratio:             ~65% Kyle / ~35% Prospect
+
+<span class="highlight">THE ONE THING TO FIX:</span>
+Kyle never built the financial case before revealing price. If 5 sessions/month go cold at
+$5K–$8K each, that's $25K–$40K/month leaking. He needed 2–3 implication questions to get
+the prospect doing that math out loud. When they calculate the problem costs $30K/month,
+$8,500 stops feeling like a lot.
+
+The fix is one question: "How many strategy sessions go cold each month — and what's a
+typical client worth to you?"
+
+<span class="highlight">THE BEST MOMENT:</span>
+"I looked at your funnel — you're getting sign-ups but I'm guessing the drop-off happens
+before the strategy session?" — Strong prep-based open. Created immediate relevance. The
+problem is Kyle never built on the momentum it created.
+
+<span class="highlight">OBJECTION HANDLING (Price / budget):</span>
+"That's quite a lot" = a value objection, not a budget ceiling. Kyle validated it and
+handed the prospect an exit ramp. Should have responded: "Is it more that the budget
+isn't there, or that you're not yet sure the ROI is there?" — then built the ROI case.
+
+<span class="highlight">NEXT STEPS QUALITY: Weak</span>
+Kyle owns nothing. No date. No commitment. No reason to re-engage. This deal is likely
+dead unless the prospect self-motivates — low probability at $8,500.</div>
+        </div>
+
         <!-- DEMO 2 -->
         <div class="section">
             <div class="demo-header">
@@ -641,20 +853,24 @@
                     <div class="step-number">6</div>
                     <div class="step-content">
                         <div class="step-field">
+                            <div class="step-label">Prep (before filming)</div>
+                            <div class="step-text">The Claude conversation is already open from your prep session the night before. The analysis is already there — do NOT type or wait on camera. Just switch to it.</div>
+                        </div>
+                        <div class="step-field">
                             <div class="step-label">Screen</div>
-                            <div class="step-text">Drag a call transcript into the Claude Project → show Claude analyzing it → scroll through the output (SPIN scores, Challenger scores, the one thing to fix, the best moment)</div>
+                            <div class="step-text">Switch to the pre-run Claude Project conversation. The call transcript and full analysis are already there. Scroll slowly through the output: Call Verdict → Scorecard → The One Thing to Fix → The Best Moment → Objection Handling → Next Steps Quality.</div>
                         </div>
                         <div class="step-field">
                             <div class="step-label">Say</div>
-                            <div class="step-say">"Drag in any call. Watch what happens."</div>
+                            <div class="step-say">"I paste the transcript. I type: analyze this call. And this is what comes back."</div>
                         </div>
                         <div class="step-field">
-                            <div class="step-label">Say (after output loads)</div>
-                            <div class="step-say">"SPIN score. Challenger score. The one thing to fix. The best moment to reinforce. For every call. Your entire team. In the time it takes to read the transcript yourself."</div>
+                            <div class="step-label">Say (scrolling through output)</div>
+                            <div class="step-say">"SPIN score. Challenger score. The one thing to fix — specific, not 'be better at objections.' The exact line they should have said. The best moment to reinforce. For every rep. Every call. In the time it takes to read the transcript yourself."</div>
                         </div>
                         <div class="step-field">
                             <div class="step-label">Why it lands</div>
-                            <div class="step-why">The payoff. Same depth as Demo 1, but now they're holding the keys. This isn't watching someone else's tool — it's theirs.</div>
+                            <div class="step-why">The payoff. Real Claude interface, real output — not a simulation. Audience sees the actual tool working. Same depth as Demo 1, but now it's theirs to use.</div>
                         </div>
                     </div>
                 </div>
