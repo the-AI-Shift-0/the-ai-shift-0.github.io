@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Caller — Example Output</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f8f7ff;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .page-header {
+            background: white;
+            border-bottom: 2px solid #7c3aed;
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .badge {
+            background: #7c3aed;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .page-subtitle {
+            font-size: 13px;
+            color: #6b7280;
+            margin-left: auto;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        .doc-label {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .doc-label .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #7c3aed;
+            margin-bottom: 8px;
+        }
+
+        .doc-label h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+
+        .doc-label .context-line {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .section {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .section-icon.purple { background: #f3f0ff; }
+        .section-icon.blue { background: #eff6ff; }
+        .section-icon.green { background: #f0fdf4; }
+        .section-icon.orange { background: #fff7ed; }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #7c3aed;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .section-body {
+            padding: 20px 24px;
+        }
+
+        /* Cost estimate */
+        .cost-grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            gap: 16px;
+        }
+
+        .cost-row .item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .cost-row .item-detail {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .cost-row .item-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #7c3aed;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .cost-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: #f3f0ff;
+            border: 1px solid #ddd6fe;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .cost-total .total-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #4c1d95;
+        }
+
+        .cost-total .total-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: #4c1d95;
+        }
+
+        .cost-vs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .cost-vs .vs-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .cost-vs .vs-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #92400e;
+        }
+
+        .setup-box {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+
+        .setup-box .setup-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .setup-box .setup-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .setup-box .setup-note {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 3px;
+        }
+
+        .insight-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 14px 16px;
+        }
+
+        .insight-box .insight-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #1e40af;
+            margin-bottom: 6px;
+        }
+
+        .insight-box p {
+            font-size: 13px;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+
+        /* Stack */
+        .vendor-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .vendor-card:last-child { margin-bottom: 0; }
+
+        .vendor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .vendor-category {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        .vendor-rec {
+            font-size: 14px;
+            font-weight: 800;
+            color: #7c3aed;
+        }
+
+        .vendor-body {
+            padding: 12px 14px;
+            display: grid;
+            gap: 6px;
+        }
+
+        .vendor-why {
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .vendor-avoid {
+            font-size: 12px;
+            color: #ef4444;
+            background: #fef2f2;
+            border-radius: 4px;
+            padding: 4px 8px;
+            display: inline-block;
+        }
+
+        .vendor-note {
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .stack-total {
+            background: #1e1b4b;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stack-total .total-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #818cf8;
+        }
+
+        .stack-total .vendors {
+            font-size: 14px;
+            font-weight: 600;
+            color: #c7d2fe;
+        }
+
+        /* Scripts */
+        .script-block {
+            margin-bottom: 20px;
+        }
+
+        .script-block:last-child { margin-bottom: 0; }
+
+        .script-block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .script-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: #7c3aed;
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .script-block-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #374151;
+        }
+
+        .script-note {
+            font-size: 11px;
+            color: #9ca3af;
+            font-style: italic;
+            margin-bottom: 8px;
+            padding-left: 36px;
+        }
+
+        .script-text {
+            background: #1e1b4b;
+            border-radius: 8px;
+            padding: 16px 18px;
+            font-family: "SF Mono", Monaco, Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #c7d2fe;
+        }
+
+        .script-text .placeholder {
+            color: #a5b4fc;
+        }
+
+        .objection-item {
+            margin-bottom: 12px;
+            padding: 12px 14px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 3px solid #e5e7eb;
+        }
+
+        .objection-item .objection-trigger {
+            font-size: 13px;
+            font-weight: 700;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .objection-item .objection-response {
+            font-size: 13px;
+            color: #374151;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .discovery-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            padding-left: 36px;
+        }
+
+        .discovery-list li {
+            font-size: 13px;
+            color: #374151;
+            font-style: italic;
+            line-height: 1.6;
+            background: #f9fafb;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: relative;
+        }
+
+        .discovery-list li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: -28px;
+            top: 8px;
+            width: 20px;
+            height: 20px;
+            background: #e5e7eb;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .calibration-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .calibration-list li {
+            font-size: 13px;
+            color: #374151;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .calibration-list li::before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #7c3aed;
+            font-weight: 700;
+        }
+
+        /* Ready banner */
+        .ready-banner {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            border-radius: 10px;
+            padding: 28px 32px;
+            text-align: center;
+            color: white;
+        }
+
+        .ready-banner .ready-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .ready-banner .ready-sub {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .ready-banner .instruction {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <span class="badge">Demo Screen</span>
+    <span class="page-title">AI Caller — Example Output</span>
+    <span class="page-subtitle">Online Coaching / Education &nbsp;·&nbsp; 15–40 Calls/Day &nbsp;·&nbsp; Confirm Attendance</span>
+</div>
+
+<div class="container">
+
+    <div class="doc-label">
+        <div class="eyebrow">AI Caller Master Trove</div>
+        <h1>Your Custom AI Caller Blueprint</h1>
+        <div class="context-line">Generated for: Online Coaching / Education &nbsp;·&nbsp; $1M–$3M Revenue &nbsp;·&nbsp; 15–40 Calls/Day &nbsp;·&nbsp; Form Fill Trigger</div>
+    </div>
+
+    <!-- PART 1: COST ESTIMATE -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon purple">💰</div>
+            <div>
+                <div class="section-label">Part 1 of 3</div>
+                <div class="section-title">Your AI Caller Cost Estimate</div>
+            </div>
+        </div>
+        <div class="section-body">
+
+            <div class="cost-grid">
+                <div class="cost-row">
+                    <div>
+                        <div class="item-name">AI Voice Platform (Retell AI)</div>
+                        <div class="item-detail">840 calls/mo × 2.5 min avg = ~2,100 mins &nbsp;·&nbsp; at $0.07–$0.12/min</div>
+                    </div>
+                    <div class="item-price">$147–$252/mo</div>
+                </div>
+                <div class="cost-row">
+                    <div>
+                        <div class="item-name">Telephony (Twilio)</div>
+                        <div class="item-detail">~$0.008–0.012/min + number fees</div>
+                    </div>
+                    <div class="item-price">$18–$27/mo</div>
+                </div>
+                <div class="cost-row">
+                    <div>
+                        <div class="item-name">Calendar Integration (Calendly)</div>
+                        <div class="item-detail">Direct calendar sync for automated booking confirmation</div>
+                    </div>
+                    <div class="item-price">$24/mo</div>
+                </div>
+                <div class="cost-row">
+                    <div>
+                        <div class="item-name">Workflow Automation (Make.com)</div>
+                        <div class="item-detail">Multi-step automation: call ends → CRM update → calendar invite → rep notification</div>
+                    </div>
+                    <div class="item-price">$29/mo</div>
+                </div>
+            </div>
+
+            <div class="cost-total">
+                <span class="total-label">Total Monthly (all-in estimate)</span>
+                <span class="total-value">$218–$332/mo</span>
+            </div>
+
+            <div class="cost-vs">
+                <span class="vs-label">vs. hiring a human setter</span>
+                <span class="vs-value">$2,500–$4,000/mo</span>
+            </div>
+
+            <div class="setup-box">
+                <div class="setup-label">One-Time Setup Cost</div>
+                <div class="setup-value">$3,000–$5,500</div>
+                <div class="setup-note">Developer build + testing &nbsp;·&nbsp; 2–4 weeks depending on CRM complexity</div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">What This Means for Your Business</div>
+                <p>Your current show-up rate is 40–60%. AI callers consistently push this to 75–85% at your volume. At 28 calls/day, that's <strong>10 more confirmed bookings per day</strong> — without adding headcount.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PART 2: STACK RECOMMENDATION -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon blue">🛠</div>
+            <div>
+                <div class="section-label">Part 2 of 3</div>
+                <div class="section-title">Your Recommended Stack</div>
+            </div>
+        </div>
+        <div class="section-body">
+
+            <div class="vendor-card">
+                <div class="vendor-header">
+                    <span class="vendor-category">AI Voice Platform</span>
+                    <span class="vendor-rec">Retell AI</span>
+                </div>
+                <div class="vendor-body">
+                    <div class="vendor-why">Best for your call volume. Easiest to set up, best out-of-box conversation quality, strong dashboard for monitoring live calls.</div>
+                    <div><span class="vendor-avoid">Avoid: Bland AI</span></div>
+                    <div class="vendor-note">Less stable, fewer integrations at your volume</div>
+                    <div class="vendor-why" style="color:#6b7280;font-size:12px;">Pricing: Pay-per-minute. Start with a free trial to test your scripts before going live.</div>
+                </div>
+            </div>
+
+            <div class="vendor-card">
+                <div class="vendor-header">
+                    <span class="vendor-category">Telephony</span>
+                    <span class="vendor-rec">Twilio</span>
+                </div>
+                <div class="vendor-body">
+                    <div class="vendor-why">Most reliable, best integration support, works with all major AI voice platforms. Buy a local number in your area code — higher answer rates than toll-free.</div>
+                    <div><span class="vendor-avoid">Avoid: Direct VoIP providers not Twilio-compatible</span></div>
+                    <div class="vendor-note">You'll hit integration problems</div>
+                </div>
+            </div>
+
+            <div class="vendor-card">
+                <div class="vendor-header">
+                    <span class="vendor-category">Calendar Integration</span>
+                    <span class="vendor-rec">Calendly</span>
+                </div>
+                <div class="vendor-body">
+                    <div class="vendor-why">Direct calendar integration means AI confirms the slot and sends the invite without a human touching it.</div>
+                    <div class="vendor-note">Setup: Connect via Make.com — AI confirms booking, Make.com fires calendar invite + CRM update automatically.</div>
+                </div>
+            </div>
+
+            <div class="vendor-card">
+                <div class="vendor-header">
+                    <span class="vendor-category">CRM</span>
+                    <span class="vendor-rec">GoHighLevel</span>
+                </div>
+                <div class="vendor-body">
+                    <div class="vendor-why">Purpose-built for high-volume lead follow-up. Handles AI caller triggers natively and keeps all contact data in one place.</div>
+                    <div class="vendor-note">Automate: call outcome (confirmed / no answer / objection) updates the contact record with zero manual entry.</div>
+                </div>
+            </div>
+
+            <div class="vendor-card">
+                <div class="vendor-header">
+                    <span class="vendor-category">Workflow Automation</span>
+                    <span class="vendor-rec">Make.com</span>
+                </div>
+                <div class="vendor-body">
+                    <div class="vendor-why">More intuitive than Zapier for AI caller workflows. Better at multi-step scenarios (call ends → update CRM → send calendar invite → notify rep). $29/mo at your volume.</div>
+                    <div><span class="vendor-avoid">Avoid: Zapier (unless already deep in their ecosystem)</span></div>
+                    <div class="vendor-note">Make.com is faster to build with here.</div>
+                </div>
+            </div>
+
+            <div class="stack-total">
+                <span class="total-label">Total Stack (5 vendors):</span>
+                <span class="vendors">Retell AI + Twilio + Calendly + GoHighLevel + Make.com</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PART 3: SCRIPTS -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon green">🎙</div>
+            <div>
+                <div class="section-label">Part 3 of 3</div>
+                <div class="section-title">Your AI Caller Scripts</div>
+            </div>
+        </div>
+        <div class="section-body">
+            <p style="font-size:13px;color:#6b7280;margin-bottom:20px;">Built for: <strong>Confirm Attendance</strong> &nbsp;·&nbsp; Trigger: Form Fill &nbsp;·&nbsp; Industry: Online Coaching / Education</p>
+
+            <!-- Script 1: Opening -->
+            <div class="script-block">
+                <div class="script-block-header">
+                    <div class="script-num">1</div>
+                    <div class="script-block-title">Opening</div>
+                </div>
+                <div class="script-note">[Load this as your AI's system prompt / opening statement]</div>
+                <div class="script-text">"Hi <span class="placeholder">[First Name]</span>, this is Maya calling from <span class="placeholder">[Company Name]</span>. I'm reaching out because you just registered — I wanted to make sure your spot is locked in and you have everything you need. Is now a quick 60 seconds?"</div>
+                <div style="margin-top:8px;padding:10px 14px;background:#f9fafb;border-radius:6px;border-left:3px solid #d1d5db;">
+                    <div style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">If no answer → Voicemail</div>
+                    <div style="font-size:13px;color:#6b7280;font-style:italic;">"Hi <span style="color:#374151">[First Name]</span>, Maya from <span style="color:#374151">[Company Name]</span>. I'm calling about your coaching program — just wanted to make sure everything is confirmed on your end. Give me a call back on <span style="color:#374151">[number]</span> or I'll try you again shortly."</div>
+                </div>
+            </div>
+
+            <!-- Script 2: Discovery -->
+            <div class="script-block">
+                <div class="script-block-header">
+                    <div class="script-num">2</div>
+                    <div class="script-block-title">Discovery Questions</div>
+                </div>
+                <div class="script-note">[After they confirm they have 60 seconds, ask ONE of these — not all of them]</div>
+                <ul class="discovery-list">
+                    <li data-num="1">"Quick question — when you registered, what was the main thing you were hoping to get out of this?"</li>
+                    <li data-num="2">"Is there anything specific you want to make sure we cover?"</li>
+                    <li data-num="3">"Is the [date/time] still working on your end?"</li>
+                </ul>
+                <div style="margin-top:10px;padding:8px 12px;background:#fef3c7;border-radius:6px;font-size:12px;color:#92400e;">Rule: ask one question, listen, then move to close. Don't interview them.</div>
+            </div>
+
+            <!-- Script 3: Objection Handling -->
+            <div class="script-block">
+                <div class="script-block-header">
+                    <div class="script-num">3</div>
+                    <div class="script-block-title">Objection Handling</div>
+                </div>
+                <div class="script-note">[Load each of these as conditional responses in your AI platform]</div>
+
+                <div class="objection-item">
+                    <div class="objection-trigger">If they say: "I'm not sure I can make it"</div>
+                    <div class="objection-response">"Totally understand — schedules change. Good news: there is a replay available for [48 hours after the event], so you won't miss it even if something comes up. Want me to keep your spot confirmed and I'll send the replay link as well?"</div>
+                </div>
+
+                <div class="objection-item">
+                    <div class="objection-trigger">If they say: "What is this about exactly?"</div>
+                    <div class="objection-response">"Great question. [Event name] is [one sentence description]. It's [duration] and by the end you'll have [specific outcome]. Does that sound like something worth [30/60/90 minutes] of your time?"</div>
+                </div>
+
+                <div class="objection-item" style="margin-bottom:0;">
+                    <div class="objection-trigger">If they say: "I'm busy right now"</div>
+                    <div class="objection-response">"No problem at all — this call will take less than 60 seconds. Just need to confirm one thing and I'll let you go. [Confirm the booking detail.] That's it — you're all set."</div>
+                </div>
+            </div>
+
+            <!-- Script 4: Close -->
+            <div class="script-block">
+                <div class="script-block-header">
+                    <div class="script-num">4</div>
+                    <div class="script-block-title">The Close</div>
+                </div>
+                <div class="script-note">[This is how every successful call ends]</div>
+                <div class="script-text">"Perfect — you're confirmed for <span class="placeholder">[date at time]</span>. I'm sending a calendar invite to your email right now. Keep an eye out for that. See you <span class="placeholder">[then / there]</span>."</div>
+            </div>
+
+            <!-- Calibration Notes -->
+            <div style="background:#f9fafb;border-radius:8px;padding:16px 18px;margin-top:8px;">
+                <div style="font-size:12px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6b7280;margin-bottom:10px;">Calibration Notes</div>
+                <ul class="calibration-list">
+                    <li>Target call length: 45–90 seconds. If calls run over 2 minutes, the AI is over-explaining — shorten the opening.</li>
+                    <li>If answer rate is low: test calling within 5 minutes of the trigger. Speed is the biggest lever.</li>
+                    <li>If show-up rate stalls: add a 2-hour-before reminder call using the same opening with "just a quick reminder" framing.</li>
+                    <li>Replace [Company Name], [First Name], [date/time] with your actual values in your platform variables.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- READY BANNER -->
+    <div class="ready-banner">
+        <div class="ready-title">Your Stack is Ready to Build</div>
+        <div class="ready-sub">Cost estimate calculated. Vendors selected. Scripts ready to paste into Retell AI or VAPI.</div>
+        <div class="instruction">
+            <span>Load scripts into Retell AI</span>
+            <span style="opacity:0.5;">→</span>
+            <span>Connect to Twilio + Calendly</span>
+            <span style="opacity:0.5;">→</span>
+            <span>Go live same day</span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
