@@ -583,8 +583,8 @@ async function submitToRailway(formData) {
     document.getElementById('success-state').style.display = 'block';
 
     // If API returns prompt, use it
-    if (data.prompt) {
-      document.getElementById('system-prompt-text').textContent = data.prompt;
+    if (data.output) {
+      document.getElementById('system-prompt-text').textContent = data.output;
     }
   } catch (err) {
     console.warn('Railway API unavailable, using offline mode:', err.message);

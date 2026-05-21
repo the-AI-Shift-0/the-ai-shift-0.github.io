@@ -560,11 +560,11 @@
             document.getElementById('processingState').classList.remove('show');
             document.getElementById('successState').classList.add('show');
 
-            // If API returns generated output, use it
-            if (data.cost) {
-                document.getElementById('costOutput').innerText = data.cost;
-                document.getElementById('stackOutput').innerText = data.stack || '';
-                document.getElementById('scriptsOutput').innerText = data.scripts || '';
+            // If API returns generated output, use it (Claude generates scripts; static builders handle cost/stack)
+            if (data.output) {
+                document.getElementById('costOutput').innerText = buildCost(formData.callVolume, formData.industry, formData.showUpRate);
+                document.getElementById('stackOutput').innerText = buildStack(formData.callVolume, formData.industry, formData.goal);
+                document.getElementById('scriptsOutput').innerText = data.output;
             } else {
                 loadStaticExample(formData);
             }
