@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filming Day Checklist - The AI Shift</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f7ff;
+            color: #1a1a1a;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #7c3aed;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #7c3aed;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .section h2 {
+            color: #7c3aed;
+            font-size: 1.3em;
+            margin-bottom: 16px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #7c3aed;
+        }
+        .checklist-label {
+            flex: 1;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+        .checklist-item input:checked + .checklist-label {
+            color: #999;
+            text-decoration: line-through;
+        }
+        .demo-section {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f9f8ff;
+            border-radius: 8px;
+            border: 1px solid #e9e4ff;
+        }
+        .demo-section h3 {
+            color: #7c3aed;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        .demo-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .demo-link {
+            display: inline-block;
+            padding: 10px 16px;
+            background-color: #7c3aed;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        .demo-link:hover {
+            background-color: #6d28d9;
+        }
+        .step-list {
+            margin: 12px 0 0 0;
+            padding-left: 20px;
+        }
+        .step-list li {
+            margin: 8px 0;
+            color: #333;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .section {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Filming Day Checklist</h1>
+
+        <!-- Before You Start -->
+        <div class="section">
+            <h2>Before You Start</h2>
+
+            <h3 style="color: #7c3aed; font-size: 1em; margin: 16px 0 12px 0;">Equipment Check</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="camera-check">
+                <label for="camera-check" class="checklist-label">Camera charged and ready</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="lighting-check">
+                <label for="lighting-check" class="checklist-label">Lighting set up and tested</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="mic-check">
+                <label for="mic-check" class="checklist-label">Microphone working and levels set</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="screen-recorder-check">
+                <label for="screen-recorder-check" class="checklist-label">Screen recorder running and saving to correct folder</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="backdrop-check">
+                <label for="backdrop-check" class="checklist-label">Backdrop clean and ready</label>
+            </div>
+
+            <h3 style="color: #7c3aed; font-size: 1em; margin: 16px 0 12px 0;">Browser Tabs Open</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="sales-analyzer-walkthrough">
+                <label for="sales-analyzer-walkthrough" class="checklist-label">Sales Analyzer Walkthrough</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="sales-analyzer-example">
+                <label for="sales-analyzer-example" class="checklist-label">Sales Analyzer Example Output</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="sales-analyzer-master">
+                <label for="sales-analyzer-master" class="checklist-label">Sales Analyzer Master Trove</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="ai-caller-walkthrough">
+                <label for="ai-caller-walkthrough" class="checklist-label">AI Caller Walkthrough</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="ai-caller-example">
+                <label for="ai-caller-example" class="checklist-label">AI Caller Example Output</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="ai-caller-master">
+                <label for="ai-caller-master" class="checklist-label">AI Caller Master Trove</label>
+            </div>
+        </div>
+
+        <!-- Sales Analyzer -->
+        <div class="section">
+            <h2>Sales Analyzer Episode</h2>
+            <p style="margin-bottom: 12px; color: #666;">Film in this order:</p>
+            <ol class="step-list">
+                <li><strong>Intro</strong> - Frame yourself, explain what viewers will learn</li>
+                <li><strong>Demo Walkthrough</strong> - Go through all screens and functionality</li>
+                <li><strong>Example Output</strong> - Show real results and data</li>
+                <li><strong>Master Trove Form</strong> - Show the lead magnet signup form</li>
+                <li><strong>CTA</strong> - Call to action for subscription</li>
+            </ol>
+
+            <div class="demo-section">
+                <h3>Quick Links</h3>
+                <div class="demo-links">
+                    <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/walkthrough.html" target="_blank" class="demo-link">Sales Analyzer Walkthrough</a>
+                    <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/example-output.html" target="_blank" class="demo-link">Example Output</a>
+                    <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/master-trove.html" target="_blank" class="demo-link">Master Trove Form</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <div class="checklist-item">
+                    <input type="checkbox" id="sales-filmed">
+                    <label for="sales-filmed" class="checklist-label">Sales Analyzer filmed and saved</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Caller -->
+        <div class="section">
+            <h2>AI Caller Episode</h2>
+            <p style="margin-bottom: 12px; color: #666;">Film in this order:</p>
+            <ol class="step-list">
+                <li><strong>Intro</strong> - Frame yourself, explain the AI Caller concept</li>
+                <li><strong>Demo Walkthrough</strong> - Walk through features and setup</li>
+                <li><strong>Example Output</strong> - Show call examples and results</li>
+                <li><strong>Master Trove Form</strong> - Show the lead magnet signup</li>
+                <li><strong>CTA</strong> - Closing and subscription call to action</li>
+            </ol>
+
+            <div class="demo-section">
+                <h3>Quick Links</h3>
+                <div class="demo-links">
+                    <a href="https://the-ai-shift-0.github.io/demos/ai-caller/walkthrough.html" target="_blank" class="demo-link">AI Caller Walkthrough</a>
+                    <a href="https://the-ai-shift-0.github.io/demos/ai-caller/example-output.html" target="_blank" class="demo-link">Example Output</a>
+                    <a href="https://the-ai-shift-0.github.io/demos/ai-caller/master-trove.html" target="_blank" class="demo-link">Master Trove Form</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <div class="checklist-item">
+                    <input type="checkbox" id="caller-filmed">
+                    <label for="caller-filmed" class="checklist-label">AI Caller filmed and saved</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- After Filming -->
+        <div class="section">
+            <h2>After Filming</h2>
+            <div class="checklist-item">
+                <input type="checkbox" id="footage-saved">
+                <label for="footage-saved" class="checklist-label">Raw footage backed up to drive</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="footage-labeled">
+                <label for="footage-labeled" class="checklist-label">Files clearly labeled (Sales Analyzer vs AI Caller)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="send-editor">
+                <label for="send-editor" class="checklist-label">Sent footage to editor with notes</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="time-logged">
+                <label for="time-logged" class="checklist-label">Logged filming time for scheduling</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
