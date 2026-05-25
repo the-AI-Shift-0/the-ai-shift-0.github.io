@@ -1,8 +1,2 @@
 User-agent: *
-Disallow: /demos/
-Disallow: /hiring/
-Disallow: /videos/
-Disallow: /brand/
-Disallow: /server/
-
-Sitemap: https://theaishift.biz/sitemap.xml
+Disallow: /
