@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The AI Shift — Internal Access</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f8f7ff;
+    color: #111827;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #e9d5ff;
+    border-radius: 16px;
+    padding: 48px 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(124,58,237,0.08);
+  }
+  .logo {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .field {
+    display: flex;
+    gap: 10px;
+  }
+  input[type="password"] {
+    flex: 1;
+    padding: 11px 16px;
+    border: 1.5px solid #e9d5ff;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #111827;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type="password"]:focus {
+    border-color: #7c3aed;
+  }
+  button {
+    padding: 11px 20px;
+    background: #7c3aed;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  button:hover { background: #6d28d9; }
+  .error {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #dc2626;
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">The AI Shift</div>
+  <h1>Internal Access</h1>
+  <p>This area is for team use only. Enter the access code to continue.</p>
+  <div class="field">
+    <input type="password" id="pw" placeholder="Access code" autofocus>
+    <button onclick="check()">Enter</button>
+  </div>
+  <div class="error" id="err">Incorrect code. Try again.</div>
+</div>
+<script>
+  function check() {
+    var v = document.getElementById('pw').value;
+    if (v === 'apurv') {
+      sessionStorage.setItem('ais_auth', 'apurv');
+      location.replace('/demos/');
+    } else {
+      document.getElementById('err').style.display = 'block';
+      document.getElementById('pw').value = '';
+      document.getElementById('pw').focus();
+    }
+  }
+  document.getElementById('pw').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') check();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<script>if(sessionStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+<title>The AI Shift — Internal Hub</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
+  .page { max-width: 960px; margin: 0 auto; padding: 48px 32px; }
+  .eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
+  h1 { font-size: 28px; font-weight: 800; color: #111827; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 48px; }
+  .section { margin-bottom: 48px; }
+  .section-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #e9d5ff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 18px 20px; }
+  .card-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+  .link-list { display: flex; flex-direction: column; gap: 6px; }
+  .link-list a { font-size: 13px; color: #7c3aed; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .link-list a:hover { text-decoration: underline; }
+  .tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: #f3f0ff; color: #7c3aed; border-radius: 4px; padding: 2px 6px; }
+  .tag.green { background: #f0fdf4; color: #16a34a; }
+  .tag.gray { background: #f3f4f6; color: #6b7280; }
+  .single-card { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 18px 20px; }
+  .signout { font-size: 12px; color: #9ca3af; cursor: pointer; float: right; margin-top: 4px; }
+  .signout:hover { color: #ef4444; }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="signout" onclick="sessionStorage.removeItem('ais_auth');location.replace('/');">Sign out</span>
+  <div class="eyebrow">The AI Shift — Internal</div>
+  <h1>Team Hub</h1>
+  <p class="subtitle">All demos, walkthroughs, and production materials. Do not share URLs.</p>
+
+  <div class="section">
+    <div class="section-title">Episode 1 — Sales Analyzer</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Demo <span class="tag green">Live</span></div>
+        <div class="link-list">
+          <a href="/demos/sales-analyzer/">Sales Analyzer Demo (L1)</a>
+          <a href="/demos/sales-analyzer/l2.html">L2 — Dashboard</a>
+          <a href="/demos/sales-analyzer/l3.html">L3 — Drill-down</a>
+          <a href="/demos/sales-analyzer/example-output.html">Example Output (filming screen)</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Production <span class="tag">Internal</span></div>
+        <div class="link-list">
+          <a href="/demos/sales-analyzer/master-trove.html">Master Trove (form)</a>
+          <a href="/demos/sales-analyzer/walkthrough.html">Sai Walkthrough / Filming Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Episode 2 — AI Caller</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Demo <span class="tag green">Live</span></div>
+        <div class="link-list">
+          <a href="/demos/ai-caller/">AI Caller Demo (L1)</a>
+          <a href="/demos/ai-caller/l2.html">L2 — Dashboard</a>
+          <a href="/demos/ai-caller/l3.html">L3 — Drill-down</a>
+          <a href="/demos/ai-caller/example-output.html">Example Output (filming screen)</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Production <span class="tag">Internal</span></div>
+        <div class="link-list">
+          <a href="/demos/ai-caller/master-trove.html">Master Trove (form)</a>
+          <a href="/demos/ai-caller/walkthrough.html">Sai Walkthrough / Filming Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Other Demos</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Prompt Builder <span class="tag">Ep 3+</span></div>
+        <div class="link-list">
+          <a href="/demos/prompt-builder/">Demo (L1)</a>
+          <a href="/demos/prompt-builder/master-trove.html">Master Trove</a>
+          <a href="/demos/prompt-builder/walkthrough.html">Walkthrough</a>
+          <a href="/demos/prompt-builder/sai-demo-guide.html">Sai Demo Guide</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Legal Case Handler <span class="tag">Ep 4+</span></div>
+        <div class="link-list">
+          <a href="/demos/legal-case-handler/sai-demo-guide.html">Sai Demo Guide</a>
+          <a href="/demos/legal-case-handler/master-trove.html">Master Trove</a>
+          <a href="/demos/legal-case-handler/walkthrough.html">Walkthrough</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">FB Audience <span class="tag">Future</span></div>
+        <div class="link-list">
+          <a href="/demos/fb-audience/">Demo (L1)</a>
+          <a href="/demos/fb-audience/master-trove.html">Master Trove</a>
+          <a href="/demos/fb-audience/walkthrough.html">Walkthrough</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">AI CEO <span class="tag gray">Scrapped</span></div>
+        <div class="link-list">
+          <a href="/demos/ai-ceo/" style="color:#9ca3af;">Archive — Do Not Film</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Reference</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Team Documents</div>
+        <div class="link-list">
+          <a href="/demos/company-profile.html">Company Profile (source of truth)</a>
+          <a href="/demos/sai-review.html">Sai Review Doc</a>
+          <a href="/demos/harris-editor-brief.html">Harris Editor Brief</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Other</div>
+        <div class="link-list">
+          <a href="/hiring/">Hiring Pages</a>
+          <a href="/server/">Server Setup Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
