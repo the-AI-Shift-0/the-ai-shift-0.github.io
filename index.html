@@ -333,7 +333,7 @@
       <div id="hero-form-wrap">
         <div class="form-row">
           <input type="email" class="form-input" placeholder="your@email.com" id="hero-email">
-          <button class="form-btn" onclick="handleSubmit('hero-email','hero-form-wrap','hero-success')">Get All Tools</button>
+          <button class="form-btn" onclick="handleSubmit('hero-email','hero-form-wrap','hero-success',this)">Get All Tools</button>
         </div>
       </div>
       <div class="form-success" id="hero-success">
@@ -393,7 +393,7 @@
   <p class="bottom-cta-sub">Get each Master Trove the moment it goes live. Free, practical, built for your business.</p>
   <div class="bottom-form-row">
     <input type="email" class="bottom-input" placeholder="your@email.com" id="bottom-email">
-    <button class="bottom-btn" onclick="handleBottomSubmit()">Get Notified</button>
+    <button class="bottom-btn" onclick="handleBottomSubmit(this)">Get Notified</button>
   </div>
   <p id="bottom-success" style="display:none; color:rgba(255,255,255,0.85); margin-top:16px; font-size:14px; font-weight:700;">Check your inbox!</p>
 </section>
@@ -404,23 +404,39 @@
 </footer>
 
 <script>
-function handleSubmit(inputId, wrapId, successId) {
+const RAILWAY_API = 'https://master-trove-api-production.up.railway.app';
+
+async function subscribe(email) {
+  const res = await fetch(`${RAILWAY_API}/subscribe`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  });
+  return res.ok;
+}
+
+async function handleSubmit(inputId, wrapId, successId, btnEl) {
   const input = document.getElementById(inputId);
   if (!input.value || !input.value.includes('@')) {
     input.style.borderColor = '#ef4444';
     input.focus();
     return;
   }
+  if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Sending...'; }
+  await subscribe(input.value).catch(() => {});
   document.getElementById(wrapId).style.display = 'none';
   document.getElementById(successId).style.display = 'block';
 }
-function handleBottomSubmit() {
+
+async function handleBottomSubmit(btnEl) {
   const input = document.getElementById('bottom-email');
   if (!input.value || !input.value.includes('@')) {
     input.style.outline = '2px solid rgba(255,255,255,0.5)';
     input.focus();
     return;
   }
+  if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Sending...'; }
+  await subscribe(input.value).catch(() => {});
   input.parentElement.style.display = 'none';
   document.getElementById('bottom-success').style.display = 'block';
 }
