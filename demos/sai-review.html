@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Build Review — The AI Shift</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.7; }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 56px 32px 80px; }
+
+  /* ── HERO ── */
+  .doc-hero { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); border-radius: 16px; padding: 40px 48px; margin-bottom: 56px; color: #fff; }
+  .doc-hero-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+  .doc-hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .doc-hero p { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.6; }
+  .doc-hero-meta { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+  .doc-hero-meta span { font-size: 12px; color: rgba(255,255,255,0.55); font-weight: 600; }
+  .doc-hero-meta span b { color: rgba(255,255,255,0.9); }
+
+  /* ── NAV ── */
+  .toc { background: #fff; border: 1px solid #e9d5ff; border-radius: 12px; padding: 24px 28px; margin-bottom: 48px; }
+  .toc-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 16px; }
+  .toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .toc-list li a { color: #374151; text-decoration: none; font-size: 14px; font-weight: 500; }
+  .toc-list li a:hover { color: #7c3aed; }
+  .toc-list li::before { content: '→ '; color: #c4b5fd; font-weight: 700; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 64px; }
+  .section-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #c4b5fd; margin-bottom: 6px; }
+  .section-title { font-size: 22px; font-weight: 800; color: #111827; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .section-sub { font-size: 14px; color: #6b7280; margin-bottom: 28px; max-width: 640px; line-height: 1.6; }
+  .divider { height: 2px; background: #e9d5ff; margin-bottom: 32px; border-radius: 2px; }
+
+  /* ── TABLE ── */
+  .build-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e9d5ff; border-radius: 12px; overflow: hidden; }
+  .build-table th { background: #f3f0ff; padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; }
+  .build-table td { padding: 14px 16px; border-top: 1px solid #f3f0ff; font-size: 13px; vertical-align: top; }
+  .build-table tr:first-child td { border-top: none; }
+  .build-table a { color: #7c3aed; text-decoration: none; font-weight: 600; word-break: break-all; }
+  .build-table a:hover { text-decoration: underline; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .tag-live { background: #d1fae5; color: #065f46; }
+  .tag-internal { background: #e0e7ff; color: #3730a3; }
+  .tag-pending { background: #fef3c7; color: #92400e; }
+
+  /* ── PAGE AUDIT CARDS ── */
+  .audit-card { background: #fff; border: 1px solid #e9d5ff; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; }
+  .audit-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .audit-title { font-size: 16px; font-weight: 800; color: #111827; letter-spacing: -0.01em; }
+  .audit-url { font-size: 12px; color: #7c3aed; font-weight: 600; text-decoration: none; display: block; margin-top: 4px; }
+  .audit-url:hover { text-decoration: underline; }
+  .score-badge { font-size: 24px; font-weight: 800; color: #7c3aed; white-space: nowrap; }
+  .score-label { font-size: 10px; color: #9ca3af; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-align: right; }
+
+  .audit-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .audit-col h4 { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .audit-col.good h4 { color: #065f46; }
+  .audit-col.fix h4 { color: #92400e; }
+  .audit-col ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .audit-col li { font-size: 13px; color: #374151; padding-left: 18px; position: relative; line-height: 1.5; }
+  .audit-col.good li::before { content: '✓'; position: absolute; left: 0; color: #10b981; font-weight: 700; }
+  .audit-col.fix li::before { content: '△'; position: absolute; left: 0; color: #f59e0b; font-weight: 700; }
+
+  .audit-recommendation { background: #f3f0ff; border-radius: 8px; padding: 16px 20px; }
+  .audit-recommendation h4 { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
+  .audit-recommendation p { font-size: 13px; color: #374151; line-height: 1.6; }
+  .audit-recommendation ul { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .audit-recommendation li { font-size: 13px; color: #374151; padding-left: 16px; position: relative; line-height: 1.5; }
+  .audit-recommendation li::before { content: '→'; position: absolute; left: 0; color: #7c3aed; font-weight: 700; }
+
+  /* ── TEMPLATE ── */
+  .template-stack { display: flex; flex-direction: column; gap: 12px; }
+  .template-block { border-radius: 8px; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; }
+  .template-block.must { background: #7c3aed; }
+  .template-block.strong { background: #8b5cf6; }
+  .template-block.good { background: #a78bfa; }
+  .template-block.optional { background: #c4b5fd; }
+  .template-num { font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.6); min-width: 24px; padding-top: 1px; }
+  .template-content h3 { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .template-content p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+  .template-content code { font-size: 11px; background: rgba(0,0,0,0.2); color: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; }
+  .template-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* ── COPY UPGRADE ── */
+  .copy-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .copy-box { border-radius: 8px; padding: 14px 16px; }
+  .copy-box.before { background: #fee2e2; border: 1px solid #fca5a5; }
+  .copy-box.after { background: #d1fae5; border: 1px solid #6ee7b7; }
+  .copy-box-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .copy-box.before .copy-box-label { color: #991b1b; }
+  .copy-box.after .copy-box-label { color: #065f46; }
+  .copy-box p { font-size: 13px; color: #111827; line-height: 1.5; font-style: italic; }
+
+  /* ── MEDIA ASSETS ── */
+  .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .asset-card { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 20px; }
+  .asset-icon { font-size: 24px; margin-bottom: 10px; }
+  .asset-name { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 6px; }
+  .asset-desc { font-size: 12px; color: #6b7280; line-height: 1.5; margin-bottom: 10px; }
+  .asset-priority { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .priority-high { color: #dc2626; }
+  .priority-med { color: #d97706; }
+  .priority-low { color: #6b7280; }
+
+  /* ── ACTIONS ── */
+  .actions-list { background: #fff; border: 1px solid #e9d5ff; border-radius: 12px; overflow: hidden; }
+  .action-row { display: flex; gap: 16px; padding: 16px 20px; border-top: 1px solid #f3f0ff; align-items: flex-start; }
+  .action-row:first-child { border-top: none; }
+  .action-num { font-size: 13px; font-weight: 800; color: #7c3aed; min-width: 24px; }
+  .action-content h4 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+  .action-content p { font-size: 13px; color: #6b7280; line-height: 1.5; }
+  .action-content a { color: #7c3aed; font-weight: 600; text-decoration: none; }
+  .action-content a:hover { text-decoration: underline; }
+
+  /* ── BUG BOX ── */
+  .bug-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .bug-box-title { font-size: 12px; font-weight: 800; color: #c2410c; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .bug-box p { font-size: 13px; color: #7c2d12; line-height: 1.5; }
+
+  @media (max-width: 640px) {
+    .page { padding: 32px 20px 64px; }
+    .doc-hero { padding: 28px 24px; }
+    .audit-two-col { grid-template-columns: 1fr; }
+    .copy-compare { grid-template-columns: 1fr; }
+    .audit-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="doc-hero">
+    <p class="doc-hero-eyebrow">The AI Shift — Internal Review</p>
+    <h1>Full Build Review</h1>
+    <p>Everything built so far — with links, honest copy feedback, and a standard template for all future episodes.</p>
+    <div class="doc-hero-meta">
+      <span><b>Prepared for:</b> Sai</span>
+      <span><b>Date:</b> May 2026</span>
+      <span><b>Sections:</b> 5</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <p class="toc-title">Contents</p>
+    <ul class="toc-list">
+      <li><a href="#inventory">Part 1 — Everything We've Built (with links)</a></li>
+      <li><a href="#audit">Part 2 — Copy & CRO Audit (what's working, what to fix)</a></li>
+      <li><a href="#template">Part 3 — Standard Landing Page Template (use for every future episode)</a></li>
+      <li><a href="#media">Part 4 — Media Assets We're Missing</a></li>
+      <li><a href="#actions">Part 5 — What Sai Needs to Review & Give Feedback On</a></li>
+    </ul>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PART 1: INVENTORY
+  ═══════════════════════════════════════════════════ -->
+  <div class="section" id="inventory">
+    <p class="section-eyebrow">Part 1</p>
+    <h2 class="section-title">Everything We've Built</h2>
+    <p class="section-sub">Every asset, tool, and page — with a direct link and status. Open each one, check it works, and note any feedback below.</p>
+    <div class="divider"></div>
+
+    <h3 style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin-bottom:16px;">Infrastructure</h3>
+    <table class="build-table" style="margin-bottom:36px;">
+      <thead>
+        <tr><th>What</th><th>What It Does</th><th>Link / Location</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>YouTube Channel</strong></td>
+          <td>Main channel. Banner, profile pic, and handle set up.</td>
+          <td><a href="https://www.youtube.com/@The-AI-Shift-0" target="_blank">youtube.com/@The-AI-Shift-0</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hub Page</strong></td>
+          <td>Public home page. Captures emails. Lists all episodes and tools. The front door for the channel.</td>
+          <td><a href="https://theaishift.biz" target="_blank">theaishift.biz</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Railway API</strong></td>
+          <td>Backend server. Receives form submissions, calls Claude API, emails the output to the subscriber via Kit.</td>
+          <td><a href="https://master-trove-api-production.up.railway.app/health" target="_blank">Railway (health check)</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Kit Email CRM</strong></td>
+          <td>Stores every email subscriber. 5 sequences built (one per episode). Hub captures to main list. Each Master Trove triggers the episode's sequence.</td>
+          <td><a href="https://app.kit.com" target="_blank">app.kit.com</a> (login: theaishift95@gmail.com)</td>
+          <td><span class="tag tag-pending">Trial — add card by Jun 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Video CRM</strong></td>
+          <td>Internal tracker showing every episode's status, pillar, links, and next steps.</td>
+          <td>Local file — open <code style="font-size:12px;background:#f3f0ff;padding:2px 6px;border-radius:4px;">video-crm.html</code></td>
+          <td><span class="tag tag-internal">Internal</span></td>
+        </tr>
+        <tr>
+          <td><strong>Brand Guidelines</strong></td>
+          <td>Single source of truth for colors, fonts, logo usage, tone. Every visual decision references this.</td>
+          <td><a href="https://the-ai-shift-0.github.io/brand/" target="_blank">GitHub Pages — /brand/</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin-bottom:16px;">Episode 1 — Sales Call Analyzer</h3>
+    <table class="build-table" style="margin-bottom:36px;">
+      <thead>
+        <tr><th>What</th><th>What It Does</th><th>Link</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Landing Page</strong></td>
+          <td>The page viewers land on from the YouTube description. Shows the tool, who it's for, quick demo.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/" target="_blank">demos/sales-analyzer/</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Demo Walkthrough</strong></td>
+          <td>Sai's guide for filming. Step-by-step script for what to click and say during the demo in the video.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/walkthrough.html" target="_blank">demos/sales-analyzer/walkthrough.html</a></td>
+          <td><span class="tag tag-internal">Sai's guide</span></td>
+        </tr>
+        <tr>
+          <td><strong>Master Trove</strong></td>
+          <td>The lead magnet. Viewer fills out their business profile, gets a custom AI sales coaching system sent to their email. Built on SPIN + Challenger + Sandler frameworks.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/master-trove.html" target="_blank">demos/sales-analyzer/master-trove.html</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Example Output</strong></td>
+          <td>Shows a completed Master Trove so viewers can see what they'll get before they fill the form.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/example-output.html" target="_blank">demos/sales-analyzer/example-output.html</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>YouTube SEO Copy</strong></td>
+          <td>3 title variants, full description, 20+ tags. Ready to paste into YouTube Studio when publishing.</td>
+          <td>Local: <code style="font-size:12px;background:#f3f0ff;padding:2px 6px;border-radius:4px;">docs/videos/youtube-seo-ep1-ep2.md</code></td>
+          <td><span class="tag tag-internal">Ready to use</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin-bottom:16px;">Episode 2 — AI Caller / Voice Agent</h3>
+    <table class="build-table" style="margin-bottom:36px;">
+      <thead>
+        <tr><th>What</th><th>What It Does</th><th>Link</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Landing Page</strong></td>
+          <td>Viewer landing page from YouTube description.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/ai-caller/" target="_blank">demos/ai-caller/</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Demo Walkthrough</strong></td>
+          <td>Sai's filming guide for the AI Caller demo.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/ai-caller/walkthrough.html" target="_blank">demos/ai-caller/walkthrough.html</a></td>
+          <td><span class="tag tag-internal">Sai's guide</span></td>
+        </tr>
+        <tr>
+          <td><strong>Master Trove</strong></td>
+          <td>Viewer fills in their call setup. Gets: exact monthly cost estimate, recommended vendor stack (Retell/VAPI + Twilio + CRM), and ready-to-use AI calling scripts (opening, discovery, objection handling, close).</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/ai-caller/master-trove.html" target="_blank">demos/ai-caller/master-trove.html</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Example Output</strong></td>
+          <td>Pre-filled example showing the cost estimate + stack + scripts output.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/ai-caller/example-output.html" target="_blank">demos/ai-caller/example-output.html</a></td>
+          <td><span class="tag tag-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>YouTube SEO Copy</strong></td>
+          <td>Same file as Ep 1 — has both. 3 title variants, full description, 20+ tags.</td>
+          <td>Local: <code style="font-size:12px;background:#f3f0ff;padding:2px 6px;border-radius:4px;">docs/videos/youtube-seo-ep1-ep2.md</code></td>
+          <td><span class="tag tag-internal">Ready to use</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin-bottom:16px;">Demos Built (Future Episodes)</h3>
+    <table class="build-table" style="margin-bottom:36px;">
+      <thead>
+        <tr><th>Episode</th><th>What's Built</th><th>Link</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AI Co-CEO</strong><br><span style="font-size:11px;color:#6b7280;">Ep 3 candidate</span></td>
+          <td>Demo visual guide + production brief + feasibility audit built. Master Trove not built yet.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/ai-ceo/" target="_blank">demos/ai-ceo/</a></td>
+          <td><span class="tag tag-pending">Demo built, no Master Trove</span></td>
+        </tr>
+        <tr>
+          <td><strong>Prompt Builder</strong></td>
+          <td>Demo guide + Master Trove both built.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/prompt-builder/master-trove.html" target="_blank">demos/prompt-builder/</a></td>
+          <td><span class="tag tag-live">Built</span></td>
+        </tr>
+        <tr>
+          <td><strong>Legal Case Handler</strong></td>
+          <td>Demo guide + Master Trove both built.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/legal-case-handler/master-trove.html" target="_blank">demos/legal-case-handler/</a></td>
+          <td><span class="tag tag-live">Built</span></td>
+        </tr>
+        <tr>
+          <td><strong>FB Audience Unifier</strong></td>
+          <td>Walkthrough + Master Trove both built.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/fb-audience/master-trove.html" target="_blank">demos/fb-audience/</a></td>
+          <td><span class="tag tag-live">Built</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin-bottom:16px;">Content Assets</h3>
+    <table class="build-table">
+      <thead>
+        <tr><th>What</th><th>What It Does</th><th>Location</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Filming Day Checklist</strong></td>
+          <td>Interactive mobile checklist for Sai to use on filming day. Equipment check, step-by-step demo order, all links clickable. Send this before he films.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/filming-day-checklist.html" target="_blank">filming-day-checklist.html</a></td>
+        </tr>
+        <tr>
+          <td><strong>Editor Outreach Messages</strong></td>
+          <td>WhatsApp DM + email drafts for Arafin (scored 20/20) and RIHAD JAMAN (18/20). Ready to send now.</td>
+          <td>Local: <code style="font-size:12px;background:#f3f0ff;padding:2px 6px;border-radius:4px;">docs/strategy/editor-outreach-messages.md</code></td>
+        </tr>
+        <tr>
+          <td><strong>Company Profile</strong></td>
+          <td>The fake demo company used in all demos. Single source of truth — all numbers, team size, revenue, tools. Update this if demos need to change.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/company-profile.html" target="_blank">demos/company-profile.html</a></td>
+        </tr>
+        <tr>
+          <td><strong>Editor Brief (Harris)</strong></td>
+          <td>Full editing brief for the hired editor. Style reference, pacing, captions, thumbnails, workflow.</td>
+          <td><a href="https://the-ai-shift-0.github.io/demos/harris-editor-brief.html" target="_blank">harris-editor-brief.html</a></td>
+        </tr>
+        <tr>
+          <td><strong>90-Day Content Plan</strong></td>
+          <td>Full episode lineup, release schedule, pillar breakdown.</td>
+          <td>Local: <code style="font-size:12px;background:#f3f0ff;padding:2px 6px;border-radius:4px;">docs/the-ai-shift-90-day-content-plan.html</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PART 2: AUDIT
+  ═══════════════════════════════════════════════════ -->
+  <div class="section" id="audit">
+    <p class="section-eyebrow">Part 2</p>
+    <h2 class="section-title">Copy & CRO Audit</h2>
+    <p class="section-sub">Honest assessment of every user-facing page against copywriting and conversion best practices. What's working, what's soft, and specific fixes.</p>
+    <div class="divider"></div>
+
+    <!-- HUB PAGE -->
+    <div class="audit-card">
+      <div class="audit-header">
+        <div>
+          <p class="audit-title">Hub Page</p>
+          <a href="https://theaishift.biz" target="_blank" class="audit-url">theaishift.biz</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="score-badge">6 / 10</p>
+          <p class="score-label">Current strength</p>
+        </div>
+      </div>
+
+      <div class="audit-two-col">
+        <div class="audit-col good">
+          <h4>What's Working</h4>
+          <ul>
+            <li>Clean, on-brand visual design — the purple gradient hero looks professional</li>
+            <li>Two email capture points (hero + bottom) — good practice</li>
+            <li>Episode cards give a taste of what's coming — curiosity driver</li>
+            <li>Loading state on form submit — small detail that builds trust</li>
+            <li>Mobile responsive</li>
+          </ul>
+        </div>
+        <div class="audit-col fix">
+          <h4>What Needs Work</h4>
+          <ul>
+            <li>No pain section — drops straight into the form with zero "is this for me?" moment</li>
+            <li>Headline is generic — "results, not theory" is a line every AI course uses</li>
+            <li>Pills are vague — "Cut costs / Grow revenue / Remove dependencies" could describe any software company</li>
+            <li>Zero social proof — no subscriber count, no "used by X business owners"</li>
+            <li>Bottom CTA "Get Notified" is weak — notified of what? Why now?</li>
+            <li>Tool descriptions are features, not outcomes — "Analyze sales calls" instead of "Stop losing deals to bad coaching"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audit-recommendation">
+        <h4>Specific Copy Fixes</h4>
+        <p>The headline and sub need to be more specific. Here's a before/after:</p>
+
+        <div class="copy-compare" style="margin-top:12px;">
+          <div class="copy-box before">
+            <p class="copy-box-label">Current</p>
+            <p>"Practical AI for business owners who want results, not theory."</p>
+          </div>
+          <div class="copy-box after">
+            <p class="copy-box-label">Stronger</p>
+            <p>"One AI tool per episode. Built for your business. Ready to use in 15 minutes."</p>
+          </div>
+        </div>
+
+        <div class="copy-compare">
+          <div class="copy-box before">
+            <p class="copy-box-label">Current (pills)</p>
+            <p>"Cut costs · Grow revenue · Remove dependencies"</p>
+          </div>
+          <div class="copy-box after">
+            <p class="copy-box-label">Stronger (pills)</p>
+            <p>"Works in Claude or ChatGPT · No setup required · Personalized to your business"</p>
+          </div>
+        </div>
+
+        <ul>
+          <li>Add a one-sentence pain hook above the form: "You don't need another AI explainer. You need a tool that works in your business today."</li>
+          <li>Once you have 100+ subscribers, add a trust line: "Join [X] business owners getting one free AI tool per episode."</li>
+          <li>Change bottom CTA "Get Notified" → "Get the Next Tool" and the sub-copy to: "New episode = new tool. Get yours the moment it drops."</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SALES ANALYZER MASTER TROVE -->
+    <div class="audit-card">
+      <div class="audit-header">
+        <div>
+          <p class="audit-title">Sales Analyzer Master Trove</p>
+          <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/master-trove.html" target="_blank" class="audit-url">demos/sales-analyzer/master-trove.html</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="score-badge">7.5 / 10</p>
+          <p class="score-label">Current strength</p>
+        </div>
+      </div>
+
+      <div class="audit-two-col">
+        <div class="audit-col good">
+          <h4>What's Working</h4>
+          <ul>
+            <li>2-step form with progress reduces friction — the "Next: Your Sales Profile" flow is excellent</li>
+            <li>"What's Inside" section before the form sets up perceived value before the ask</li>
+            <li>"See Example Output" tab is a huge trust builder — lets people see what they'll get before submitting</li>
+            <li>Industry-specific output (coaching vs. SaaS vs. e-commerce) makes the result feel genuinely personal</li>
+            <li>The AI content itself is exceptional: SPIN + Challenger + Sandler frameworks, scoring rubric, objection library</li>
+            <li>Platform instructions (Claude + ChatGPT tabs) lower the barrier to actually using it</li>
+          </ul>
+        </div>
+        <div class="audit-col fix">
+          <h4>What Needs Work</h4>
+          <ul>
+            <li>Title "Sales Analyzer Master Trove" is a product name, not a benefit — a cold visitor doesn't know what a Master Trove is</li>
+            <li>The subtitle is just one thin sentence — no pain hook, no "who this is for"</li>
+            <li>No trust signal before the form — what's this from? Who made it?</li>
+            <li>"See Example Output" tab is buried — most users won't find it before they decide to submit</li>
+            <li>Button copy "Generate My Sales Report" is okay but weak — "Build My Coaching System" is stronger</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audit-recommendation">
+        <h4>Specific Fixes</h4>
+        <div class="copy-compare" style="margin-top:12px;">
+          <div class="copy-box before">
+            <p class="copy-box-label">Current headline</p>
+            <p>"Sales Analyzer Master Trove"</p>
+          </div>
+          <div class="copy-box after">
+            <p class="copy-box-label">Stronger headline</p>
+            <p>"Your Custom AI Sales Coach — Built in 60 Seconds"</p>
+          </div>
+        </div>
+        <div class="copy-compare">
+          <div class="copy-box before">
+            <p class="copy-box-label">Current subtitle</p>
+            <p>"Tell us about your business. We'll generate a custom system prompt trained on SPIN Selling, Challenger Sale, and 10,000 sales calls."</p>
+          </div>
+          <div class="copy-box after">
+            <p class="copy-box-label">Stronger subtitle</p>
+            <p>"Most sales managers can't review 1 in 10 calls. This AI reviews all of them — calibrated to your industry, your deal size, your reps."</p>
+          </div>
+        </div>
+        <ul>
+          <li>Add a small eyebrow above the title: "Episode 01 — Free Resource" so visitors know where they are</li>
+          <li>Move "See Example Output" link to above the form with a teaser: "See what you're getting before you fill anything out →"</li>
+          <li>Change submit button: "Generate My Sales Report" → "Build My Coaching System →"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- AI CALLER MASTER TROVE -->
+    <div class="audit-card">
+      <div class="audit-header">
+        <div>
+          <p class="audit-title">AI Caller Master Trove</p>
+          <a href="https://the-ai-shift-0.github.io/demos/ai-caller/master-trove.html" target="_blank" class="audit-url">demos/ai-caller/master-trove.html</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="score-badge">8 / 10</p>
+          <p class="score-label">Current strength</p>
+        </div>
+      </div>
+
+      <div class="audit-two-col">
+        <div class="audit-col good">
+          <h4>What's Working</h4>
+          <ul>
+            <li>3-part output structure (cost + stack + scripts) is immediately useful — viewers get something concrete</li>
+            <li>The cost calculator is genuinely impressive — specific dollar ranges based on call volume</li>
+            <li>Show-up rate context in the output ("businesses at 40% typically reach 70-80% within 30 days") builds confidence</li>
+            <li>Per-industry vendor recommendations (VAPI vs Retell, GoHighLevel vs HubSpot) feel expert, not generic</li>
+            <li>Platform tabs (Retell, VAPI, Refine with Claude) reduce setup friction</li>
+            <li>The scripts cover the full call lifecycle: opening, discovery, objections, close</li>
+          </ul>
+        </div>
+        <div class="audit-col fix">
+          <h4>What Needs Work</h4>
+          <ul>
+            <li>Same issue as Sales Analyzer: title is a product name, subtitle is thin</li>
+            <li>Progress indicator on Step 1 is blank — just shows nothing. Fix: add "Step 1 of 2" on load</li>
+            <li>Industry dropdown missing common SMB verticals: HVAC, home services, landscaping, construction — the exact businesses watching the channel</li>
+            <li>No pain hook at the top — no "here's the problem this solves" section</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audit-recommendation">
+        <h4>Specific Fixes</h4>
+        <div class="copy-compare" style="margin-top:12px;">
+          <div class="copy-box before">
+            <p class="copy-box-label">Current headline</p>
+            <p>"AI Caller Master Trove"</p>
+          </div>
+          <div class="copy-box after">
+            <p class="copy-box-label">Stronger headline</p>
+            <p>"Your AI Caller — Cost, Stack & Scripts in 60 Seconds"</p>
+          </div>
+        </div>
+        <div class="copy-compare">
+          <div class="copy-box before">
+            <p class="copy-box-label">Current subtitle</p>
+            <p>"Tell us about your business and your call setup. We'll generate your exact cost, the stack to use, and the scripts your AI caller speaks."</p>
+          </div>
+          <div class="copy-box after">
+            <p class="copy-box-label">Stronger subtitle</p>
+            <p>"Human setters cost $2,500–$5,000/mo. An AI caller costs $75–$250/mo and picks up the phone in under 60 seconds. Here's exactly what it costs for your volume, which vendors to use, and the scripts to load in."</p>
+          </div>
+        </div>
+        <ul>
+          <li>Fix the empty progress indicator on Step 1 — should show "Step 1 of 2" on page load</li>
+          <li>Add to industry dropdown: HVAC, Home Services, Construction, Landscaping, Insurance — these are core SMB verticals</li>
+          <li>Add eyebrow: "Episode 02 — Free Resource"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DEMO LANDING PAGES -->
+    <div class="audit-card">
+      <div class="audit-header">
+        <div>
+          <p class="audit-title">Episode Landing Pages (index.html per demo)</p>
+          <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/" target="_blank" class="audit-url">demos/sales-analyzer/ · demos/ai-caller/</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="score-badge">5 / 10</p>
+          <p class="score-label">Current strength</p>
+        </div>
+      </div>
+
+      <div class="audit-two-col">
+        <div class="audit-col good">
+          <h4>What's Working</h4>
+          <ul>
+            <li>On-brand design, loads fast</li>
+            <li>Navigation to the walkthrough and master trove is clear</li>
+          </ul>
+        </div>
+        <div class="audit-col fix">
+          <h4>What Needs Work</h4>
+          <ul>
+            <li>These pages are mostly a tool interface — they don't sell anything. Viewer from YouTube needs to immediately understand what to do next</li>
+            <li>No clear primary CTA — viewer doesn't know if they should watch the demo, get the tool, or read the walkthrough</li>
+            <li>No pain hook — drops into the tool without any context</li>
+            <li>The hierarchy should be: pain → tool → get it free (Master Trove) — currently that flow doesn't exist</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audit-recommendation">
+        <h4>Recommendation</h4>
+        <p>The landing pages need a simple hero section above the tool interface. The template in Part 3 below shows exactly how to structure this. It's a 20-minute fix per page once the template is agreed.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PART 3: TEMPLATE
+  ═══════════════════════════════════════════════════ -->
+  <div class="section" id="template">
+    <p class="section-eyebrow">Part 3</p>
+    <h2 class="section-title">Standard Landing Page Template</h2>
+    <p class="section-sub">The same structure for every future episode. Not reinventing the wheel each time — just swapping in the episode-specific content. Follow this order exactly.</p>
+    <div class="divider"></div>
+
+    <p style="font-size:13px;color:#6b7280;margin-bottom:20px;">Each block below is a section on the page. The shade shows priority: darkest = must-have, lightest = optional. These are in order from top to bottom of the page.</p>
+
+    <div class="template-stack">
+
+      <div class="template-block must">
+        <div class="template-num">1</div>
+        <div class="template-content">
+          <div class="template-label">Must-Have</div>
+          <h3>HERO — Pain hook + value prop</h3>
+          <p>Eyebrow: "Episode 0X — Free Resource" | Headline: benefit-focused, not tool-name | Sub: 1-2 sentences naming the problem and the outcome | CTA button: "Get My Free [Tool Name] →"</p>
+          <p style="margin-top:8px;"><code>[Pain question] + [what they'll get] + [time to value]</code></p>
+          <p style="margin-top:6px;">Example: "Stop coaching calls manually. Get a custom AI sales coach calibrated to your team, your industry, and your top objection — ready in 60 seconds."</p>
+        </div>
+      </div>
+
+      <div class="template-block must">
+        <div class="template-num">2</div>
+        <div class="template-content">
+          <div class="template-label">Must-Have</div>
+          <h3>WHAT YOU GET — 3-layer breakdown</h3>
+          <p>The existing "What's Inside" box. Keep it. But lead with outcomes, not features.</p>
+          <p style="margin-top:8px;"><code>Layer 1 (immediate): the tool/prompt they get to use today</code></p>
+          <p><code>Layer 2 (personalized): what makes it specific to their business</code></p>
+          <p><code>Layer 3 (ongoing): what they can do with it over time</code></p>
+        </div>
+      </div>
+
+      <div class="template-block strong">
+        <div class="template-num">3</div>
+        <div class="template-content">
+          <div class="template-label">Strong</div>
+          <h3>SEE EXAMPLE OUTPUT — Preview before the ask</h3>
+          <p>Link to the example output page BEFORE the form. "See what you'll get before you fill anything out →" — reduces friction by showing the value upfront. Currently this exists as a tab, but it should be more visible.</p>
+        </div>
+      </div>
+
+      <div class="template-block strong">
+        <div class="template-num">4</div>
+        <div class="template-content">
+          <div class="template-label">Must-Have</div>
+          <h3>FORM — 2-step with strong CTA</h3>
+          <p>Step 1: Name + Email only. Step 2: business context. Submit button must follow the formula:</p>
+          <p style="margin-top:8px;"><code>[Action] + [What They Get] + [→]</code></p>
+          <p style="margin-top:6px;">Examples: "Build My Coaching System →" / "Generate My Scripts →" / "Get My Cost Estimate →"</p>
+          <p style="margin-top:6px;">Avoid: "Submit", "Generate", "Get Started", "Continue".</p>
+        </div>
+      </div>
+
+      <div class="template-block good">
+        <div class="template-num">5</div>
+        <div class="template-content">
+          <div class="template-label">Good to Have</div>
+          <h3>HOW IT WORKS — 3 steps</h3>
+          <p>Simple numbered steps: (1) Fill in your business profile — takes 90 seconds. (2) We generate your custom system. (3) Load it into Claude or ChatGPT and use it today. Reduces "will this be hard?" anxiety.</p>
+        </div>
+      </div>
+
+      <div class="template-block good">
+        <div class="template-num">6</div>
+        <div class="template-content">
+          <div class="template-label">Good to Have</div>
+          <h3>WHO IT'S FOR — 3 bullets</h3>
+          <p>Qualify the visitor. "This is for you if..." + 3 specific situations. Also include "This is NOT for you if..." — exclusivity increases trust. Example: "Not for you if you're still figuring out your sales process. This is for businesses already doing sales calls who want to improve conversion rates."</p>
+        </div>
+      </div>
+
+      <div class="template-block optional">
+        <div class="template-num">7</div>
+        <div class="template-content">
+          <div class="template-label">Optional — Add When Available</div>
+          <h3>SOCIAL PROOF</h3>
+          <p>Once you have testimonials or subscriber numbers, add a strip here: "Joined by [X] business owners" or a 1-line quote from a viewer. Even a sub count once you hit 100+ is worth showing.</p>
+        </div>
+      </div>
+
+      <div class="template-block optional">
+        <div class="template-num">8</div>
+        <div class="template-content">
+          <div class="template-label">Optional</div>
+          <h3>HOW TO USE — Platform instructions</h3>
+          <p>The existing Claude/ChatGPT tabs — keep these. Move to below the form (they're post-conversion content, not pre-conversion persuasion).</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="background:#f3f0ff;border-radius:10px;padding:20px 24px;margin-top:24px;">
+      <p style="font-size:13px;font-weight:800;color:#7c3aed;margin-bottom:8px;">RULE: Copy formula for every episode</p>
+      <p style="font-size:13px;color:#374151;line-height:1.6;">Every headline follows: <strong>"[Pain avoided] without [friction they expect]"</strong> or <strong>"[Specific outcome] in [time]"</strong>. Every CTA follows: <strong>"[Action verb] + [what they get]"</strong>. Every "what you get" section leads with outcomes, not feature names.</p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PART 4: MEDIA ASSETS
+  ═══════════════════════════════════════════════════ -->
+  <div class="section" id="media">
+    <p class="section-eyebrow">Part 4</p>
+    <h2 class="section-title">Media Assets We're Missing</h2>
+    <p class="section-sub">Right now all pages are text-only. These are the visuals that would most improve conversion and credibility — in order of impact.</p>
+    <div class="divider"></div>
+
+    <div class="asset-grid">
+      <div class="asset-card">
+        <div class="asset-icon">📸</div>
+        <p class="asset-name">Output Screenshot</p>
+        <p class="asset-desc">A static image of a generated Master Trove — placed above the form so people can see what they'll receive before they fill anything in. The single highest-leverage visual we're missing.</p>
+        <p class="asset-priority priority-high">High Priority</p>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-icon">🎯</div>
+        <p class="asset-name">Before/After Visual</p>
+        <p class="asset-desc">Simple two-column graphic: "Manual process (left) vs. AI-powered (right)." Shows the transformation concretely. Can be made in Canva in 20 minutes.</p>
+        <p class="asset-priority priority-high">High Priority</p>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-icon">▶</div>
+        <p class="asset-name">Demo GIF / Video Embed</p>
+        <p class="asset-desc">Short 20-30 second screen recording showing the tool in action — embedded on the landing page. Viewers who haven't watched the full video need to see the AI actually working.</p>
+        <p class="asset-priority priority-high">High Priority</p>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-icon">📐</div>
+        <p class="asset-name">3-Layer Diagram</p>
+        <p class="asset-desc">Simple graphic showing what's in each Master Trove — Layer 1 (the tool), Layer 2 (personalized), Layer 3 (ongoing use). Makes the "what you get" section scannable and visual.</p>
+        <p class="asset-priority priority-med">Medium Priority</p>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-icon">🏷</div>
+        <p class="asset-name">Episode Badge / Number</p>
+        <p class="asset-desc">A small visual badge on each landing page showing "Episode 01" in the brand style. Creates series consistency — visitors understand this is part of an ongoing library of tools.</p>
+        <p class="asset-priority priority-med">Medium Priority</p>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-icon">💬</div>
+        <p class="asset-name">First Testimonials</p>
+        <p class="asset-desc">Once the first 10 people use a Master Trove, reach out and ask for one sentence of feedback. Even "this is the most specific AI tool I've seen for sales teams" with a name is enough to add social proof.</p>
+        <p class="asset-priority priority-low">Add when available</p>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #e9d5ff;border-radius:10px;padding:20px 24px;margin-top:24px;">
+      <p style="font-size:13px;font-weight:800;color:#111827;margin-bottom:8px;">How to get the output screenshot (easiest win)</p>
+      <p style="font-size:13px;color:#6b7280;line-height:1.6;">Open the Sales Analyzer Master Trove. Click "See Example Output." Take a full-page screenshot (Cmd+Shift+4 on Mac, or use a browser extension like GoFullPage). Crop to just the output box. Save as <code style="font-size:11px;background:#f3f0ff;padding:2px 5px;border-radius:4px;">sales-analyzer-output-preview.png</code>. That's it — add it above the form on the landing page.</p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PART 5: ACTIONS FOR SAI
+  ═══════════════════════════════════════════════════ -->
+  <div class="section" id="actions">
+    <p class="section-eyebrow">Part 5</p>
+    <h2 class="section-title">What Sai Needs to Review</h2>
+    <p class="section-sub">Open each link, go through it, and give feedback. Specifically flag: anything that looks wrong, anything that should be different for your audience, anything missing.</p>
+    <div class="divider"></div>
+
+    <div class="actions-list">
+
+      <div class="action-row">
+        <div class="action-num">1</div>
+        <div class="action-content">
+          <h4>Add Kit billing card — urgent</h4>
+          <p>Kit trial expires around June 8. If the card isn't added before then, email delivery stops for everyone who fills a form. Go to <a href="https://app.kit.com" target="_blank">app.kit.com</a> → Settings → Billing. Login: theaishift95@gmail.com.</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">2</div>
+        <div class="action-content">
+          <h4>End-to-end test — Master Trove → email</h4>
+          <p>Open <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/master-trove.html" target="_blank">Sales Analyzer Master Trove</a>, fill it with your real email, and submit. You should receive an email within 60 seconds. Same for <a href="https://the-ai-shift-0.github.io/demos/ai-caller/master-trove.html" target="_blank">AI Caller</a>. If no email arrives, let Apurv know immediately — we need to debug before launch.</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">3</div>
+        <div class="action-content">
+          <h4>Check the AI output quality — does it make sense?</h4>
+          <p>Once you complete the test above, read the email you receive. Is the generated content accurate and useful for a real business owner? Does the cost estimate in the AI Caller Trove feel realistic? Does the Sales Analyzer coaching system feel like something a sales manager would actually use? Flag anything that looks off.</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">4</div>
+        <div class="action-content">
+          <h4>Review the demo walkthroughs — filming accuracy</h4>
+          <p>Open <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/walkthrough.html" target="_blank">Sales Analyzer walkthrough</a> and <a href="https://the-ai-shift-0.github.io/demos/ai-caller/walkthrough.html" target="_blank">AI Caller walkthrough</a>. Does the step-by-step guide match what you can actually demo on screen? Are the links correct? Anything confusing or missing?</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">5</div>
+        <div class="action-content">
+          <h4>Send editor DMs — outreach messages are ready</h4>
+          <p>Open <code style="font-size:12px;background:#f3f0ff;padding:2px 5px;border-radius:4px;">docs/strategy/editor-outreach-messages.md</code>. WhatsApp DMs for Arafin (20/20 score) and RIHAD JAMAN (18/20) are written and ready. Send them now if you haven't already. Offer: paid trial edit. Do not offer unpaid.</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">6</div>
+        <div class="action-content">
+          <h4>Filming status check</h4>
+          <p>Did you film on May 23-24 as planned? If yes — send footage to the editor as soon as they're confirmed. If not — open <a href="https://the-ai-shift-0.github.io/demos/filming-day-checklist.html" target="_blank">Filming Day Checklist</a>, reschedule, and follow that guide on the day.</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">7</div>
+        <div class="action-content">
+          <h4>Hub page feedback — copy and layout</h4>
+          <p>Open <a href="https://theaishift.biz" target="_blank">theaishift.biz</a> and go through it as if you're a business owner seeing it for the first time. Does the headline immediately tell you what this is? Do you want to give your email? Any sections missing? The copy audit in Part 2 has specific improvements — let Apurv know which ones to prioritise first.</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <div class="action-num">8</div>
+        <div class="action-content">
+          <h4>Screenshot the example output for media assets</h4>
+          <p>On <a href="https://the-ai-shift-0.github.io/demos/sales-analyzer/master-trove.html" target="_blank">Sales Analyzer Master Trove</a>, click "See Example Output." Take a full-page screenshot of the output box (use GoFullPage Chrome extension or Cmd+Shift+5 on Mac for scroll capture). Send to Apurv — this becomes the preview image above the form.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="background:#f3f0ff;border-radius:10px;padding:20px 24px;margin-top:28px;text-align:center;">
+      <p style="font-size:14px;font-weight:700;color:#7c3aed;margin-bottom:4px;">Summary: 8 things to do</p>
+      <p style="font-size:13px;color:#6b7280;">Kit card (urgent) · End-to-end test · Check AI output quality · Review walkthroughs · Send editor DMs · Confirm filming status · Hub page feedback · Screenshot example output</p>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div style="border-top:1px solid #e9d5ff;padding-top:24px;text-align:center;">
+    <p style="font-size:12px;color:#9ca3af;">The AI Shift — Internal Document · May 2026 · Do not share publicly</p>
+  </div>
+
+</div>
+</body>
+</html>
