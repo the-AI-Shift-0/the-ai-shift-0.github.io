@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Shift - Master Trove Production Standard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #111827; font-size: 15px; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; padding: 56px 32px; }
+
+  .page-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; }
+  .page-title { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 8px; }
+  .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 12px; max-width: 800px; line-height: 1.7; }
+  .page-meta { font-size: 12px; color: #9ca3af; margin-bottom: 56px; }
+
+  .section { margin-bottom: 56px; }
+  .section-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 6px; padding-bottom: 10px; border-bottom: 2px solid #e9d5ff; }
+  .section-subtitle { font-size: 13px; color: #6b7280; margin-bottom: 20px; margin-top: 6px; }
+
+  .why-box { background: #fff; border: 1px solid #e9d5ff; border-left: 4px solid #7c3aed; border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; font-size: 13px; color: #374151; line-height: 1.7; }
+  .why-box strong { color: #111827; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .standing-rule { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 18px 22px; margin-bottom: 12px; }
+  .standing-rule-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .standing-badge { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: #f3e8ff; color: #7c3aed; padding: 3px 9px; border-radius: 99px; flex-shrink: 0; }
+  .standing-badge.do { background: #dcfce7; color: #16a34a; }
+  .standing-badge.never { background: #fee2e2; color: #dc2626; }
+  .standing-title { font-size: 13px; font-weight: 700; color: #111827; }
+  .standing-rule-body { font-size: 13px; color: #6b7280; line-height: 1.6; }
+  .standing-rule-body strong { color: #374151; }
+  .standing-rule-body em { color: #7c3aed; font-style: normal; font-weight: 600; }
+
+  .template-block { background: #1e1e2e; border-radius: 12px; padding: 28px 32px; font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace; font-size: 12.5px; line-height: 1.9; color: #cdd6f4; white-space: pre-wrap; margin-bottom: 28px; overflow-x: auto; }
+  .template-block .comment { color: #6c7086; }
+  .template-block .label { color: #cba6f7; font-weight: 700; }
+  .template-block .value { color: #a6e3a1; }
+  .template-block .heading { color: #89b4fa; font-weight: 700; }
+  .template-block .warn { color: #f38ba8; }
+
+  .pipeline-diagram { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 28px 32px; margin-bottom: 28px; font-size: 13px; color: #374151; line-height: 2; font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace; }
+  .pipeline-diagram .arrow { color: #7c3aed; font-weight: 700; }
+
+  .field-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .field-table th { text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed; padding: 10px 14px; background: #f3e8ff; border-bottom: 2px solid #e9d5ff; }
+  .field-table td { padding: 12px 14px; border-bottom: 1px solid #f3e8ff; vertical-align: top; }
+  .field-table tr:last-child td { border-bottom: none; }
+  .field-table tr:nth-child(even) td { background: #fff; }
+  .field-name { font-weight: 700; color: #111827; font-size: 12px; }
+  .field-why { color: #6b7280; font-size: 12px; line-height: 1.5; }
+
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li { padding: 10px 0 10px 28px; position: relative; font-size: 13px; color: #374151; }
+  .checklist li:before { content: "✓"; position: absolute; left: 0; color: #16a34a; font-weight: 900; font-size: 14px; }
+  .checklist.never li:before { content: "✕"; color: #dc2626; }
+
+  .divider { border: none; border-top: 1px solid #e9d5ff; margin: 40px 0; }
+  .inline-code { background: #f3e8ff; color: #7c3aed; padding: 2px 6px; border-radius: 3px; font-family: 'SF Mono', monospace; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="page-eyebrow">The AI Shift - Channel Standard</div>
+  <h1 class="page-title">Master Trove Production Standard</h1>
+  <p class="page-subtitle">The complete standard for Demo 2 — from form design to email delivery. Derived from Sales Analyzer + AI Caller as the canonical reference implementations. Every future video follows this exactly.</p>
+  <p class="page-meta">Established: 2026-05-26 &nbsp;|&nbsp; Based on Sales Analyzer + AI Caller (Videos 1 & 2)</p>
+
+
+  <!-- SECTION 1: WHAT IS THE MASTER TROVE -->
+  <div class="section">
+    <div class="section-title">Section 1: What is the Master Trove?</div>
+
+    <div class="why-box">
+      <strong>The Master Trove is Demo 2</strong><br>
+      Every video in the channel has two components. Demo 1 is the sophisticated simulation only Sai can build with Claude Code. Demo 2 is the viewer deliverable — a personalized Master Trove they receive via email after filling out a form. This is what they walk away with. It is NOT generic. It is personalized to their specific business profile.
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge do">Value</span>
+        <span class="standing-title">Why a Master Trove is worth an email address</span>
+      </div>
+      <div class="standing-rule-body">
+        The Master Trove is personalized to each viewer's business. It references their industry, revenue range, team size, and the specific operational challenge they shared in the form. That personalization is what makes it valuable enough to give up an email address for. A generic cheat sheet is noise. A document that says "Here is the exact setup for a $3M SaaS company doing outbound calling with 2 reps" is useful immediately.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge do">Structure</span>
+        <span class="standing-title">Master Trove pipeline: form → API → email</span>
+      </div>
+      <div class="standing-rule-body">
+        The viewer fills a two-step form on the website. Step 1 captures name, email, and phone (optional). Step 2 asks business-specific qualifying questions. On submit, the form POSTs to Railway API, which calls Claude to generate 3-section personalized content, subscribes the user to a Kit email sequence, and sends the output via email. The entire pipeline completes in 15-30 seconds. No manual work. No handoff between systems.
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 2: PIPELINE ARCHITECTURE -->
+  <div class="section">
+    <div class="section-title">Section 2: Pipeline Architecture</div>
+    <div class="section-subtitle">Why we made these infrastructure decisions. Do not re-debate them — they are settled (May 2026).</div>
+
+    <div class="pipeline-diagram">
+      Public form (theaishift.biz/tools/[video]/master-trove/)<br>
+      <span class="arrow">↓ POST /generate/[video-slug]</span><br>
+      Railway API (master-trove-api-production.up.railway.app)<br>
+      <span class="arrow">↓ Anthropic Claude (claude-sonnet-4-6)</span><br>
+      <span class="arrow">↓ Kit API (subscriber + custom fields + sequence subscription)</span><br>
+      Personalized email → subscriber's inbox
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Why Railway</span>
+        <span class="standing-title">Vercel times out on Claude API calls</span>
+      </div>
+      <div class="standing-rule-body">
+        Vercel functions have a 10-second timeout on free tier, 60 seconds on Pro. Claude API calls (especially with long context) take 15-30 seconds. Railway handles this natively with no timeout constraints. Railway also costs $5/month fixed. Settled May 2026.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Why Kit</span>
+        <span class="standing-title">Kit has a full API. Mailchimp does not.</span>
+      </div>
+      <div class="standing-rule-body">
+        Kit's API allows us to: (1) subscribe users to sequences programmatically, (2) set custom fields on the subscriber profile, (3) add tags for segmentation, (4) trigger automations. All of this is scriptable from our server. Mailchimp has limited API coverage. We never need to open Kit's dashboard for a new video launch — everything is code.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Why Direct Sequence Subscription</span>
+        <span class="standing-title">The server subscribes users. No Kit UI automations ever.</span>
+      </div>
+      <div class="standing-rule-body">
+        The API flow is: form → generate → subscribe → email sent. The server calls Kit API directly with the sequence ID, email, and custom fields. Kit handles the rest via pre-configured email sequences. We never create automations in Kit's dashboard. Automations are implicit — the sequence exists, the API adds the subscriber, Kit sends the email. This keeps video launches fast: create form → add prompt builder → add sequence ID → done.
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 3: FORM UX STANDARDS -->
+  <div class="section">
+    <div class="section-title">Section 3: Form UX Standards</div>
+    <div class="section-subtitle">These apply to every Master Trove form. Non-negotiable. Reference implementations: Sales Analyzer and AI Caller forms.</div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Structure</span>
+        <span class="standing-title">Two-step form, progress indicator, one button click per step</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Step 1 (Contact):</strong> Name, email, mobile number (optional). Email is required first — abandoned users get re-targeted. Label phone field "Mobile number (optional)".<br><br>
+        <strong>Step 2 (Qualify):</strong> Business-specific questions — industry, revenue, and video-specific fields like call volume or sales cycle.<br><br>
+        <strong>Progress indicator:</strong> Show "Step 1 of 2" and "Step 2 of 2" visibly at top of form. On "Next" button, no page reload — just Step 1 → Step 2 transition.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Required</span>
+        <span class="standing-title">Industry field - always present with custom input fallback</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Dropdown options:</strong> Online coaching/education, E-commerce, Professional services, Real estate, Healthcare, SaaS, Other.<br><br>
+        <strong>When "Other" is selected:</strong> A text input appears immediately below. Placeholder: "Tell us your industry (e.g. AC unit repair)". The custom text replaces "Other" in formData before submission.<br><br>
+        <strong>Validation:</strong> Required. No submission without an industry selected and (if Other) custom text filled in.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Required</span>
+        <span class="standing-title">Multi-select fields: use checkboxes, not radios. Add open-text fallback.</span>
+      </div>
+      <div class="standing-rule-body">
+        Any field where multiple answers are valid — triggers, goals, recording tools, pain points — use checkboxes. Single-answer fields (deal size, revenue range, call volume) stay as dropdowns.<br><br>
+        <strong>Open-text fallback:</strong> Below every multi-select group, add a textarea. Placeholder: "Anything else? Add notes here..." Users can add things we didn't predict. This prevents losing data because we didn't think of an option.<br><br>
+        <strong>Validation:</strong> Multi-select groups require at least one checkbox checked.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Validation</span>
+        <span class="standing-title">Fail visibly. Never proceed with missing required fields.</span>
+      </div>
+      <div class="standing-rule-body">
+        Required fields: industry (or custom text if Other), revenue, and any video-specific required fields. On validation failure, show an alert describing what's missing. Do NOT proceed to processing state until all required fields are filled and valid. On form submission, validate before sending to Railway.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Processing State</span>
+        <span class="standing-title">Hide form. Show spinner. Wait for Railway.</span>
+      </div>
+      <div class="standing-rule-body">
+        On successful validation and submit click: (1) Hide the form immediately. (2) Show a spinner with message (e.g. "Building your Master Trove..."). (3) POST to Railway. (4) Wait for response. Do NOT show a success screen until Railway responds successfully. If Railway returns an error, show an error state. Never show success if the API call failed.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Error State</span>
+        <span class="standing-title">Network or API errors are handled gracefully</span>
+      </div>
+      <div class="standing-rule-body">
+        If Railway call fails (network timeout, HTTP error, any exception): Hide spinner. Show error message: "Something went wrong. Please try again or email hello@theaishift.biz." Show a "Try Again" button that restores the form to Step 2 (the last filled step). NEVER show the success screen if Railway returned an error.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Success State</span>
+        <span class="standing-title">Outcome language only. No jargon. No technical details.</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Structure:</strong><br>
+        ✓ icon → headline ("Your [Video Name] Master Trove is being built") → 1 sentence about personalization and timing ("It usually lands in your inbox within 60 seconds") → inbox tip (check spam/promotions folder) → "What's on its way" bullet list (3 bullets, outcome-focused) → fallback line ("Didn't receive it? Email us at hello@theaishift.biz and we'll sort it.")<br><br>
+        <strong>Language:</strong> Use outcome language only. No "system prompt", no "prompt", no "Claude", no "ChatGPT". No technical implementation details. Example (AI Caller): "A diagnosis of what's costing your team the most calls right now" not "Your system prompt". The bullets describe VALUE, not technical contents.
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 4: OUTPUT FORMAT STANDARDS -->
+  <div class="section">
+    <div class="section-title">Section 4: Output Format Standards</div>
+    <div class="section-subtitle">What Claude generates. This is the structure every prompt must enforce.</div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Structure</span>
+        <span class="standing-title">3 sections. Always. STEP 1, STEP 2, STEP 3.</span>
+      </div>
+      <div class="standing-rule-body">
+        Every Master Trove has exactly 3 sections. Each section header is in ALL CAPS: <span class="inline-code">STEP 1: [Section Name]</span>, <span class="inline-code">STEP 2: [Section Name]</span>, <span class="inline-code">STEP 3: [Section Name]</span>. The section names are video-specific (set by the prompt builder), but the structure never varies.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Context Line</span>
+        <span class="standing-title">Each section opens with one sentence explaining what it is</span>
+      </div>
+      <div class="standing-rule-body">
+        After the section header, one blank line, then a context line. One sentence. Plain English. Tells the viewer what this section IS and why it matters. Example (AI Caller): "Here is the AI calling platform best matched to your setup, along with what you will spend monthly." Then a blank line, then the section content.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Format</span>
+        <span class="standing-title">Plain text only. No markdown. No asterisks, no #, no `` </span>
+      </div>
+      <div class="standing-rule-body">
+        The Claude prompt must explicitly enforce this: "Write in plain text only. No markdown, no asterisks, no hashtags." No # headers, no ** bold, no bullet markdown. Use plain dashes or numbered lists instead. Section headers (STEP 1 / STEP 2 / STEP 3) are the only formatting allowed. All output is readable as plain text in an email client.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Personalization</span>
+        <span class="standing-title">Every section references the viewer's specific answers</span>
+      </div>
+      <div class="standing-rule-body">
+        Do not write generic advice. Every section must reference the viewer's form data. The section 1 recommendation (platform, framework, approach) must be justified specifically for their industry + their stated challenge. Example: "For a $2M e-commerce business doing post-purchase follow-up calls, Retell AI is the best fit because..." not "Retell AI is the best platform..."
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Length</span>
+        <span class="standing-title">Max 2000 tokens. Enough for 3 meaty sections.</span>
+      </div>
+      <div class="standing-rule-body">
+        The Claude API call sets <span class="inline-code">max_tokens: 2000</span>. This is plenty for 3 substantial sections without overwhelming the reader. Each section should be ~500-700 tokens.
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 5: KIT FIELD STANDARDS -->
+  <div class="section">
+    <div class="section-title">Section 5: CRM / Kit Field Standards</div>
+    <div class="section-subtitle">Every form submission populates Kit subscriber fields. This is the data structure and convention.</div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Standard Fields</span>
+        <span class="standing-title">Every video stores these fields on the Kit subscriber profile</span>
+      </div>
+      <div class="standing-rule-body">
+        <span class="inline-code">master_trove_content</span> — The Claude-generated output (truncated to 3000 chars, plain text)<br>
+        <span class="inline-code">master_trove_video</span> — The video slug (e.g. 'sales-analyzer')<br>
+        <span class="inline-code">industry</span> — The viewer's industry<br>
+        <span class="inline-code">revenue</span> — Annual revenue range<br>
+        <span class="inline-code">phone</span> — Mobile number (optional, empty string if not provided)
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Video-Specific Fields</span>
+        <span class="standing-title">Mapped in server.js FIELD_MAP per video</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Sales Analyzer:</strong> sales_reps, deal_size, sales_cycle, call_recorder, coaching_problem (biggest pain), top_objection, platform<br><br>
+        <strong>AI Caller:</strong> call_volume, call_trigger, call_goal<br><br>
+        <strong>Future videos:</strong> Add new fields to FIELD_MAP in server.js. Create the Kit custom fields BEFORE the first form submission, or they are silently ignored.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Convention</span>
+        <span class="standing-title">Form camelCase → Kit snake_case. Arrays as comma-separated strings.</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Naming:</strong> Form field name (camelCase) maps to Kit field key (snake_case). Example: <span class="inline-code">repCount</span> → <span class="inline-code">sales_reps</span>.<br><br>
+        <strong>Arrays:</strong> Multi-select fields (checkboxes) are stored as comma-separated strings in Kit. Example: <span class="inline-code">["outbound", "inbound"]</span> becomes <span class="inline-code">"outbound,inbound"</span>.<br><br>
+        <strong>FIELD_MAP:</strong> Define once in server.js, reuse for every submission. The server reads FIELD_MAP and copies formData fields to Kit using these mappings.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Sequence Subscription</span>
+        <span class="standing-title">KIT_SEQUENCE_IDS maps video slug to Kit sequence ID</span>
+      </div>
+      <div class="standing-rule-body">
+        <span class="inline-code">KIT_SEQUENCE_IDS = { 'sales-analyzer': 'seq_123', 'ai-caller': 'seq_456', ... }</span><br><br>
+        On form submission, the server looks up the sequence ID for the video, then calls Kit API to subscribe the user. The user is added to the sequence immediately. Kit's pre-configured email automations handle the rest. The server never opens Kit's dashboard.
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 6: ADDING A NEW VIDEO -->
+  <div class="section">
+    <div class="section-title">Section 6: Adding a New Video - Checklist</div>
+    <div class="section-subtitle">Exact steps in order. Follow this every time a new video launches.</div>
+
+    <ol class="checklist">
+      <li><strong>Create Kit custom fields</strong> — Via API or <span class="inline-code">node scripts/kit-setup.js</span>. Create all video-specific fields listed in the FIELD_MAP before any form submission.</li>
+      <li><strong>Write prompt builder</strong> — <span class="inline-code">railway-server/prompts/[slug].js</span>. Returns <span class="inline-code">{systemPrompt, userMessage}</span>. Enforces 3 sections, context lines, plain text, personalization. Max 2000 tokens.</li>
+      <li><strong>Write email template</strong> — <span class="inline-code">railway-server/emails/[slug]-email.js</span>. Returns HTML email with the generated content rendered.</li>
+      <li><strong>Add sequence ID to KIT_SEQUENCE_IDS</strong> — In server.js, add <span class="inline-code">'[slug]': '[kit-sequence-id]'</span>.</li>
+      <li><strong>Register prompt builder</strong> — In server.js promptBuilders map, add <span class="inline-code">'[slug]': require('./prompts/[slug].js')</span>.</li>
+      <li><strong>Register email template</strong> — In server.js emailTemplates map, add <span class="inline-code">'[slug]': require('./emails/[slug]-email.js')</span>.</li>
+      <li><strong>Add FIELD_MAP</strong> — In server.js, map all form field names (camelCase) to Kit field keys (snake_case).</li>
+      <li><strong>Create form HTML</strong> — <span class="inline-code">public/tools/[slug]/master-trove/index.html</span>. Follow form UX standards above. Two-step form, progress indicator, validation, spinner, success/error states.</li>
+      <li><strong>Test form submission</strong> — Submit with test data. Verify Kit subscriber has all fields populated correctly.</li>
+      <li><strong>Test email delivery</strong> — Verify personalized email arrives with content rendered correctly.</li>
+      <li><strong>Push Railway server</strong> — Auto-deploys to production. All code changes live.</li>
+      <li><strong>Push website</strong> — GitHub Pages deployment. Form is live at theaishift.biz/tools/[slug]/master-trove/.</li>
+    </ol>
+
+  </div>
+
+
+  <!-- SECTION 7: REFERENCE IMPLEMENTATIONS -->
+  <div class="section">
+    <div class="section-title">Section 7: Reference Implementations</div>
+    <div class="section-subtitle">Canonical examples. Use these as templates when building new videos.</div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Form UX</span>
+        <span class="standing-title">Sales Analyzer and AI Caller forms (GitHub Pages)</span>
+      </div>
+      <div class="standing-rule-body">
+        <strong>Sales Analyzer form:</strong> <span class="inline-code">/tmp/the-ai-shift-website/tools/sales-analyzer/master-trove/index.html</span><br>
+        <strong>AI Caller form:</strong> <span class="inline-code">/tmp/the-ai-shift-website/tools/ai-caller/master-trove/index.html</span><br><br>
+        Both follow the form UX standards exactly. Study them for: two-step structure, progress indicator, industry dropdown with custom text, multi-select with open-text fallback, validation, spinner state, success/error states.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Prompt Builder</span>
+        <span class="standing-title">AI Caller prompt — best example of 3-section structure</span>
+      </div>
+      <div class="standing-rule-body">
+        <span class="inline-code">/Users/ananke/Documents/dev/the-ai-shift/railway-server/prompts/ai-caller.js</span><br><br>
+        This is the canonical example. It shows: building system prompt, extracting form data, constructing user message with form-driven personalization, enforcing ALL CAPS section headers, requiring context lines after each header, plain text only, and ~2000 token limit. Use this as the template for all new prompts.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Server Setup</span>
+        <span class="standing-title">Railway server.js — architecture and config</span>
+      </div>
+      <div class="standing-rule-body">
+        <span class="inline-code">/Users/ananke/Documents/dev/the-ai-shift/railway-server/server.js</span><br><br>
+        Shows: Express server setup, CORS configuration, rate limiting, Anthropic client initialization, prompt builder loading, email template loading, /generate/:video endpoint, KIT_SEQUENCE_IDS mapping, FIELD_MAP definition, Kit API subscription logic.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Email Template</span>
+        <span class="standing-title">Example structure from sales-analyzer-email.js</span>
+      </div>
+      <div class="standing-rule-body">
+        Email templates render the Claude-generated content inside a branded HTML wrapper. Subject line is outcome-focused. Body includes: greeting, personalization note ("Based on your answers..."), the content rendered as plain text, and footer with help link (hello@theaishift.biz).
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 8: FEASIBILITY CHECK -->
+  <div class="section">
+    <div class="section-title">Section 8: Mandatory Feasibility Check</div>
+    <div class="section-subtitle">Before writing the prompt builder or form, verify technical feasibility. Demos must be deliverable.</div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Do</span>
+        <span class="standing-title">Verify the demo can work in the form + Claude workflow</span>
+      </div>
+      <div class="standing-rule-body">
+        Before building, ask: "Can Claude generate this output in 2000 tokens? Can we personalize it to their industry + pain point? Can we deliver it in an email as plain text?" If the answer to any is no, the demo scope is too large — cut it or split it.
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Never</span>
+        <span class="standing-title">Build a Master Trove that requires user interaction or multi-step process</span>
+      </div>
+      <div class="standing-rule-body">
+        The deliverable is plain text in an email. It cannot require the viewer to fill out a form, click a link, or take additional steps. If the output needs interactivity, it should be Demo 1 (Claude Code custom interface), not Demo 2 (Master Trove).
+      </div>
+    </div>
+
+    <div class="standing-rule">
+      <div class="standing-rule-header">
+        <span class="standing-badge">Never</span>
+        <span class="standing-title">Ask for form fields you cannot use in the prompt</span>
+      </div>
+      <div class="standing-rule-body">
+        Every form field must be referenced in the Claude prompt for personalization. Do not ask "What color is your logo?" if the prompt never uses it. Every field = more friction on the form. Only ask what drives the output.
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <div style="font-size:12px;color:#9ca3af;text-align:center;padding-top:32px;border-top:1px solid #e9d5ff;">
+    The AI Shift &nbsp;|&nbsp; Master Trove Production Standard &nbsp;|&nbsp; Established 2026-05-26 &nbsp;|&nbsp; Derived from Videos 1 & 2
+  </div>
+
+</div>
+</body>
+</html>
