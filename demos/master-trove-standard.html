@@ -63,7 +63,7 @@
 
   <div class="page-eyebrow">The AI Shift - Channel Standard</div>
   <h1 class="page-title">Master Trove Production Standard</h1>
-  <p class="page-subtitle">The complete standard for Demo 2 — from form design to email delivery. Derived from Sales Analyzer + AI Caller as the canonical reference implementations. Every future video follows this exactly.</p>
+  <p class="page-subtitle">The complete standard for Demo 2  -  from form design to email delivery. Derived from Sales Analyzer + AI Caller as the canonical reference implementations. Every future video follows this exactly.</p>
   <p class="page-meta">Established: 2026-05-26 &nbsp;|&nbsp; Based on Sales Analyzer + AI Caller (Videos 1 & 2)</p>
 
 
@@ -73,7 +73,7 @@
 
     <div class="why-box">
       <strong>The Master Trove is Demo 2</strong><br>
-      Every video in the channel has two components. Demo 1 is the sophisticated simulation only Sai can build with Claude Code. Demo 2 is the viewer deliverable — a personalized Master Trove they receive via email after filling out a form. This is what they walk away with. It is NOT generic. It is personalized to their specific business profile.
+      Every video in the channel has two components. Demo 1 is the sophisticated simulation only Sai can build with Claude Code. Demo 2 is the viewer deliverable  -  a personalized Master Trove they receive via email after filling out a form. This is what they walk away with. It is NOT generic. It is personalized to their specific business profile.
     </div>
 
     <div class="standing-rule">
@@ -102,7 +102,7 @@
   <!-- SECTION 2: PIPELINE ARCHITECTURE -->
   <div class="section">
     <div class="section-title">Section 2: Pipeline Architecture</div>
-    <div class="section-subtitle">Why we made these infrastructure decisions. Do not re-debate them — they are settled (May 2026).</div>
+    <div class="section-subtitle">Why we made these infrastructure decisions. Do not re-debate them  -  they are settled (May 2026).</div>
 
     <div class="pipeline-diagram">
       Public form (theaishift.biz/tools/[video]/master-trove/)<br>
@@ -129,7 +129,7 @@
         <span class="standing-title">Kit has a full API. Mailchimp does not.</span>
       </div>
       <div class="standing-rule-body">
-        Kit's API allows us to: (1) subscribe users to sequences programmatically, (2) set custom fields on the subscriber profile, (3) add tags for segmentation, (4) trigger automations. All of this is scriptable from our server. Mailchimp has limited API coverage. We never need to open Kit's dashboard for a new video launch — everything is code.
+        Kit's API allows us to: (1) subscribe users to sequences programmatically, (2) set custom fields on the subscriber profile, (3) add tags for segmentation, (4) trigger automations. All of this is scriptable from our server. Mailchimp has limited API coverage. We never need to open Kit's dashboard for a new video launch  -  everything is code.
       </div>
     </div>
 
@@ -139,7 +139,7 @@
         <span class="standing-title">The server subscribes users. No Kit UI automations ever.</span>
       </div>
       <div class="standing-rule-body">
-        The API flow is: form → generate → subscribe → email sent. The server calls Kit API directly with the sequence ID, email, and custom fields. Kit handles the rest via pre-configured email sequences. We never create automations in Kit's dashboard. Automations are implicit — the sequence exists, the API adds the subscriber, Kit sends the email. This keeps video launches fast: create form → add prompt builder → add sequence ID → done.
+        The API flow is: form → generate → subscribe → email sent. The server calls Kit API directly with the sequence ID, email, and custom fields. Kit handles the rest via pre-configured email sequences. We never create automations in Kit's dashboard. Automations are implicit  -  the sequence exists, the API adds the subscriber, Kit sends the email. This keeps video launches fast: create form → add prompt builder → add sequence ID → done.
       </div>
     </div>
 
@@ -157,9 +157,9 @@
         <span class="standing-title">Two-step form, progress indicator, one button click per step</span>
       </div>
       <div class="standing-rule-body">
-        <strong>Step 1 (Contact):</strong> Name, email, mobile number (optional). Email is required first — abandoned users get re-targeted. Label phone field "Mobile number (optional)".<br><br>
-        <strong>Step 2 (Qualify):</strong> Business-specific questions — industry, revenue, and video-specific fields like call volume or sales cycle.<br><br>
-        <strong>Progress indicator:</strong> Show "Step 1 of 2" and "Step 2 of 2" visibly at top of form. On "Next" button, no page reload — just Step 1 → Step 2 transition.
+        <strong>Step 1 (Contact):</strong> Name, email, mobile number (optional). Email is required first  -  abandoned users get re-targeted. Label phone field "Mobile number (optional)".<br><br>
+        <strong>Step 2 (Qualify):</strong> Business-specific questions  -  industry, revenue, and video-specific fields like call volume or sales cycle.<br><br>
+        <strong>Progress indicator:</strong> Show "Step 1 of 2" and "Step 2 of 2" visibly at top of form. On "Next" button, no page reload  -  just Step 1 → Step 2 transition.
       </div>
     </div>
 
@@ -181,7 +181,7 @@
         <span class="standing-title">Multi-select fields: use checkboxes, not radios. Add open-text fallback.</span>
       </div>
       <div class="standing-rule-body">
-        Any field where multiple answers are valid — triggers, goals, recording tools, pain points — use checkboxes. Single-answer fields (deal size, revenue range, call volume) stay as dropdowns.<br><br>
+        Any field where multiple answers are valid  -  triggers, goals, recording tools, pain points  -  use checkboxes. Single-answer fields (deal size, revenue range, call volume) stay as dropdowns.<br><br>
         <strong>Open-text fallback:</strong> Below every multi-select group, add a textarea. Placeholder: "Anything else? Add notes here..." Users can add things we didn't predict. This prevents losing data because we didn't think of an option.<br><br>
         <strong>Validation:</strong> Multi-select groups require at least one checkbox checked.
       </div>
@@ -301,11 +301,11 @@
         <span class="standing-title">Every video stores these fields on the Kit subscriber profile</span>
       </div>
       <div class="standing-rule-body">
-        <span class="inline-code">master_trove_content</span> — The Claude-generated output (truncated to 3000 chars, plain text)<br>
-        <span class="inline-code">master_trove_video</span> — The video slug (e.g. 'sales-analyzer')<br>
-        <span class="inline-code">industry</span> — The viewer's industry<br>
-        <span class="inline-code">revenue</span> — Annual revenue range<br>
-        <span class="inline-code">phone</span> — Mobile number (optional, empty string if not provided)
+        <span class="inline-code">master_trove_content</span>  -  The Claude-generated output (truncated to 3000 chars, plain text)<br>
+        <span class="inline-code">master_trove_video</span>  -  The video slug (e.g. 'sales-analyzer')<br>
+        <span class="inline-code">industry</span>  -  The viewer's industry<br>
+        <span class="inline-code">revenue</span>  -  Annual revenue range<br>
+        <span class="inline-code">phone</span>  -  Mobile number (optional, empty string if not provided)
       </div>
     </div>
 
@@ -353,18 +353,18 @@
     <div class="section-subtitle">Exact steps in order. Follow this every time a new video launches.</div>
 
     <ol class="checklist">
-      <li><strong>Create Kit custom fields</strong> — Via API or <span class="inline-code">node scripts/kit-setup.js</span>. Create all video-specific fields listed in the FIELD_MAP before any form submission.</li>
-      <li><strong>Write prompt builder</strong> — <span class="inline-code">railway-server/prompts/[slug].js</span>. Returns <span class="inline-code">{systemPrompt, userMessage}</span>. Enforces 3 sections, context lines, plain text, personalization. Max 2000 tokens.</li>
-      <li><strong>Write email template</strong> — <span class="inline-code">railway-server/emails/[slug]-email.js</span>. Returns HTML email with the generated content rendered.</li>
-      <li><strong>Add sequence ID to KIT_SEQUENCE_IDS</strong> — In server.js, add <span class="inline-code">'[slug]': '[kit-sequence-id]'</span>.</li>
-      <li><strong>Register prompt builder</strong> — In server.js promptBuilders map, add <span class="inline-code">'[slug]': require('./prompts/[slug].js')</span>.</li>
-      <li><strong>Register email template</strong> — In server.js emailTemplates map, add <span class="inline-code">'[slug]': require('./emails/[slug]-email.js')</span>.</li>
-      <li><strong>Add FIELD_MAP</strong> — In server.js, map all form field names (camelCase) to Kit field keys (snake_case).</li>
-      <li><strong>Create form HTML</strong> — <span class="inline-code">public/tools/[slug]/master-trove/index.html</span>. Follow form UX standards above. Two-step form, progress indicator, validation, spinner, success/error states.</li>
-      <li><strong>Test form submission</strong> — Submit with test data. Verify Kit subscriber has all fields populated correctly.</li>
-      <li><strong>Test email delivery</strong> — Verify personalized email arrives with content rendered correctly.</li>
-      <li><strong>Push Railway server</strong> — Auto-deploys to production. All code changes live.</li>
-      <li><strong>Push website</strong> — GitHub Pages deployment. Form is live at theaishift.biz/tools/[slug]/master-trove/.</li>
+      <li><strong>Create Kit custom fields</strong>  -  Via API or <span class="inline-code">node scripts/kit-setup.js</span>. Create all video-specific fields listed in the FIELD_MAP before any form submission.</li>
+      <li><strong>Write prompt builder</strong>  -  <span class="inline-code">railway-server/prompts/[slug].js</span>. Returns <span class="inline-code">{systemPrompt, userMessage}</span>. Enforces 3 sections, context lines, plain text, personalization. Max 2000 tokens.</li>
+      <li><strong>Write email template</strong>  -  <span class="inline-code">railway-server/emails/[slug]-email.js</span>. Returns HTML email with the generated content rendered.</li>
+      <li><strong>Add sequence ID to KIT_SEQUENCE_IDS</strong>  -  In server.js, add <span class="inline-code">'[slug]': '[kit-sequence-id]'</span>.</li>
+      <li><strong>Register prompt builder</strong>  -  In server.js promptBuilders map, add <span class="inline-code">'[slug]': require('./prompts/[slug].js')</span>.</li>
+      <li><strong>Register email template</strong>  -  In server.js emailTemplates map, add <span class="inline-code">'[slug]': require('./emails/[slug]-email.js')</span>.</li>
+      <li><strong>Add FIELD_MAP</strong>  -  In server.js, map all form field names (camelCase) to Kit field keys (snake_case).</li>
+      <li><strong>Create form HTML</strong>  -  <span class="inline-code">public/tools/[slug]/master-trove/index.html</span>. Follow form UX standards above. Two-step form, progress indicator, validation, spinner, success/error states.</li>
+      <li><strong>Test form submission</strong>  -  Submit with test data. Verify Kit subscriber has all fields populated correctly.</li>
+      <li><strong>Test email delivery</strong>  -  Verify personalized email arrives with content rendered correctly.</li>
+      <li><strong>Push Railway server</strong>  -  Auto-deploys to production. All code changes live.</li>
+      <li><strong>Push website</strong>  -  GitHub Pages deployment. Form is live at theaishift.biz/tools/[slug]/master-trove/.</li>
     </ol>
 
   </div>
@@ -390,7 +390,7 @@
     <div class="standing-rule">
       <div class="standing-rule-header">
         <span class="standing-badge">Prompt Builder</span>
-        <span class="standing-title">AI Caller prompt — best example of 3-section structure</span>
+        <span class="standing-title">AI Caller prompt  -  best example of 3-section structure</span>
       </div>
       <div class="standing-rule-body">
         <span class="inline-code">/Users/ananke/Documents/dev/the-ai-shift/railway-server/prompts/ai-caller.js</span><br><br>
@@ -401,7 +401,7 @@
     <div class="standing-rule">
       <div class="standing-rule-header">
         <span class="standing-badge">Server Setup</span>
-        <span class="standing-title">Railway server.js — architecture and config</span>
+        <span class="standing-title">Railway server.js  -  architecture and config</span>
       </div>
       <div class="standing-rule-body">
         <span class="inline-code">/Users/ananke/Documents/dev/the-ai-shift/railway-server/server.js</span><br><br>
@@ -433,7 +433,7 @@
         <span class="standing-title">Verify the demo can work in the form + Claude workflow</span>
       </div>
       <div class="standing-rule-body">
-        Before building, ask: "Can Claude generate this output in 2000 tokens? Can we personalize it to their industry + pain point? Can we deliver it in an email as plain text?" If the answer to any is no, the demo scope is too large — cut it or split it.
+        Before building, ask: "Can Claude generate this output in 2000 tokens? Can we personalize it to their industry + pain point? Can we deliver it in an email as plain text?" If the answer to any is no, the demo scope is too large  -  cut it or split it.
       </div>
     </div>
 
