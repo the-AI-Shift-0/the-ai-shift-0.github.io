@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<script>if(sessionStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+<script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
 <title>The AI Shift — Internal Hub</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="page">
-  <span class="signout" onclick="sessionStorage.removeItem('ais_auth');location.replace('/');">Sign out</span>
+  <span class="signout" onclick="localStorage.removeItem('ais_auth');location.replace('/');">Sign out</span>
   <div class="eyebrow">The AI Shift — Internal</div>
   <h1>Team Hub</h1>
   <p class="subtitle">All demos, walkthroughs, and production materials. Do not share URLs.</p>

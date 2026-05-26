@@ -510,7 +510,7 @@
               alert('Prompt building failed: ' + data.error);
               document.getElementById('overlay').classList.add('fade-out');
             } else {
-              sessionStorage.setItem('structured_prompt', data.structured_prompt);
+              localStorage.setItem('structured_prompt', data.structured_prompt);
               window.location.href = 'l3.html';
             }
           })

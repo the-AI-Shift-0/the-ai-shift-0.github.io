@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script>if(sessionStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
   <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -433,8 +433,8 @@ Format your response with clear section headers. Use tables where helpful. Keep 
   </div>
 
   <script>
-    // Check sessionStorage for real prompt from server
-    const storedPrompt = sessionStorage.getItem('structured_prompt');
+    // Check localStorage for real prompt from server
+    const storedPrompt = localStorage.getItem('structured_prompt');
     if (storedPrompt) {
       const promptBox = document.querySelector('.prompt-box.good');
       if (promptBox) {
