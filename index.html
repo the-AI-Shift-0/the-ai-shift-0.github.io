@@ -103,6 +103,7 @@
     var v = document.getElementById('pw').value;
     if (v === 'apurv') {
       localStorage.setItem('ais_auth', 'apurv');
+      sessionStorage.setItem('ais_auth', 'apurv');
       location.replace('/demos/');
     } else {
       document.getElementById('err').style.display = 'block';
