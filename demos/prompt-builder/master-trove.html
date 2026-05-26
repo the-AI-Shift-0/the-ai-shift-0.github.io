@@ -289,6 +289,10 @@ h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #111827;
           <label for="email">Email address</label>
           <input type="email" id="email" placeholder="you@yourcompany.com" autocomplete="email">
         </div>
+        <div class="form-group">
+          <label for="phone">Phone number <span style="color: #9ca3af;">(optional)</span></label>
+          <input type="tel" id="phone" placeholder="+1 (555) 123-4567" autocomplete="tel">
+        </div>
         <button class="btn-primary" onclick="goToStep2()">Next: About Your Work →</button>
         <p class="privacy-note">We'll only use your email to send your system prompt and occasional AI insights. Unsubscribe anytime.</p>
       </div>
@@ -368,7 +372,8 @@ h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #111827;
       <div class="success-icon">✓</div>
       <div class="success-title">Your system prompt is on its way!</div>
       <p class="success-sub">Check your inbox — it'll arrive in the next 60 seconds. Open it, copy the prompt, and paste it into your AI tool. You'll notice the difference immediately.</p>
-      <div class="success-preview-cta" onclick="switchMainTab('example', document.querySelectorAll('.tab-btn')[1])">
+      <p style="font-size: 13px; color: #6b7280; margin-top: 16px;">Didn't receive it? Email <a href="mailto:hello@theaishift.biz" style="color: #7c3aed; text-decoration: none; font-weight: 600;">hello@theaishift.biz</a></p>
+      <div class="success-preview-cta" onclick="switchMainTab('example', document.querySelectorAll('.tab-btn')[1])" style="margin-top: 16px;">
         See what you're getting →
       </div>
     </div>
@@ -548,6 +553,7 @@ function goBackToStep1() {
 function submitForm() {
   const name = document.getElementById('first-name').value;
   const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
   const role = document.getElementById('role').value;
   const tool = document.getElementById('ai-tool').value;
   const task = document.getElementById('main-task').value;
@@ -557,6 +563,7 @@ function submitForm() {
   const formData = {
     name: name,
     email: email,
+    phone: phone,
     role: role,
     aiTool: tool,
     mainTask: task,
@@ -577,8 +584,12 @@ async function submitToRailway(formData) {
       body: JSON.stringify(formData)
     });
 
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      showErrorState(data.error || 'Something went wrong. Please try again.');
+      return;
+    }
 
     document.getElementById('processing-state').style.display = 'none';
     document.getElementById('success-state').style.display = 'block';
@@ -588,10 +599,39 @@ async function submitToRailway(formData) {
       document.getElementById('system-prompt-text').textContent = data.output;
     }
   } catch (err) {
-    console.warn('Railway API unavailable, using offline mode:', err.message);
-    document.getElementById('processing-state').style.display = 'none';
-    document.getElementById('success-state').style.display = 'block';
+    console.error('Error:', err);
+    showErrorState('Network error. Please check your connection and try again.');
   }
+}
+
+function showErrorState(errorMessage) {
+  document.getElementById('processing-state').style.display = 'none';
+  const formCard = document.querySelector('.form-card');
+
+  // Create error state if it doesn't exist
+  let errorState = document.getElementById('error-state');
+  if (!errorState) {
+    errorState = document.createElement('div');
+    errorState.id = 'error-state';
+    errorState.className = 'error-state';
+    errorState.style.cssText = 'display: block; text-align: center; padding: 40px 24px;';
+    errorState.innerHTML = `
+      <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+      <div style="font-size: 18px; font-weight: 700; color: #dc2626; margin-bottom: 8px;">Something went wrong</div>
+      <p id="error-message" style="font-size: 14px; color: #6b7280; margin-bottom: 24px; max-width: 400px; margin-left: auto; margin-right: auto;"></p>
+      <button class="btn-primary" style="max-width: 200px; margin: 0 auto; display: block;" onclick="tryAgain()">Try Again</button>
+    `;
+    formCard.parentNode.insertBefore(errorState, formCard.nextSibling);
+  }
+
+  document.getElementById('error-message').textContent = errorMessage;
+  errorState.style.display = 'block';
+  formCard.style.display = 'none';
+}
+
+function tryAgain() {
+  document.getElementById('error-state').style.display = 'none';
+  document.querySelector('.form-card').style.display = 'block';
 }
 
 function switchSetupTab(tab, btn) {
