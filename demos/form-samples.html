@@ -6,161 +6,355 @@
   <title>Master Trove — Demo Form Guide</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #1a1a2e; padding: 40px 20px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7ff; color: #1a1a2e; }
+
+    /* Password overlay */
+    #pw-overlay { position: fixed; inset: 0; background: #f8f7ff; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .pw-box { background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); text-align: center; max-width: 360px; width: 90%; }
+    .pw-box h2 { color: #7c3aed; font-size: 20px; margin-bottom: 8px; }
+    .pw-box p { color: #888; font-size: 14px; margin-bottom: 24px; }
+    .pw-box input { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; text-align: center; margin-bottom: 12px; }
+    .pw-box input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+    .pw-box button { width: 100%; background: #7c3aed; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; }
+    .pw-box button:hover { background: #6d28d9; }
+    .pw-error { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
+
+    /* Main content */
+    #main-content { display: none; padding: 40px 20px; }
     .page-header { max-width: 900px; margin: 0 auto 48px; }
     .page-header h1 { font-size: 28px; color: #7c3aed; font-weight: 700; margin-bottom: 8px; }
     .page-header p { color: #555; font-size: 15px; line-height: 1.6; }
+    .how-to-use { max-width: 900px; margin: 0 auto 48px; background: #f3e8ff; border-radius: 10px; padding: 20px 24px; border-left: 4px solid #7c3aed; }
+    .how-to-use h3 { color: #5b21b6; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .how-to-use ol { padding-left: 20px; }
+    .how-to-use li { color: #444; font-size: 14px; line-height: 1.7; margin-bottom: 4px; }
+    .how-to-use li strong { color: #1a1a2e; }
+
+    /* Demo sections */
     .demo-section { max-width: 900px; margin: 0 auto 56px; }
     .demo-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #7c3aed; }
     .demo-number { background: #7c3aed; color: white; font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 20px; white-space: nowrap; margin-top: 3px; }
     .demo-title { font-size: 22px; font-weight: 700; color: #1a1a2e; }
     .demo-subtitle { font-size: 14px; color: #7c3aed; font-weight: 600; margin-top: 2px; }
-    .profile-card { background: white; border-radius: 12px; padding: 28px 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 12px; }
+    .profile-card { background: white; border-radius: 12px; padding: 28px 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 16px; }
     .profile-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #7c3aed; text-transform: uppercase; margin-bottom: 16px; }
     .persona-bio { background: #f8f7ff; border-left: 3px solid #7c3aed; padding: 12px 16px; border-radius: 0 6px 6px 0; margin-bottom: 24px; font-size: 14px; color: #444; line-height: 1.6; }
     .persona-bio strong { color: #1a1a2e; }
     .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 600px) { .fields-grid { grid-template-columns: 1fr; } }
-    .field-row { background: #f8f7ff; border-radius: 8px; padding: 12px 16px; }
+    .field-row { background: #f8f7ff; border-radius: 8px; padding: 12px 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .field-info { flex: 1; min-width: 0; }
     .field-label { font-size: 12px; color: #888; margin-bottom: 4px; }
     .field-value { font-size: 15px; font-weight: 600; color: #1a1a2e; }
     .field-value.highlight { color: #7c3aed; }
     .field-full { grid-column: 1 / -1; }
-    .form-link { display: inline-block; margin-top: 20px; background: #7c3aed; color: white; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .copy-btn { flex-shrink: 0; background: #ede9fe; color: #7c3aed; border: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap; margin-top: 2px; }
+    .copy-btn:hover { background: #7c3aed; color: white; }
+    .copy-btn.copied { background: #d1fae5; color: #059669; }
+    .form-link { display: inline-block; margin-top: 20px; background: #7c3aed; color: white; padding: 11px 22px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; }
     .form-link:hover { background: #6d28d9; }
-    .note { margin-top: 10px; font-size: 13px; color: #888; }
+    .note { margin-top: 10px; font-size: 13px; color: #888; line-height: 1.5; }
+    .note strong { color: #ef4444; }
+
+    /* Demo 2 walk-through notes */
+    .walkthrough { background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 24px 28px; margin-top: 16px; }
+    .walkthrough h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #7c3aed; margin-bottom: 16px; }
+    .wt-step { display: flex; gap: 14px; margin-bottom: 16px; }
+    .wt-num { background: #7c3aed; color: white; width: 24px; height: 24px; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .wt-body { flex: 1; }
+    .wt-label { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+    .wt-say { font-size: 13px; color: #555; line-height: 1.6; font-style: italic; padding: 8px 12px; background: #f8f7ff; border-radius: 5px; margin-top: 6px; }
   </style>
 </head>
 <body>
 
-  <div class="page-header">
-    <h1>Master Trove — Demo Form Guide</h1>
-    <p>Exact answers to fill in for each demo. Both use channel target personas — these are the people watching the video.</p>
-  </div>
-
-  <!-- DEMO 1: AI Caller -->
-  <div class="demo-section">
-    <div class="demo-header">
-      <span class="demo-number">Demo 1</span>
-      <div>
-        <div class="demo-title">AI Caller Master Trove</div>
-        <div class="demo-subtitle">Marcus, 42 — HVAC Contractor (Channel Persona #1)</div>
-      </div>
-    </div>
-
-    <div class="profile-card">
-      <div class="profile-label">Who is filling this out</div>
-      <div class="persona-bio">
-        <strong>Marcus, 42</strong> — HVAC contractor, $3.2M revenue, 18-person team. Quote requests come in online but nobody calls back fast enough — jobs go to whoever picks up first. He doesn't have a sales team; the AI caller IS the first contact. He wants to qualify the lead and book a service visit before a competitor gets there.
-      </div>
-
-      <div class="fields-grid">
-        <div class="field-row">
-          <div class="field-label">First Name</div>
-          <div class="field-value highlight">Marcus</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Email</div>
-          <div class="field-value highlight">theaishift95@gmail.com</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Industry</div>
-          <div class="field-value">Home services (HVAC, plumbing, electrical)</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Annual Revenue</div>
-          <div class="field-value">$1M–$3M</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">AI Calls Per Day</div>
-          <div class="field-value">40–80 calls/day</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">What Triggers the Call?</div>
-          <div class="field-value">Someone fills out a form / opts in</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Goal of Each Call</div>
-          <div class="field-value">Qualify the lead and book a sales call</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Current Show-Up Rate</div>
-          <div class="field-value">Under 40% — significant drop-off problem</div>
-        </div>
-      </div>
-
-      <a class="form-link" href="ai-caller/master-trove.html" target="_blank">Open AI Caller Form →</a>
-      <div class="note">Use your own email to receive and review the output before filming.</div>
+  <!-- Password overlay -->
+  <div id="pw-overlay">
+    <div class="pw-box">
+      <h2>Demo Guide</h2>
+      <p>Internal filming reference — The AI Shift</p>
+      <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter') checkPw()">
+      <button onclick="checkPw()">Access Guide</button>
+      <div class="pw-error" id="pw-error">Wrong password. Try again.</div>
     </div>
   </div>
 
-  <!-- DEMO 2: Sales Analyzer -->
-  <div class="demo-section">
-    <div class="demo-header">
-      <span class="demo-number">Demo 2</span>
-      <div>
-        <div class="demo-title">Sales Analyzer Master Trove</div>
-        <div class="demo-subtitle">Brad, 44 — Insurance Agency Owner (Channel Persona #5)</div>
+  <!-- Main content -->
+  <div id="main-content">
+
+    <div class="page-header">
+      <h1>Master Trove — Demo Form Guide</h1>
+      <p>Exact answers for each demo. Click <strong>Copy</strong> next to any field, then paste into the form. Both demos use channel target personas — real people watching this video.</p>
+    </div>
+
+    <div class="how-to-use" style="max-width:900px;margin:0 auto 48px;">
+      <h3>How to use this guide</h3>
+      <ol>
+        <li>Open the form link for the demo you're filming</li>
+        <li>Click <strong>Copy</strong> next to each field value and paste into the form</li>
+        <li>For the email field: use any personal email that isn't theaishift95@gmail.com</li>
+        <li>After submitting, the output appears on screen — walk through it live</li>
+      </ol>
+    </div>
+
+    <!-- DEMO 1: AI Caller -->
+    <div class="demo-section">
+      <div class="demo-header">
+        <span class="demo-number">Demo 1</span>
+        <div>
+          <div class="demo-title">AI Caller Master Trove</div>
+          <div class="demo-subtitle">Marcus, 42 — HVAC Contractor (Channel Persona #1)</div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-label">Who is filling this out</div>
+        <div class="persona-bio">
+          <strong>Marcus, 42</strong> — HVAC contractor, $3.2M revenue, 18-person team. Quote requests come in online but nobody calls back fast enough — jobs go to whoever picks up first. He doesn't have a sales team; the AI caller IS the first contact. He wants to qualify the lead and book a service visit before a competitor gets there.
+        </div>
+
+        <div class="fields-grid">
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">First Name</div>
+              <div class="field-value highlight">Marcus</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Marcus')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Email</div>
+              <div class="field-value highlight">Your personal email</div>
+            </div>
+            <span style="font-size:11px;color:#888;align-self:center;">use your own</span>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Industry</div>
+              <div class="field-value">Home services (HVAC, plumbing, electrical)</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Home services (HVAC, plumbing, electrical)')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Annual Revenue</div>
+              <div class="field-value">$1M–$3M</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '$1M–$3M')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">AI Calls Per Day</div>
+              <div class="field-value">40–80 calls/day</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '40–80 calls/day')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">What Triggers the Call?</div>
+              <div class="field-value">Someone fills out a form / opts in</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Someone fills out a form / opts in')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Goal of Each Call</div>
+              <div class="field-value">Qualify the lead and book a sales call</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Qualify the lead and book a sales call')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Current Show-Up Rate</div>
+              <div class="field-value">Under 40% — significant drop-off problem</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Under 40% — significant drop-off problem')">Copy</button>
+          </div>
+        </div>
+
+        <a class="form-link" href="https://theaishift.biz/tools/ai-caller/master-trove/" target="_blank">Open AI Caller Form →</a>
+        <div class="note"><strong>Email:</strong> Use your own email — the output lands on screen and also arrives by email.</div>
       </div>
     </div>
 
-    <div class="profile-card">
-      <div class="profile-label">Who is filling this out</div>
-      <div class="persona-bio">
-        <strong>Brad, 44</strong> — Independent insurance agency, $1.4M commission on ~$10M managed premiums. 9-person team including 4 producers doing outbound sales calls. His biggest problem: too many calls to review, he only finds out a deal went wrong after it's lost. Uses Fathom to record calls but barely reviews them.
-      </div>
-
-      <div class="fields-grid">
-        <div class="field-row">
-          <div class="field-label">First Name</div>
-          <div class="field-value highlight">Brad</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Email</div>
-          <div class="field-value highlight">theaishift95@gmail.com</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Industry</div>
-          <div class="field-value">Professional services</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Annual Revenue</div>
-          <div class="field-value">$1M–$3M</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Team Size</div>
-          <div class="field-value">6–15</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Number of Sales Reps</div>
-          <div class="field-value">3–5</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Average Deal Size</div>
-          <div class="field-value">$5K–$15K</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Typical Sales Cycle</div>
-          <div class="field-value">1–4 weeks</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Call Recording Tool</div>
-          <div class="field-value">Fathom</div>
-        </div>
-        <div class="field-row field-full">
-          <div class="field-label">Biggest Coaching Problem</div>
-          <div class="field-value">Too many calls to review — only catching issues after deals are lost</div>
-        </div>
-        <div class="field-row field-full">
-          <div class="field-label">Objection That Kills Most Deals</div>
-          <div class="field-value">Need to think about it / send more info</div>
+    <!-- DEMO 2: Sales Analyzer -->
+    <div class="demo-section">
+      <div class="demo-header">
+        <span class="demo-number">Demo 2</span>
+        <div>
+          <div class="demo-title">Sales Analyzer Master Trove</div>
+          <div class="demo-subtitle">Brad, 44 — Insurance Agency Owner (Channel Persona #5)</div>
         </div>
       </div>
 
-      <a class="form-link" href="sales-analyzer/master-trove.html" target="_blank">Open Sales Analyzer Form →</a>
-      <div class="note">Fill the form above, then check that the email arrives with sections Step 1, Step 2, Step 3 and proper intro lines.</div>
+      <div class="profile-card">
+        <div class="profile-label">Who is filling this out</div>
+        <div class="persona-bio">
+          <strong>Brad, 44</strong> — Independent insurance agency, $1.4M commission on ~$10M managed premiums. 9-person team including 4 producers doing outbound sales calls. His biggest problem: too many calls to review, he only finds out a deal went wrong after it's lost. Uses Fathom to record calls but barely reviews them.
+        </div>
+
+        <div class="fields-grid">
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">First Name</div>
+              <div class="field-value highlight">Brad</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Brad')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Email</div>
+              <div class="field-value highlight">Your personal email</div>
+            </div>
+            <span style="font-size:11px;color:#888;align-self:center;">use your own</span>
+          </div>
+          <div class="field-row field-full">
+            <div class="field-info">
+              <div class="field-label">Which AI tool? (Step 1 radio button)</div>
+              <div class="field-value highlight">Claude (claude.ai)</div>
+            </div>
+            <span style="font-size:11px;color:#888;align-self:center;">select on form</span>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Industry</div>
+              <div class="field-value">Professional services</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Professional services')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Annual Revenue</div>
+              <div class="field-value">$1M–$3M</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '$1M–$3M')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Team Size</div>
+              <div class="field-value">6–15</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '6–15')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Number of Sales Reps</div>
+              <div class="field-value">3–5</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '3–5')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Average Deal Size</div>
+              <div class="field-value">$5K–$15K</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '$5K–$15K')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Typical Sales Cycle</div>
+              <div class="field-value">1–4 weeks</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, '1–4 weeks')">Copy</button>
+          </div>
+          <div class="field-row">
+            <div class="field-info">
+              <div class="field-label">Call Recording Tool</div>
+              <div class="field-value">Fathom</div>
+            </div>
+            <button class="copy-btn" onclick="copyField(this, 'Fathom')">Copy</button>
+          </div>
+          <div class="field-row field-full">
+            <div class="field-info">
+              <div class="field-label">Biggest Coaching Problem (radio button)</div>
+              <div class="field-value">Too many calls to review — only catching issues after deals are lost</div>
+            </div>
+            <span style="font-size:11px;color:#888;align-self:center;">select on form</span>
+          </div>
+          <div class="field-row field-full">
+            <div class="field-info">
+              <div class="field-label">Objection That Kills Most Deals (radio button)</div>
+              <div class="field-value">Need to think about it / send more info</div>
+            </div>
+            <span style="font-size:11px;color:#888;align-self:center;">select on form</span>
+          </div>
+        </div>
+
+        <a class="form-link" href="https://theaishift.biz/tools/sales-analyzer/master-trove/" target="_blank">Open Sales Analyzer Form →</a>
+        <div class="note"><strong>Email:</strong> Use your own — output appears on screen immediately plus arrives by email. <strong>Do not use the channel Gmail.</strong></div>
+      </div>
+
+      <!-- Demo 2 walk-through -->
+      <div class="walkthrough">
+        <h3>Demo 2 — What to say when walking through the output</h3>
+        <div class="wt-step">
+          <div class="wt-num">1</div>
+          <div class="wt-body">
+            <div class="wt-label">Step 1: Your Recommended Sales Methodology</div>
+            <div class="wt-say">"This is the framework it recommends based on what Brad told us — his deal size, his cycle, his biggest problem. And it explains exactly WHY that framework fits. That's not a generic answer, that's specific to him."</div>
+          </div>
+        </div>
+        <div class="wt-step">
+          <div class="wt-num">2</div>
+          <div class="wt-body">
+            <div class="wt-label">Step 2: Your AI Assistant Setup</div>
+            <div class="wt-say">"This is the system prompt — you copy everything between START PROMPT and END PROMPT, paste it into Claude Projects, and you now have a sales coach that already knows Brad's industry, deal size, and the objection that's killing his deals. The HOW TO SET THIS UP section shows exactly where to paste it."</div>
+          </div>
+        </div>
+        <div class="wt-step">
+          <div class="wt-num">3</div>
+          <div class="wt-body">
+            <div class="wt-label">Step 3: Your Coaching Focus for the Next 5 Calls</div>
+            <div class="wt-say">"And these are the three things Brad's reps should be working on right now — not generic coaching advice, specific to the 'send more info' objection and his sales cycle. Each one has a concrete tactic he can use on the very next call."</div>
+          </div>
+        </div>
+        <div class="wt-step">
+          <div class="wt-num">4</div>
+          <div class="wt-body">
+            <div class="wt-label">The payoff line</div>
+            <div class="wt-say">"Brad can paste any call transcript into this and get a full coaching report — SPIN scores, the one thing to fix, how his rep handled that specific objection. For every single call. Without listening to the recording."</div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 
+  <script>
+    function checkPw() {
+      const input = document.getElementById('pw-input').value.trim().toLowerCase();
+      if (input === 'apurv') {
+        document.getElementById('pw-overlay').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      } else {
+        document.getElementById('pw-error').style.display = 'block';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    }
+
+    function copyField(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1500);
+      }).catch(() => {
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    }
+
+    document.getElementById('pw-input').focus();
+  </script>
 </body>
 </html>
