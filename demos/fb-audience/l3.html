@@ -300,7 +300,7 @@
     }
   
     /* PII redaction: em-based blur auto-scales to each element's font-size */
-    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+    .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 <body>
@@ -439,6 +439,12 @@
       while (s.length < len) s = "0" + s;
       return s;
     }
+    // Neutralize CSV/formula injection: cells beginning with = + - @ or control
+    // chars are prefixed with an apostrophe so spreadsheets treat them as text.
+    function csvCell(v) {
+      v = String(v);
+      return /^[=+\-@\t\r]/.test(v) ? "'" + v : v;
+    }
 
     function buildCsv() {
       var rows = ["email,phone,fn,ln,ct,st,country,zip"];
@@ -451,7 +457,7 @@
         var zip = loc[2] === "GB" ? loc[3] + " " + (i % 9) + "AB"
                 : loc[2] === "CA" ? loc[3] + " " + (i % 9) + "A" + (i % 9)
                 : loc[3] + pad((i * 7) % 100, 2);
-        rows.push([email, phone, fn, ln, loc[0], loc[1], loc[2], zip].join(","));
+        rows.push([email, phone, fn, ln, loc[0], loc[1], loc[2], zip].map(csvCell).join(","));
       }
       return rows.join("\n");
     }
