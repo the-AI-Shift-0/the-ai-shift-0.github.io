@@ -525,7 +525,10 @@
             font-size: 14px;
             font-weight: 600;
         }
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
@@ -540,7 +543,7 @@
     <div class="doc-label">
         <div class="eyebrow">AI Caller Master Trove</div>
         <h1>Your Custom AI Caller Blueprint</h1>
-        <div class="context-line">Generated for: Online Coaching / Education &nbsp;·&nbsp; $1M–$3M Revenue &nbsp;·&nbsp; 15–40 Calls/Day &nbsp;·&nbsp; Form Fill Trigger</div>
+        <div class="context-line">Generated for: Online Coaching / Education &nbsp;·&nbsp; <span class="pii-blur">$1M</span>–<span class="pii-blur">$3M</span> Revenue &nbsp;·&nbsp; 15–40 Calls/Day &nbsp;·&nbsp; Form Fill Trigger</div>
     </div>
 
     <!-- HOW TO READ THIS -->
@@ -587,46 +590,46 @@
                 <div class="cost-row">
                     <div>
                         <div class="item-name">AI Voice Platform (Retell AI)</div>
-                        <div class="item-detail">840 calls/mo × 2.5 min avg = ~2,100 mins &nbsp;·&nbsp; at $0.07–$0.12/min</div>
+                        <div class="item-detail">840 calls/mo × 2.5 min avg = ~2,100 mins &nbsp;·&nbsp; at <span class="pii-blur">$0.07</span>–<span class="pii-blur">$0.12</span>/min</div>
                     </div>
-                    <div class="item-price">$147–$252/mo</div>
+                    <div class="item-price"><span class="pii-blur">$147</span>–<span class="pii-blur">$252</span>/mo</div>
                 </div>
                 <div class="cost-row">
                     <div>
                         <div class="item-name">Telephony (Twilio)</div>
-                        <div class="item-detail">~$0.008–0.012/min + number fees</div>
+                        <div class="item-detail">~<span class="pii-blur">$0.008</span>–0.012/min + number fees</div>
                     </div>
-                    <div class="item-price">$18–$27/mo</div>
+                    <div class="item-price"><span class="pii-blur">$18</span>–<span class="pii-blur">$27</span>/mo</div>
                 </div>
                 <div class="cost-row">
                     <div>
                         <div class="item-name">Calendar Integration (Calendly)</div>
                         <div class="item-detail">Direct calendar sync for automated booking confirmation</div>
                     </div>
-                    <div class="item-price">$24/mo</div>
+                    <div class="item-price"><span class="pii-blur">$24</span>/mo</div>
                 </div>
                 <div class="cost-row">
                     <div>
                         <div class="item-name">Workflow Automation (Make.com)</div>
                         <div class="item-detail">Multi-step automation: call ends → CRM update → calendar invite → rep notification</div>
                     </div>
-                    <div class="item-price">$29/mo</div>
+                    <div class="item-price"><span class="pii-blur">$29</span>/mo</div>
                 </div>
             </div>
 
             <div class="cost-total">
                 <span class="total-label">Total Monthly (all-in estimate)</span>
-                <span class="total-value">$218–$332/mo</span>
+                <span class="total-value"><span class="pii-blur">$218</span>–<span class="pii-blur">$332</span>/mo</span>
             </div>
 
             <div class="cost-vs">
                 <span class="vs-label">vs. hiring a human setter</span>
-                <span class="vs-value">$2,500–$4,000/mo</span>
+                <span class="vs-value"><span class="pii-blur">$2,500</span>–<span class="pii-blur">$4,000</span>/mo</span>
             </div>
 
             <div class="setup-box">
                 <div class="setup-label">One-Time Setup Cost</div>
-                <div class="setup-value">$3,000–$5,500</div>
+                <div class="setup-value"><span class="pii-blur">$3,000</span>–<span class="pii-blur">$5,500</span></div>
                 <div class="setup-note">Developer build + testing &nbsp;·&nbsp; 2–4 weeks depending on CRM complexity</div>
             </div>
 
@@ -702,7 +705,7 @@
                     <span class="vendor-rec">Make.com</span>
                 </div>
                 <div class="vendor-body">
-                    <div class="vendor-why">More intuitive than Zapier for AI caller workflows. Better at multi-step scenarios (call ends → update CRM → send calendar invite → notify rep). $29/mo at your volume.</div>
+                    <div class="vendor-why">More intuitive than Zapier for AI caller workflows. Better at multi-step scenarios (call ends → update CRM → send calendar invite → notify rep). <span class="pii-blur">$29</span>/mo at your volume.</div>
                     <div><span class="vendor-avoid">Avoid: Zapier (unless already deep in their ecosystem)</span></div>
                     <div class="vendor-note">Make.com is faster to build with here.</div>
                 </div>

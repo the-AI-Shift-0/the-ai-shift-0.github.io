@@ -191,7 +191,10 @@
             padding: 14px 20px; margin-bottom: 20px; font-size: 14px; font-weight: 600;
             display: flex; align-items: center; gap: 10px;
         }
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
@@ -260,7 +263,7 @@
             <div class="reps-grid">
 
                 <div class="rep-row">
-                    <div class="rep-name">Sarah Mitchell</div>
+                    <div class="rep-name"><span class="pii-blur">Sarah Mitchell</span></div>
                     <div class="rep-calls">11 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-green" style="width:82%"></div></div></div>
                     <div class="score-badge score-green">82%</div>
@@ -268,7 +271,7 @@
                 </div>
 
                 <div class="rep-row">
-                    <div class="rep-name">James Kowalski</div>
+                    <div class="rep-name"><span class="pii-blur">James Kowalski</span></div>
                     <div class="rep-calls">9 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-green" style="width:78%"></div></div></div>
                     <div class="score-badge score-green">78%</div>
@@ -276,7 +279,7 @@
                 </div>
 
                 <div class="rep-row">
-                    <div class="rep-name">Priya Nair</div>
+                    <div class="rep-name"><span class="pii-blur">Priya Nair</span></div>
                     <div class="rep-calls">10 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-green" style="width:76%"></div></div></div>
                     <div class="score-badge score-green">76%</div>
@@ -284,7 +287,7 @@
                 </div>
 
                 <div class="rep-row">
-                    <div class="rep-name">Marcus Webb</div>
+                    <div class="rep-name"><span class="pii-blur">Marcus Webb</span></div>
                     <div class="rep-calls">8 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-yellow" style="width:71%"></div></div></div>
                     <div class="score-badge score-yellow">71%</div>
@@ -292,7 +295,7 @@
                 </div>
 
                 <div class="rep-row">
-                    <div class="rep-name">Leila Hassan</div>
+                    <div class="rep-name"><span class="pii-blur">Leila Hassan</span></div>
                     <div class="rep-calls">7 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-yellow" style="width:69%"></div></div></div>
                     <div class="score-badge score-yellow">69%</div>
@@ -300,7 +303,7 @@
                 </div>
 
                 <div class="rep-row">
-                    <div class="rep-name">Daniel Reeves</div>
+                    <div class="rep-name"><span class="pii-blur">Daniel Reeves</span></div>
                     <div class="rep-calls">6 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-yellow" style="width:65%"></div></div></div>
                     <div class="score-badge score-yellow">65%</div>
@@ -308,7 +311,7 @@
                 </div>
 
                 <div class="rep-row flagged" onclick="window.location.href='l2.html'">
-                    <div class="rep-name">Kyle Brennan</div>
+                    <div class="rep-name"><span class="pii-blur">Kyle Brennan</span></div>
                     <div class="rep-calls">12 calls</div>
                     <div class="trend-bar-wrap"><div class="trend-bar-bg"><div class="trend-bar-fill bar-red" style="width:54%"></div></div></div>
                     <div class="score-badge score-red">54%</div>
@@ -333,7 +336,7 @@
             <div class="compare-grid">
 
                 <div class="compare-card up">
-                    <div class="compare-name">Sarah Mitchell</div>
+                    <div class="compare-name"><span class="pii-blur">Sarah Mitchell</span></div>
                     <div class="compare-meta">11 calls · Top performer</div>
                     <div class="compare-score up">82%</div>
                     <div class="compare-trend up">↑ Up 9pts over 8 weeks</div>
@@ -346,7 +349,7 @@
                 </div>
 
                 <div class="compare-card down">
-                    <div class="compare-name">Kyle Brennan</div>
+                    <div class="compare-name"><span class="pii-blur">Kyle Brennan</span></div>
                     <div class="compare-meta">12 calls · Flagged rep</div>
                     <div class="compare-score down">54%</div>
                     <div class="compare-trend down">↓ Down 18pts over 8 weeks</div>

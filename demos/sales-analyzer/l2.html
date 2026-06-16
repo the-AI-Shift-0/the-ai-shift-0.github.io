@@ -121,7 +121,10 @@
         .pct-green { color: #16a34a; }
         .pct-yellow { color: #d97706; }
         .pct-red { color: #dc2626; }
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
@@ -145,7 +148,7 @@
         <div class="rep-header">
             <div class="rep-avatar">👤</div>
             <div class="rep-info">
-                <div class="rep-name">Kyle Brennan</div>
+                <div class="rep-name"><span class="pii-blur">Kyle Brennan</span></div>
                 <div class="rep-meta">12 calls analyzed · Joined team Jan 2025 · High-ticket closer</div>
             </div>
             <div class="rep-score-big">

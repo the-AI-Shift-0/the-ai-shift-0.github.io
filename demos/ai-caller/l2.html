@@ -210,6 +210,9 @@
     .cta-button:hover {
       background: #6d28d9;
     }
+  
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 <body>
@@ -232,14 +235,14 @@
 
     <div class="page-header">
       <h1 class="page-title">Call Transcript</h1>
-      <p class="page-subtitle">Call placed 47 seconds after lead submitted · Duration: 0:54 · Lead: <span style="filter: blur(5px); user-select: none;">Samantha Mitchell</span></p>
+      <p class="page-subtitle">Call placed 47 seconds after lead submitted · Duration: 0:54 · Lead: <span style="filter: blur(5px); user-select: none;"><span class="pii-blur">Samantha Mitchell</span></span></p>
     </div>
 
     <div class="transcript-container">
       <div class="message ai">
         <div>
           <div class="message-speaker">AI Caller</div>
-          <div class="message-bubble">Hi, is this Samantha? It's Maya calling  -  you just registered for our upcoming session, I wanted to reach out and make sure you had everything you need.</div>
+          <div class="message-bubble">Hi, is this <span class="pii-blur">Samantha</span>? It's <span class="pii-blur">Maya</span> calling  -  you just registered for our upcoming session, I wanted to reach out and make sure you had everything you need.</div>
           <div class="message-time">0:00</div>
         </div>
       </div>

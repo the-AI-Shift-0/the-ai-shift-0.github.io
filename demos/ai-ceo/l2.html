@@ -138,7 +138,10 @@
         .gate-badge.partial { background: #fff7ed; color: #c2410c; }
         .gate-badge.track { background: #f0fdf4; color: #15803d; }
 
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
@@ -179,18 +182,18 @@
 
                 <div class="panel clickable" onclick="window.location.href='l3b.html'">
                     <div class="panel-label">Front-end pipeline</div>
-                    <div class="panel-stat red">$94K</div>
-                    <div class="panel-sub red">&#8595; behind target of $115K</div>
+                    <div class="panel-stat red"><span class="pii-blur">$94K</span></div>
+                    <div class="panel-sub red">&#8595; behind target of <span class="pii-blur">$115K</span></div>
                     <div class="panel-detail">Weekly new-lead pipeline value</div>
                     <div class="panel-explore">Explore what's holding it back &rarr;</div>
                 </div>
 
                 <div class="panel">
                     <div class="panel-label">Core revenue track</div>
-                    <div class="panel-stat green">$287K</div>
-                    <div class="panel-sub green">&#8593; ahead of target of $255K</div>
+                    <div class="panel-stat green"><span class="pii-blur">$287K</span></div>
+                    <div class="panel-sub green">&#8593; ahead of target of <span class="pii-blur">$255K</span></div>
                     <div class="panel-detail">Monthly closing pipeline</div>
-                    <div class="panel-detail" style="margin-top:6px;">3 contracts in final review &nbsp;&middot;&nbsp; $87K expected this week</div>
+                    <div class="panel-detail" style="margin-top:6px;">3 contracts in final review &nbsp;&middot;&nbsp; <span class="pii-blur">$87K</span> expected this week</div>
                     <div style="margin-top:auto;"><span class="gate-badge track">On track</span></div>
                 </div>
 
@@ -213,7 +216,7 @@
 
                 <div class="panel" style="grid-column: 1 / -1;">
                     <div class="panel-label">Revenue at risk</div>
-                    <div class="panel-stat red">$20K</div>
+                    <div class="panel-stat red"><span class="pii-blur">$20K</span></div>
                     <div class="panel-sub red">2 deals stalled 14+ days</div>
                     <div class="panel-detail">Needs follow-up before end of week</div>
                 </div>

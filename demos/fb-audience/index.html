@@ -263,6 +263,9 @@
     .button-secondary:hover {
       background: #f3f0ff;
     }
+  
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 <body>
@@ -285,14 +288,14 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">Your Lead Database</div>
-      <div class="page-subtitle">100,000 leads across 5 systems - May 12, 2026</div>
+      <div class="page-subtitle">600,000 leads across 5 systems - May 12, 2026</div>
     </div>
 
     <div class="warning-callout">
       <div class="warning-icon">⚠️</div>
       <div class="warning-content">
         <div class="warning-title">Current Facebook match rate: <span class="warning-number">14%</span></div>
-        <div class="warning-text">14,000 of 100,000 leads matched  -  86,000 are invisible to your ads</div>
+        <div class="warning-text">83,940 of 600,000 leads matched  -  516,060 are invisible to your ads</div>
       </div>
     </div>
 
@@ -313,7 +316,7 @@
         <tbody>
           <tr>
             <td class="source-name">CRM</td>
-            <td>30K</td>
+            <td>184,210</td>
             <td class="metric-percent">98%</td>
             <td class="metric-percent">45%</td>
             <td class="metric-percent">92%</td>
@@ -322,7 +325,7 @@
           </tr>
           <tr>
             <td class="source-name">Typeform</td>
-            <td>16K</td>
+            <td>96,540</td>
             <td class="metric-percent">100%</td>
             <td class="metric-percent">12%</td>
             <td class="metric-percent">78%</td>
@@ -331,7 +334,7 @@
           </tr>
           <tr>
             <td class="source-name">Zoho</td>
-            <td>24K</td>
+            <td>142,880</td>
             <td class="metric-percent">89%</td>
             <td class="metric-percent">67%</td>
             <td class="metric-percent">95%</td>
@@ -340,7 +343,7 @@
           </tr>
           <tr>
             <td class="source-name">InfusionSoft</td>
-            <td>19K</td>
+            <td>112,470</td>
             <td class="metric-percent">94%</td>
             <td class="metric-percent">38%</td>
             <td class="metric-percent">88%</td>
@@ -349,7 +352,7 @@
           </tr>
           <tr>
             <td class="source-name">Legacy CSVs</td>
-            <td>11K</td>
+            <td>63,900</td>
             <td class="metric-percent">71%</td>
             <td class="metric-percent">23%</td>
             <td class="metric-percent">62%</td>

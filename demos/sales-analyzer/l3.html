@@ -160,7 +160,10 @@
             background: #fee2e2; border: 1px solid #fca5a5; border-radius: 8px;
             padding: 10px 14px; margin-bottom: 20px; font-size: 13px; color: #dc2626; font-weight: 600;
         }
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
@@ -181,7 +184,7 @@
         <div class="call-header">
             <div class="call-meta">
                 <div class="call-title">Discovery call  -  May 8, 2026 · 34 min</div>
-                <div class="call-sub">Rep: <span style="filter:blur(4px);user-select:none;">Kyle Brennan</span> &nbsp;·&nbsp; Prospect: <span style="filter:blur(4px);user-select:none;">Business Owner, e-commerce brand</span> &nbsp;·&nbsp; Deal size: <span style="filter:blur(4px);user-select:none;">$12K</span></div>
+                <div class="call-sub">Rep: <span style="filter:blur(4px);user-select:none;"><span class="pii-blur">Kyle Brennan</span></span> &nbsp;·&nbsp; Prospect: <span style="filter:blur(4px);user-select:none;">Business Owner, e-commerce brand</span> &nbsp;·&nbsp; Deal size: <span style="filter:blur(4px);user-select:none;"><span class="pii-blur">$12K</span></span></div>
             </div>
             <div class="call-score-wrap">
                 <div class="call-score-num">48%</div>

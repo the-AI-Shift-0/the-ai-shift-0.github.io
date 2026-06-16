@@ -173,7 +173,10 @@
             letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 12px; }
         .ceo-action-title { font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
         .ceo-action-text { font-size: 13px; color: #d1d5db; line-height: 1.5; }
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
@@ -195,15 +198,15 @@
 
         <div class="goal-bar">
             <div class="goal-label">Q2 TARGET · WEEK OF MAY 12–18</div>
-            <div class="goal-main">Q2 target: $1.1M closed · Current pace: $987K · Gap to close: $113K</div>
-            <div class="goal-sub">2 stalled deals represent $20K of that gap  -  recoverable this week</div>
+            <div class="goal-main">Q2 target: <span class="pii-blur">$1.1M</span> closed · Current pace: <span class="pii-blur">$987K</span> · Gap to close: <span class="pii-blur">$113K</span></div>
+            <div class="goal-sub">2 stalled deals represent <span class="pii-blur">$20K</span> of that gap  -  recoverable this week</div>
         </div>
 
         <div class="hero">
             <div class="hero-title">Why your pipeline is underperforming  -  and what to do now</div>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="hero-num">$20K</div>
+                    <div class="hero-num"><span class="pii-blur">$20K</span></div>
                     <div class="hero-unit">in stalled deals</div>
                 </div>
                 <div class="hero-stat">
@@ -233,14 +236,14 @@
                 <div class="td muted">Apr 22</div>
                 <div class="td stage">Proposal</div>
                 <div class="td">Process implementation retainer</div>
-                <div class="td">Kyle B.</div>
+                <div class="td"><span class="pii-blur">Kyle B.</span></div>
                 <div class="td stalled">22 days</div>
             </div>
             <div class="table-row">
                 <div class="td muted">Apr 29</div>
                 <div class="td stage">Proposal</div>
                 <div class="td">Enterprise consulting engagement</div>
-                <div class="td">Kyle B.</div>
+                <div class="td"><span class="pii-blur">Kyle B.</span></div>
                 <div class="td stalled">15 days</div>
             </div>
         </div>
@@ -254,7 +257,7 @@
         <div class="ceo-action">
             <div class="ceo-label">What you need to do this week</div>
             <div class="ceo-action-title">Assign follow-up ownership on both stalled deals today</div>
-            <div class="ceo-action-text">At current close probability decay (~2%/day), each day of delay costs ~$400 in expected revenue. Both deals are still recoverable  -  they just need a touchpoint.</div>
+            <div class="ceo-action-text">At current close probability decay (~2%/day), each day of delay costs ~<span class="pii-blur">$400</span> in expected revenue. Both deals are still recoverable  -  they just need a touchpoint.</div>
         </div>
 
         <div>

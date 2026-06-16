@@ -293,6 +293,9 @@
       margin-bottom: 6px;
       font-weight: 500;
     }
+  
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 <body>
@@ -315,7 +318,7 @@
 
     <div class="page-header">
       <h1 class="page-title">Post-Call Summary</h1>
-      <p class="page-subtitle"><span class="blurred">Samantha Mitchell</span> · Booked for Thursday 2PM · Updated in CRM automatically</p>
+      <p class="page-subtitle"><span class="blurred"><span class="pii-blur">Samantha Mitchell</span></span> · Booked for Thursday 2PM · Updated in CRM automatically</p>
     </div>
 
     <div class="two-column">
@@ -326,7 +329,7 @@
 
           <div class="field-row">
             <div class="field-label">Name</div>
-            <div class="field-value blurred">Samantha Mitchell</div>
+            <div class="field-value blurred"><span class="pii-blur">Samantha Mitchell</span></div>
           </div>
 
           <div class="field-row">
@@ -405,7 +408,7 @@
 
           <div class="crm-field">
             <div class="crm-label">Rep Assigned</div>
-            <div class="crm-value">James Richardson</div>
+            <div class="crm-value"><span class="pii-blur">James Richardson</span></div>
           </div>
 
           <div class="crm-field">
@@ -443,7 +446,7 @@
       </div>
       <div class="banner-comparison">
         <div class="comparison-label">Before AI Caller vs. After:</div>
-        Before: 30% show-up | AI: 82% (24/7, consistent) · Revenue recovered: <strong>+$1.5M/year</strong>
+        Before: 30% show-up | AI: 82% (24/7, consistent) · Revenue recovered: <strong>+<span class="pii-blur">$1.5M</span>/year</strong>
       </div>
       <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 12px; opacity: 0.85;">
         <strong>AI Detection Rate:</strong> 300 calls analyzed · 3 clients detected AI (1%)

@@ -497,14 +497,17 @@
             color: #d1d5db;
             font-size: 18px;
         }
-    </style>
+    
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+  </style>
 </head>
 <body>
 
 <div class="page-header">
     <span class="badge">Demo Screen</span>
     <span class="page-title">Sales Analyzer  -  Example Output</span>
-    <span class="page-subtitle">Online Coaching / Education &nbsp;·&nbsp; $5K–$15K Deals &nbsp;·&nbsp; 3-5 Reps</span>
+    <span class="page-subtitle">Online Coaching / Education &nbsp;·&nbsp; <span class="pii-blur">$5K</span>–<span class="pii-blur">$15K</span> Deals &nbsp;·&nbsp; 3-5 Reps</span>
 </div>
 
 <div class="container">
@@ -512,7 +515,7 @@
     <div class="doc-label">
         <div class="eyebrow">Sales Analyzer Master Trove</div>
         <h1>Your Custom AI Sales Coach</h1>
-        <div class="context-line">Generated for: Online Coaching / Education &nbsp;·&nbsp; $1M–$3M Revenue &nbsp;·&nbsp; 3–5 Reps &nbsp;·&nbsp; $5K–$15K deals</div>
+        <div class="context-line">Generated for: Online Coaching / Education &nbsp;·&nbsp; <span class="pii-blur">$1M</span>–<span class="pii-blur">$3M</span> Revenue &nbsp;·&nbsp; 3–5 Reps &nbsp;·&nbsp; <span class="pii-blur">$5K</span>–<span class="pii-blur">$15K</span> deals</div>
     </div>
 
     <!-- HOW TO READ THIS -->
@@ -582,7 +585,7 @@
                 </div>
                 <div class="context-item">
                     <label>Annual Revenue</label>
-                    <div class="value">$1M–$3M</div>
+                    <div class="value"><span class="pii-blur">$1M</span>–<span class="pii-blur">$3M</span></div>
                 </div>
                 <div class="context-item">
                     <label>Team Size</label>
@@ -594,7 +597,7 @@
                 </div>
                 <div class="context-item">
                     <label>Average Deal Size</label>
-                    <div class="value">$5K–$15K</div>
+                    <div class="value"><span class="pii-blur">$5K</span>–<span class="pii-blur">$15K</span></div>
                 </div>
                 <div class="context-item">
                     <label>Sales Cycle</label>
@@ -615,8 +618,8 @@
             </div>
 
             <div style="margin-top:16px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:14px 16px;">
-                <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#1e40af;margin-bottom:8px;">Deal Size Context ($5K–$15K)</div>
-                <p style="font-size:13px;color:#1e40af;line-height:1.6;margin-bottom:8px;">At this deal size, a single call rarely closes. Watch for: did the rep establish clear next steps with a specific date? Did they identify all decision-makers? Were implications fully explored  -  at $5K–$15K, the cost-of-inaction needs to be felt, not just acknowledged.</p>
+                <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#1e40af;margin-bottom:8px;">Deal Size Context (<span class="pii-blur">$5K</span>–<span class="pii-blur">$15K</span>)</div>
+                <p style="font-size:13px;color:#1e40af;line-height:1.6;margin-bottom:8px;">At this deal size, a single call rarely closes. Watch for: did the rep establish clear next steps with a specific date? Did they identify all decision-makers? Were implications fully explored  -  at <span class="pii-blur">$5K</span>–<span class="pii-blur">$15K</span>, the cost-of-inaction needs to be felt, not just acknowledged.</p>
                 <p style="font-size:13px;color:#1e40af;line-height:1.6;"><strong>Multi-stakeholder flag:</strong> if only one person is on the call, probe whether they have full authority. If not, coach the rep to request a next call with all decision-makers present.</p>
             </div>
         </div>

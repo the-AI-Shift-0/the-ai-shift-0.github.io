@@ -266,6 +266,9 @@
     .status-icon {
       font-size: 14px;
     }
+  
+    /* PII redaction: em-based blur auto-scales to each element's font-size */
+    .pii-blur { filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 <body>
@@ -383,7 +386,7 @@
 
       <div class="table-row clickable" onclick="window.location.href='l2.html'">
         <div class="table-time">3:47 PM</div>
-        <div class="table-lead blurred">Samantha Mitchell</div>
+        <div class="table-lead blurred"><span class="pii-blur">Samantha Mitchell</span></div>
         <div class="table-source">Facebook Ad</div>
         <div class="table-response">Confirmed booking</div>
         <div class="status-badge-inline status-confirmed">
@@ -394,7 +397,7 @@
 
       <div class="table-row">
         <div class="table-time">3:22 PM</div>
-        <div class="table-lead blurred">Marcus Chen</div>
+        <div class="table-lead blurred"><span class="pii-blur">Marcus Chen</span></div>
         <div class="table-source">Webinar signup</div>
         <div class="table-response">"Sounds great, see you then"</div>
         <div class="status-badge-inline status-confirmed">
@@ -405,7 +408,7 @@
 
       <div class="table-row">
         <div class="table-time">2:58 PM</div>
-        <div class="table-lead blurred">Rachel Torres</div>
+        <div class="table-lead blurred"><span class="pii-blur">Rachel Torres</span></div>
         <div class="table-source">Instagram Ad</div>
         <div class="table-response">Rescheduled to Thursday</div>
         <div class="status-badge-inline status-rescheduled">
@@ -416,7 +419,7 @@
 
       <div class="table-row">
         <div class="table-time">2:31 PM</div>
-        <div class="table-lead blurred">Jordan Price</div>
+        <div class="table-lead blurred"><span class="pii-blur">Jordan Price</span></div>
         <div class="table-source">Facebook Ad</div>
         <div class="table-response">Confirmed booking</div>
         <div class="status-badge-inline status-confirmed">
@@ -427,7 +430,7 @@
 
       <div class="table-row">
         <div class="table-time">1:47 PM</div>
-        <div class="table-lead blurred">Alex Kumar</div>
+        <div class="table-lead blurred"><span class="pii-blur">Alex Kumar</span></div>
         <div class="table-source">Organic signup</div>
         <div class="table-response">No answer, left voicemail</div>
         <div class="status-badge-inline status-voicemail">
@@ -438,7 +441,7 @@
 
       <div class="table-row">
         <div class="table-time">1:12 PM</div>
-        <div class="table-lead blurred">Jessica Wong</div>
+        <div class="table-lead blurred"><span class="pii-blur">Jessica Wong</span></div>
         <div class="table-source">Facebook Ad</div>
         <div class="table-response">Confirmed booking</div>
         <div class="status-badge-inline status-confirmed">
