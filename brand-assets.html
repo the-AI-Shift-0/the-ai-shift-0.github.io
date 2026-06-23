@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Assets  -  The AI Shift</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f8f7ff; color: #111827; line-height: 1.6; padding: 2rem; }
+  .page { max-width: 860px; margin: 0 auto; }
+  header { margin-bottom: 3rem; border-bottom: 2px solid #7c3aed; padding-bottom: 1.5rem; }
+  h1 { font-size: 2rem; font-weight: 800; color: #7c3aed; margin-bottom: 0.35rem; }
+  .subtitle { font-size: 0.95rem; color: #6b7280; }
+  h2 { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin: 2.5rem 0 1rem; }
+  .card { background: #fff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 0.75rem; }
+  p { color: #374151; font-size: 0.93rem; margin-bottom: 0.75rem; }
+  p:last-child { margin-bottom: 0; }
+  ul { margin-left: 1.25rem; }
+  li { color: #374151; font-size: 0.93rem; margin-bottom: 0.4rem; }
+
+  /* Logo */
+  .logo-row { display: flex; align-items: flex-start; gap: 1.75rem; flex-wrap: wrap; }
+  .logo-preview { width: 96px; height: 96px; border-radius: 50%; flex-shrink: 0; display: block; }
+  .logo-info { flex: 1; min-width: 220px; }
+  .download-btn { display: inline-block; background: #7c3aed; color: #fff; text-decoration: none; padding: 0.5rem 1.25rem; border-radius: 6px; font-size: 0.85rem; font-weight: 700; margin-top: 0.75rem; }
+  .download-btn:hover { background: #6d28d9; }
+
+  /* Palette */
+  .palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 0; }
+  .swatch { border: 1px solid #e9d5ff; border-radius: 8px; overflow: hidden; }
+  .swatch-color { height: 56px; }
+  .swatch-info { background: #fff; padding: 8px 10px; }
+  .swatch-name { font-size: 0.75rem; font-weight: 700; color: #111827; }
+  .swatch-hex { font-size: 0.7rem; color: #9ca3af; font-family: 'SF Mono', 'Fira Code', monospace; margin: 1px 0 3px; }
+  .swatch-use { font-size: 0.65rem; color: #6b7280; line-height: 1.4; }
+
+  /* Font */
+  .font-demo { font-size: 1.6rem; font-weight: 800; color: #111827; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .font-weights { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.75rem 0; }
+  .fw { font-size: 0.85rem; color: #374151; }
+
+  /* Rules */
+  .rule { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; align-items: flex-start; }
+  .rule:last-child { border-bottom: none; padding-bottom: 0; }
+  .rule-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+  .rule-text { font-size: 0.9rem; color: #374151; }
+  .rule-text strong { color: #111827; }
+
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e9d5ff; font-size: 0.8rem; color: #9ca3af; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Brand Assets</h1>
+    <p class="subtitle">The AI Shift  -  single source of truth for colours, logo, and fonts. Use this page whenever you need anything visual.</p>
+  </header>
+
+  <h2>Logo</h2>
+  <div class="card">
+    <div class="logo-row">
+      <img src="assets/logo.png" alt="The AI Shift logo" class="logo-preview">
+      <div class="logo-info">
+        <p><strong>Circular purple badge.</strong> Gradient from #7c3aed to #4f1c8a with "THE AI SHIFT" in white. PNG is 800x800 with transparent background outside the circle  -  drop it on any background without masking.</p>
+        <p>Use for: channel card, end screens, corner watermarks, lower third bug. Don't stretch or recolour.</p>
+        <a href="assets/logo.png" download="the-ai-shift-logo.png" class="download-btn">Download PNG (800 &times; 800)</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>Colour Palette</h2>
+  <div class="card">
+    <p style="margin-bottom: 1rem;">Purple is the only accent colour. Never use blue, teal, or orange.</p>
+    <div class="palette">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#7c3aed;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary Purple</div>
+          <div class="swatch-hex">#7c3aed</div>
+          <div class="swatch-use">Lower thirds, highlights, text accents</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5b21b6;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Dark Purple</div>
+          <div class="swatch-hex">#5b21b6</div>
+          <div class="swatch-use">Gradient pair with primary, logo background</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#f8f7ff; border-bottom: 1px solid #e9d5ff;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Lavender White</div>
+          <div class="swatch-hex">#f8f7ff</div>
+          <div class="swatch-use">Lower third bg, slide backgrounds</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#111827;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Near Black</div>
+          <div class="swatch-hex">#111827</div>
+          <div class="swatch-use">Text on light backgrounds</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#ffffff; border-bottom: 1px solid #e9d5ff;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">White</div>
+          <div class="swatch-hex">#ffffff</div>
+          <div class="swatch-use">Text on purple, card surfaces</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Font</h2>
+  <div class="card">
+    <div class="font-demo">Inter</div>
+    <p>The website uses system fonts (San Francisco on Mac, Segoe UI on Windows). For Premiere / After Effects, <strong>Inter</strong> matches the feel exactly. Free from Google Fonts.</p>
+    <div class="font-weights">
+      <span class="fw" style="font-weight:400;">400 &mdash; body</span>
+      <span class="fw" style="font-weight:700;">700 &mdash; emphasis</span>
+      <span class="fw" style="font-weight:800;">800 &mdash; headings</span>
+      <span class="fw" style="font-weight:900;">900 &mdash; labels</span>
+    </div>
+    <p><a href="https://fonts.google.com/specimen/Inter" target="_blank" style="color:#7c3aed;font-weight:600;">Download Inter from Google Fonts &rarr;</a></p>
+  </div>
+
+  <h2>Motion Graphics Rules</h2>
+  <div class="card">
+    <div class="rule"><div class="rule-icon">✅</div><div class="rule-text"><strong>Always light background.</strong> Lower thirds, info boxes, stat cards  -  lavender-white (#f8f7ff) or white. Never dark.</div></div>
+    <div class="rule"><div class="rule-icon">✅</div><div class="rule-text"><strong>Purple is the only accent.</strong> Buttons, bars, borders, highlights  -  all #7c3aed. Never blue, teal, or orange.</div></div>
+    <div class="rule"><div class="rule-icon">✅</div><div class="rule-text"><strong>Flat design only.</strong> No 3D, no shadows, no gradients in UI elements. Gradient is only in the logo circle itself.</div></div>
+    <div class="rule"><div class="rule-icon">✅</div><div class="rule-text"><strong>Labels uppercase.</strong> Category labels and stat labels: uppercase, weight 800, letter-spaced. Body text is normal case.</div></div>
+    <div class="rule"><div class="rule-icon">✅</div><div class="rule-text"><strong>Channel name:</strong> Always "The AI Shift"  -  title case. Never all-caps in body text or lower thirds.</div></div>
+  </div>
+
+  <footer>The AI Shift &mdash; internal use only</footer>
+
+</div>
+</body>
+</html>
