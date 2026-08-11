@@ -3,57 +3,117 @@
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
 <!--
   ═══════════════════════════════════════════════════════════════════
-  NUMBER MODEL - Message to Audience / "the Research Engine" (Demo 1)
-  Built HTML shown in the video as if it were the real running system.
-  Every on-screen figure below is FICTIONAL. No real podcast, host, or
-  audience member appears anywhere in this build.
+  RECORDING NOTE - NOTHING IS BLURRED. DO NOT REINSTATE THE BLUR.
+  The show name, the host name and the show URL render SHARP on every
+  page. Owner's decision, 2026-08-11: "Just take a real podcast, do not
+  blur out the name and look at actual data and all of that about it."
+  On camera Sai says he is IN TALKS with them about appearing. No page
+  anywhere claims he is booked, and that framing is what keeps naming a
+  real third party honest. An earlier build blurred the two names; that
+  build is superseded and the pii-blur class has been deleted outright.
   ═══════════════════════════════════════════════════════════════════
+  Message to Audience - "the Research Engine" (Demo 1)
+  Built HTML shown in the video as if it were the real running system.
+  Show swapped 2026-08-11 to The Amy Porterfield Show, per
+  docs/research/2026-08-11-message-to-audience-real-podcast-v4.md.
 
-  CANONICAL BUSINESS (identical across every video on this channel):
-    Revenue: $4,180,000 / yr        (rounds to "$4M" spoken; always blurred - financial)
-    Margin:  40%                    ($1,672,000; always shown sharp - percentages always show)
-    Team:    9 people               (standardised across every video; not financial, shown plain)
+  Pages: index.html (this) -> l2.html -> l3.html -> l4.html (the running
+  order - the beat an earlier build wrongly deleted).
 
-  FICTIONAL PODCAST BEING RESEARCHED:
-    Show:    "The Bootstrap Dispatch" (fictional - not a real show)
-    Host:    "Marcus Yeun"            (fictional - not a real person)
-    Format:  weekly interview podcast, running 6 years, 312 episodes published
-    Audience: avg 14,200 listeners/episode · 4.8★ across 2,860 ratings
-    Sourcing counts: 1,140 written reviews analyzed · 380 comment threads read
-      (these are independent source counts, not components of a shared total - 
-       no sum relationship required between them)
+  WHAT IS REAL (every figure fetched from a primary source 2026-08-11)
+    The Amy Porterfield Show, hosted by Amy Porterfield.
+    4.9 stars from 4,575 Ratings (Apple ratings block) · 885 episodes
+    (Apple "Information") · running since 2013 · updated weekly ·
+    Marketing category · YouTube @AmyPorterfield 41,900 subscribers.
+    https://podcasts.apple.com/us/podcast/the-amy-porterfield-show/id594703545
+    The audience description on l2 is from the show's OWN description.
+    NO episode title appears anywhere in this build.
+    Audience size: downloads and listener numbers are NOT publicly
+    stated anywhere, so no such figure appears and none is estimated.
+    Reading volume shown on l2 is also real: 1,219 written reviews
+    retrieved, and 123 comments harvested across 24 videos.
+    Every quote on every page is VERBATIM from a real public Apple
+    Podcasts review or a real public YouTube comment, each independently
+    re-confirmed on a second fetch. The words are unaltered.
 
-  AUDIENCE ORIGIN BREAKDOWN (L2, Panel 1) - sums to 100%:
-    Bootstrapped / self-funded founders ......... 61%
-    Venture-backed / funded founders ............ 24%
-    Still employed, building on the side ........ 15%
-    TOTAL ........................................ 100%
+  NO REVIEWER HANDLE RENDERS ON ANY PAGE (owner's decision, 2026-08-11)
+    Not blurred - absent. A handle is personal data we have no reason to
+    carry, and the script's claim is about what the AUDIENCE says in
+    general, not about who individually said it. Blurring one would
+    signal that a person is being hidden, which draws the eye rather
+    than away. Each quote carries a neutral source label only - "Apple
+    Podcasts review" or "YouTube comment". The real handle is recorded
+    in an INTERNAL ONLY comment beside each quote so a quote can still
+    be re-verified later; a JS comment can never reach the page.
+    QUOTE SELECTION TEST, applied to every quote on every page: if the
+    verbatim text contains the show name, the host's name, or any third
+    party's name, the quote is DROPPED and another confirmed one is used.
+    A quote is never edited to sanitise it - that would break the
+    "verbatim, not paraphrased" promise this build exists to keep.
+    Dropped under this test 2026-08-11 (both name the host inside the
+    verbatim text): "I am just starting and Amy is giving me such
+    encouragement in easy to take bites..." and "Whenever I get stuck
+    along the way ... in the wealth of information Amy has accumulated
+    in these podcast archives." Three further confirmed items were
+    skipped because their full bodies name a third party or a named
+    business. Replacements came from the same confirmed pool.
 
-  LANGUAGE LAYER - 3 fictional review quotes, reviewer names/handles blurred
-  per blur list (words themselves stay visible - public commentary, not names).
+  WHAT IS SIMULATED (this is a built demo of an internal tool)
+    Sai's appearance library, every cross-reference count, the six
+    analysis conclusions, and the whole running order on l4.html.
 
-  CROSS-REFERENCE (L3) - every subset is ≤ its stated base:
-    Appearance library (base) .................... 41 past appearances
-    Comparable rooms matched (⊆ 41) .............. 9 rooms
-    Hooks tested against the comparable pool ..... 7
-      Landed ...................................... 5   ┐
-      Died ......................................... 2   ┘ 5 + 2 = 7 ✓
-    Per-hook usage counts (each ⊆ 9 comparable rooms):
-      "First paying customer, no funding" story .... used 6 of 9 · landed 6 of 6
-      "Moment control almost slipped away" .......... used 5 of 9 · landed 5 of 5
-      (+3 more landed hooks, not itemized on screen)
-      "Move fast and break things" framing .......... used 3 of 9 · died 3 of 3  [WOW MOMENT]
-      "Hustle 24/7" framing .......................... used 2 of 9 · died 2 of 2
-    Every usage count (6,5,3,2) ≤ 9 (the comparable-room base). No result exceeds its base.
+  NUMBER MODEL - no subset ever exceeds its base:
+    REAL, and each is its own base:
+      Written reviews read ........................ 1,219
+      Comments read ............................... 123, across 24 videos
+      Discarded before reading (subset of 123) .... 38 host replies
+                                                  + 1 guest reply
+                                                  + 14 from one repeat
+                                                    commenter = 53 of 123
+      Apple ratings ............................... 4,575 · 885 episodes
+    SIMULATED:
+      Appearance library (base) ................... 41 past appearances
+      Comparable rooms matched (subset of 41) ..... 9
+      Hooks tested against those 9 rooms .......... 7
+        Landed ..................................... 5  ┐
+        Died ....................................... 2  ┘  5 + 2 = 7
+      Per-hook usage (each a subset of the 9 comparable rooms):
+        "I was terrible at this for years" ......... used 6 of 9 · landed 6 of 6
+        "Seven hours down to forty-five minutes" ... used 5 of 9 · landed 5 of 5
+        "The catch-22 I built myself" .............. used 4 of 9 · landed 4 of 4
+        (+2 more landed hooks, not itemised on screen)
+        "Open with the fifteen million" ............ used 3 of 9 · died 3 of 3  [WOW]
+        "Lead with the AI, not the hours" .......... used 2 of 9 · died 2 of 2
+      Every usage count (6,5,4,3,2) is at or below the 9-room base.
+      Landed uses 6+5+4 across 9 rooms is fine - a room hears several
+      hooks in one appearance.
+      Running order on l4: 5 + 17 + 12 + 11 = 45 minutes exactly.
 
-  No jargon on screen: "lenses" are always named plainly ("the six things"),
-  no "corpus," no "embeddings," no "run-of-show" (always "the running order").
+  NO revenue, margin or team-size bar on any page: researching someone
+  else's audience never uses the viewer's own figures.
+  No jargon on screen: the six things are always named in plain English,
+  and the last screen is always "the running order" / "the 45 minutes".
   ═══════════════════════════════════════════════════════════════════
 -->
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Engine</title>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SHOW DATA - everything show-specific on this page is in this one
+         object. Swap here if the show ever changes again.
+         VERIFIED 2026-08-11 against the live Apple Podcasts page.
+         The whole URL renders SHARP. Nothing on this page is blurred.
+         ══════════════════════════════════════════════════════════════ -->
+    <script>
+    var PROVISIONAL = {
+        urlPrefix: "https://podcasts.apple.com/us/podcast/",
+        urlSlug:   "the-amy-porterfield-show",
+        urlId:     "id594703545"
+    };
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -89,7 +149,7 @@
         .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
         .loading-steps {
             display: flex; flex-direction: column; gap: 6px;
-            margin-top: 8px; min-width: 260px;
+            margin-top: 8px; min-width: 300px;
         }
         .loading-step {
             display: flex; align-items: center; gap: 10px;
@@ -119,40 +179,38 @@
         .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
 
         .container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
-        .content { max-width: 560px; width: 100%; }
-
-        .business-bar {
-            background: #f5f3ff; border: 1px solid #ddd6fe;
-            border-radius: 12px; padding: 14px 18px;
-            display: flex; align-items: center; gap: 18px;
-            margin-bottom: 40px; font-size: 13px; color: #374151;
-        }
-        .business-label {
-            font-size: 10px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #9ca3af; margin-right: 4px;
-        }
-        .business-item strong { color: #111827; }
+        /* 720px, not 620: the full Apple URL plus the blinking caret has to
+           fit on one line without the trailing digits being clipped. */
+        .content { max-width: 720px; width: 100%; }
 
         .greeting { font-size: 13px; color: #9ca3af; margin-bottom: 12px; font-weight: 500; }
-        .prompt-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 28px; letter-spacing: -0.4px; }
+        .prompt-title { font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 26px; letter-spacing: -0.5px; }
 
-        .chat-input-wrap {
+        .url-field {
             background: #ffffff;
             border: 1.5px solid #ddd6fe;
             border-radius: 12px;
-            padding: 18px 20px;
-            margin-bottom: 20px;
+            padding: 8px 8px 8px 16px;
+            margin-bottom: 18px;
+            display: flex; align-items: center; gap: 12px;
+            cursor: text;
         }
-        .chat-input {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            color: #111827;
-            font-family: inherit;
-            background: transparent;
+        .url-scheme {
+            font-size: 12px; font-weight: 700; color: #7c3aed;
+            background: #f3f0ff; border-radius: 6px; padding: 5px 8px;
+            flex-shrink: 0; letter-spacing: 0.02em;
         }
-        .chat-input::placeholder { color: #9ca3af; }
+        .url-value {
+            flex: 1; min-width: 0;
+            font-size: 14px; color: #111827; font-family: inherit;
+            padding: 10px 0; white-space: nowrap; overflow: hidden;
+            display: flex; align-items: center;
+        }
+        .caret {
+            display: inline-block; width: 1.5px; height: 17px; background: #7c3aed;
+            margin-left: 2px; animation: blink 1.1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
 
         .run-btn {
             background: #7c3aed; color: #ffffff;
@@ -164,24 +222,22 @@
         }
         .run-btn:hover { background: #6d28d9; transform: translateY(-1px); }
 
-        .hint { font-size: 12px; color: #9ca3af; margin-top: 20px; line-height: 1.5; }
-
-        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+        .hint { font-size: 12px; color: #9ca3af; margin-top: 22px; line-height: 1.6; }
     </style>
 </head>
 <body>
 
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
-        <div class="loading-msg">Running the audience research...</div>
+        <div class="loading-msg">Reading the room...</div>
         <div class="loading-steps">
             <div class="loading-step"><div class="step-dot" id="s1"></div><span>Where they came from</span></div>
-            <div class="loading-step"><div class="step-dot" id="s2"></div><span>Their real pain</span></div>
+            <div class="loading-step"><div class="step-dot" id="s2"></div><span>The pain under the pain</span></div>
             <div class="loading-step"><div class="step-dot" id="s3"></div><span>What actually drives them</span></div>
-            <div class="loading-step"><div class="step-dot" id="s4"></div><span>What they're afraid of</span></div>
+            <div class="loading-step"><div class="step-dot" id="s4"></div><span>What they are afraid of</span></div>
             <div class="loading-step"><div class="step-dot" id="s5"></div><span>What stories land</span></div>
-            <div class="loading-step"><div class="step-dot" id="s6"></div><span>Their dream outcome</span></div>
-            <div class="loading-step"><div class="step-dot" id="s7"></div><span>Pulling the words they actually use</span></div>
+            <div class="loading-step"><div class="step-dot" id="s6"></div><span>What winning looks like to them</span></div>
+            <div class="loading-step"><div class="step-dot" id="s7"></div><span>Pulling the words they use themselves</span></div>
         </div>
     </div>
 
@@ -198,40 +254,38 @@
     <div class="container">
         <div class="content">
 
-            <div class="business-bar">
-                <span class="business-label">Connected</span>
-                <span class="business-item"><span class="pii-blur">$4,180,000</span>/yr revenue</span>
-                <span class="business-item"><strong>40%</strong> margin</span>
-                <span class="business-item"><strong>9</strong>-person team</span>
+            <div class="greeting">One link is all it needs</div>
+            <div class="prompt-title">Which room do you want to research?</div>
+
+            <div class="url-field" onclick="go()">
+                <span class="url-scheme">Podcast</span>
+                <span class="url-value" id="urlValue"></span>
             </div>
 
-            <div class="greeting">One line is all it needs</div>
-            <div class="prompt-title">What room are you walking into?</div>
+            <button class="run-btn" onclick="go()">Research this room &nbsp;&rarr;</button>
 
-            <div class="chat-input-wrap">
-                <input type="text" class="chat-input" id="roomInput" value="I'm on The Bootstrap Dispatch in two weeks.">
-            </div>
-
-            <button class="run-btn" onclick="go()">Run the research &nbsp;→</button>
-
-            <div class="hint">It pulls the show, the host, who actually listens - then works the same six things you'd normally spend seven hours figuring out by hand.</div>
+            <div class="hint">It pulls the show, the host, the format and who actually listens - then works the same six things you would otherwise spend seven hours figuring out by hand, and comes back with the words that room uses itself.</div>
 
         </div>
     </div>
 
     <script>
-        setTimeout(() => {
+        document.getElementById('urlValue').innerHTML =
+            PROVISIONAL.urlPrefix + PROVISIONAL.urlSlug + '/' +
+            PROVISIONAL.urlId + '<span class="caret"></span>';
+
+        setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');
         }, 900);
 
         function go() {
-            const overlay = document.getElementById('overlay');
+            var overlay = document.getElementById('overlay');
             overlay.classList.remove('hidden');
-            const ids = ['s1','s2','s3','s4','s5','s6','s7'];
-            ids.forEach((id, i) => {
-                setTimeout(() => document.getElementById(id).classList.add('done'), 260 * (i + 1));
+            var ids = ['s1','s2','s3','s4','s5','s6','s7'];
+            ids.forEach(function (id, i) {
+                setTimeout(function () { document.getElementById(id).classList.add('done'); }, 260 * (i + 1));
             });
-            setTimeout(() => { window.location.href = 'l2.html'; }, 260 * ids.length + 500);
+            setTimeout(function () { window.location.href = 'l2.html'; }, 260 * ids.length + 500);
         }
     </script>
 </body>

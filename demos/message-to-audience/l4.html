@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<!--
+  THE RUNNING ORDER - the script's final beat for Demo 1:
+  "the 45 minutes built: open, story picks, the turn, the CTA, calibrated to
+  that room." (docs/scripts/message-to-audience-script.md)
+  This beat was dropped from the previous build. It is the last screen.
+  The forbidden phrase for this beat is never written anywhere on screen.
+
+  See index.html for the recording note and the number model.
+  NOTHING ON THIS PAGE IS BLURRED - the show name and the host name render
+  SHARP, per the owner's decision of 2026-08-11. The quote text is verbatim
+  and unaltered, and NO REVIEWER HANDLE RENDERS - only a neutral source
+  label. The real handle is in an internal-only comment beside the quote.
+  SIMULATED: the whole running order and every timing.
+    Open 5 + Story picks 17 + The turn 12 + The call to action 11 = 45.
+  The two "do not use" items match l3.html exactly.
+-->
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Engine - The 45 Minutes, Built</title>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SHOW DATA - every show-specific string on this page lives in this
+         one object. Swap here if the show changes.
+         VERIFIED 2026-08-11: `name`, `host`, `episodes`, and every entry in
+         `evidence` (verbatim public reviews and comments, each re-confirmed
+         on a second independent fetch). Every phrase in `language` is
+         lifted word for word out of a quote shown on l2.html or this page.
+         SIMULATED: the running order, every timing and every count. Each
+         `why` is written only from confirmed material about this show.
+         `name` and `host` render SHARP. Nothing on this page is blurred.
+         The quote text is never altered.
+         NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS.
+         ══════════════════════════════════════════════════════════════ -->
+    <script>
+    var PROVISIONAL = {
+        name: "The Amy Porterfield Show",
+        host: "Amy Porterfield",
+        episodes: "885",
+        /* VERBATIM, unaltered. No handle renders - `source` is a neutral
+           label and is the only attribution on screen. The real handles are
+           in the INTERNAL ONLY comments below so each quote can be
+           re-verified. Checked against the FULL body: none of these three
+           contains the show name, the host's name or any third party's
+           name. Note the double space and the spacing before the
+           exclamation mark in `ask` - both are the reviewer's own. */
+        evidence: {
+            /* INTERNAL ONLY, NEVER RENDERED - handle Kaybee13, Apple 5 stars, 2025-10-18 */
+            open: {
+                text: "I said yes to myself after 20 years and these help me squash the \"this'll never work\" and distraction monsters while positively reminding us that aren't afraid of hard things that we can even if we're afraid of that other thing, failure.",
+                source: "Apple Podcasts review"
+            },
+            /* INTERNAL ONLY, NEVER RENDERED - handle ChristineSponsel, Apple 5 stars, 2025-02-27 */
+            turn: {
+                text: "Many of her episodes give me a more simple route to the overwhelming parts of starting and running a business!",
+                source: "Apple Podcasts review"
+            },
+            /* INTERNAL ONLY, NEVER RENDERED - handle Primrose Interiors, Apple 5 stars, 2024-08-16 */
+            ask: {
+                text: "Truly real & relatable advice perfect for entrepreneurs, course creators and marketers  at ANY stage of business ! I'm just starting out my course creation angle",
+                source: "Apple Podcasts review"
+            }
+        },
+        blocks: [
+            { range: "0 - 5", len: "5 min · the open", name: "The open",
+              line: "Lead with the years of being bad at it. No credential, no number, no promise in the first two minutes.",
+              beats: [
+                "<strong>First line:</strong> \"I spent years walking off stages that went great and produced nothing.\"",
+                "<strong>Then:</strong> what you were actually doing wrong - the same talk to every room."
+              ],
+              why: "this room says imposter syndrome about itself, unprompted, in its own reviews. It is not asking whether you are good enough. Starting where you got it wrong is the fastest way past the question it is actually asking.",
+              evidence: "open" },
+
+            { range: "5 - 22", len: "17 min · story picks", name: "Story picks",
+              line: "",
+              beats: [
+                "<strong>The catch-22 you built yourself (8 min).</strong> More clients, more fixed cost, more appearances to feed it. This room describes the same trap as carrying the whole thing alone while the business grows.",
+                "<strong>The Saturday you cancelled on your kids (9 min).</strong> The water park. Land it on the life the business was supposed to buy, not on the workload."
+              ],
+              whyLabel: "Why these two:",
+              why: "both landed in every comparable room, and this room fits its business around kids and aging parents rather than the other way round. Hold the fifteen million until after the turn - it died in 3 of 9 rooms like this one when it opened the talk." },
+
+            { range: "22 - 34", len: "12 min · the turn", name: "The turn",
+              line: "Name the pitch before they do, then give the method away in full.",
+              beats: [
+                "<strong>Say it out loud:</strong> \"You are waiting to find out what I am selling. So here is the whole thing, and you can go and do it yourself on Monday.\"",
+                "<strong>Then the method:</strong> the six things you work out about a room, and the seven hours it used to take.",
+                "<strong>Now the number:</strong> seven hours down to forty-five minutes. Time, not revenue."
+              ],
+              whyLabel: "Why here:",
+              why: "this room assumes free content is the top of a funnel and is scanning for the moment it turns, and it writes that down in public in exactly those words. Getting there first is the single highest-leverage move on this show. Then break the method into the smallest thing they can start.",
+              evidence: "turn" },
+
+            { range: "34 - 45", len: "11 min · the ask", name: "The call to action",
+              line: "One ask, no call booking, nothing that looks like a stage close.",
+              beats: [
+                "<strong>The ask:</strong> the research engine itself, free, one link, working by tomorrow.",
+                "<strong>Invite the question:</strong> this room states its own stage unprompted - just starting, solopreneur, course creator. Ask them where they are and they will tell you.",
+                "<strong>Close on their outcome:</strong> the business grows on systems and a team, and they stop carrying all of it alone."
+              ],
+              evidence: "ask" }
+        ],
+        avoid: [
+            { name: "Opening with the fifteen million",
+              note: "Died in 3 of 9 comparable rooms. Save it for after the turn and attach the cost to it." },
+            { name: "Leading with the AI, not the hours",
+              note: "Died in 2 of 9. Nothing this room writes about itself is about a technology." }
+        ],
+        language: [
+            "\"still afraid to charge anyone yet\"",
+            "\"the overwhelming parts of starting and running a business\"",
+            "\"just starting out as a solopreneur\"",
+            "\"bear the burden of doing it all alone\""
+        ],
+        languageNote: "Straight out of this show's own reviews and comments. Their words, not a summary of them."
+    };
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 100;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-sub { font-size: 12px; color: #9ca3af; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 32px;
+            background: #ffffff; border-bottom: 1px solid #ddd6fe; flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
+        .header-back:hover { color: #6d28d9; }
+
+        .container {
+            flex: 1; padding: 22px 32px 40px;
+            max-width: 1000px; margin: 0 auto; width: 100%;
+        }
+
+        .title-row {
+            display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+            margin-bottom: 18px;
+        }
+        .page-title { font-size: 21px; font-weight: 700; color: #111827; margin-bottom: 4px; letter-spacing: -0.4px; }
+        .page-sub { font-size: 13px; color: #6b7280; }
+        .total-pill {
+            background: #7c3aed; color: #ffffff; border-radius: 10px;
+            padding: 9px 16px; text-align: center; flex-shrink: 0;
+        }
+        .total-num { font-size: 19px; font-weight: 800; letter-spacing: -0.4px; }
+        .total-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.07em; opacity: 0.85; }
+
+        .layout { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+
+        .block {
+            background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 13px;
+            padding: 15px 18px; margin-bottom: 12px;
+            display: grid; grid-template-columns: 92px 1fr; gap: 16px;
+        }
+        .block-time { display: flex; flex-direction: column; gap: 3px; }
+        .time-range { font-size: 13px; font-weight: 800; color: #7c3aed; }
+        .time-len { font-size: 10.5px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
+        .block-body { min-width: 0; }
+        .block-name { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+        .block-line { font-size: 12.5px; line-height: 1.5; color: #374151; margin-bottom: 8px; }
+        .beat {
+            font-size: 12px; color: #4b5563; line-height: 1.5;
+            padding-left: 14px; position: relative; margin-bottom: 5px;
+        }
+        .beat:before {
+            content: ""; position: absolute; left: 0; top: 7px;
+            width: 6px; height: 6px; border-radius: 50%; background: #ddd6fe;
+        }
+        .beat strong { color: #111827; font-weight: 700; }
+        .why {
+            margin-top: 9px; font-size: 11.5px; color: #6b7280; line-height: 1.45;
+            border-top: 1px solid #f3f0ff; padding-top: 8px;
+        }
+        .why span { color: #7c3aed; font-weight: 700; }
+
+        .evidence {
+            margin-top: 9px; padding: 9px 12px;
+            background: #faf8ff; border-left: 3px solid #ddd6fe; border-radius: 0 7px 7px 0;
+            font-size: 11.5px; color: #4b5563; line-height: 1.45;
+        }
+        .evidence .who { color: #111827; font-weight: 800; }
+        .evidence .plat { color: #9ca3af; font-weight: 500; }
+
+        .side-card {
+            background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 13px;
+            padding: 14px 16px; margin-bottom: 12px;
+        }
+        .side-card.warn { background: #fff1f2; border-color: #fecdd3; }
+        .side-title {
+            font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.07em; color: #6b7280; margin-bottom: 10px;
+        }
+        .side-card.warn .side-title { color: #dc2626; }
+        .side-item { font-size: 12px; color: #374151; line-height: 1.45; margin-bottom: 9px; }
+        .side-item:last-child { margin-bottom: 0; }
+        .side-item strong { display: block; color: #111827; font-weight: 700; margin-bottom: 2px; }
+        .side-note { font-size: 11px; color: #9ca3af; line-height: 1.45; }
+
+        .btn {
+            padding: 11px 20px; border-radius: 9px; font-size: 13px; font-weight: 600;
+            border: none; cursor: pointer; font-family: inherit;
+            transition: background 0.15s, transform 0.1s;
+        }
+        .btn-secondary { background: transparent; color: #7c3aed; border: 1px solid #ddd6fe; }
+        .btn-secondary:hover { background: #f3f0ff; }
+        .back-row { display: flex; gap: 12px; margin-top: 6px; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Building the 45 minutes...</div>
+        <div class="loading-sub">Open · story picks · the turn · the call to action</div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">Research Engine</div>
+        </div>
+        <div class="header-back" onclick="window.location.href='l3.html'">&larr; Your best rooms</div>
+    </div>
+
+    <div class="container">
+
+        <div class="title-row">
+            <div>
+                <div class="page-title">The running order</div>
+                <div class="page-sub" id="pageSub"></div>
+            </div>
+            <div class="total-pill">
+                <div class="total-num">45 min</div>
+                <div class="total-label">Built</div>
+            </div>
+        </div>
+
+        <div class="layout">
+            <div id="blocks"></div>
+            <div>
+                <div class="side-card warn">
+                    <div class="side-title">&#9888; Do not use in this room</div>
+                    <div id="avoidList"></div>
+                </div>
+                <div class="side-card">
+                    <div class="side-title">Their language, use it</div>
+                    <div id="languageList"></div>
+                    <div class="side-note" id="languageNote"></div>
+                </div>
+                <div class="side-card">
+                    <div class="side-title">Built from</div>
+                    <div class="side-note" id="builtFrom"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-row">
+            <button class="btn btn-secondary" onclick="window.location.href='l3.html'">&larr; Back to your best rooms</button>
+            <button class="btn btn-secondary" onclick="window.location.href='index.html'">Start a new room</button>
+        </div>
+
+    </div>
+
+    <script>
+        var P = PROVISIONAL;
+
+        document.getElementById('pageSub').textContent =
+            'Your 45 minutes on ' + P.name + ' with ' + P.host +
+            ', built from what this room responds to and what has already worked in rooms like it.';
+
+        /* Neutral source label only - no handle is ever rendered. */
+        function evidenceHtml(key) {
+            var e = P.evidence[key];
+            return '<div class="evidence">"' + e.text + '"<br>' +
+                   '<span class="who">' + e.source + '</span></div>';
+        }
+
+        document.getElementById('blocks').innerHTML = P.blocks.map(function (b) {
+            return '<div class="block">' +
+                '<div class="block-time"><div class="time-range">' + b.range + '</div>' +
+                '<div class="time-len">' + b.len + '</div></div>' +
+                '<div class="block-body">' +
+                '<div class="block-name">' + b.name + '</div>' +
+                (b.line ? '<div class="block-line">' + b.line + '</div>' : '') +
+                b.beats.map(function (t) { return '<div class="beat">' + t + '</div>'; }).join('') +
+                (b.why ? '<div class="why"><span>' + (b.whyLabel || 'Why this room:') + '</span> ' + b.why + '</div>' : '') +
+                (b.evidence ? evidenceHtml(b.evidence) : '') +
+                '</div></div>';
+        }).join('');
+
+        document.getElementById('avoidList').innerHTML = P.avoid.map(function (a) {
+            return '<div class="side-item"><strong>' + a.name + '</strong>' + a.note + '</div>';
+        }).join('');
+
+        document.getElementById('languageList').innerHTML = P.language.map(function (l) {
+            return '<div class="side-item">' + l + '</div>';
+        }).join('');
+
+        document.getElementById('languageNote').textContent = P.languageNote;
+
+        document.getElementById('builtFrom').textContent =
+            P.episodes + ' episodes and this show\'s public reviews and comment threads - 1,219 written reviews and 123 comments across 24 videos - matched against 9 of your 41 past appearances. Seven hours of work, done while you read the first page.';
+
+        setTimeout(function () {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1400);
+    </script>
+</body>
+</html>

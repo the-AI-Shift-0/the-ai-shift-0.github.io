@@ -1,10 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<!--
+  One screen, everything at once: the show and who actually listens, the six
+  things it works out, and the words that room uses itself. No scrolling.
+  See index.html for the recording note, the number model, and what is real
+  vs simulated. NOTHING ON THIS PAGE IS BLURRED - the show name and the host
+  name render SHARP, per the owner's decision of 2026-08-11. Quote text is
+  verbatim and unaltered.
+  NO REVIEWER HANDLE RENDERS ANYWHERE: a handle is personal data we have no
+  reason to carry, and the claim is about what the audience says in general,
+  not who said it. Each quote carries a neutral source label instead, and
+  the real handle sits in an internal-only comment beside it.
+-->
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Engine - The Bootstrap Dispatch</title>
+    <title>Research Engine - The Room</title>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SHOW DATA - every show-specific string, every stat, every audience
+         conclusion and every quote on this page lives in this one object
+         and nowhere else in the markup. Swap here if the show changes.
+
+         VERIFIED 2026-08-11 against the live Apple Podcasts page, the
+         show's own RSS description, and its public review and comment
+         threads:
+           name, host, ratingValue, ratingCount, episodes, sinceYear,
+           cadence, descriptionPhrase, reviewsRead, commentsRead,
+           videosRead, discarded, and every entry in quotes[] - each quote
+           verbatim, each re-confirmed on a second independent fetch.
+         SIMULATED: every panels[].text conclusion and every panels[].bars
+         strength reading. Each conclusion is written only from the quotes
+         actually shown on this page, so nothing on screen asserts an
+         audience insight the confirmed material does not carry.
+         NOTHING ON THIS PAGE IS BLURRED. name and host render SHARP.
+         NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS ANYWHERE. Handles live
+         only in the INTERNAL ONLY JS comments beside each quote.
+         ══════════════════════════════════════════════════════════════ -->
+    <script>
+    var PROVISIONAL = {
+        name: "The Amy Porterfield Show",
+        host: "Amy Porterfield",
+        episodes: "885",
+        sinceYear: "2013",
+        cadence: "updated weekly",
+        sourceLabel: "podcasts.apple.com",
+        ratingValue: "4.9",
+        ratingCount: "4,575 ratings",
+        reviewsRead: "1,219",
+        commentsRead: "123",
+        videosRead: "24",
+        descriptionPhrase: "from struggling in your business to systemizing and growing your business",
+        descriptionLead: "Who it is for, in the show's own description: online business owners going",
+        descriptionTail: "- course creators, coaches and consultants.",
+        discarded: "53 of those comments were discarded before anything was read: 38 replies from the host herself, one from that episode's guest, and 14 from a single repeat commenter.",
+
+        /* The six things it works out. text = SIMULATED conclusion, but
+           every clause is carried by a quote shown on this page.
+           source = NEUTRAL SOURCE LABEL ONLY. No handle, no name, no
+           initials, no per-person attribution renders anywhere.
+           bars = 5-segment strength reading, SIMULATED. */
+        panels: [
+            { label: "Where they came from",
+              text: "Online business owners, course creators and consultants, and they announce their own status in the first clause - solopreneur, just starting, a clear vision and not much built yet. Most are still doing the work themselves rather than through other people.",
+              source: "an Apple Podcasts review", bars: 4 },
+              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 1 on this page (Questions with Pam Mills) */
+            { label: "The pain under the pain",
+              text: "Not a strategy gap. A permission gap. They are not asking how to build the offer. They say out loud that they are afraid to charge for it, and the word they use for themselves is imposter.",
+              source: "an Apple Podcasts review", bars: 5 },
+              /* INTERNAL ONLY, NEVER RENDERED - rests on quotes 2 and 4 on this page (Btwinks, Daanos8) */
+            { label: "What actually drives them",
+              text: "Income that has to fit a life which already has other people in it - kids, parents, a slower run at this than they planned for. Not status, and not scale for its own sake. Speak to the life the business is supposed to buy.",
+              source: "an Apple Podcasts review", bars: 4 },
+              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 3 on this page (Tara Rene) */
+            { label: "What they are afraid of",
+              text: "Two things, and they name both. Burning out, described as a clinical state rather than a scheduling problem. And being sold to - this room assumes free content is the top of somebody's funnel, and it says so in exactly those terms.",
+              source: "a YouTube comment", bars: 5 },
+              /* INTERNAL ONLY, NEVER RENDERED - rests on quotes 4 and 5 on this page (Daanos8, @albinatrachuk) */
+            { label: "What stories land",
+              text: "The one where the owner is carrying all of it alone and gets a piece of the week back. They state the bottleneck as isolation rather than workload, and they want the overwhelming part broken down into something they can actually start.",
+              source: "an Apple Podcasts review", bars: 5 },
+              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 6 on this page (Lindsey Bomgren) */
+            { label: "What winning looks like to them",
+              text: "A business that runs on systems and a team instead of running on them. Their own words for it are resources and SOPs, so that growing does not mean carrying more of it personally.",
+              source: "an Apple Podcasts review", bars: 4 }
+              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 6 on this page (Lindsey Bomgren) */
+        ],
+
+        /* VERBATIM. Do not tidy, shorten or fix grammar. The double space
+           in quote 3 and the spacing around its exclamation mark are the
+           reviewer's own and must stay.
+           NO HANDLE RENDERS. `source` is a neutral label and is the only
+           attribution on screen. The real handle is recorded in the
+           INTERNAL ONLY comment above each quote so it can be re-verified
+           later; it is a JS comment and can never reach the page.
+
+           TWO CONFIRMED QUOTES WERE DROPPED 2026-08-11, not altered:
+             - "I am just starting and Amy is giving me such encouragement
+               in easy to take bites. Thank you for not overwhelming me!"
+               (fachafer, 2024-09-08)
+             - "Whenever I get stuck along the way as I plan this next
+               stage in my business, I can find the answer in the wealth of
+               information Amy has accumulated in these podcast archives."
+               (Victoria_Phipps, 2025-02-04)
+           Both name the host inside the verbatim text. We never edit a
+           quote to sanitise it, so they are simply not used. Replacements
+           came from the same confirmed pool.
+           THREE FURTHER CONFIRMED ITEMS WERE SKIPPED because their full
+           bodies name a third party or a named business (ImHereLA,
+           Muttervonzwei, jp4thewin), and one more (@theLifeEditStudios)
+           because a named software product sits in the same comment.
+
+           SELECTION TEST for any future swap: if the verbatim text
+           contains the show name, the host's name, or any third party's
+           name, DROP the quote and pick another confirmed one. Never edit
+           the words. */
+        quotes: [
+            /* INTERNAL ONLY, NEVER RENDERED - handle Questions with Pam Mills, Apple 5 stars, 2023-11-22 */
+            { text: "As someone who is just starting out as a solopreneur, I have a clear vision and it involves digital products.",
+              source: "Apple Podcasts review" },
+            /* INTERNAL ONLY, NEVER RENDERED - handle Btwinks, Apple 5 stars, 2025-03-05 */
+            { text: "I am starting to build an online business and although I'm still afraid to charge anyone yet, I am so pumped to get there with every podcast I listen to.",
+              source: "Apple Podcasts review" },
+            /* INTERNAL ONLY, NEVER RENDERED - handle Tara Rene, Apple 5 stars, 2024-03-18 */
+            { text: "My journey is slower and longer (mostly because of needs to take care of kids and aging parents).",
+              source: "Apple Podcasts review" },
+            /* INTERNAL ONLY, NEVER RENDERED - handle Daanos8, Apple 5 stars, 2025-05-08 */
+            { text: "As a Type A personality who is very hard on herself and suffers from imposter syndrome but also pushes to the max which leads me to burn out and depression, this episode was so helpful to me!",
+              source: "Apple Podcasts review" },
+            /* INTERNAL ONLY, NEVER RENDERED - handle @albinatrachuk, YouTube, ~2026-07-31 */
+            { text: "I spent 7 minutes watching this to learn how to build a system, only to realize at the end that the entire video was just promoting a course. Zero value.",
+              source: "YouTube comment" },
+            /* INTERNAL ONLY, NEVER RENDERED - handle Lindsey Bomgren, Apple 5 stars, 2025-10-29 */
+            { text: "Every time I listen I'm inspired to better my business to create resources and SOP's for my team so I don't have to bear the burden of doing it all alone as I grow my business.",
+              source: "Apple Podcasts review" }
+        ]
+    };
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; }
@@ -41,124 +175,121 @@
 
         .header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 28px;
+            padding: 10px 24px;
             background: #ffffff; border-bottom: 1px solid #ddd6fe;
             flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; gap: 8px; }
         .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
-        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-logo { font-weight: 700; font-size: 14px; color: #111827; letter-spacing: -0.4px; }
         .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
         .header-back:hover { color: #6d28d9; }
 
         .container {
             flex: 1; min-height: 0; display: flex; flex-direction: column;
-            padding: 14px 28px 16px; gap: 16px;
+            padding: 10px 24px 12px; gap: 10px;
         }
 
-        /* Identity strip */
         .identity-strip {
             flex-shrink: 0;
             background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
-            padding: 12px 20px;
-            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            padding: 10px 18px;
+            display: flex; align-items: center; justify-content: space-between; gap: 18px;
         }
-        .identity-show { display: flex; flex-direction: column; gap: 1px; }
+        .identity-show { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
         .identity-name { font-size: 15px; font-weight: 700; color: #111827; }
-        .identity-host { font-size: 12px; color: #9ca3af; }
-        .identity-stats { display: flex; gap: 22px; }
-        .identity-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
-        .identity-stat-val { font-size: 14px; font-weight: 700; color: #7c3aed; }
-        .identity-stat-label { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; }
+        .identity-name .with { color: #9ca3af; font-weight: 500; }
+        .identity-meta { font-size: 11.5px; color: #6b7280; }
+        .identity-desc { font-size: 11.5px; color: #6b7280; }
+        .identity-desc em { color: #7c3aed; font-style: normal; font-weight: 600; }
+        .identity-stats { display: flex; gap: 20px; flex-shrink: 0; }
+        .identity-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 0; }
+        .identity-stat-val { font-size: 15px; font-weight: 800; color: #7c3aed; }
+        .identity-stat-label { font-size: 9.5px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
 
-        /* Panels grid - 6 lenses, must fit without scrolling. Rows and cards size
-           to their own content instead of being force-stretched to fill the
-           screen, so no card carries dead space between its copy and its
-           footer stats. */
         .panels-grid {
             flex-shrink: 0;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, auto);
-            gap: 14px;
+            gap: 10px;
         }
         .panel {
             background: #ffffff; border: 1.5px solid #e9d5ff;
-            border-radius: 12px; padding: 18px 20px;
-            display: flex; flex-direction: column; gap: 10px;
+            border-radius: 12px; padding: 12px 14px;
+            display: flex; flex-direction: column; gap: 7px;
             overflow: hidden;
         }
         .panel-num {
             font-size: 10px; font-weight: 800; color: #ffffff;
             background: #7c3aed; border-radius: 5px;
-            width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+            width: 17px; height: 17px; display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
         .panel-label {
-            font-size: 11px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.05em; color: #6b7280;
+            font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; color: #6b7280;
             display: flex; align-items: center; gap: 7px;
         }
-        .panel-text {
-            font-size: 12px; line-height: 1.45; color: #374151;
-            display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;
-            overflow: hidden;
+        .panel-text { font-size: 11.5px; line-height: 1.45; color: #374151; }
+        .panel-foot {
+            margin-top: auto; padding-top: 7px; border-top: 1px solid #f3f0ff;
+            display: flex; align-items: center; justify-content: space-between; gap: 8px;
+            font-size: 10px; color: #9ca3af;
         }
-        .panel-divider { height: 1px; background: #f3f0ff; margin: 2px 0; flex-shrink: 0; }
-        .panel-stats { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
-        .panel-stat { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: #6b7280; }
-        .panel-stat strong { color: #7c3aed; font-weight: 700; }
-        .stat-row { display: flex; flex-direction: column; gap: 4px; }
-        .stat-row-top { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: #6b7280; }
-        .stat-row-top strong { color: #7c3aed; font-weight: 700; }
-        .stat-bar-track { height: 6px; background: #f3f0ff; border-radius: 3px; overflow: hidden; }
-        .stat-bar-fill { height: 100%; background: #7c3aed; border-radius: 3px; }
-        .stat-bar-fill.neg { background: #ef4444; }
-        .stat-dots { display: flex; gap: 5px; align-items: center; margin-top: 1px; }
-        .stat-dot { width: 6px; height: 6px; border-radius: 50%; background: #7c3aed; }
+        .panel-src { color: #7c3aed; font-weight: 700; }
+        .strength { display: flex; gap: 3px; align-items: center; }
+        .sbar { width: 12px; height: 4px; border-radius: 2px; background: #ede9fe; }
+        .sbar.on { background: #7c3aed; }
 
-        /* Language layer */
-        .language-strip {
+        .language-block {
             flex-shrink: 0;
             background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
-            padding: 10px 18px;
-            display: flex; align-items: center; gap: 14px;
+            padding: 9px 14px 11px;
+        }
+        .language-head {
+            display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+            margin-bottom: 7px;
         }
         .language-label {
-            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            font-size: 10px; font-weight: 800; text-transform: uppercase;
             letter-spacing: 0.06em; color: #7c3aed; flex-shrink: 0;
         }
-        .quote-row { display: flex; gap: 10px; overflow: hidden; flex: 1; }
-        .quote-chip {
-            background: #ffffff; border: 1px solid #ddd6fe; border-radius: 8px;
-            padding: 6px 12px; font-size: 11px; color: #374151;
-            white-space: nowrap; flex-shrink: 0;
+        .language-note { font-size: 10px; color: #9ca3af; text-align: right; }
+        .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .quote-card {
+            background: #ffffff; border: 1px solid #ddd6fe; border-radius: 9px;
+            padding: 8px 10px;
+            display: flex; flex-direction: column; gap: 5px;
         }
-        .quote-chip .who { color: #9ca3af; margin-left: 5px; }
+        .quote-text { font-size: 10.5px; line-height: 1.4; color: #374151; }
+        .quote-who {
+            margin-top: auto; font-size: 9.5px; color: #6b7280;
+            display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+        }
+        .quote-handle { font-weight: 800; color: #111827; }
+        .quote-plat { color: #9ca3af; }
 
-        /* CTA bar */
         .cta-bar {
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: space-between;
             gap: 12px;
         }
-        .cta-hint { font-size: 12px; color: #9ca3af; }
+        .cta-hint { font-size: 11.5px; color: #9ca3af; }
         .cta-btn {
             background: #7c3aed; color: #ffffff; border: none; border-radius: 9px;
-            padding: 11px 20px; font-size: 13px; font-weight: 600; font-family: inherit;
+            padding: 10px 18px; font-size: 13px; font-weight: 600; font-family: inherit;
             cursor: pointer; transition: background 0.15s, transform 0.1s;
-            display: flex; align-items: center; gap: 6px;
+            display: flex; align-items: center; gap: 6px; flex-shrink: 0;
         }
         .cta-btn:hover { background: #6d28d9; transform: translateY(-1px); }
-
-        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
     </style>
 </head>
 <body>
 
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
-        <div class="loading-msg">Building the audience profile for The Bootstrap Dispatch...</div>
+        <div class="loading-msg" id="loadingMsg"></div>
     </div>
 
     <div class="header">
@@ -166,146 +297,82 @@
             <div class="header-dot"></div>
             <div class="header-logo">Research Engine</div>
         </div>
-        <div class="header-back" onclick="window.location.href='index.html'">← New room</div>
+        <div class="header-back" onclick="window.location.href='index.html'">&larr; New room</div>
     </div>
 
     <div class="container">
 
         <div class="identity-strip">
             <div class="identity-show">
-                <div class="identity-name">The Bootstrap Dispatch <span style="color:#9ca3af; font-weight:500;">with Marcus Yeun</span></div>
-                <div class="identity-host">Weekly interview podcast · 6 years running · 312 episodes</div>
+                <div class="identity-name" id="identityName"></div>
+                <div class="identity-meta" id="identityMeta"></div>
+                <div class="identity-desc" id="identityDesc"></div>
             </div>
-            <div class="identity-stats">
-                <div class="identity-stat">
-                    <div class="identity-stat-val">14,200</div>
-                    <div class="identity-stat-label">Avg. listeners / ep</div>
-                </div>
-                <div class="identity-stat">
-                    <div class="identity-stat-val">4.8★</div>
-                    <div class="identity-stat-label">2,860 ratings</div>
-                </div>
-                <div class="identity-stat">
-                    <div class="identity-stat-val">1,140</div>
-                    <div class="identity-stat-label">Reviews read</div>
-                </div>
-            </div>
+            <div class="identity-stats" id="identityStats"></div>
         </div>
 
-        <div class="panels-grid">
+        <div class="panels-grid" id="panelsGrid"></div>
 
-            <div class="panel">
-                <div class="panel-label"><span class="panel-num">1</span>Where they came from</div>
-                <div class="panel-text">61% bootstrapped, self-funded founders · 24% took outside money · 15% still employed, building on the side. Median guest is 4 years into the business before landing on this show.</div>
-                <div class="panel-divider"></div>
-                <div class="panel-stats">
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Service businesses</span><strong>44%</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:44%"></div></div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>SaaS founders</span><strong>31%</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:31%"></div></div>
-                    </div>
-                </div>
+        <div class="language-block">
+            <div class="language-head">
+                <div class="language-label">The words they use themselves - not paraphrased</div>
+                <div class="language-note" id="languageNote"></div>
             </div>
-
-            <div class="panel">
-                <div class="panel-label"><span class="panel-num">2</span>Their real pain</div>
-                <div class="panel-text">Not "not enough leads." It's the fear that asking for help admits they can't do this alone, after years of telling everyone they could. That fear shows up in how guests hedge before naming a real number.</div>
-                <div class="panel-divider"></div>
-                <div class="panel-stats">
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Raised unprompted in reviews</span><strong>38 of 50</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:76%"></div></div>
-                    </div>
-                    <div class="panel-stat"><span>Strongest at</span><strong>3-6 yrs in</strong></div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-label"><span class="panel-num">3</span>What actually drives them</div>
-                <div class="panel-text">Being able to point at the business and say nobody else's money built this. Proof, not size. Growth numbers land softer here than one sentence about doing it without outside capital.</div>
-                <div class="panel-divider"></div>
-                <div class="panel-stats">
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Opens with a funding disclaimer</span><strong>-22% completion</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill neg" style="width:22%"></div></div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>"No investors" in the intro</span><strong>3x replays</strong></div>
-                        <div class="stat-dots"><div class="stat-dot"></div><div class="stat-dot"></div><div class="stat-dot"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-label"><span class="panel-num">4</span>What they're afraid of</div>
-                <div class="panel-text">Becoming the founder who sold out for funding - or the one who stayed small out of fear and has nothing to show for either choice. Both get named almost word for word in listener reviews.</div>
-                <div class="panel-divider"></div>
-                <div class="panel-stats">
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Reviews naming "sold out"</span><strong>17</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:65%"></div></div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Reviews naming "played it safe"</span><strong>9</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:35%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-label"><span class="panel-num">5</span>What stories land</div>
-                <div class="panel-text">The exact dollar figure of the first paying customer. Turning-point stories with a real number attached, not brand transformation arcs. Vague growth language reads as filler to this crowd.</div>
-                <div class="panel-divider"></div>
-                <div class="panel-stats">
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Dollar figure in first 5 min</span><strong>61% completion</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:61%"></div></div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>No figure given</span><strong>29% completion</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:29%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-label"><span class="panel-num">6</span>Their dream outcome</div>
-                <div class="panel-text">Not an exit. A business that runs without them chained to it, built entirely their own way. "Freedom" outranks "valuation" whenever guests are asked what winning actually looks like.</div>
-                <div class="panel-divider"></div>
-                <div class="panel-stats">
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Named "exit" as the goal</span><strong>4 of 41</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:10%"></div></div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-row-top"><span>Named "runs without me"</span><strong>29 of 41</strong></div>
-                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:71%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="language-strip">
-            <div class="language-label">In their words</div>
-            <div class="quote-row">
-                <div class="quote-chip">"Every guest sounds like they took someone's money to get here. Half of them here didn't."<span class="who pii-blur"> -  reviewer handle</span></div>
-                <div class="quote-chip">"'Hustle 24/7' isn't a badge of honor to this crowd."<span class="who pii-blur"> -  reviewer handle</span></div>
-            </div>
+            <div class="quote-grid" id="quoteGrid"></div>
         </div>
 
         <div class="cta-bar">
-            <div class="cta-hint">One more thing this room can tell you - what's worked here before, and what hasn't.</div>
-            <button class="cta-btn" onclick="window.location.href='l3.html'">Compare to my best rooms &nbsp;→</button>
+            <div class="cta-hint">Anything can summarise a show. Next is the part only your own rooms can tell you - what has already worked in a room like this one, and what has already failed.</div>
+            <button class="cta-btn" onclick="window.location.href='l3.html'">Compare to my best rooms &nbsp;&rarr;</button>
         </div>
 
     </div>
 
     <script>
-        setTimeout(() => {
+        var P = PROVISIONAL;
+
+        document.getElementById('loadingMsg').textContent = 'Reading ' + P.name + '...';
+
+        document.getElementById('identityName').innerHTML =
+            P.name + ' <span class="with">with ' + P.host + '</span>';
+
+        document.getElementById('identityMeta').textContent =
+            P.episodes + ' episodes · running since ' + P.sinceYear + ' · ' + P.cadence + ' · ' + P.sourceLabel;
+
+        document.getElementById('identityDesc').innerHTML =
+            P.descriptionLead + ' <em>"' + P.descriptionPhrase + '"</em> ' + P.descriptionTail;
+
+        document.getElementById('identityStats').innerHTML = [
+            { v: P.ratingValue + ' &#9733;', l: P.ratingCount },
+            { v: P.reviewsRead, l: 'Written reviews read' },
+            { v: P.commentsRead, l: 'Comments harvested, ' + P.videosRead + ' videos' }
+        ].map(function (s) {
+            return '<div class="identity-stat"><div class="identity-stat-val">' + s.v +
+                   '</div><div class="identity-stat-label">' + s.l + '</div></div>';
+        }).join('');
+
+        document.getElementById('panelsGrid').innerHTML = P.panels.map(function (p, i) {
+            var bars = '';
+            for (var b = 0; b < 5; b++) { bars += '<span class="sbar' + (b < p.bars ? ' on' : '') + '"></span>'; }
+            return '<div class="panel">' +
+                '<div class="panel-label"><span class="panel-num">' + (i + 1) + '</span>' + p.label + '</div>' +
+                '<div class="panel-text">' + p.text + '</div>' +
+                '<div class="panel-foot"><span>Their words, from <span class="panel-src">' + p.source + '</span></span>' +
+                '<span class="strength">' + bars + '</span></div>' +
+                '</div>';
+        }).join('');
+
+        document.getElementById('languageNote').textContent =
+            'Pulled from public reviews and comment threads on this show. Their words, not a summary of them. ' + P.discarded;
+
+        /* Neutral source label only. No handle, no name, no per-person
+           attribution is ever rendered - see the quotes block above. */
+        document.getElementById('quoteGrid').innerHTML = P.quotes.map(function (q) {
+            return '<div class="quote-card"><div class="quote-text">"' + q.text + '"</div>' +
+                '<div class="quote-who"><span class="quote-handle">' + q.source + '</span></div></div>';
+        }).join('');
+
+        setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');
         }, 1300);
     </script>

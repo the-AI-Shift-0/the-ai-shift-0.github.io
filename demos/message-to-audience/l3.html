@@ -1,10 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<!--
+  The drill-down: this room matched against Sai's best-converting appearances.
+  The wow moment is the FIRST block on the page - a hook that DIED in rooms
+  like this one. See index.html for the recording note and the number model.
+  NOTHING ON THIS PAGE IS BLURRED - the show name renders SHARP, per the
+  owner's decision of 2026-08-11. The quote text is verbatim and unaltered,
+  and NO REVIEWER HANDLE RENDERS - only a neutral source label.
+  SIMULATED here: the appearance library and every count - 41 base, 9
+  comparable, 7 hooks (5 landed, 2 died), every per-hook usage at or below 9.
+  Each `why` is written only from confirmed material about this show.
+-->
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Engine - Compared to Your Best Rooms</title>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SHOW DATA - every show-specific string on this page lives in this
+         one object. Swap here if the show changes.
+         VERIFIED 2026-08-11: `name` and `evidence` (verbatim public
+         YouTube comment, re-confirmed on a second independent fetch).
+         SIMULATED: every count and every hook. Each `why` is written only
+         from confirmed material about this show's audience, so nothing on
+         screen asserts an insight the confirmed material does not carry.
+         `name` renders SHARP. Nothing on this page is blurred. The quote
+         text is never altered.
+         NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS.
+         ══════════════════════════════════════════════════════════════ -->
+    <script>
+    var PROVISIONAL = {
+        name: "The Amy Porterfield Show",
+        roomDescriptor: "rooms full of online business owners and course creators who are building it themselves and scanning for the pitch",
+        /* VERBATIM, unaltered. No handle renders - `source` is a neutral
+           label and is the only attribution on screen. The real handle is in
+           the INTERNAL ONLY comment below so the quote can be re-verified.
+           Checked against the FULL body: this text contains no show name,
+           no host name and no third party's name.
+           INTERNAL ONLY, NEVER RENDERED - handle @heygurikaur, YouTube,
+           ~2026-08-04 */
+        evidence: {
+            text: "the nuance of hustling without burning yourself out while still building real income is the tightrope so many women walk. Thanks for bringing on a guest who tells it straight.",
+            source: "YouTube comment"
+        },
+        died: [
+            { name: "Opening with the fifteen million",
+              meta: "Used in 3 of 9 comparable rooms · died in all 3",
+              why: "Your strongest credential is your weakest opener here. This room measures itself in first steps, not in millions, and it says so unprompted - just starting, still afraid to charge. A big number in the first two minutes is the exact signal it uses to decide it is being sold to. Hold it back until after the turn, and attach it to what it cost you." },
+            { name: "Leading with the AI, not the hours",
+              meta: "Used in 2 of 9 comparable rooms · died in both",
+              why: "Nothing this room writes about itself is about a technology. It is about being overwhelmed and about a week that will not stretch. The same material lands when the first sentence is seven hours down to forty-five minutes, and dies when the first sentence is about the machine that did it.",
+              evidence: true }
+        ],
+        landed: [
+            { name: "I was terrible at this for years",
+              meta: "Used in 6 of 9 comparable rooms · landed in all 6",
+              why: "This room names imposter syndrome about itself, without being asked. Opening by proving competence answers a question nobody here is asking. Leading with the years of getting it wrong answers the one they are." },
+            { name: "Seven hours down to forty-five minutes",
+              meta: "Used in 5 of 9 comparable rooms · landed in all 5",
+              why: "A number about time, not about revenue. This room is running a business around kids and aging parents, so it converts time saved straight into its own week without you doing the maths for it." },
+            { name: "The catch-22 I built myself",
+              meta: "Used in 4 of 9 comparable rooms · landed in all 4",
+              why: "More clients meant more fixed cost meant more appearances. This room describes the same trap as bearing the burden of doing it all alone while the business grows, and getting other people to carry part of it is the thing it is least sure about." }
+        ],
+        moreLanded: "+ 2 more hooks that landed in rooms like this one"
+    };
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -42,7 +105,7 @@
 
         .header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 14px 32px;
+            padding: 12px 32px;
             background: #ffffff; border-bottom: 1px solid #ddd6fe; flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; gap: 8px; }
@@ -52,72 +115,84 @@
         .header-back:hover { color: #6d28d9; }
 
         .container {
-            flex: 1; padding: 28px 32px 60px;
-            max-width: 920px; margin: 0 auto; width: 100%;
+            flex: 1; padding: 22px 32px 40px;
+            max-width: 960px; margin: 0 auto; width: 100%;
         }
 
-        .page-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 4px; letter-spacing: -0.4px; }
-        .page-sub { font-size: 13px; color: #6b7280; margin-bottom: 24px; }
+        .page-title { font-size: 21px; font-weight: 700; color: #111827; margin-bottom: 4px; letter-spacing: -0.4px; }
+        .page-sub { font-size: 13px; color: #6b7280; margin-bottom: 18px; }
         .page-sub strong { color: #7c3aed; }
 
         .stats-row {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-            margin-bottom: 28px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+            margin-bottom: 20px;
         }
         .stat-card {
             background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
-            padding: 16px 18px; text-align: center;
+            padding: 13px 16px; text-align: center;
         }
-        .stat-num { font-size: 26px; font-weight: 800; color: #111827; letter-spacing: -0.5px; }
+        .stat-num { font-size: 24px; font-weight: 800; color: #111827; letter-spacing: -0.5px; }
         .stat-num.purple { color: #7c3aed; }
         .stat-num.green { color: #16a34a; }
         .stat-num.red { color: #dc2626; }
-        .stat-label { font-size: 11px; color: #9ca3af; margin-top: 4px; font-weight: 500; }
+        .stat-label { font-size: 11px; color: #9ca3af; margin-top: 3px; font-weight: 500; }
 
         .section-label {
             font-size: 12px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #6b7280; margin-bottom: 12px;
+            letter-spacing: 0.08em; color: #6b7280; margin-bottom: 10px;
             display: flex; align-items: center; gap: 8px;
         }
 
-        /* Died - wow moment */
         .died-block {
             background: #fff1f2; border: 1.5px solid #fecdd3;
-            border-radius: 14px; padding: 20px 24px; margin-bottom: 28px;
+            border-radius: 14px; padding: 16px 20px; margin-bottom: 18px;
         }
         .died-title {
             font-size: 12px; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #dc2626; margin-bottom: 14px;
+            letter-spacing: 0.08em; color: #dc2626; margin-bottom: 12px;
             display: flex; align-items: center; gap: 8px;
         }
         .hook-card {
             background: #ffffff; border: 1px solid #fecdd3; border-radius: 10px;
-            padding: 14px 18px; margin-bottom: 10px;
+            padding: 13px 16px; margin-bottom: 9px;
         }
         .hook-card:last-child { margin-bottom: 0; }
-        .hook-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 4px; }
-        .hook-meta { font-size: 12px; color: #dc2626; font-weight: 600; margin-bottom: 6px; }
+        .hook-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 3px; }
+        .hook-meta { font-size: 12px; color: #dc2626; font-weight: 600; margin-bottom: 5px; }
         .hook-why { font-size: 12px; color: #6b7280; line-height: 1.5; }
 
-        /* Landed */
+        .evidence {
+            margin-top: 8px; padding: 8px 11px;
+            background: #faf8ff; border-left: 3px solid #ddd6fe; border-radius: 0 7px 7px 0;
+            font-size: 11.5px; color: #4b5563; line-height: 1.45;
+        }
+        .evidence .who { color: #111827; font-weight: 800; }
+        .evidence .plat { color: #9ca3af; font-weight: 500; }
+
         .landed-block {
             background: #ffffff; border: 1.5px solid #e9d5ff;
-            border-radius: 14px; padding: 20px 24px; margin-bottom: 24px;
+            border-radius: 14px; padding: 16px 20px; margin-bottom: 18px;
         }
         .hook-card.landed { border-color: #bbf7d0; }
         .hook-meta.landed { color: #16a34a; }
         .more-note { font-size: 12px; color: #9ca3af; padding: 8px 4px 0; }
 
-        .back-row { display: flex; gap: 12px; margin-top: 8px; }
+        .next-row {
+            display: flex; align-items: center; justify-content: space-between; gap: 14px;
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
+            padding: 14px 18px; margin-bottom: 14px;
+        }
+        .next-hint { font-size: 12.5px; color: #4b5563; }
         .btn {
             padding: 11px 20px; border-radius: 9px; font-size: 13px; font-weight: 600;
             border: none; cursor: pointer; font-family: inherit;
             transition: background 0.15s, transform 0.1s;
         }
+        .btn-primary { background: #7c3aed; color: #ffffff; flex-shrink: 0; }
+        .btn-primary:hover { background: #6d28d9; transform: translateY(-1px); }
         .btn-secondary { background: transparent; color: #7c3aed; border: 1px solid #ddd6fe; }
         .btn-secondary:hover { background: #f3f0ff; }
-
-        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+        .back-row { display: flex; gap: 12px; }
     </style>
 </head>
 <body>
@@ -125,7 +200,7 @@
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
         <div class="loading-msg">Comparing against your appearance library...</div>
-        <div class="loading-sub">41 past appearances · matching for audience profile</div>
+        <div class="loading-sub">41 past appearances · matching on who is actually in the room</div>
     </div>
 
     <div class="header">
@@ -133,13 +208,13 @@
             <div class="header-dot"></div>
             <div class="header-logo">Research Engine</div>
         </div>
-        <div class="header-back" onclick="window.location.href='l2.html'">← Audience profile</div>
+        <div class="header-back" onclick="window.location.href='l2.html'">&larr; The room</div>
     </div>
 
     <div class="container">
 
         <div class="page-title">Compared to your best rooms</div>
-        <div class="page-sub">The Bootstrap Dispatch matched against <strong>9 of your 41</strong> past appearances - rooms with a similar audience profile and size.</div>
+        <div class="page-sub" id="pageSub"></div>
 
         <div class="stats-row">
             <div class="stat-card">
@@ -161,48 +236,57 @@
         </div>
 
         <div class="died-block">
-            <div class="died-title">⚠ Died in rooms like this one</div>
-
-            <div class="hook-card">
-                <div class="hook-name">The "move fast and break things" framing</div>
-                <div class="hook-meta">Used in 3 of 9 comparable rooms · fell flat in all 3</div>
-                <div class="hook-why">This audience hears speed-over-caution as funded-company bravado, not grit - it works against panel 4's fear of looking reckless with something they built alone.</div>
-            </div>
-
-            <div class="hook-card">
-                <div class="hook-name">The "hustle 24/7" framing</div>
-                <div class="hook-meta">Used in 2 of 9 comparable rooms · fell flat in both</div>
-                <div class="hook-why">Confirmed again in this show's own reviews - this crowd doesn't reward always-on as a badge of honor.</div>
-            </div>
+            <div class="died-title">&#9888; Died in rooms like this one</div>
+            <div id="diedList"></div>
         </div>
 
         <div class="landed-block">
-            <div class="section-label">✓ Landed in rooms like this one</div>
+            <div class="section-label">&#10003; Landed in rooms like this one</div>
+            <div id="landedList"></div>
+            <div class="more-note" id="moreNote"></div>
+        </div>
 
-            <div class="hook-card landed">
-                <div class="hook-name">The "first paying customer, no funding" story</div>
-                <div class="hook-meta landed">Used in 6 of 9 comparable rooms · landed in all 6</div>
-                <div class="hook-why">Puts a real number on the exact moment they proved it themselves.</div>
-            </div>
-
-            <div class="hook-card landed">
-                <div class="hook-name">Naming the moment control almost slipped away</div>
-                <div class="hook-meta landed">Used in 5 of 9 comparable rooms · landed in all 5</div>
-                <div class="hook-why">Speaks straight to what actually drives this room - proof over size.</div>
-            </div>
-
-            <div class="more-note">+ 3 more hooks that landed in this audience profile</div>
+        <div class="next-row">
+            <div class="next-hint">That is what to say and what to avoid. The last step turns it into the actual 45 minutes.</div>
+            <button class="btn btn-primary" onclick="window.location.href='l4.html'">Build the running order &nbsp;&rarr;</button>
         </div>
 
         <div class="back-row">
-            <button class="btn btn-secondary" onclick="window.location.href='l2.html'">← Back to audience profile</button>
+            <button class="btn btn-secondary" onclick="window.location.href='l2.html'">&larr; Back to the room</button>
             <button class="btn btn-secondary" onclick="window.location.href='index.html'">Start a new room</button>
         </div>
 
     </div>
 
     <script>
-        setTimeout(() => {
+        var P = PROVISIONAL;
+
+        document.getElementById('pageSub').innerHTML =
+            P.name + ' matched against <strong>9 of your 41</strong> past appearances - ' +
+            P.roomDescriptor + '.';
+
+        /* Neutral source label only - no handle is ever rendered. */
+        function evidenceHtml() {
+            return '<div class="evidence">"' + P.evidence.text + '"<br>' +
+                   '<span class="who">' + P.evidence.source + '</span></div>';
+        }
+
+        function hookHtml(h, landed) {
+            return '<div class="hook-card' + (landed ? ' landed' : '') + '">' +
+                '<div class="hook-name">' + h.name + '</div>' +
+                '<div class="hook-meta' + (landed ? ' landed' : '') + '">' + h.meta + '</div>' +
+                '<div class="hook-why">' + h.why + '</div>' +
+                (h.evidence ? evidenceHtml() : '') +
+                '</div>';
+        }
+
+        document.getElementById('diedList').innerHTML =
+            P.died.map(function (h) { return hookHtml(h, false); }).join('');
+        document.getElementById('landedList').innerHTML =
+            P.landed.map(function (h) { return hookHtml(h, true); }).join('');
+        document.getElementById('moreNote').textContent = P.moreLanded;
+
+        setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');
         }, 1500);
     </script>

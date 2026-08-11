@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+  <meta charset="UTF-8" />
+<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Copywriter - Demo 1 Record-Day Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f7ff;
+      color: #1a1a2e;
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container { max-width: 780px; margin: 0 auto; }
+
+    .badge {
+      display: inline-block;
+      background: #7c3aed;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .subtitle { color: #555; font-size: 1rem; margin-bottom: 2rem; }
+
+    /* WHY BANNER */
+    .why-banner {
+      background: #ede9fe;
+      border: 1px solid #c4b5fd;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .why-banner h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #7c3aed; margin-bottom: 0.5rem; }
+    .why-banner p { font-size: 0.93rem; color: #3b1f7a; line-height: 1.65; margin-bottom: 0.6rem; }
+    .why-banner p:last-child { margin-bottom: 0; }
+
+    /* DANGER BANNER */
+    .danger-banner {
+      background: #fef2f2;
+      border: 2px solid #dc2626;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .danger-banner h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b91c1c; margin-bottom: 0.5rem; }
+    .danger-banner p { font-size: 0.93rem; color: #7f1d1d; line-height: 1.65; margin-bottom: 0.6rem; }
+    .danger-banner p:last-child { margin-bottom: 0; }
+
+    /* PART HEADERS */
+    .part-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      margin-top: 2rem;
+    }
+    .part-label {
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .part-label.demo { background: #7c3aed; }
+    .part-label.danger { background: #dc2626; }
+    .part-title { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; }
+
+    /* STEP CARDS */
+    .step {
+      background: #fff;
+      border: 1px solid #e8e4f8;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .step.flagged { border-color: #dc2626; border-width: 2px; }
+    .step-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7c3aed;
+      margin-bottom: 0.4rem;
+    }
+    .step-num.danger { color: #b91c1c; }
+    .step h3 { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.65rem; }
+    .step p { font-size: 0.9rem; color: #444; margin-bottom: 0.75rem; }
+    .step p:last-child { margin-bottom: 0; }
+
+    .timing {
+      float: right;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    /* CODE BLOCKS */
+    .code-wrap { position: relative; margin-top: 0.5rem; }
+    .code-block {
+      background: #1a1a2e;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      padding-right: 5.5rem;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .copy-btn:hover { background: #6d28d9; }
+    .copy-btn.copied { background: #059669; }
+
+    /* NOTE */
+    .note {
+      background: #f3f0ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 8px 8px 0;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      color: #4a3070;
+      margin-top: 0.75rem;
+    }
+    .note.danger {
+      background: #fef2f2;
+      border-left-color: #dc2626;
+      color: #7f1d1d;
+    }
+
+    /* LISTS */
+    .demo-steps { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.5rem; }
+    .demo-steps li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.92rem; color: #333; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #7c3aed; margin-top: 0.48rem; flex-shrink: 0; }
+    .dot.danger { background: #dc2626; }
+    .dot.ok { background: #059669; }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.5rem; }
+    .checklist li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.92rem; color: #333; }
+    .box {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 0.28rem;
+      border: 2px solid #7c3aed; border-radius: 4px; background: #fff;
+    }
+    .box.danger { border-color: #dc2626; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 2px dashed #e0d9f7; margin: 2rem 0; }
+
+    .script-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed; margin-top: 1.25rem; margin-bottom: 0.35rem; }
+    .script-line {
+      background: #f3f0ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #3b1f7a;
+    }
+    .editor-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #555; margin-top: 1.1rem; margin-bottom: 0.35rem; }
+    .editor-line {
+      background: #f8f7ff;
+      border-left: 3px solid #9ca3af;
+      border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      color: #374151;
+    }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.89rem; }
+    th, td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid #e8e4f8; vertical-align: top; }
+    th { background: #f3f0ff; color: #4a3070; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    td.no { color: #b91c1c; font-weight: 600; }
+
+    .filming-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 0.75rem; }
+    .filming-card { background: #f8f7ff; border: 1px solid #e8e4f8; border-radius: 8px; padding: 0.9rem; }
+    .filming-card h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #7c3aed; margin-bottom: 0.35rem; }
+    .filming-card p { font-size: 0.86rem; color: #444; margin: 0; }
+
+    @media (max-width: 580px) {
+      .filming-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.6rem; }
+      .timing { float: none; display: inline-block; margin-bottom: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="badge">Sai's Guide - AI Copywriter</div>
+  <h1>AI Copywriter - Demo 1</h1>
+  <p class="subtitle">Record-day guide - keep this open while you film. Follow it top to bottom.</p>
+
+  <div class="why-banner">
+    <h2>What you are filming</h2>
+    <p><strong>Your real ChatGPT project. The one you actually use.</strong> Not a built demo, not a mock-up, not a rebuilt version for camera. You open the real thing, scroll the real file list, type one real line, and let it run.</p>
+    <p>The only thing added is a <strong>light brand frame</strong> - a thin branded strip reading "AI Copywriter" laid over the real screen in the edit. Nothing on screen is invented.</p>
+    <p><strong>Target length on the final cut: 60-90 seconds.</strong> Four beats, 65 seconds of them, fast cuts. This is not a tutorial.</p>
+  </div>
+
+  <div class="danger-banner">
+    <h2>Do this before the camera rolls</h2>
+    <p><strong>The filename pass is mandatory and it comes first.</strong> The file list is the highest-risk surface in this entire video - it is also the beat we are selling. Jump to <strong>Part 1</strong> below and do it before anything else. Do not film first and clean up later; there is no fixing a leaked client name in the edit without losing the scroll shot.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 1 -->
+  <div class="part-header">
+    <span class="part-label danger">Part 1</span>
+    <span class="part-title">Mandatory pre-record filename pass</span>
+  </div>
+
+  <div class="step flagged">
+    <div class="step-num danger">Highest-risk item on the shoot</div>
+    <h3>Why this exists</h3>
+    <p>From the script's own spec: <strong>"The file list is the highest-risk surface in this video. Filenames leak client names, launch names and internal project names."</strong></p>
+    <p>Beat 1 is a slow scroll down that list, on screen, held long enough for the viewer to read it. Every filename in that scroll is published. This is the same defect class as <code>AI CALLER TEST</code> being readable on screen in an earlier video.</p>
+  </div>
+
+  <div class="step flagged">
+    <div class="step-num danger">The checklist</div>
+    <h3>Open the project's file list and go through it top to bottom</h3>
+    <p>Rename or remove any file whose name contains any of the following. Do this in the project itself, before the screen recording starts.</p>
+    <ul class="checklist">
+      <li><div class="box danger"></div><span><strong>A client name.</strong> Any customer, account or company we have worked with. Rename to the category instead, e.g. the type of business rather than the business.</span></li>
+      <li><div class="box danger"></div><span><strong>A staff name.</strong> Anyone on the team, past or present - including the three copywriters. First names alone still count.</span></li>
+      <li><div class="box danger"></div><span><strong>A launch name.</strong> Any product launch, campaign codename or offer name that is not public.</span></li>
+      <li><div class="box danger"></div><span><strong>An internal project name.</strong> Anything only we would understand, anything with "test" or "v2" or a person's initials in it.</span></li>
+    </ul>
+    <div class="note danger">Sweep twice. A "First Last" pass misses single names. After the first pass, read the list again looking only for capitalised words you do not recognise as generic.</div>
+  </div>
+
+  <div class="step flagged">
+    <div class="step-num danger">Also before you record</div>
+    <h3>The project name and the sidebar</h3>
+    <ul class="checklist">
+      <li><div class="box danger"></div><span><strong>Rename the project itself</strong> if its current name leaks anything. The name shows in the sidebar and in the browser tab title for the whole shot.</span></li>
+      <li><div class="box danger"></div><span><strong>Check the sidebar.</strong> It lists every other project on the account. Clear, collapse or hide anything that is not this one.</span></li>
+      <li><div class="box danger"></div><span><strong>Check the window title and the tab title</strong> before you hit record, not after.</span></li>
+    </ul>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 2 -->
+  <div class="part-header">
+    <span class="part-label">Part 2</span>
+    <span class="part-title">Screen-recording hygiene</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Clean frame</div>
+    <h3>Set the screen up before the first take</h3>
+    <ul class="checklist">
+      <li><div class="box"></div><span><strong>Hide the macOS Dock.</strong> System Settings &rarr; Desktop &amp; Dock &rarr; Automatically hide and show the Dock. An earlier video shipped with the full Dock visible - do not repeat it.</span></li>
+      <li><div class="box"></div><span><strong>Close every other browser tab.</strong> Tab titles are readable at full screen.</span></li>
+      <li><div class="box"></div><span><strong>Check window titles</strong> - the browser window title, the tab title, and anything visible in a second window behind it.</span></li>
+      <li><div class="box"></div><span><strong>No bookmarks bar, no extensions, no notifications.</strong> Use a clean browser profile and turn on Do Not Disturb.</span></li>
+    </ul>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 3 -->
+  <div class="part-header">
+    <span class="part-label demo">Part 3</span>
+    <span class="part-title">The four beats, in order</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Transition in</div>
+    <h3>The line that gets you out of the story and onto the screen</h3>
+    <div class="script-label">Say this</div>
+    <div class="script-line">"Let me show you the actual thing I use. Not a demo version - the real one I ran this morning."</div>
+  </div>
+
+  <div class="step">
+    <span class="timing">15 sec</span>
+    <div class="step-num">Beat 1</div>
+    <h3>What's Loaded</h3>
+    <div class="script-label">Voiceover, word for word</div>
+    <div class="script-line">"This is the project. Everything that ever made us money is in here - years of our own winning copy, the customer's exact language, and the best copywriters alive. All loaded in before I type a single word."</div>
+    <div class="editor-label">Editor direction from the script</div>
+    <div class="editor-line">Open on the project. Zoom slowly down the file list - folders stacked: winning VSLs, email campaigns, ads that converted, customer language, the copy legends. Dozens of files. <strong>The impact is the SCROLL</strong> - make the file list feel bottomless.</div>
+    <div class="note">Scroll top to bottom in one move, no cuts mid-scroll. The beat is the length of the list, not any single filename.</div>
+  </div>
+
+  <div class="step">
+    <span class="timing">10 sec</span>
+    <div class="step-num">Beat 2</div>
+    <h3>One Line In</h3>
+    <p><strong>Type this on camera, in full, word for word. Then hit enter.</strong></p>
+    <div class="code-wrap">
+      <div class="code-block" id="typed-line">Write the full launch campaign for [product] - sales page, five-email sequence, three ad variations.</div>
+      <button class="copy-btn" onclick="copyFrom(this, 'typed-line')">Copy</button>
+    </div>
+    <div class="script-label">Voiceover, word for word</div>
+    <div class="script-line">"Watch what one sentence does."</div>
+    <div class="note">Replace <strong>[product]</strong> with the real offer you are launching. Everything else stays exactly as written - the line has to promise a sales page, five emails and three ads, because that is what Beat 3 shows arriving.</div>
+  </div>
+
+  <div class="step">
+    <span class="timing">25 sec</span>
+    <div class="step-num">Beat 3</div>
+    <h3>It Detonates</h3>
+    <div class="script-label">Voiceover, word for word</div>
+    <div class="script-line">"A full sales page. Then five emails. Then the ads. In my voice, using my customers' words - because it already knows all of it. This took nine seconds."</div>
+    <div class="editor-label">Editor direction from the script</div>
+    <div class="editor-line">Copy pours out - sales page &rarr; email sequence &rarr; ads. <strong>Speed-ramp the generation.</strong> Cut fast; don't hold long enough to read. The wow is watching a full campaign build itself from one line.</div>
+    <div class="note"><strong>Capture the generation at real speed.</strong> It will be slow on camera - that is expected and fine. The editor ramps it forward so it reads as instant. Do not try to make it fast in the room.</div>
+  </div>
+
+  <div class="step">
+    <span class="timing">15 sec</span>
+    <div class="step-num">Beat 4</div>
+    <h3>The Proof</h3>
+    <div class="script-label">Voiceover, word for word</div>
+    <div class="script-line">"Read that. That's not generic AI copy. That's better than anything my $25K-a-month team ever handed me - and it wrote the whole campaign while I sat here watching."</div>
+    <div class="editor-label">Editor direction from the script</div>
+    <div class="editor-line">Land on <strong>one</strong> finished piece - a section of the sales page or a single email - held just long enough to register it's genuinely good, not slop.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Transition out</div>
+    <h3>The line that bridges into Demo 2</h3>
+    <div class="script-label">Say this</div>
+    <div class="script-line">"Now obviously this took me a year and thousands of pieces of my own private copy to build. You don't have that. But here's the thing - you don't need it. Because I've already built you a version, trained and ready, that you can slot into your own project today and have it writing better copy for your business in the next ten minutes. Let me show you."</div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 4 -->
+  <div class="part-header">
+    <span class="part-label">Part 4</span>
+    <span class="part-title">The light brand frame - what it is and what it is not</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">For the editor</div>
+    <h3>The frame is a strip, nothing more</h3>
+    <p>The whole of Demo 1 is the real screen recording. The brand frame sits <em>over</em> that footage and never replaces any part of it.</p>
+    <ul class="demo-steps">
+      <li><div class="dot ok"></div><span><strong>What it is:</strong> a thin branded lower-third, or a thin branded header strip along the top edge, reading <strong>"AI Copywriter"</strong>. Channel colours and channel type. It sits over the real project footage for the duration of the demo, or fades in at the start of Beat 1 and out at the end of Beat 4.</span></li>
+      <li><div class="dot ok"></div><span><strong>Keep it thin.</strong> It must not cover the file list during the Beat 1 scroll, the input box during Beat 2, or the copy during Beats 3 and 4. If it obscures any of those, it is too big.</span></li>
+      <li><div class="dot danger"></div><span><strong>NO invented UI.</strong> No fake buttons, no fake panels, no fake sidebar, no rebuilt version of the screen.</span></li>
+      <li><div class="dot danger"></div><span><strong>NO fake data.</strong> Every filename, every file count and every word of generated copy on screen is the real thing from the real project.</span></li>
+      <li><div class="dot danger"></div><span><strong>NO simulated chrome.</strong> No mocked-up app window, no invented product interface, no overlaid counters or progress bars that the real screen did not show.</span></li>
+    </ul>
+    <div class="note danger">A built simulation of this workspace was previously produced and has been scrapped. Demo 1 is the real project, filmed. Nothing on screen may be invented.</div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 5 -->
+  <div class="part-header">
+    <span class="part-label danger">Part 5</span>
+    <span class="part-title">Blur list</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Blur</div>
+    <h3>Blur these if they appear on screen</h3>
+    <ul class="checklist">
+      <li><div class="box danger"></div><span>The <strong>$25,000</strong> retainer figure.</span></li>
+      <li><div class="box danger"></div><span>The <strong>$5M</strong> and <strong>$400K</strong> revenue figures, if they appear on screen.</span></li>
+      <li><div class="box danger"></div><span>Any <strong>client or staff name</strong> in the file list.</span></li>
+      <li><div class="box danger"></div><span>Any <strong>real customer name</strong> inside a quoted email.</span></li>
+    </ul>
+    <div class="note danger">Blurring is the backstop, not the plan. Part 1 is the plan - if the filename pass is done properly, there is nothing in the file list left to blur.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Show</div>
+    <h3>Do not blur these - they are the demo</h3>
+    <ul class="demo-steps">
+      <li><div class="dot ok"></div><span><strong>The file list itself.</strong> Blurring it kills Beat 1.</span></li>
+      <li><div class="dot ok"></div><span><strong>The campaign structure</strong> - sales page, then emails, then ads.</span></li>
+      <li><div class="dot ok"></div><span><strong>The generated copy.</strong></span></li>
+    </ul>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 6 -->
+  <div class="part-header">
+    <span class="part-label danger">Part 6</span>
+    <span class="part-title">Words that must not be said on camera</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">From the script</div>
+    <h3>Six words. None of them go in the audio.</h3>
+    <p>The audience is business owners, not builders. Naming the plumbing tells them this is not for them.</p>
+    <table>
+      <thead><tr><th>Do not say</th><th>What the script says instead</th></tr></thead>
+      <tbody>
+        <tr><td class="no">project knowledge</td><td>"Everything that ever made us money is in here."</td></tr>
+        <tr><td class="no">corpus</td><td>"Years of our own winning copy."</td></tr>
+        <tr><td class="no">context window</td><td>Do not reference it at all.</td></tr>
+        <tr><td class="no">fine-tune</td><td>Do not reference it at all.</td></tr>
+        <tr><td class="no">RAG</td><td>"It already knows how our customers talk, so I don't have to tell it."</td></tr>
+        <tr><td class="no">token</td><td>Do not reference it at all.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PART 7 -->
+  <div class="part-header">
+    <span class="part-label">Part 7</span>
+    <span class="part-title">Filming tips</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">Keep in mind</div>
+    <h3>Four things that decide whether this is one take or three</h3>
+    <div class="filming-grid">
+      <div class="filming-card">
+        <h4>Never film it live</h4>
+        <p>Generation is slow on camera and a weak generation kills the beat. Record it, then let the editor speed-ramp it.</p>
+      </div>
+      <div class="filming-card">
+        <h4>Run it more than once</h4>
+        <p>The same prompt does not produce the same answer twice. Capture a second full generation so the editor has a choice if the first reads weak.</p>
+      </div>
+      <div class="filming-card">
+        <h4>The scroll is the sell</h4>
+        <p>Beat 1 works only if the list feels bottomless. Slow, continuous, no cuts mid-scroll.</p>
+      </div>
+      <div class="filming-card">
+        <h4>Fast cuts, not a tutorial</h4>
+        <p>Each beat is 10-25 seconds. Nothing is explained. The wow is volume, then speed.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function copyFrom(btn, id) {
+    var text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
