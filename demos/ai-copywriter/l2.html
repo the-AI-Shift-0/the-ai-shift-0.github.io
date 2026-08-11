@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+    <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Copywriter - Campaign Generated</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-steps {
+            display: flex; flex-direction: column; gap: 6px;
+            margin-top: 8px; min-width: 240px;
+        }
+        .loading-step {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 12px; color: #9ca3af;
+        }
+        .step-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #e9d5ff; flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .step-dot.done { background: #7c3aed; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 32px;
+            background: #ffffff; border-bottom: 1px solid #ddd6fe;
+            flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
+        .header-back:hover { color: #6d28d9; }
+
+        .container {
+            flex: 1; display: flex; justify-content: center;
+            padding: 52px 40px 90px;
+        }
+        .content { max-width: 720px; width: 100%; }
+
+        .result-banner {
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-left: 4px solid #7c3aed;
+            border-radius: 12px; padding: 16px 20px; margin-bottom: 8px;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        }
+        .result-banner-text { font-size: 14px; font-weight: 600; color: #111827; }
+        .result-banner-text span { color: #7c3aed; }
+        .result-banner-sub { font-size: 12px; color: #6b7280; margin-top: 2px; }
+        .result-time {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; color: #7c3aed; background: #ffffff;
+            border: 1px solid #ddd6fe; border-radius: 99px; padding: 5px 12px;
+            white-space: nowrap;
+        }
+
+        .prompt-echo {
+            font-size: 12px; color: #9ca3af; margin: 18px 0 20px;
+            padding: 10px 14px; background: #ffffff; border: 1px dashed #e9d5ff;
+            border-radius: 8px;
+        }
+        .prompt-echo b { color: #6b7280; font-weight: 600; }
+
+        .section-title {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #6b7280; margin-bottom: 14px;
+        }
+
+        .panels-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px; margin-bottom: 28px;
+        }
+        .panel {
+            background: #ffffff; border: 1.5px solid #e9d5ff;
+            border-radius: 14px; padding: 22px 22px;
+            display: flex; flex-direction: column; gap: 8px;
+            cursor: pointer;
+            transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+        }
+        .panel:hover {
+            border-color: #7c3aed;
+            box-shadow: 0 4px 16px rgba(124,58,237,0.1);
+            transform: translateY(-2px);
+        }
+        .panel-icon { width: 14px; height: 14px; border-radius: 3px; margin-bottom: 2px; }
+.panel-icon-doc { background: #818cf8; }
+.panel-icon-email { background: #34d399; }
+.panel-icon-ad { background: #fb923c; }
+        .panel-label { font-size: 13px; font-weight: 700; color: #111827; }
+        .panel-stat { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; color: #7c3aed; }
+        .panel-sub { font-size: 12px; color: #9ca3af; }
+        .panel-explore {
+            margin-top: auto; font-size: 12px; color: #7c3aed; font-weight: 600;
+            display: flex; align-items: center; gap: 4px;
+        }
+
+        .totals-bar {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 14px;
+            padding: 18px 24px; display: flex; gap: 32px; align-items: center;
+            margin-bottom: 28px;
+        }
+        .totals-item { display: flex; flex-direction: column; gap: 2px; }
+        .totals-num { font-size: 20px; font-weight: 800; color: #111827; letter-spacing: -0.5px; }
+        .totals-label { font-size: 11px; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .source-note {
+            font-size: 12px; color: #9ca3af; line-height: 1.6;
+            background: #fafaff; border: 1px solid #f0edff; border-radius: 10px;
+            padding: 14px 18px;
+        }
+        .source-note b { color: #6b7280; }
+
+        .source-breakdown {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 14px;
+            padding: 20px 24px; margin-top: 28px;
+        }
+        .source-breakdown-title {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #7c3aed; margin-bottom: 16px;
+        }
+        .source-breakdown-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+        }
+        .source-breakdown-item { display: flex; flex-direction: column; gap: 4px; }
+        .source-breakdown-num { font-size: 22px; font-weight: 800; color: #111827; letter-spacing: -0.5px; }
+        .source-breakdown-label { font-size: 11.5px; color: #6b7280; line-height: 1.4; }
+        @media (max-width: 720px) { .source-breakdown-grid { grid-template-columns: 1fr 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Writing the campaign...</div>
+        <div class="loading-steps">
+            <div class="loading-step"><div class="step-dot" id="s1"></div><span>Drafting the sales page</span></div>
+            <div class="loading-step"><div class="step-dot" id="s2"></div><span>Writing the 5-email sequence</span></div>
+            <div class="loading-step"><div class="step-dot" id="s3"></div><span>Building 3 ad variations</span></div>
+            <div class="loading-step"><div class="step-dot" id="s4"></div><span>Matching your customers' words</span></div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">AI Copywriter</div>
+        </div>
+        <div class="header-back" onclick="window.location.href='index.html'">← Back to the workspace</div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+
+            <div class="result-banner">
+                <div>
+                    <div class="result-banner-text">Full launch campaign, <span>done</span></div>
+                    <div class="result-banner-sub">Sales page, five-email sequence, three ad variations - one sentence in</div>
+                </div>
+                <div class="result-time">9 seconds</div>
+            </div>
+
+            <div class="prompt-echo"><b>You asked:</b> "Write the full launch campaign for [your offer] - sales page, five-email sequence, three ad variations."</div>
+
+            <div class="section-title">The campaign</div>
+            <div class="panels-grid">
+                <div class="panel" onclick="window.location.href='l3.html#sales'">
+                    <div class="panel-icon panel-icon-doc"></div>
+                    <div class="panel-label">Sales page</div>
+                    <div class="panel-stat">2,140</div>
+                    <div class="panel-sub">words</div>
+                    <div class="panel-explore">Read it →</div>
+                </div>
+                <div class="panel" onclick="window.location.href='l3.html#emails'">
+                    <div class="panel-icon panel-icon-email"></div>
+                    <div class="panel-label">Email sequence</div>
+                    <div class="panel-stat">5</div>
+                    <div class="panel-sub">emails · 1,550 words</div>
+                    <div class="panel-explore">Read them →</div>
+                </div>
+                <div class="panel" onclick="window.location.href='l3.html#ads'">
+                    <div class="panel-icon panel-icon-ad"></div>
+                    <div class="panel-label">Ad variations</div>
+                    <div class="panel-stat">3</div>
+                    <div class="panel-sub">ads · 155 words</div>
+                    <div class="panel-explore">Read them →</div>
+                </div>
+            </div>
+
+            <div class="totals-bar">
+                <div class="totals-item">
+                    <div class="totals-num">3,845</div>
+                    <div class="totals-label">Words written</div>
+                </div>
+                <div class="totals-item">
+                    <div class="totals-num">9</div>
+                    <div class="totals-label">Pieces of copy</div>
+                </div>
+                <div class="totals-item">
+                    <div class="totals-num">9 sec</div>
+                    <div class="totals-label">Generation time</div>
+                </div>
+                <div class="totals-item">
+                    <div class="totals-num">166</div>
+                    <div class="totals-label">Files referenced</div>
+                </div>
+            </div>
+
+            <div class="source-note">Built from all 166 files loaded in - <b>years of winning copy, customer language, and the frameworks behind it</b> - not a blank prompt.</div>
+
+            <div class="source-breakdown">
+                <div class="source-breakdown-title">Where the 166 files came from</div>
+                <div class="source-breakdown-grid">
+                    <div class="source-breakdown-item">
+                        <div class="source-breakdown-num">24</div>
+                        <div class="source-breakdown-label">Winning sales pages &amp; VSLs</div>
+                    </div>
+                    <div class="source-breakdown-item">
+                        <div class="source-breakdown-num">41</div>
+                        <div class="source-breakdown-label">Email campaigns</div>
+                    </div>
+                    <div class="source-breakdown-item">
+                        <div class="source-breakdown-num">68</div>
+                        <div class="source-breakdown-label">Ads that converted</div>
+                    </div>
+                    <div class="source-breakdown-item">
+                        <div class="source-breakdown-num">19</div>
+                        <div class="source-breakdown-label">Customer language notes</div>
+                    </div>
+                    <div class="source-breakdown-item">
+                        <div class="source-breakdown-num">14</div>
+                        <div class="source-breakdown-label">Copy legends</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => document.getElementById('s1').classList.add('done'), 350);
+        setTimeout(() => document.getElementById('s2').classList.add('done'), 750);
+        setTimeout(() => document.getElementById('s3').classList.add('done'), 1150);
+        setTimeout(() => document.getElementById('s4').classList.add('done'), 1500);
+        setTimeout(() => {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1900);
+    </script>
+</body>
+</html>

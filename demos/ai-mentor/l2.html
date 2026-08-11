@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+    <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mentor - Same File, Two Answers</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+        }
+        .loading-overlay {
+            position: fixed; inset: 0; background: #f8f7ff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 14px; z-index: 100; transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px; border: 3px solid #e9d5ff; border-top-color: #7c3aed;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-ticker { font-size: 12px; color: #9ca3af; min-width: 260px; text-align: center; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 32px; background: #ffffff; border-bottom: 1px solid #ddd6fe;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
+        .header-back:hover { color: #6d28d9; }
+
+        .content { max-width: 1080px; margin: 0 auto; padding: 28px 32px 60px; }
+
+        .question-bar {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+            padding: 16px 20px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+        }
+        .question-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; }
+        .question-text { font-size: 14px; font-weight: 600; color: #111827; }
+
+        .file-note { font-size: 11px; color: #9ca3af; margin-bottom: 24px; display: flex; align-items: center; gap: 6px; }
+        .file-note .check { color: #16a34a; }
+
+        /* align-items:start - panels size to their own content instead of being
+           stretched to match whichever side has more to say, which is what was
+           leaving a dead void at the bottom of the shorter panel. */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 20px; }
+
+        .panel { border-radius: 16px; overflow: hidden; border: 1.5px solid; display: flex; flex-direction: column; }
+        .panel.left { border-color: #e5e7eb; }
+        .panel.right { border-color: #ddd6fe; box-shadow: 0 4px 20px rgba(124,58,237,0.08); }
+
+        .panel-head { padding: 16px 20px; display: flex; align-items: center; gap: 10px; }
+        .panel.left .panel-head { background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+        .panel.right .panel-head { background: #f5f3ff; border-bottom: 1px solid #ddd6fe; }
+        .panel-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .panel.left .panel-dot { background: #9ca3af; }
+        .panel.right .panel-dot { background: #7c3aed; }
+        .panel-name { font-size: 13px; font-weight: 700; }
+        .panel.left .panel-name { color: #374151; }
+        .panel.right .panel-name { color: #4c1d95; }
+        .panel-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px; margin-left: auto; }
+        .panel.left .panel-tag { background: #f3f4f6; color: #6b7280; }
+        .panel.right .panel-tag { background: #ede9fe; color: #6d28d9; }
+
+        .panel-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+        .bubble-user {
+            align-self: flex-end; max-width: 90%;
+            background: #f3f4f6; border-radius: 10px 10px 2px 10px;
+            padding: 10px 14px; font-size: 12.5px; color: #374151; line-height: 1.5;
+        }
+        .bubble-answer { font-size: 14px; line-height: 1.65; color: #111827; }
+        .bubble-answer p { margin-bottom: 10px; }
+        .bubble-answer strong { font-weight: 700; }
+        .verdict {
+            display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px; margin-bottom: 4px;
+        }
+        .verdict.yes { background: #f0fdf4; color: #15803d; }
+        .verdict.no { background: #fef2f2; color: #dc2626; }
+
+        .outside-proof {
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
+            padding: 16px 18px; margin-top: 4px;
+        }
+        .outside-proof-label {
+            font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+            color: #7c3aed; margin-bottom: 4px;
+        }
+        .outside-proof-sub { font-size: 12px; color: #6b7280; margin-bottom: 10px; line-height: 1.5; }
+        svg.mini-trend { width: 100%; height: 90px; }
+
+        .continue-bar {
+            margin-top: 28px; display: flex; justify-content: center;
+        }
+        .continue-btn {
+            background: #7c3aed; color: #ffffff; border: none; border-radius: 10px;
+            padding: 14px 26px; font-size: 14px; font-weight: 700; font-family: inherit;
+            cursor: pointer; transition: background 0.15s;
+        }
+        .continue-btn:hover { background: #6d28d9; }
+
+        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Both advisors are reading the file...</div>
+        <div class="loading-ticker" id="ticker">Standard AI is reasoning from the file only</div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">AI Mentor</div>
+        </div>
+        <div class="header-back" onclick="window.location.href='index.html'">&larr; Dashboard</div>
+    </div>
+
+    <div class="content">
+
+        <div class="question-bar">
+            <div class="question-label">Same question, both windows</div>
+            <div class="question-text">"I've spent a year turning this around and cut every cost. Can I save it?"</div>
+        </div>
+
+        <div class="file-note"><span class="check">&#10003;</span> Same operating-data file, loaded into both &middot; nothing else is different between them</div>
+
+        <div class="compare-grid">
+
+            <!-- LEFT: Standard AI -->
+            <div class="panel left">
+                <div class="panel-head">
+                    <div class="panel-dot"></div>
+                    <div class="panel-name">Standard AI</div>
+                    <div class="panel-tag">No rules loaded</div>
+                </div>
+                <div class="panel-body">
+                    <div class="bubble-user">I've spent a year turning this around and cut every cost. Can I save it?</div>
+                    <div class="bubble-answer">
+                        <div class="verdict yes">Yes  -  keep going</div>
+                        <p>Based on your numbers, this is trending the right way. Monthly net loss has improved from -$54,200 to -$45,800 over the last 24 months, and you've cut $100,800 a year in costs across four areas. That's real, disciplined progress.</p>
+                        <p>Keep pushing on the current plan  -  another year of cost discipline at this rate should continue narrowing the gap.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: AI Mentor -->
+            <div class="panel right">
+                <div class="panel-head">
+                    <div class="panel-dot"></div>
+                    <div class="panel-name">AI Mentor</div>
+                    <div class="panel-tag">Standing rules loaded</div>
+                </div>
+                <div class="panel-body">
+                    <div class="bubble-user">I've spent a year turning this around and cut every cost. Can I save it?</div>
+                    <div class="bubble-answer">
+                        <div class="verdict no">No  -  this isn't a cost problem</div>
+                        <p>The loss line is improving, but that's not the question that decides this. Your file shows spend, cuts, and CAC  -  nothing about whether people actually want what this unit sells. New customers per month is flat to declining even as CAC rose from $312 to $498. You've made the unit cheaper to run. You haven't made it more wanted.</p>
+                        <p>That question isn't answered anywhere in this file, so I went and looked outside it.</p>
+                    </div>
+                    <div class="outside-proof">
+                        <div class="outside-proof-label">Outside proof &middot; not in your file</div>
+                        <div class="outside-proof-sub">Category demand, trailing 3 years  -  pulled independently, not something you handed me.</div>
+                        <svg class="mini-trend" viewBox="0 0 500 140" preserveAspectRatio="xMidYMid meet">
+                            <line x1="20" y1="120" x2="480" y2="120" stroke="#ddd6fe" stroke-width="1"/>
+                            <line x1="20" y1="70" x2="480" y2="70" stroke="#ddd6fe" stroke-width="1"/>
+                            <line x1="20" y1="20" x2="480" y2="20" stroke="#ddd6fe" stroke-width="1"/>
+                            <polyline points="20,20 112,44.7 204,72.1 296,94.0 388,110.4 480,120"
+                                      stroke="#7c3aed" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="20" cy="20" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+                            <circle cx="480" cy="120" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+                            <text x="45" y="134" font-size="10" fill="#9ca3af" text-anchor="start">3 yrs ago (100)</text>
+                            <text x="455" y="134" font-size="10" fill="#9ca3af" text-anchor="end">Now (27)</text>
+                        </svg>
+                        <p style="font-size:12.5px;color:#374151;margin-top:8px;line-height:1.5;">Demand for this whole category has been falling for three straight years  -  index 100 down to 27. This isn't a scattered dip. It's the whole market shrinking, the entire time you were cutting costs.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="continue-bar">
+            <button class="continue-btn" onclick="window.location.href='l3.html'">Ask the follow-up: so what do we do about it? &rarr;</button>
+        </div>
+
+    </div>
+
+    <script>
+        const ticks = [
+            'Standard AI is reasoning from the file only',
+            'AI Mentor is checking the standing rules...',
+            'Rereading the last exchange against the rules...',
+            'AI Mentor is looking outside the file for proof...'
+        ];
+        let i = 0;
+        const ticker = document.getElementById('ticker');
+        const interval = setInterval(() => {
+            i++;
+            if (i < ticks.length) ticker.innerHTML = ticks[i];
+        }, 380);
+        setTimeout(() => {
+            clearInterval(interval);
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1700);
+    </script>
+</body>
+</html>

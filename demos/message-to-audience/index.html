@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  NUMBER MODEL - Message to Audience / "the Research Engine" (Demo 1)
+  Built HTML shown in the video as if it were the real running system.
+  Every on-screen figure below is FICTIONAL. No real podcast, host, or
+  audience member appears anywhere in this build.
+  ═══════════════════════════════════════════════════════════════════
+
+  CANONICAL BUSINESS (identical across every video on this channel):
+    Revenue: $4,180,000 / yr        (rounds to "$4M" spoken; always blurred - financial)
+    Margin:  40%                    ($1,672,000; always shown sharp - percentages always show)
+    Team:    9 people               (standardised across every video; not financial, shown plain)
+
+  FICTIONAL PODCAST BEING RESEARCHED:
+    Show:    "The Bootstrap Dispatch" (fictional - not a real show)
+    Host:    "Marcus Yeun"            (fictional - not a real person)
+    Format:  weekly interview podcast, running 6 years, 312 episodes published
+    Audience: avg 14,200 listeners/episode · 4.8★ across 2,860 ratings
+    Sourcing counts: 1,140 written reviews analyzed · 380 comment threads read
+      (these are independent source counts, not components of a shared total - 
+       no sum relationship required between them)
+
+  AUDIENCE ORIGIN BREAKDOWN (L2, Panel 1) - sums to 100%:
+    Bootstrapped / self-funded founders ......... 61%
+    Venture-backed / funded founders ............ 24%
+    Still employed, building on the side ........ 15%
+    TOTAL ........................................ 100%
+
+  LANGUAGE LAYER - 3 fictional review quotes, reviewer names/handles blurred
+  per blur list (words themselves stay visible - public commentary, not names).
+
+  CROSS-REFERENCE (L3) - every subset is ≤ its stated base:
+    Appearance library (base) .................... 41 past appearances
+    Comparable rooms matched (⊆ 41) .............. 9 rooms
+    Hooks tested against the comparable pool ..... 7
+      Landed ...................................... 5   ┐
+      Died ......................................... 2   ┘ 5 + 2 = 7 ✓
+    Per-hook usage counts (each ⊆ 9 comparable rooms):
+      "First paying customer, no funding" story .... used 6 of 9 · landed 6 of 6
+      "Moment control almost slipped away" .......... used 5 of 9 · landed 5 of 5
+      (+3 more landed hooks, not itemized on screen)
+      "Move fast and break things" framing .......... used 3 of 9 · died 3 of 3  [WOW MOMENT]
+      "Hustle 24/7" framing .......................... used 2 of 9 · died 2 of 2
+    Every usage count (6,5,3,2) ≤ 9 (the comparable-room base). No result exceeds its base.
+
+  No jargon on screen: "lenses" are always named plainly ("the six things"),
+  no "corpus," no "embeddings," no "run-of-show" (always "the running order").
+  ═══════════════════════════════════════════════════════════════════
+-->
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Engine</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 100;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-steps {
+            display: flex; flex-direction: column; gap: 6px;
+            margin-top: 8px; min-width: 260px;
+        }
+        .loading-step {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 12px; color: #9ca3af;
+        }
+        .step-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #e9d5ff; flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .step-dot.done { background: #7c3aed; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 32px;
+            background: #ffffff;
+            border-bottom: 1px solid #ddd6fe;
+            flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-right { display: flex; gap: 16px; align-items: center; }
+        .status-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+
+        .container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+        .content { max-width: 560px; width: 100%; }
+
+        .business-bar {
+            background: #f5f3ff; border: 1px solid #ddd6fe;
+            border-radius: 12px; padding: 14px 18px;
+            display: flex; align-items: center; gap: 18px;
+            margin-bottom: 40px; font-size: 13px; color: #374151;
+        }
+        .business-label {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #9ca3af; margin-right: 4px;
+        }
+        .business-item strong { color: #111827; }
+
+        .greeting { font-size: 13px; color: #9ca3af; margin-bottom: 12px; font-weight: 500; }
+        .prompt-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 28px; letter-spacing: -0.4px; }
+
+        .chat-input-wrap {
+            background: #ffffff;
+            border: 1.5px solid #ddd6fe;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+        }
+        .chat-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #111827;
+            font-family: inherit;
+            background: transparent;
+        }
+        .chat-input::placeholder { color: #9ca3af; }
+
+        .run-btn {
+            background: #7c3aed; color: #ffffff;
+            border: none; border-radius: 10px;
+            padding: 14px 24px; font-size: 15px; font-weight: 600;
+            font-family: inherit; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: background 0.15s, transform 0.1s;
+        }
+        .run-btn:hover { background: #6d28d9; transform: translateY(-1px); }
+
+        .hint { font-size: 12px; color: #9ca3af; margin-top: 20px; line-height: 1.5; }
+
+        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Running the audience research...</div>
+        <div class="loading-steps">
+            <div class="loading-step"><div class="step-dot" id="s1"></div><span>Where they came from</span></div>
+            <div class="loading-step"><div class="step-dot" id="s2"></div><span>Their real pain</span></div>
+            <div class="loading-step"><div class="step-dot" id="s3"></div><span>What actually drives them</span></div>
+            <div class="loading-step"><div class="step-dot" id="s4"></div><span>What they're afraid of</span></div>
+            <div class="loading-step"><div class="step-dot" id="s5"></div><span>What stories land</span></div>
+            <div class="loading-step"><div class="step-dot" id="s6"></div><span>Their dream outcome</span></div>
+            <div class="loading-step"><div class="step-dot" id="s7"></div><span>Pulling the words they actually use</span></div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">Research Engine</div>
+        </div>
+        <div class="header-right">
+            <div class="status-badge"><div class="status-dot"></div><span>Appearance library loaded</span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+
+            <div class="business-bar">
+                <span class="business-label">Connected</span>
+                <span class="business-item"><span class="pii-blur">$4,180,000</span>/yr revenue</span>
+                <span class="business-item"><strong>40%</strong> margin</span>
+                <span class="business-item"><strong>9</strong>-person team</span>
+            </div>
+
+            <div class="greeting">One line is all it needs</div>
+            <div class="prompt-title">What room are you walking into?</div>
+
+            <div class="chat-input-wrap">
+                <input type="text" class="chat-input" id="roomInput" value="I'm on The Bootstrap Dispatch in two weeks.">
+            </div>
+
+            <button class="run-btn" onclick="go()">Run the research &nbsp;→</button>
+
+            <div class="hint">It pulls the show, the host, who actually listens - then works the same six things you'd normally spend seven hours figuring out by hand.</div>
+
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 900);
+
+        function go() {
+            const overlay = document.getElementById('overlay');
+            overlay.classList.remove('hidden');
+            const ids = ['s1','s2','s3','s4','s5','s6','s7'];
+            ids.forEach((id, i) => {
+                setTimeout(() => document.getElementById(id).classList.add('done'), 260 * (i + 1));
+            });
+            setTimeout(() => { window.location.href = 'l2.html'; }, 260 * ids.length + 500);
+        }
+    </script>
+</body>
+</html>

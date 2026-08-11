@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+    <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mentor - The Recommendation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+        }
+        .loading-overlay {
+            position: fixed; inset: 0; background: #f8f7ff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 14px; z-index: 100; transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 28px; height: 28px; border: 3px solid #e9d5ff; border-top-color: #7c3aed;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-ticker { font-size: 12px; color: #9ca3af; min-width: 260px; text-align: center; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 32px; background: #ffffff; border-bottom: 1px solid #ddd6fe;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
+        .header-back:hover { color: #6d28d9; }
+
+        .content { max-width: 1080px; margin: 0 auto; padding: 28px 32px 60px; }
+
+        .question-bar {
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+            padding: 16px 20px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+        }
+        .question-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; }
+        .question-text { font-size: 14px; font-weight: 600; color: #111827; }
+
+        /* align-items:start - panels size to their own content instead of being
+           stretched to match whichever side has more to say, which is what was
+           leaving a dead void at the bottom of the shorter panel. */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 20px; }
+
+        .panel { border-radius: 16px; overflow: hidden; border: 1.5px solid; display: flex; flex-direction: column; }
+        .panel.left { border-color: #e5e7eb; }
+        .panel.right { border-color: #ddd6fe; box-shadow: 0 4px 20px rgba(124,58,237,0.08); }
+
+        .panel-head { padding: 16px 20px; display: flex; align-items: center; gap: 10px; }
+        .panel.left .panel-head { background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+        .panel.right .panel-head { background: #f5f3ff; border-bottom: 1px solid #ddd6fe; }
+        .panel-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .panel.left .panel-dot { background: #9ca3af; }
+        .panel.right .panel-dot { background: #7c3aed; }
+        .panel-name { font-size: 13px; font-weight: 700; }
+        .panel.left .panel-name { color: #374151; }
+        .panel.right .panel-name { color: #4c1d95; }
+        .panel-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px; margin-left: auto; }
+        .panel.left .panel-tag { background: #f3f4f6; color: #6b7280; }
+        .panel.right .panel-tag { background: #ede9fe; color: #6d28d9; }
+
+        .panel-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+        .bubble-user {
+            align-self: flex-end; max-width: 90%;
+            background: #f3f4f6; border-radius: 10px 10px 2px 10px;
+            padding: 10px 14px; font-size: 12.5px; color: #374151; line-height: 1.5;
+        }
+        .bubble-answer { font-size: 14px; line-height: 1.65; color: #111827; }
+        .bubble-answer p { margin-bottom: 10px; }
+        .bubble-answer strong { font-weight: 700; }
+        .verdict {
+            display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px; margin-bottom: 4px;
+        }
+        .verdict.shutdown { background: #f3f4f6; color: #6b7280; }
+        .verdict.sell { background: #f0fdf4; color: #15803d; }
+
+        .asset-block {
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
+            padding: 16px 18px; margin-top: 4px;
+        }
+        .asset-label {
+            font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+            color: #7c3aed; margin-bottom: 10px;
+        }
+        .asset-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 4px; }
+        .asset-item { font-size: 12.5px; color: #374151; display: flex; gap: 8px; align-items: flex-start; }
+        .asset-item .bullet { color: #7c3aed; font-weight: 700; }
+
+        .continue-bar { margin-top: 28px; display: flex; justify-content: center; }
+        .continue-btn {
+            background: #ffffff; color: #7c3aed; border: 1.5px solid #ddd6fe; border-radius: 10px;
+            padding: 13px 24px; font-size: 13px; font-weight: 700; font-family: inherit;
+            cursor: pointer; transition: background 0.15s;
+        }
+        .continue-btn:hover { background: #f5f3ff; }
+
+        /* Outcome banner */
+        .outcome-banner {
+            margin-top: 30px; background: linear-gradient(135deg, #f5f3ff, #ffffff);
+            border: 1.5px solid #ddd6fe; border-radius: 18px; padding: 32px 36px;
+            text-align: center;
+        }
+        .outcome-eyebrow {
+            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+            color: #7c3aed; margin-bottom: 14px;
+        }
+        .outcome-nums { display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 12px; flex-wrap: wrap; }
+        .outcome-num { display: flex; flex-direction: column; gap: 2px; }
+        .outcome-num .n { font-size: 34px; font-weight: 800; letter-spacing: -1px; }
+        .outcome-num .n.red { color: #ef4444; }
+        .outcome-num .n.green { color: #16a34a; }
+        .outcome-num .l { font-size: 11px; color: #9ca3af; font-weight: 600; }
+        .outcome-arrow { font-size: 22px; color: #c4b5fd; }
+        .outcome-line { font-size: 14px; color: #374151; max-width: 560px; margin: 0 auto; line-height: 1.6; }
+        .outcome-line strong { color: #111827; }
+        .outcome-buyer { font-size: 12px; color: #9ca3af; margin-top: 14px; }
+
+        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Both advisors are weighing the decision...</div>
+        <div class="loading-ticker" id="ticker">Standard AI is scoring the shutdown option</div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">AI Mentor</div>
+        </div>
+        <div class="header-back" onclick="window.location.href='l2.html'">&larr; Back to first answer</div>
+    </div>
+
+    <div class="content">
+
+        <div class="question-bar">
+            <div class="question-label">The follow-up</div>
+            <div class="question-text">"OK  -  so what do we do about it?"</div>
+        </div>
+
+        <div class="compare-grid">
+
+            <!-- LEFT: Standard AI -->
+            <div class="panel left">
+                <div class="panel-head">
+                    <div class="panel-dot"></div>
+                    <div class="panel-name">Standard AI</div>
+                    <div class="panel-tag">No rules loaded</div>
+                </div>
+                <div class="panel-body">
+                    <div class="bubble-user">OK  -  so what do we do about it?</div>
+                    <div class="bubble-answer">
+                        <div class="verdict shutdown">Shut it down</div>
+                        <p>There's no clear path to profitability here. Demand for the category has been falling for three years, and continuing to absorb a $45,800/month loss isn't sustainable no matter how lean the operation gets.</p>
+                        <p>Recommend winding the unit down over the next quarter and redirecting the team elsewhere.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: AI Mentor -->
+            <div class="panel right">
+                <div class="panel-head">
+                    <div class="panel-dot"></div>
+                    <div class="panel-name">AI Mentor</div>
+                    <div class="panel-tag">Standing rules loaded</div>
+                </div>
+                <div class="panel-body">
+                    <div class="bubble-user">OK  -  so what do we do about it?</div>
+                    <div class="bubble-answer">
+                        <div class="verdict sell">Don't shut it down  -  sell it</div>
+                        <p>Shutting it down throws away assets a shutdown can't recover. You have real things a buyer would pay for that a wind-down just writes off:</p>
+                    </div>
+                    <div class="asset-block">
+                        <div class="asset-label">What's actually on the table</div>
+                        <div class="asset-list">
+                            <div class="asset-item"><span class="bullet">&bull;</span> An active customer base still buying your other product lines  -  not just this unit's book</div>
+                            <div class="asset-item"><span class="bullet">&bull;</span> Purpose-built tooling and fulfillment workflows, already running</div>
+                            <div class="asset-item"><span class="bullet">&bull;</span> Brand and domain assets specific to the category</div>
+                            <div class="asset-item"><span class="bullet">&bull;</span> Existing supplier agreements, transferable to a buyer</div>
+                        </div>
+                    </div>
+                    <div class="bubble-answer">
+                        <p style="margin-top:2px;">Run a structured sale process instead of a wind-down. A declining category doesn't mean these assets are worthless to someone else  -  it means they're worth more to a buyer than they are to you carrying the loss.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="continue-bar">
+            <button class="continue-btn" onclick="window.location.href='index.html'">&larr; Back to dashboard</button>
+        </div>
+
+        <div class="outcome-banner">
+            <div class="outcome-eyebrow">What actually happened</div>
+            <div class="outcome-nums">
+                <div class="outcome-num">
+                    <div class="n red">$650,000<span style="font-size:16px;">/yr</span></div>
+                    <div class="l">the loss, if it kept running</div>
+                </div>
+                <div class="outcome-arrow">&rarr;</div>
+                <div class="outcome-num">
+                    <div class="n green">$440,000</div>
+                    <div class="l">the exit, assets sold</div>
+                </div>
+            </div>
+            <div class="outcome-line">A structured sale, after ~4 months of due diligence, to <span class="pii-blur">Harborline Ventures</span>. <strong>A yes-man would have kept funding the loss for another year.</strong> The AI that left the document found $440,000 nobody else was looking for.</div>
+            <div class="outcome-buyer">Buyer identity and unit name shown blurred &middot; figures are real</div>
+        </div>
+
+    </div>
+
+    <script>
+        const ticks = [
+            'Standard AI is scoring the shutdown option',
+            'AI Mentor is checking the standing rules...',
+            'Rereading the last exchange against the rules...',
+            'AI Mentor is pricing the asset bundle...'
+        ];
+        let i = 0;
+        const ticker = document.getElementById('ticker');
+        const interval = setInterval(() => {
+            i++;
+            if (i < ticks.length) ticker.innerHTML = ticks[i];
+        }, 380);
+        setTimeout(() => {
+            clearInterval(interval);
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1700);
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv")location.replace("/");</script>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Engine - The Bootstrap Dispatch</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            z-index: 100;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .spinner-lg {
+            width: 26px; height: 26px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 13px; color: #6b7280; font-weight: 500; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 28px;
+            background: #ffffff; border-bottom: 1px solid #ddd6fe;
+            flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
+        .header-back:hover { color: #6d28d9; }
+
+        .container {
+            flex: 1; min-height: 0; display: flex; flex-direction: column;
+            padding: 14px 28px 16px; gap: 16px;
+        }
+
+        /* Identity strip */
+        .identity-strip {
+            flex-shrink: 0;
+            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+            padding: 12px 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        .identity-show { display: flex; flex-direction: column; gap: 1px; }
+        .identity-name { font-size: 15px; font-weight: 700; color: #111827; }
+        .identity-host { font-size: 12px; color: #9ca3af; }
+        .identity-stats { display: flex; gap: 22px; }
+        .identity-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+        .identity-stat-val { font-size: 14px; font-weight: 700; color: #7c3aed; }
+        .identity-stat-label { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        /* Panels grid - 6 lenses, must fit without scrolling. Rows and cards size
+           to their own content instead of being force-stretched to fill the
+           screen, so no card carries dead space between its copy and its
+           footer stats. */
+        .panels-grid {
+            flex-shrink: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 14px;
+        }
+        .panel {
+            background: #ffffff; border: 1.5px solid #e9d5ff;
+            border-radius: 12px; padding: 18px 20px;
+            display: flex; flex-direction: column; gap: 10px;
+            overflow: hidden;
+        }
+        .panel-num {
+            font-size: 10px; font-weight: 800; color: #ffffff;
+            background: #7c3aed; border-radius: 5px;
+            width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .panel-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #6b7280;
+            display: flex; align-items: center; gap: 7px;
+        }
+        .panel-text {
+            font-size: 12px; line-height: 1.45; color: #374151;
+            display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .panel-divider { height: 1px; background: #f3f0ff; margin: 2px 0; flex-shrink: 0; }
+        .panel-stats { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+        .panel-stat { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: #6b7280; }
+        .panel-stat strong { color: #7c3aed; font-weight: 700; }
+        .stat-row { display: flex; flex-direction: column; gap: 4px; }
+        .stat-row-top { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: #6b7280; }
+        .stat-row-top strong { color: #7c3aed; font-weight: 700; }
+        .stat-bar-track { height: 6px; background: #f3f0ff; border-radius: 3px; overflow: hidden; }
+        .stat-bar-fill { height: 100%; background: #7c3aed; border-radius: 3px; }
+        .stat-bar-fill.neg { background: #ef4444; }
+        .stat-dots { display: flex; gap: 5px; align-items: center; margin-top: 1px; }
+        .stat-dot { width: 6px; height: 6px; border-radius: 50%; background: #7c3aed; }
+
+        /* Language layer */
+        .language-strip {
+            flex-shrink: 0;
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
+            padding: 10px 18px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .language-label {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; color: #7c3aed; flex-shrink: 0;
+        }
+        .quote-row { display: flex; gap: 10px; overflow: hidden; flex: 1; }
+        .quote-chip {
+            background: #ffffff; border: 1px solid #ddd6fe; border-radius: 8px;
+            padding: 6px 12px; font-size: 11px; color: #374151;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .quote-chip .who { color: #9ca3af; margin-left: 5px; }
+
+        /* CTA bar */
+        .cta-bar {
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px;
+        }
+        .cta-hint { font-size: 12px; color: #9ca3af; }
+        .cta-btn {
+            background: #7c3aed; color: #ffffff; border: none; border-radius: 9px;
+            padding: 11px 20px; font-size: 13px; font-weight: 600; font-family: inherit;
+            cursor: pointer; transition: background 0.15s, transform 0.1s;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .cta-btn:hover { background: #6d28d9; transform: translateY(-1px); }
+
+        .pii-blur { display: inline-block; filter: blur(0.4em); -webkit-filter: blur(0.4em); user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Building the audience profile for The Bootstrap Dispatch...</div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">Research Engine</div>
+        </div>
+        <div class="header-back" onclick="window.location.href='index.html'">← New room</div>
+    </div>
+
+    <div class="container">
+
+        <div class="identity-strip">
+            <div class="identity-show">
+                <div class="identity-name">The Bootstrap Dispatch <span style="color:#9ca3af; font-weight:500;">with Marcus Yeun</span></div>
+                <div class="identity-host">Weekly interview podcast · 6 years running · 312 episodes</div>
+            </div>
+            <div class="identity-stats">
+                <div class="identity-stat">
+                    <div class="identity-stat-val">14,200</div>
+                    <div class="identity-stat-label">Avg. listeners / ep</div>
+                </div>
+                <div class="identity-stat">
+                    <div class="identity-stat-val">4.8★</div>
+                    <div class="identity-stat-label">2,860 ratings</div>
+                </div>
+                <div class="identity-stat">
+                    <div class="identity-stat-val">1,140</div>
+                    <div class="identity-stat-label">Reviews read</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panels-grid">
+
+            <div class="panel">
+                <div class="panel-label"><span class="panel-num">1</span>Where they came from</div>
+                <div class="panel-text">61% bootstrapped, self-funded founders · 24% took outside money · 15% still employed, building on the side. Median guest is 4 years into the business before landing on this show.</div>
+                <div class="panel-divider"></div>
+                <div class="panel-stats">
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Service businesses</span><strong>44%</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:44%"></div></div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>SaaS founders</span><strong>31%</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:31%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label"><span class="panel-num">2</span>Their real pain</div>
+                <div class="panel-text">Not "not enough leads." It's the fear that asking for help admits they can't do this alone, after years of telling everyone they could. That fear shows up in how guests hedge before naming a real number.</div>
+                <div class="panel-divider"></div>
+                <div class="panel-stats">
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Raised unprompted in reviews</span><strong>38 of 50</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:76%"></div></div>
+                    </div>
+                    <div class="panel-stat"><span>Strongest at</span><strong>3-6 yrs in</strong></div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label"><span class="panel-num">3</span>What actually drives them</div>
+                <div class="panel-text">Being able to point at the business and say nobody else's money built this. Proof, not size. Growth numbers land softer here than one sentence about doing it without outside capital.</div>
+                <div class="panel-divider"></div>
+                <div class="panel-stats">
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Opens with a funding disclaimer</span><strong>-22% completion</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill neg" style="width:22%"></div></div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>"No investors" in the intro</span><strong>3x replays</strong></div>
+                        <div class="stat-dots"><div class="stat-dot"></div><div class="stat-dot"></div><div class="stat-dot"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label"><span class="panel-num">4</span>What they're afraid of</div>
+                <div class="panel-text">Becoming the founder who sold out for funding - or the one who stayed small out of fear and has nothing to show for either choice. Both get named almost word for word in listener reviews.</div>
+                <div class="panel-divider"></div>
+                <div class="panel-stats">
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Reviews naming "sold out"</span><strong>17</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:65%"></div></div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Reviews naming "played it safe"</span><strong>9</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:35%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label"><span class="panel-num">5</span>What stories land</div>
+                <div class="panel-text">The exact dollar figure of the first paying customer. Turning-point stories with a real number attached, not brand transformation arcs. Vague growth language reads as filler to this crowd.</div>
+                <div class="panel-divider"></div>
+                <div class="panel-stats">
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Dollar figure in first 5 min</span><strong>61% completion</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:61%"></div></div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>No figure given</span><strong>29% completion</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:29%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-label"><span class="panel-num">6</span>Their dream outcome</div>
+                <div class="panel-text">Not an exit. A business that runs without them chained to it, built entirely their own way. "Freedom" outranks "valuation" whenever guests are asked what winning actually looks like.</div>
+                <div class="panel-divider"></div>
+                <div class="panel-stats">
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Named "exit" as the goal</span><strong>4 of 41</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:10%"></div></div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-row-top"><span>Named "runs without me"</span><strong>29 of 41</strong></div>
+                        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:71%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="language-strip">
+            <div class="language-label">In their words</div>
+            <div class="quote-row">
+                <div class="quote-chip">"Every guest sounds like they took someone's money to get here. Half of them here didn't."<span class="who pii-blur"> -  reviewer handle</span></div>
+                <div class="quote-chip">"'Hustle 24/7' isn't a badge of honor to this crowd."<span class="who pii-blur"> -  reviewer handle</span></div>
+            </div>
+        </div>
+
+        <div class="cta-bar">
+            <div class="cta-hint">One more thing this room can tell you - what's worked here before, and what hasn't.</div>
+            <button class="cta-btn" onclick="window.location.href='l3.html'">Compare to my best rooms &nbsp;→</button>
+        </div>
+
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 1300);
+    </script>
+</body>
+</html>
