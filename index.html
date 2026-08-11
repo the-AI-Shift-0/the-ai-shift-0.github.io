@@ -104,7 +104,9 @@
     if (v === 'apurv') {
       localStorage.setItem('ais_auth', 'apurv');
       sessionStorage.setItem('ais_auth', 'apurv');
-      location.replace('/demos/');
+      var _n=null;try{_n=sessionStorage.getItem('ais_next');sessionStorage.removeItem('ais_next')}catch(e){}
+      // Only accept a same-origin absolute path - never redirect to an attacker-supplied URL.
+      location.replace(_n && /^\/[^\/]/.test(_n) ? _n : '/demos/');
     } else {
       document.getElementById('err').style.display = 'block';
       document.getElementById('pw').value = '';
