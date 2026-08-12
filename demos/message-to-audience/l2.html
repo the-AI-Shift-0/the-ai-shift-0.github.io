@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Engine - The Room</title>
+    <title>Audience Message Research - The Room</title>
 
     <!-- ══════════════════════════════════════════════════════════════
          SHOW DATA - every show-specific string, every stat, every audience
@@ -27,9 +27,15 @@
          show's own RSS description, and its public review and comment
          threads:
            name, host, ratingValue, ratingCount, episodes, sinceYear,
-           cadence, descriptionPhrase, reviewsRead, commentsRead,
-           videosRead, discarded, and every entry in quotes[] - each quote
-           verbatim, each re-confirmed on a second independent fetch.
+           cadence, youtubeSubs, descriptionPhrase, reviewsRead,
+           commentsRead, videosRead, discarded, and every entry in
+           quotes[] - each quote verbatim, each re-confirmed on a second
+           independent fetch. Every published figure renders as a LINK to
+           the Apple show page or the YouTube channel it came from, so it
+           can be verified on camera. reviewsRead and commentsRead are
+           counts of THIS RUN'S OWN READING, not published figures, so
+           they are labelled "read in this run" and carry no link - there
+           is no external page to point at.
          SIMULATED: every panels[].text conclusion and every panels[].bars
          strength reading. Each conclusion is written only from the quotes
          actually shown on this page, so nothing on screen asserts an
@@ -45,7 +51,17 @@
         episodes: "885",
         sinceYear: "2013",
         cadence: "updated weekly",
-        sourceLabel: "podcasts.apple.com",
+        /* EVERY PUBLISHED FIGURE ON THIS PAGE IS A LINK TO THE PAGE IT WAS
+           READ FROM (owner's requirement, 2026-08-12). Apple show page:
+           rating, ratings count, episode count, first year, cadence.
+           YouTube channel: subscriber count. Nothing else about the show's
+           size is published anywhere - there is NO download or listener
+           figure on the Apple page, the RSS description, Spotify or the
+           show's own site, so none appears here and none is estimated.
+           Source: docs/research/2026-08-11-message-to-audience-real-podcast-v4.md §A.1 */
+        appleUrl: "https://podcasts.apple.com/us/podcast/the-amy-porterfield-show/id594703545",
+        youtubeUrl: "https://www.youtube.com/@AmyPorterfield",
+        youtubeSubs: "41,900",
         ratingValue: "4.9",
         ratingCount: "4,575 ratings",
         reviewsRead: "1,219",
@@ -181,43 +197,72 @@
         }
         .header-left { display: flex; align-items: center; gap: 8px; }
         .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
-        .header-logo { font-weight: 700; font-size: 14px; color: #111827; letter-spacing: -0.4px; }
-        .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
+        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-back { font-size: 12.5px; color: #7c3aed; cursor: pointer; font-weight: 600; }
         .header-back:hover { color: #6d28d9; }
 
+        /* ONE SCREEN, NEVER SCROLLS, NEVER CLIPS.
+           html/body are overflow:hidden, so anything that does not fit is
+           lost with no way to reach it. Every vertical measure below is
+           therefore clamp()ed against vh: generous at 1920x1080 (the
+           filming size) and it tightens by itself on a shorter screen
+           instead of pushing the last row off the bottom. A flat pixel
+           bump here DID clip the page at 1440x900 and 1366x768.
+           justify-content:center then spreads the leftover slack evenly
+           above and below rather than leaving one dead band at the foot.
+           Measured at 1920x1080, 1440x900 and 1366x768 - container
+           scrollHeight never exceeds clientHeight at any of them. */
         .container {
             flex: 1; min-height: 0; display: flex; flex-direction: column;
-            padding: 10px 24px 12px; gap: 10px;
+            justify-content: center;
+            padding: clamp(9px, 1.7vh, 26px) 40px;
+            gap: clamp(7px, 1.35vh, 20px);
         }
 
         .identity-strip {
             flex-shrink: 0;
             background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
-            padding: 10px 18px;
-            display: flex; align-items: center; justify-content: space-between; gap: 18px;
+            padding: clamp(9px, 1.5vh, 20px) 26px;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px;
         }
-        .identity-show { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-        .identity-name { font-size: 15px; font-weight: 700; color: #111827; }
+        .identity-show { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+        .identity-name { font-size: 16px; font-weight: 700; color: #111827; }
         .identity-name .with { color: #9ca3af; font-weight: 500; }
-        .identity-meta { font-size: 11.5px; color: #6b7280; }
-        .identity-desc { font-size: 11.5px; color: #6b7280; }
+        .identity-meta { font-size: 12px; color: #6b7280; line-height: 1.5; }
+        .identity-desc { font-size: 12px; color: #6b7280; line-height: 1.5; }
         .identity-desc em { color: #7c3aed; font-style: normal; font-weight: 600; }
-        .identity-stats { display: flex; gap: 20px; flex-shrink: 0; }
-        .identity-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 0; }
-        .identity-stat-val { font-size: 15px; font-weight: 800; color: #7c3aed; }
+
+        /* Every published figure is a link to the page it was read from. */
+        .src-link {
+            color: #6b7280; text-decoration: none;
+            border-bottom: 1px dotted #c4b5fd;
+        }
+        .src-link:hover { color: #7c3aed; border-bottom-color: #7c3aed; }
+
+        .identity-stats { display: flex; gap: 22px; flex-shrink: 0; align-items: flex-start; }
+        .identity-stat {
+            display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+            text-decoration: none;
+        }
+        .identity-stat-val { font-size: 16px; font-weight: 800; color: #7c3aed; }
         .identity-stat-label { font-size: 9.5px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
+        .identity-stat-src { font-size: 9.5px; color: #a78bfa; font-weight: 600; }
+        a.identity-stat:hover .identity-stat-src { color: #7c3aed; text-decoration: underline; }
+        .identity-stat-src.plain { color: #d1d5db; font-weight: 500; }
+        .identity-divider { width: 1px; align-self: stretch; background: #ede9fe; flex-shrink: 0; }
 
         .panels-grid {
             flex-shrink: 0;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, auto);
-            gap: 10px;
+            gap: clamp(7px, 1.4vh, 18px);
         }
         .panel {
             background: #ffffff; border: 1.5px solid #e9d5ff;
-            border-radius: 12px; padding: 12px 14px;
-            display: flex; flex-direction: column; gap: 7px;
+            border-radius: 12px;
+            padding: clamp(9px, 1.35vh, 20px) 22px;
+            display: flex; flex-direction: column; gap: clamp(6px, 0.9vh, 12px);
             overflow: hidden;
         }
         .panel-num {
@@ -231,9 +276,9 @@
             letter-spacing: 0.04em; color: #6b7280;
             display: flex; align-items: center; gap: 7px;
         }
-        .panel-text { font-size: 11.5px; line-height: 1.45; color: #374151; }
+        .panel-text { font-size: clamp(10.5px, 1.16vh, 12.5px); line-height: 1.65; color: #374151; }
         .panel-foot {
-            margin-top: auto; padding-top: 7px; border-top: 1px solid #f3f0ff;
+            margin-top: auto; padding-top: clamp(6px, 0.9vh, 12px); border-top: 1px solid #f3f0ff;
             display: flex; align-items: center; justify-content: space-between; gap: 8px;
             font-size: 10px; color: #9ca3af;
         }
@@ -245,24 +290,24 @@
         .language-block {
             flex-shrink: 0;
             background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
-            padding: 9px 14px 11px;
+            padding: clamp(9px, 1.35vh, 18px) 22px clamp(10px, 1.5vh, 20px);
         }
         .language-head {
-            display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-            margin-bottom: 7px;
+            display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+            margin-bottom: clamp(6px, 1.3vh, 14px);
         }
         .language-label {
-            font-size: 10px; font-weight: 800; text-transform: uppercase;
+            font-size: 10.5px; font-weight: 800; text-transform: uppercase;
             letter-spacing: 0.06em; color: #7c3aed; flex-shrink: 0;
         }
-        .language-note { font-size: 10px; color: #9ca3af; text-align: right; }
-        .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .language-note { font-size: 10.5px; color: #9ca3af; text-align: right; line-height: 1.5; }
+        .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(6px, 1.3vh, 14px); }
         .quote-card {
             background: #ffffff; border: 1px solid #ddd6fe; border-radius: 9px;
-            padding: 8px 10px;
-            display: flex; flex-direction: column; gap: 5px;
+            padding: clamp(7px, 1.0vh, 15px) 17px;
+            display: flex; flex-direction: column; gap: clamp(5px, 0.93vh, 10px);
         }
-        .quote-text { font-size: 10.5px; line-height: 1.4; color: #374151; }
+        .quote-text { font-size: clamp(10px, 1.06vh, 11.5px); line-height: 1.6; color: #374151; }
         .quote-who {
             margin-top: auto; font-size: 9.5px; color: #6b7280;
             display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
@@ -272,13 +317,12 @@
 
         .cta-bar {
             flex-shrink: 0;
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex; align-items: center; justify-content: flex-end;
             gap: 12px;
         }
-        .cta-hint { font-size: 11.5px; color: #9ca3af; }
         .cta-btn {
-            background: #7c3aed; color: #ffffff; border: none; border-radius: 9px;
-            padding: 10px 18px; font-size: 13px; font-weight: 600; font-family: inherit;
+            background: #7c3aed; color: #ffffff; border: none; border-radius: 10px;
+            padding: clamp(8px, 1.3vh, 14px) 24px; font-size: 14px; font-weight: 600; font-family: inherit;
             cursor: pointer; transition: background 0.15s, transform 0.1s;
             display: flex; align-items: center; gap: 6px; flex-shrink: 0;
         }
@@ -295,9 +339,9 @@
     <div class="header">
         <div class="header-left">
             <div class="header-dot"></div>
-            <div class="header-logo">Research Engine</div>
+            <div class="header-logo">Audience Message Research</div>
         </div>
-        <div class="header-back" onclick="window.location.href='index.html'">&larr; New room</div>
+        <div class="header-back" onclick="window.location.href='index.html'">&larr; New research</div>
     </div>
 
     <div class="container">
@@ -321,8 +365,10 @@
             <div class="quote-grid" id="quoteGrid"></div>
         </div>
 
+        <!-- No hint text here. The presenter says the "anything can
+             summarise a show" line out loud on camera; the page must not
+             repeat his own narration back at him (owner, 2026-08-12). -->
         <div class="cta-bar">
-            <div class="cta-hint">Anything can summarise a show. Next is the part only your own rooms can tell you - what has already worked in a room like this one, and what has already failed.</div>
             <button class="cta-btn" onclick="window.location.href='l3.html'">Compare to my best rooms &nbsp;&rarr;</button>
         </div>
 
@@ -336,19 +382,40 @@
         document.getElementById('identityName').innerHTML =
             P.name + ' <span class="with">with ' + P.host + '</span>';
 
-        document.getElementById('identityMeta').textContent =
-            P.episodes + ' episodes · running since ' + P.sinceYear + ' · ' + P.cadence + ' · ' + P.sourceLabel;
+        /* Each published figure is wrapped in a link to the page it was read
+           from, so it can be checked on camera. Nothing here is estimated. */
+        function apple(txt) {
+            return '<a class="src-link" href="' + P.appleUrl +
+                   '" target="_blank" rel="noopener noreferrer">' + txt + '</a>';
+        }
+
+        document.getElementById('identityMeta').innerHTML =
+            apple(P.episodes + ' episodes') + ' · ' +
+            apple('running since ' + P.sinceYear) + ' · ' +
+            apple(P.cadence);
 
         document.getElementById('identityDesc').innerHTML =
             P.descriptionLead + ' <em>"' + P.descriptionPhrase + '"</em> ' + P.descriptionTail;
 
+        /* href present  -> published figure, linked to its own source page.
+           href absent   -> a count of what THIS RUN read, labelled as such. */
         document.getElementById('identityStats').innerHTML = [
-            { v: P.ratingValue + ' &#9733;', l: P.ratingCount },
-            { v: P.reviewsRead, l: 'Written reviews read' },
-            { v: P.commentsRead, l: 'Comments harvested, ' + P.videosRead + ' videos' }
+            { v: P.ratingValue + ' &#9733;', l: P.ratingCount, s: 'Apple Podcasts &#8599;', href: P.appleUrl },
+            { v: P.youtubeSubs, l: 'YouTube subscribers', s: 'YouTube &#8599;', href: P.youtubeUrl },
+            { div: true },
+            { v: P.reviewsRead, l: 'Written reviews read', s: 'read in this run' },
+            { v: P.commentsRead, l: 'Comments read, ' + P.videosRead + ' videos', s: 'read in this run' }
         ].map(function (s) {
-            return '<div class="identity-stat"><div class="identity-stat-val">' + s.v +
-                   '</div><div class="identity-stat-label">' + s.l + '</div></div>';
+            if (s.div) { return '<div class="identity-divider"></div>'; }
+            var open  = s.href
+                ? '<a class="identity-stat" href="' + s.href + '" target="_blank" rel="noopener noreferrer">'
+                : '<div class="identity-stat">';
+            var close = s.href ? '</a>' : '</div>';
+            return open +
+                '<div class="identity-stat-val">' + s.v + '</div>' +
+                '<div class="identity-stat-label">' + s.l + '</div>' +
+                '<div class="identity-stat-src' + (s.href ? '' : ' plain') + '">' + s.s + '</div>' +
+                close;
         }).join('');
 
         document.getElementById('panelsGrid').innerHTML = P.panels.map(function (p, i) {

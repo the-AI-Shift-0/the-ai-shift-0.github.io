@@ -20,7 +20,7 @@
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Engine - The 45 Minutes, Built</title>
+    <title>Audience Message Research - The 45 Minutes, Built</title>
 
     <!-- ══════════════════════════════════════════════════════════════
          SHOW DATA - every show-specific string on this page lives in this
@@ -97,7 +97,10 @@
             { range: "34 - 45", len: "11 min · the ask", name: "The call to action",
               line: "One ask, no call booking, nothing that looks like a stage close.",
               beats: [
-                "<strong>The ask:</strong> the research engine itself, free, one link, working by tomorrow.",
+                /* Named for the tool as the header names it. One product
+                   name everywhere - "the research engine" was the old name
+                   and would contradict the header on this same screen. */
+                "<strong>The ask:</strong> the audience research tool itself, free, one link, working by tomorrow.",
                 "<strong>Invite the question:</strong> this room states its own stage unprompted - just starting, solopreneur, course creator. Ask them where they are and they will tell you.",
                 "<strong>Close on their outcome:</strong> the business grows on systems and a team, and they stop carrying all of it alone."
               ],
@@ -156,7 +159,7 @@
 
         .header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 32px;
+            padding: 18px 40px;
             background: #ffffff; border-bottom: 1px solid #ddd6fe; flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; gap: 8px; }
@@ -166,82 +169,84 @@
         .header-back:hover { color: #6d28d9; }
 
         .container {
-            flex: 1; padding: 22px 32px 40px;
-            max-width: 1000px; margin: 0 auto; width: 100%;
+            flex: 1; padding: 44px 40px 64px;
+            max-width: 1120px; margin: 0 auto; width: 100%;
         }
 
         .title-row {
-            display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
-            margin-bottom: 18px;
+            display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+            margin-bottom: 32px;
         }
-        .page-title { font-size: 21px; font-weight: 700; color: #111827; margin-bottom: 4px; letter-spacing: -0.4px; }
-        .page-sub { font-size: 13px; color: #6b7280; }
+        .page-title { font-size: 26px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .page-sub { font-size: 14px; color: #6b7280; line-height: 1.6; }
         .total-pill {
             background: #7c3aed; color: #ffffff; border-radius: 10px;
-            padding: 9px 16px; text-align: center; flex-shrink: 0;
+            padding: 13px 22px; text-align: center; flex-shrink: 0;
         }
-        .total-num { font-size: 19px; font-weight: 800; letter-spacing: -0.4px; }
+        .total-num { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; }
         .total-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.07em; opacity: 0.85; }
 
-        .layout { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+        .layout { display: grid; grid-template-columns: 1fr 320px; gap: 26px; align-items: start; }
 
         .block {
             background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 13px;
-            padding: 15px 18px; margin-bottom: 12px;
-            display: grid; grid-template-columns: 92px 1fr; gap: 16px;
+            padding: 24px 26px; margin-bottom: 18px;
+            display: grid; grid-template-columns: 100px 1fr; gap: 22px;
         }
-        .block-time { display: flex; flex-direction: column; gap: 3px; }
-        .time-range { font-size: 13px; font-weight: 800; color: #7c3aed; }
-        .time-len { font-size: 10.5px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
+        .block-time { display: flex; flex-direction: column; gap: 5px; }
+        .time-range { font-size: 14px; font-weight: 800; color: #7c3aed; }
+        .time-len { font-size: 10.5px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.45; }
         .block-body { min-width: 0; }
-        .block-name { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 6px; }
-        .block-line { font-size: 12.5px; line-height: 1.5; color: #374151; margin-bottom: 8px; }
+        .block-name { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+        .block-line { font-size: 13px; line-height: 1.65; color: #374151; margin-bottom: 14px; }
         .beat {
-            font-size: 12px; color: #4b5563; line-height: 1.5;
-            padding-left: 14px; position: relative; margin-bottom: 5px;
+            font-size: 13px; color: #4b5563; line-height: 1.65;
+            padding-left: 18px; position: relative; margin-bottom: 10px;
         }
         .beat:before {
-            content: ""; position: absolute; left: 0; top: 7px;
+            content: ""; position: absolute; left: 0; top: 8px;
             width: 6px; height: 6px; border-radius: 50%; background: #ddd6fe;
         }
         .beat strong { color: #111827; font-weight: 700; }
         .why {
-            margin-top: 9px; font-size: 11.5px; color: #6b7280; line-height: 1.45;
-            border-top: 1px solid #f3f0ff; padding-top: 8px;
+            margin-top: 16px; font-size: 12.5px; color: #6b7280; line-height: 1.65;
+            border-top: 1px solid #f3f0ff; padding-top: 14px;
         }
         .why span { color: #7c3aed; font-weight: 700; }
 
         .evidence {
-            margin-top: 9px; padding: 9px 12px;
+            margin-top: 14px; padding: 12px 15px;
             background: #faf8ff; border-left: 3px solid #ddd6fe; border-radius: 0 7px 7px 0;
-            font-size: 11.5px; color: #4b5563; line-height: 1.45;
+            font-size: 12px; color: #4b5563; line-height: 1.6;
         }
         .evidence .who { color: #111827; font-weight: 800; }
         .evidence .plat { color: #9ca3af; font-weight: 500; }
 
         .side-card {
             background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 13px;
-            padding: 14px 16px; margin-bottom: 12px;
+            padding: 20px 22px; margin-bottom: 18px;
         }
         .side-card.warn { background: #fff1f2; border-color: #fecdd3; }
         .side-title {
             font-size: 10.5px; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.07em; color: #6b7280; margin-bottom: 10px;
+            letter-spacing: 0.07em; color: #6b7280; margin-bottom: 14px;
         }
         .side-card.warn .side-title { color: #dc2626; }
-        .side-item { font-size: 12px; color: #374151; line-height: 1.45; margin-bottom: 9px; }
+        .side-item { font-size: 12.5px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
         .side-item:last-child { margin-bottom: 0; }
-        .side-item strong { display: block; color: #111827; font-weight: 700; margin-bottom: 2px; }
-        .side-note { font-size: 11px; color: #9ca3af; line-height: 1.45; }
+        .side-item strong { display: block; color: #111827; font-weight: 700; margin-bottom: 4px; }
+        .side-note { font-size: 11.5px; color: #9ca3af; line-height: 1.6; }
+        /* Only the note that trails a list needs separating from it. */
+        #languageList + .side-note { margin-top: 14px; padding-top: 12px; border-top: 1px solid #f3f0ff; }
 
         .btn {
-            padding: 11px 20px; border-radius: 9px; font-size: 13px; font-weight: 600;
+            padding: 13px 22px; border-radius: 9px; font-size: 13.5px; font-weight: 600;
             border: none; cursor: pointer; font-family: inherit;
             transition: background 0.15s, transform 0.1s;
         }
         .btn-secondary { background: transparent; color: #7c3aed; border: 1px solid #ddd6fe; }
         .btn-secondary:hover { background: #f3f0ff; }
-        .back-row { display: flex; gap: 12px; margin-top: 6px; }
+        .back-row { display: flex; gap: 12px; margin-top: 14px; }
     </style>
 </head>
 <body>
@@ -255,7 +260,7 @@
     <div class="header">
         <div class="header-left">
             <div class="header-dot"></div>
-            <div class="header-logo">Research Engine</div>
+            <div class="header-logo">Audience Message Research</div>
         </div>
         <div class="header-back" onclick="window.location.href='l3.html'">&larr; Your best rooms</div>
     </div>
@@ -294,7 +299,7 @@
 
         <div class="back-row">
             <button class="btn btn-secondary" onclick="window.location.href='l3.html'">&larr; Back to your best rooms</button>
-            <button class="btn btn-secondary" onclick="window.location.href='index.html'">Start a new room</button>
+            <button class="btn btn-secondary" onclick="window.location.href='index.html'">Start new research</button>
         </div>
 
     </div>

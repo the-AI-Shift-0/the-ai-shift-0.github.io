@@ -3,6 +3,17 @@
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
 <!--
   ═══════════════════════════════════════════════════════════════════
+  RECORDING NOTE - NOTHING AUTO-ADVANCES. DO NOT REINSTATE A TIMER.
+  Owner's decision, 2026-08-12: this page is filmed live and the whole
+  sequence is driven by the presenter's own click. On load the page
+  sits still with an empty, focused link field and NOTHING happens.
+  He pastes the podcast link, clicks "Start Research" (or presses
+  Enter), and only THEN does the loading state run and the page move
+  to l2.html. There is no setTimeout anywhere that navigates or that
+  reveals the overlay on its own. If the field is empty the button
+  nudges the field instead of advancing, so a mis-timed click cannot
+  jump the sequence forward.
+  ═══════════════════════════════════════════════════════════════════
   RECORDING NOTE - NOTHING IS BLURRED. DO NOT REINSTATE THE BLUR.
   The show name, the host name and the show URL render SHARP on every
   page. Owner's decision, 2026-08-11: "Just take a real podcast, do not
@@ -12,13 +23,18 @@
   real third party honest. An earlier build blurred the two names; that
   build is superseded and the pii-blur class has been deleted outright.
   ═══════════════════════════════════════════════════════════════════
-  Message to Audience - "the Research Engine" (Demo 1)
+  Message to Audience - "Audience Message Research" (Demo 1)
   Built HTML shown in the video as if it were the real running system.
   Show swapped 2026-08-11 to The Amy Porterfield Show, per
   docs/research/2026-08-11-message-to-audience-real-podcast-v4.md.
+  Renamed from "Research Engine" 2026-08-12, owner's wording.
 
   Pages: index.html (this) -> l2.html -> l3.html -> l4.html (the running
   order - the beat an earlier build wrongly deleted).
+
+  THE LINK THE PRESENTER PASTES ON CAMERA (do not prefill it - he types
+  or pastes it himself, live):
+    https://podcasts.apple.com/us/podcast/the-amy-porterfield-show/id594703545
 
   WHAT IS REAL (every figure fetched from a primary source 2026-08-11)
     The Amy Porterfield Show, hosted by Amy Porterfield.
@@ -26,12 +42,18 @@
     (Apple "Information") · running since 2013 · updated weekly ·
     Marketing category · YouTube @AmyPorterfield 41,900 subscribers.
     https://podcasts.apple.com/us/podcast/the-amy-porterfield-show/id594703545
+    EVERY ONE OF THOSE FIGURES IS A LINK ON l2.html, straight to the
+    Apple show page or the YouTube channel it was read from, so anyone
+    watching can check it (owner's requirement, 2026-08-12).
     The audience description on l2 is from the show's OWN description.
     NO episode title appears anywhere in this build.
     Audience size: downloads and listener numbers are NOT publicly
     stated anywhere, so no such figure appears and none is estimated.
     Reading volume shown on l2 is also real: 1,219 written reviews
-    retrieved, and 123 comments harvested across 24 videos.
+    retrieved, and 123 comments harvested across 24 videos. Those two
+    are counts of THIS TOOL'S OWN READING, not published podcast
+    figures, so they sit in their own labelled group and carry no
+    external source link - there is no external page to point at.
     Every quote on every page is VERBATIM from a real public Apple
     Podcasts review or a real public YouTube comment, each independently
     re-confirmed on a second fetch. The words are unaltered.
@@ -71,6 +93,7 @@
                                                   + 14 from one repeat
                                                     commenter = 53 of 123
       Apple ratings ............................... 4,575 · 885 episodes
+      YouTube subscribers ......................... 41,900
     SIMULATED:
       Appearance library (base) ................... 41 past appearances
       Comparable rooms matched (subset of 41) ..... 9
@@ -91,6 +114,10 @@
 
   NO revenue, margin or team-size bar on any page: researching someone
   else's audience never uses the viewer's own figures.
+  NO NARRATION ON SCREEN (owner's decision, 2026-08-12). The "seven
+  hours by hand" line and the "anything can summarise a show" line were
+  deleted outright - the presenter says both out loud on camera, and a
+  page that says them too makes him read his own slides.
   No jargon on screen: the six things are always named in plain English,
   and the last screen is always "the running order" / "the 45 minutes".
   ═══════════════════════════════════════════════════════════════════
@@ -98,21 +125,7 @@
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Engine</title>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         SHOW DATA - everything show-specific on this page is in this one
-         object. Swap here if the show ever changes again.
-         VERIFIED 2026-08-11 against the live Apple Podcasts page.
-         The whole URL renders SHARP. Nothing on this page is blurred.
-         ══════════════════════════════════════════════════════════════ -->
-    <script>
-    var PROVISIONAL = {
-        urlPrefix: "https://podcasts.apple.com/us/podcast/",
-        urlSlug:   "the-amy-porterfield-show",
-        urlId:     "id594703545"
-    };
-    </script>
+    <title>Audience Message Research</title>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -123,8 +136,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* The overlay starts hidden and is only ever revealed by start().
+           Nothing on this page reveals it on a timer. */
         .loading-overlay {
             position: fixed;
             inset: 0;
@@ -133,30 +149,34 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 22px;
             z-index: 100;
-            transition: opacity 0.4s ease;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
         }
-        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        .loading-overlay.showing { opacity: 1; pointer-events: auto; }
         .spinner-lg {
-            width: 28px; height: 28px;
+            width: 30px; height: 30px;
             border: 3px solid #e9d5ff;
             border-top-color: #7c3aed;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .loading-msg { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .loading-msg { font-size: 15px; color: #4b5563; font-weight: 600; }
         .loading-steps {
-            display: flex; flex-direction: column; gap: 6px;
-            margin-top: 8px; min-width: 300px;
+            display: flex; flex-direction: column; gap: 13px;
+            min-width: 340px;
         }
         .loading-step {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 12px; color: #9ca3af;
+            display: flex; align-items: center; gap: 13px;
+            font-size: 13px; color: #9ca3af;
+            transition: color 0.3s;
         }
+        .loading-step.done { color: #4b5563; }
         .step-dot {
-            width: 6px; height: 6px; border-radius: 50%;
+            width: 7px; height: 7px; border-radius: 50%;
             background: #e9d5ff; flex-shrink: 0;
             transition: background 0.3s;
         }
@@ -166,63 +186,87 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 32px;
+            padding: 20px 40px;
             background: #ffffff;
             border-bottom: 1px solid #ddd6fe;
             flex-shrink: 0;
         }
-        .header-left { display: flex; align-items: center; gap: 8px; }
+        .header-left { display: flex; align-items: center; gap: 10px; }
         .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
-        .header-logo { font-weight: 700; font-size: 15px; color: #111827; letter-spacing: -0.4px; }
+        .header-logo { font-weight: 700; font-size: 16px; color: #111827; letter-spacing: -0.3px; }
         .header-right { display: flex; gap: 16px; align-items: center; }
-        .status-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
+        .status-badge { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #6b7280; }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
 
-        .container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
-        /* 720px, not 620: the full Apple URL plus the blinking caret has to
-           fit on one line without the trailing digits being clipped. */
+        .container {
+            flex: 1;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 72px 40px;
+        }
         .content { max-width: 720px; width: 100%; }
 
-        .greeting { font-size: 13px; color: #9ca3af; margin-bottom: 12px; font-weight: 500; }
-        .prompt-title { font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 26px; letter-spacing: -0.5px; }
+        .eyebrow {
+            font-size: 12px; font-weight: 700; color: #7c3aed;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            margin-bottom: 22px;
+        }
+        .prompt-title {
+            font-size: 30px; font-weight: 700; color: #111827;
+            line-height: 1.35; letter-spacing: -0.6px;
+            margin-bottom: 52px;
+        }
 
-        .url-field {
+        .field-label {
+            display: block;
+            font-size: 13px; font-weight: 700; color: #374151;
+            letter-spacing: 0.01em;
+            margin-bottom: 12px;
+        }
+        .url-input {
+            display: block; width: 100%;
             background: #ffffff;
             border: 1.5px solid #ddd6fe;
             border-radius: 12px;
-            padding: 8px 8px 8px 16px;
-            margin-bottom: 18px;
-            display: flex; align-items: center; gap: 12px;
-            cursor: text;
+            padding: 20px 22px;
+            font-size: 16px; font-family: inherit; color: #111827;
+            line-height: 1.4;
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .url-scheme {
-            font-size: 12px; font-weight: 700; color: #7c3aed;
-            background: #f3f0ff; border-radius: 6px; padding: 5px 8px;
-            flex-shrink: 0; letter-spacing: 0.02em;
+        .url-input::placeholder { color: #b6b2c4; }
+        .url-input:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
         }
-        .url-value {
-            flex: 1; min-width: 0;
-            font-size: 14px; color: #111827; font-family: inherit;
-            padding: 10px 0; white-space: nowrap; overflow: hidden;
-            display: flex; align-items: center;
+        .url-input.nudge {
+            border-color: #f97316;
+            animation: nudge 0.42s ease;
         }
-        .caret {
-            display: inline-block; width: 1.5px; height: 17px; background: #7c3aed;
-            margin-left: 2px; animation: blink 1.1s step-end infinite;
+        @keyframes nudge {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            45% { transform: translateX(5px); }
+            70% { transform: translateX(-3px); }
         }
-        @keyframes blink { 50% { opacity: 0; } }
+        .field-note {
+            font-size: 13px; color: #9ca3af;
+            margin-top: 12px; line-height: 1.6;
+            min-height: 21px;
+        }
+        .field-note.warn { color: #c2410c; }
 
         .run-btn {
+            margin-top: 40px;
             background: #7c3aed; color: #ffffff;
-            border: none; border-radius: 10px;
-            padding: 14px 24px; font-size: 15px; font-weight: 600;
+            border: none; border-radius: 11px;
+            padding: 18px 32px; font-size: 16px; font-weight: 600;
             font-family: inherit; cursor: pointer;
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; gap: 10px;
             transition: background 0.15s, transform 0.1s;
         }
         .run-btn:hover { background: #6d28d9; transform: translateY(-1px); }
-
-        .hint { font-size: 12px; color: #9ca3af; margin-top: 22px; line-height: 1.6; }
+        .run-btn:active { transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -231,20 +275,20 @@
         <div class="spinner-lg"></div>
         <div class="loading-msg">Reading the room...</div>
         <div class="loading-steps">
-            <div class="loading-step"><div class="step-dot" id="s1"></div><span>Where they came from</span></div>
-            <div class="loading-step"><div class="step-dot" id="s2"></div><span>The pain under the pain</span></div>
-            <div class="loading-step"><div class="step-dot" id="s3"></div><span>What actually drives them</span></div>
-            <div class="loading-step"><div class="step-dot" id="s4"></div><span>What they are afraid of</span></div>
-            <div class="loading-step"><div class="step-dot" id="s5"></div><span>What stories land</span></div>
-            <div class="loading-step"><div class="step-dot" id="s6"></div><span>What winning looks like to them</span></div>
-            <div class="loading-step"><div class="step-dot" id="s7"></div><span>Pulling the words they use themselves</span></div>
+            <div class="loading-step" id="r1"><div class="step-dot" id="s1"></div><span>Where they came from</span></div>
+            <div class="loading-step" id="r2"><div class="step-dot" id="s2"></div><span>The pain under the pain</span></div>
+            <div class="loading-step" id="r3"><div class="step-dot" id="s3"></div><span>What actually drives them</span></div>
+            <div class="loading-step" id="r4"><div class="step-dot" id="s4"></div><span>What they are afraid of</span></div>
+            <div class="loading-step" id="r5"><div class="step-dot" id="s5"></div><span>What stories land</span></div>
+            <div class="loading-step" id="r6"><div class="step-dot" id="s6"></div><span>What winning looks like to them</span></div>
+            <div class="loading-step" id="r7"><div class="step-dot" id="s7"></div><span>Pulling the words they use themselves</span></div>
         </div>
     </div>
 
     <div class="header">
         <div class="header-left">
             <div class="header-dot"></div>
-            <div class="header-logo">Research Engine</div>
+            <div class="header-logo">Audience Message Research</div>
         </div>
         <div class="header-right">
             <div class="status-badge"><div class="status-dot"></div><span>Appearance library loaded</span></div>
@@ -254,38 +298,69 @@
     <div class="container">
         <div class="content">
 
-            <div class="greeting">One link is all it needs</div>
-            <div class="prompt-title">Which room do you want to research?</div>
+            <div class="eyebrow">New research</div>
+            <h1 class="prompt-title">Enter the link of the podcast you want to research.</h1>
 
-            <div class="url-field" onclick="go()">
-                <span class="url-scheme">Podcast</span>
-                <span class="url-value" id="urlValue"></span>
-            </div>
+            <label class="field-label" for="urlInput">Podcast link</label>
+            <input class="url-input" id="urlInput" type="url" autocomplete="off"
+                   spellcheck="false" placeholder="Paste the podcast link here">
+            <div class="field-note" id="fieldNote">Paste the link to the show, then start the research.</div>
 
-            <button class="run-btn" onclick="go()">Research this room &nbsp;&rarr;</button>
-
-            <div class="hint">It pulls the show, the host, the format and who actually listens - then works the same six things you would otherwise spend seven hours figuring out by hand, and comes back with the words that room uses itself.</div>
+            <button class="run-btn" id="startBtn" type="button">Start Research &nbsp;&rarr;</button>
 
         </div>
     </div>
 
     <script>
-        document.getElementById('urlValue').innerHTML =
-            PROVISIONAL.urlPrefix + PROVISIONAL.urlSlug + '/' +
-            PROVISIONAL.urlId + '<span class="caret"></span>';
+        /* NOTHING RUNS ON LOAD except focusing the field. The presenter
+           drives the whole sequence - see the recording note above. */
+        var input   = document.getElementById('urlInput');
+        var note    = document.getElementById('fieldNote');
+        var overlay = document.getElementById('overlay');
+        var started = false;
 
-        setTimeout(function () {
-            document.getElementById('overlay').classList.add('hidden');
-        }, 900);
+        input.focus();
 
-        function go() {
-            var overlay = document.getElementById('overlay');
-            overlay.classList.remove('hidden');
-            var ids = ['s1','s2','s3','s4','s5','s6','s7'];
-            ids.forEach(function (id, i) {
-                setTimeout(function () { document.getElementById(id).classList.add('done'); }, 260 * (i + 1));
+        input.addEventListener('input', function () {
+            input.classList.remove('nudge');
+            note.classList.remove('warn');
+            note.textContent = 'Paste the link to the show, then start the research.';
+        });
+
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); start(); }
+        });
+
+        document.getElementById('startBtn').addEventListener('click', start);
+
+        function start() {
+            if (started) { return; }
+
+            if (!input.value.trim()) {
+                /* Empty field never advances. It nudges, so a stray click
+                   on camera cannot jump the sequence forward. */
+                input.classList.remove('nudge');
+                void input.offsetWidth;
+                input.classList.add('nudge');
+                note.classList.add('warn');
+                note.textContent = 'Add a podcast link to start.';
+                input.focus();
+                return;
+            }
+
+            started = true;
+            overlay.classList.add('showing');
+
+            var ids = ['1','2','3','4','5','6','7'];
+            ids.forEach(function (n, i) {
+                setTimeout(function () {
+                    document.getElementById('s' + n).classList.add('done');
+                    document.getElementById('r' + n).classList.add('done');
+                }, 300 * (i + 1));
             });
-            setTimeout(function () { window.location.href = 'l2.html'; }, 260 * ids.length + 500);
+            setTimeout(function () {
+                window.location.href = 'l2.html';
+            }, 300 * ids.length + 800);
         }
     </script>
 </body>
