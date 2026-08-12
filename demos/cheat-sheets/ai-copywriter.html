@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>AI Copywriter - Recording Cheat Sheet</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:#f8f7ff;color:#1a1a1a;padding:24px 16px;line-height:1.5;font-size:15px}
+.wrap{max-width:820px;margin:0 auto}
+.crumb{font-size:13px;color:#6b7280;margin-bottom:12px}
+.crumb a{color:#7c3aed;text-decoration:none}
+h1{color:#7c3aed;font-size:1.75em;margin-bottom:6px;line-height:1.2}
+.sub{color:#4b5563;font-size:14px;margin-bottom:22px}
+.card{background:#fff;border-radius:10px;padding:22px 24px;margin-bottom:18px;
+border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card.rules{border-left-color:#111827;background:#fffdf5}
+.card.warn{border-left-color:#d97706;background:#fffbeb}
+.card.q{border-left-color:#dc2626;background:#fef2f2}
+.card.trove{border-left-color:#059669}
+h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
+.card.rules h2{color:#111827}
+.card.warn h2{color:#b45309}
+.card.q h2{color:#b91c1c}
+.card.trove h2{color:#047857}
+h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
+letter-spacing:.6px;font-weight:700}
+h3:first-of-type{margin-top:0}
+ol,ul{margin:0 0 4px 20px}
+li{margin-bottom:8px}
+li:last-child{margin-bottom:0}
+p{margin-bottom:10px}
+p:last-child{margin-bottom:0}
+.why{font-size:13.5px;color:#4b5563;font-style:italic;margin-top:12px;
+border-top:1px dashed #d1d5db;padding-top:10px}
+.say{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px}
+.say::before{content:"SAY: ";font-weight:700;color:#7c3aed;font-size:12px;letter-spacing:.5px}
+.type{background:#111827;color:#f9fafb;border-radius:6px;padding:10px 12px;margin:8px 0;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;word-break:break-word}
+.type::before{content:"TYPE: ";font-weight:700;color:#a78bfa;font-family:inherit;
+font-size:11px;letter-spacing:.5px}
+.url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:8px 10px;
+display:block;margin:8px 0;word-break:break-all;color:#065f46}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+background:#f3f4f6;padding:1px 5px;border-radius:4px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+th{background:#f9fafb;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#6b7280}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+padding:2px 8px;border-radius:99px;background:#ede9fe;color:#5b21b6;vertical-align:middle}
+.tag.live{background:#d1fae5;color:#065f46}
+.tag.open{background:#fee2e2;color:#991b1b}
+.sheets{list-style:none;margin:0}
+.sheets li{margin-bottom:12px}
+.sheets a{display:block;background:#fff;border-radius:10px;padding:16px 18px;
+border-left:4px solid #7c3aed;text-decoration:none;color:#1a1a1a;
+box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sheets a:hover{background:#faf9ff}
+.sheets .name{display:block;font-weight:700;color:#7c3aed;font-size:1.05em}
+.sheets .desc{display:block;font-size:13.5px;color:#4b5563;margin-top:5px}
+.foot{font-size:12.5px;color:#6b7280;text-align:center;margin-top:26px}
+@media print{
+body{background:#fff;padding:0;font-size:11.5pt}
+.card{box-shadow:none;border:1px solid #d1d5db;border-left-width:4px;
+page-break-inside:avoid;margin-bottom:12px;padding:14px 16px}
+h1{font-size:1.4em}
+.type{background:#fff;color:#111;border:1px solid #9ca3af}
+.type::before{color:#4c1d95}
+.crumb,.foot{display:none}
+a{color:#111;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="crumb"><a href="/demos/cheat-sheets/">&larr; All recording cheat sheets</a></div>
+
+<h1>AI Copywriter</h1>
+<p class="sub">Recording cheat sheet. Demo 1 is your real copywriter project.
+Demo 2 is the AI Copywriter Master Trove opt-in.</p>
+
+<div class="card rules">
+<h2>Standing recording rules - do these before you hit record</h2>
+<ol>
+<li><strong>Hide the macOS Dock.</strong> System Settings &gt; Desktop &amp; Dock &gt;
+Automatically hide and show the Dock: ON.</li>
+<li><strong>Hide the app sidebar.</strong> ChatGPT, Claude and Gemini all collapse
+theirs - collapse it before the first frame, not mid-take.</li>
+<li><strong>Hide the browser bookmarks bar.</strong> Cmd+Shift+B.</li>
+<li><strong>Hide the URL / address bar wherever possible.</strong> Full screen, or a
+distraction-free window. Where the URL has to be visible because it is the point,
+show only that one URL and nothing around it.</li>
+</ol>
+<p class="why">Why: the frame should show the work, not the machine. Every one of these
+is a leak path - open tabs, bookmarks, internal URLs, folder names and staff names have
+all reached a customer-facing frame before. Hiding them costs four seconds and removes
+the whole class of problem.</p>
+</div>
+
+
+<div class="card">
+<h2>Demo 1 - your real AI Copywriter, in ChatGPT</h2>
+<p><strong>What it is:</strong> your genuine project, on screen, doing a real job.
+There is no built app and no simulation for this video - a simulated version was
+scrapped on purpose. What the viewer sees is the actual tool you use.</p>
+<p><strong>Length:</strong> 60-90 seconds, four beats, cut fast.
+<strong>Do not run it live on camera</strong> - record the generation, let the editor
+speed it up.</p>
+
+<h3>Before you hit record - the filename pass</h3>
+<ol>
+<li>Open the project and <strong>read every filename in the list, twice.</strong>
+Client names, staff names, launch code names, internal project names - rename or
+remove. This list is the single highest-risk surface in the video.</li>
+<li><strong>Rename the project itself.</strong> Its current name has never been
+documented and is assumed unsafe.</li>
+<li>Clean browser profile: no extensions, no other tabs, notifications off.</li>
+</ol>
+
+<h3>Beat 1 - the shelf (about 15 seconds)</h3>
+<ol>
+<li>Open the project.</li>
+<li>One <strong>slow, continuous scroll</strong> down the file list. Do not stop and
+start - one move. The viewer should feel the depth, not read the names.</li>
+</ol>
+<div class="say">This is the project. Everything that ever made us money is in here -
+years of our own winning copy, the customer's exact language, and the best copywriters
+alive. All loaded in before I type a single word.</div>
+
+<h3>Beat 2 - one sentence (about 10 seconds)</h3>
+<ol>
+<li>Type the prompt <strong>live and in full</strong> - do not paste. The typing is
+the point.</li>
+<li>Press Enter.</li>
+</ol>
+<div class="type">Write the full launch campaign for [product] - sales page, five-email
+sequence, three ad variations.</div>
+<p>Replace <code>[product]</code> with your real offer. Everything else is verbatim.</p>
+<div class="say">Watch what one sentence does.</div>
+
+<h3>Beat 3 - the pour (about 25 seconds)</h3>
+<ol>
+<li>Let the output run: sales page, then five emails, then the ads. Scroll with it.</li>
+</ol>
+<div class="say">A full sales page. Then five emails. Then the ads. In my voice, using
+my customers' words - because it already knows all of it.</div>
+
+<h3>Beat 4 - the hold (about 15 seconds)</h3>
+<ol>
+<li>Stop scrolling and <strong>hold on one finished piece</strong>, long enough to read.
+Do not keep moving - the pause is what sells it.</li>
+</ol>
+<div class="say">Read that. That's not generic AI copy. That's better than anything my
+team ever handed me - and it wrote the whole campaign while I sat here watching.</div>
+
+<h3>Capture a second full generation</h3>
+<p>Run the whole thing again and record it. It costs two minutes now and it has saved
+a re-shoot before.</p>
+</div>
+
+<div class="card warn">
+<h2>On screen: blur, show, never say</h2>
+<table>
+<tr><th>Blur</th><th>Show sharp</th></tr>
+<tr><td>Any revenue, spend or salary figure visible in the frame; client names; staff
+names; real customer names inside quoted emails; in Demo 2, the test email address,
+your own name in the form, and every other subject line and sender in the inbox.</td>
+<td>The file list (as a blur of depth, not readable names), the campaign structure,
+the generated copy itself, the form labels, the file contents, the prompt pack.</td></tr>
+</table>
+<p><strong>Never say on camera:</strong> project knowledge, corpus, context window,
+fine-tune, RAG, token, prompt engineering.</p>
+</div>
+
+<div class="card trove">
+<h2>Demo 2 - the AI Copywriter Master Trove <span class="tag live">LIVE, VERIFIED 200</span></h2>
+<p><strong>The opt-in page you film:</strong></p>
+<span class="url">https://theaishift.biz/tools/ai-copywriter/master-trove/</span>
+<p>Page heading on the live form reads <strong>AI Copywriter Master Trove</strong>,
+section heading <strong>Your Business Profile</strong>.</p>
+
+<h3>The nine fields that actually exist - film these, in this order</h3>
+<table>
+<tr><th>Field</th><th>Required</th></tr>
+<tr><td>Your Name</td><td>yes</td></tr>
+<tr><td>Email Address</td><td>yes</td></tr>
+<tr><td>What Do You Sell?</td><td>yes</td></tr>
+<tr><td>What Does It Cost?</td><td>optional</td></tr>
+<tr><td>Who Buys It?</td><td>yes</td></tr>
+<tr><td>What Is the Single Biggest Problem They Come to You With?</td><td>yes</td></tr>
+<tr><td>Anything Else We Should Know About Your Business?</td><td>optional</td></tr>
+<tr><td>How Would You Describe Your Voice?</td><td>optional</td></tr>
+<tr><td>What Should It Write First? (dropdown)</td><td>yes</td></tr>
+</table>
+<p>Fill it as a real owner would. Do not leave the optional fields blank on camera -
+a half-filled form looks like a half-serious tool.</p>
+
+<h3>Shot order</h3>
+<ol>
+<li>The form, filled and submitted.</li>
+<li>The inbox, the email arriving.</li>
+<li>Open the delivered file and <strong>scroll slowly</strong>: role instructions,
+craft layer, campaign blueprints, then <strong>hold on the customer-language
+section</strong> - that is the wow.</li>
+<li>A fresh project with the file added to it.</li>
+<li>The prompt pack, the iteration lines, the how-to-ask primer.</li>
+</ol>
+<p><strong>No live generation in Demo 2.</strong> The deliverable is the story here,
+not another output.</p>
+<p>The line for the viewer to paste after loading the file:</p>
+<div class="type">Write me a launch campaign for my offer. Ask me anything you need first.</div>
+</div>
+
+<div class="card q">
+<h2>OPEN QUESTIONS - answer before filming</h2>
+<ol>
+<li><strong>What is the project currently called, and what will you rename it to?</strong>
+Its name goes on screen and has never been recorded anywhere.</li>
+<li><strong>ChatGPT or Claude for Demo 1?</strong> The docs still disagree. Pick one,
+because the whole demo is built around that interface.</li>
+<li><strong>Which claims are you willing to say on camera, and where is the evidence?</strong>
+The spend figure, the attributed-revenue figure, the recurring-revenue figure and the
+"a quarter of copy in 90 minutes" line all have no recorded source yet. Anything without
+evidence gets cut, not softened.</li>
+<li><strong>Is the framing platform-agnostic?</strong> One assistant is currently never
+mentioned at all. Deliberate or an oversight?</li>
+<li><strong>Which real offer goes in <code>[product]</code>?</strong> Decide now so the
+generated campaign is worth holding on screen.</li>
+</ol>
+</div>
+
+<div class="foot">Internal recording aid - The AI Shift. Not a customer-facing page.</div>
+</div>
+</body>
+</html>

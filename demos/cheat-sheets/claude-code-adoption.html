@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Claude Code Adoption - Recording Cheat Sheet</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:#f8f7ff;color:#1a1a1a;padding:24px 16px;line-height:1.5;font-size:15px}
+.wrap{max-width:820px;margin:0 auto}
+.crumb{font-size:13px;color:#6b7280;margin-bottom:12px}
+.crumb a{color:#7c3aed;text-decoration:none}
+h1{color:#7c3aed;font-size:1.75em;margin-bottom:6px;line-height:1.2}
+.sub{color:#4b5563;font-size:14px;margin-bottom:22px}
+.card{background:#fff;border-radius:10px;padding:22px 24px;margin-bottom:18px;
+border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card.rules{border-left-color:#111827;background:#fffdf5}
+.card.warn{border-left-color:#d97706;background:#fffbeb}
+.card.q{border-left-color:#dc2626;background:#fef2f2}
+.card.trove{border-left-color:#059669}
+h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
+.card.rules h2{color:#111827}
+.card.warn h2{color:#b45309}
+.card.q h2{color:#b91c1c}
+.card.trove h2{color:#047857}
+h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
+letter-spacing:.6px;font-weight:700}
+h3:first-of-type{margin-top:0}
+ol,ul{margin:0 0 4px 20px}
+li{margin-bottom:8px}
+li:last-child{margin-bottom:0}
+p{margin-bottom:10px}
+p:last-child{margin-bottom:0}
+.why{font-size:13.5px;color:#4b5563;font-style:italic;margin-top:12px;
+border-top:1px dashed #d1d5db;padding-top:10px}
+.say{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px}
+.say::before{content:"SAY: ";font-weight:700;color:#7c3aed;font-size:12px;letter-spacing:.5px}
+.type{background:#111827;color:#f9fafb;border-radius:6px;padding:10px 12px;margin:8px 0;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;word-break:break-word}
+.type::before{content:"TYPE: ";font-weight:700;color:#a78bfa;font-family:inherit;
+font-size:11px;letter-spacing:.5px}
+.url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:8px 10px;
+display:block;margin:8px 0;word-break:break-all;color:#065f46}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+background:#f3f4f6;padding:1px 5px;border-radius:4px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+th{background:#f9fafb;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#6b7280}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+padding:2px 8px;border-radius:99px;background:#ede9fe;color:#5b21b6;vertical-align:middle}
+.tag.live{background:#d1fae5;color:#065f46}
+.tag.open{background:#fee2e2;color:#991b1b}
+.sheets{list-style:none;margin:0}
+.sheets li{margin-bottom:12px}
+.sheets a{display:block;background:#fff;border-radius:10px;padding:16px 18px;
+border-left:4px solid #7c3aed;text-decoration:none;color:#1a1a1a;
+box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sheets a:hover{background:#faf9ff}
+.sheets .name{display:block;font-weight:700;color:#7c3aed;font-size:1.05em}
+.sheets .desc{display:block;font-size:13.5px;color:#4b5563;margin-top:5px}
+.foot{font-size:12.5px;color:#6b7280;text-align:center;margin-top:26px}
+@media print{
+body{background:#fff;padding:0;font-size:11.5pt}
+.card{box-shadow:none;border:1px solid #d1d5db;border-left-width:4px;
+page-break-inside:avoid;margin-bottom:12px;padding:14px 16px}
+h1{font-size:1.4em}
+.type{background:#fff;color:#111;border:1px solid #9ca3af}
+.type::before{color:#4c1d95}
+.crumb,.foot{display:none}
+a{color:#111;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="crumb"><a href="/demos/cheat-sheets/">&larr; All recording cheat sheets</a></div>
+
+<h1>Claude Code Adoption</h1>
+<p class="sub">Recording cheat sheet. Demo 1 is the trophy case of in-house builds.
+Demo 2 is The Hackathon Playbook opt-in.</p>
+
+<div class="card rules">
+<h2>Standing recording rules - do these before you hit record</h2>
+<ol>
+<li><strong>Hide the macOS Dock.</strong> System Settings &gt; Desktop &amp; Dock &gt;
+Automatically hide and show the Dock: ON.</li>
+<li><strong>Hide the app sidebar.</strong> ChatGPT, Claude and Gemini all collapse
+theirs - collapse it before the first frame, not mid-take.</li>
+<li><strong>Hide the browser bookmarks bar.</strong> Cmd+Shift+B.</li>
+<li><strong>Hide the URL / address bar wherever possible.</strong> Full screen, or a
+distraction-free window. Where the URL has to be visible because it is the point,
+show only that one URL and nothing around it.</li>
+</ol>
+<p class="why">Why: the frame should show the work, not the machine. Every one of these
+is a leak path - open tabs, bookmarks, internal URLs, folder names and staff names have
+all reached a customer-facing frame before. Hiding them costs four seconds and removes
+the whole class of problem.</p>
+</div>
+
+
+<div class="card warn">
+<h2>Two things that govern this whole video</h2>
+<ul>
+<li><strong>Nobody in the second half is named or shown.</strong> Not a face, not a
+first name, not a school, not a location - for any of the children or the family member.
+The identification ceiling is the relationship and the age: "my eight-year-old son",
+"my ten-year-old nephew". That is as specific as it gets, on screen or spoken.</li>
+<li><strong>Where the built demo and the script disagree, the built demo wins.</strong>
+Two places below. Change the spoken line, not the product.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Demo 1 - the trophy case</h2>
+<p><strong>What it is:</strong> a montage of things already built in-house, cut fast -
+roughly 10 to 15 seconds a slot, 60 to 90 seconds total. Nothing new is built on camera.
+It reuses demos that already exist.</p>
+
+<h3>Slot 1 - the wall (about 10 seconds)</h3>
+<ol>
+<li>Four to six existing demos flashing past, no narration over the individual ones.</li>
+</ol>
+<div class="say">Everything you're about to see was built in-house. Not one developer.
+Not one agency.</div>
+<p class="why">The current script says "people on my team" here. That contradicts the
+second half, which is family. Widen the line before you read it, or the reveal lands as
+a correction rather than a surprise.</p>
+
+<h3>Slot 2 - the floor</h3>
+<ol>
+<li>The podcast lead finder.</li>
+</ol>
+<p><strong>Do not use the scripted voiceover for this one.</strong> It says the tool
+finds shows to go on and writes the outreach. The real tool takes a bio and finds shows
+for clients, with contact emails, and there is no outreach step. Describe what it
+actually does.</p>
+
+<h3>Slot 3 - the climb (three builds)</h3>
+<ol>
+<li>The sales analyzer.</li>
+<li>The audience consolidator - this is the one with a freelancer-cost figure attached.</li>
+<li>The funnel connector.</li>
+</ol>
+<p>Which three, and in what order, is a proposal only. Confirm at the joint meeting
+before the shoot.</p>
+
+<h3>Slot 4 - the ceiling</h3>
+<ol>
+<li>The AI caller. <strong>This is a hold beat, not a flash.</strong> Let the full
+sequence play: lead comes in, the phone rings, the conversation happens, the appointment
+is booked.</li>
+</ol>
+<div class="say">Built by someone here who, again, is not a developer.</div>
+<p class="why">That attribution is settled. Use it as written - it credits the build
+without naming anyone.</p>
+
+<h3>Slot 5 - the second movement, descending by age</h3>
+<ol>
+<li><strong>Family member</strong> (older generation) - what they built.</li>
+<li><strong>Nephew A</strong>, 13.</li>
+<li><strong>Nephew B</strong>, 10.</li>
+<li><strong>Hard cut, tone shift:</strong> the working game mod. <strong>Gameplay
+footage only</strong> - no face, no voice, no name.</li>
+</ol>
+<div class="say">This wasn't built by someone on my team. This was built by my
+eight-year-old son.</div>
+<p>Then <strong>a full beat of silence</strong> before:</p>
+<div class="say">So whatever story you're telling yourself about your team not being
+technical enough - let it go.</div>
+<p class="why">The silence is doing the work. Do not fill it and do not let the edit
+tighten it out.</p>
+</div>
+
+<div class="card warn">
+<h2>On screen: blur, and never say</h2>
+<p><strong>Blur:</strong> every client and lead name in the caller flow; all phone
+numbers; every revenue and contract figure; podcast host names wherever the surrounding
+copy is unflattering; the test email address and the whole inbox around it; the
+bookmarks bar; every other tab and window title; any real vendor or agency name typed
+into the form.</p>
+<p><strong>Never on camera:</strong> API, webhook, repo, terminal, CLI, deploy. Also
+"run-of-show" - it is currently spoken once and should become "the actual plan" or
+"the running order".</p>
+<p><strong>Per capture:</strong> Dock hidden, other windows closed, project and window
+titles renamed, clean browser profile. Then run a <strong>first-name sweep</strong>
+across every frame after the blur pass - that is a separate pass, not part of the blur
+pass.</p>
+<p><strong>Sequencing:</strong> the AI caller video has to publish before this one, or
+the ceiling slot references something the audience has never seen.</p>
+</div>
+
+<div class="card trove">
+<h2>Demo 2 - The Hackathon Playbook <span class="tag live">LIVE, VERIFIED 200</span></h2>
+<p>The name <strong>The Hackathon Playbook</strong> is approved. Use it exactly, in the
+video, on the page, in the email and in the file - one name everywhere.</p>
+<p><strong>The opt-in page you film</strong> (the slug is <code>hackathon-plan</code>,
+not the video's name):</p>
+<span class="url">https://theaishift.biz/tools/hackathon-plan/master-trove/</span>
+<p>Page heading on the live form reads <strong>The Hackathon Playbook</strong>, section
+heading <strong>Your Team</strong>. Some internal notes still say this page does not
+exist - they are stale. It is live. There is no page at
+<code>/tools/claude-code-adoption/</code> and there never will be, so do not type that
+one on camera.</p>
+
+<h3>Script vs form <span class="tag open">MISMATCH</span></h3>
+<p>The script walks the viewer through <strong>five</strong> questions. The live form
+asks <strong>four fields, two of them substantive</strong>. Show what exists:</p>
+<table>
+<tr><th>Field on the live form</th><th>Required</th></tr>
+<tr><td>Your Name</td><td>yes</td></tr>
+<tr><td>Email Address</td><td>yes</td></tr>
+<tr><td>How Many People Are Taking Part?</td><td>yes</td></tr>
+<tr><td>What Do You Currently Pay Other People to Do?</td><td>yes</td></tr>
+</table>
+<p><strong>Change the spoken line to match the form.</strong> Walking five fields over
+a form that shows two is the exact defect that gets spotted in comments. Two questions
+is also a better story than five - say so.</p>
+
+<h3>What the lead receives</h3>
+<p>One bundled download: the plan (the teach section, the one-hour landing-page round,
+the scoring, how projects get picked for the seven-day gap, demo day, and the penalty
+rule in its own bordered block) plus the starter kit (setup, commands, configuration,
+and a "how to get unstuck" prompt).</p>
+<p><strong>The wow moment: hold on the penalty rule and read it aloud.</strong> It is
+the one line in the file that makes an owner realise the hackathon is real.</p>
+</div>
+
+<div class="card q">
+<h2>OPEN QUESTIONS - only you can answer these</h2>
+<p>Every item below is currently unknown and is being held as a placeholder. Nothing in
+Movement 2 can be filmed until these are answered.</p>
+<ol>
+<li><strong>Which nephew is which age?</strong> One is 10, one is 13 - which is which?</li>
+<li><strong>Who built the game mod and who built the app?</strong> Nephew A or Nephew B?
+The descending-age order depends entirely on this.</li>
+<li><strong>What did the family member from the older generation build?</strong> There
+is no description of it anywhere in any document. Without one, that slot has no footage
+and no line.</li>
+<li><strong>The Zoom clips of the children - what is the privacy decision?</strong>
+Clips exist or are planned with children aged 8, 10 and 13 describing what they built.
+They would put minors' faces and voices in a public video. Three options:
+screen recordings only, clips, or both.
+<strong>This needs your explicit sign-off before a single frame reaches a cut</strong> -
+it cannot be decided by anyone else, and it cannot be decided after the edit.</li>
+<li><strong>Was the AI Copywriter genuinely built with Claude Code?</strong> A different
+assistant's interface appears at the end of it. If the answer is no, it stays out of
+the climb entirely - it cannot be a trophy in a video about this tool.</li>
+<li><strong>The headcount-reduction claim is stated twice and has no recorded evidence.</strong>
+What is the source, and are you willing to say the number on camera?</li>
+<li><strong>The outsourcing spend figure on camera - in or out?</strong> Still undecided.</li>
+</ol>
+</div>
+
+<div class="foot">Internal recording aid - The AI Shift. Not a customer-facing page.</div>
+</div>
+</body>
+</html>

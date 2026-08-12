@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Recording Cheat Sheets - The AI Shift</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:#f8f7ff;color:#1a1a1a;padding:24px 16px;line-height:1.5;font-size:15px}
+.wrap{max-width:820px;margin:0 auto}
+.crumb{font-size:13px;color:#6b7280;margin-bottom:12px}
+.crumb a{color:#7c3aed;text-decoration:none}
+h1{color:#7c3aed;font-size:1.75em;margin-bottom:6px;line-height:1.2}
+.sub{color:#4b5563;font-size:14px;margin-bottom:22px}
+.card{background:#fff;border-radius:10px;padding:22px 24px;margin-bottom:18px;
+border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card.rules{border-left-color:#111827;background:#fffdf5}
+.card.warn{border-left-color:#d97706;background:#fffbeb}
+.card.q{border-left-color:#dc2626;background:#fef2f2}
+.card.trove{border-left-color:#059669}
+h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
+.card.rules h2{color:#111827}
+.card.warn h2{color:#b45309}
+.card.q h2{color:#b91c1c}
+.card.trove h2{color:#047857}
+h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
+letter-spacing:.6px;font-weight:700}
+h3:first-of-type{margin-top:0}
+ol,ul{margin:0 0 4px 20px}
+li{margin-bottom:8px}
+li:last-child{margin-bottom:0}
+p{margin-bottom:10px}
+p:last-child{margin-bottom:0}
+.why{font-size:13.5px;color:#4b5563;font-style:italic;margin-top:12px;
+border-top:1px dashed #d1d5db;padding-top:10px}
+.say{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px}
+.say::before{content:"SAY: ";font-weight:700;color:#7c3aed;font-size:12px;letter-spacing:.5px}
+.type{background:#111827;color:#f9fafb;border-radius:6px;padding:10px 12px;margin:8px 0;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;word-break:break-word}
+.type::before{content:"TYPE: ";font-weight:700;color:#a78bfa;font-family:inherit;
+font-size:11px;letter-spacing:.5px}
+.url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:8px 10px;
+display:block;margin:8px 0;word-break:break-all;color:#065f46}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+background:#f3f4f6;padding:1px 5px;border-radius:4px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+th{background:#f9fafb;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#6b7280}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+padding:2px 8px;border-radius:99px;background:#ede9fe;color:#5b21b6;vertical-align:middle}
+.tag.live{background:#d1fae5;color:#065f46}
+.tag.open{background:#fee2e2;color:#991b1b}
+.sheets{list-style:none;margin:0}
+.sheets li{margin-bottom:12px}
+.sheets a{display:block;background:#fff;border-radius:10px;padding:16px 18px;
+border-left:4px solid #7c3aed;text-decoration:none;color:#1a1a1a;
+box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sheets a:hover{background:#faf9ff}
+.sheets .name{display:block;font-weight:700;color:#7c3aed;font-size:1.05em}
+.sheets .desc{display:block;font-size:13.5px;color:#4b5563;margin-top:5px}
+.foot{font-size:12.5px;color:#6b7280;text-align:center;margin-top:26px}
+@media print{
+body{background:#fff;padding:0;font-size:11.5pt}
+.card{box-shadow:none;border:1px solid #d1d5db;border-left-width:4px;
+page-break-inside:avoid;margin-bottom:12px;padding:14px 16px}
+h1{font-size:1.4em}
+.type{background:#fff;color:#111;border:1px solid #9ca3af}
+.type::before{color:#4c1d95}
+.crumb,.foot{display:none}
+a{color:#111;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Recording cheat sheets</h1>
+<p class="sub">One sheet per video. Open the sheet for the video you are recording -
+each one is self-contained and prints on its own.</p>
+
+<div class="card rules">
+<h2>Standing recording rules - do these before you hit record</h2>
+<ol>
+<li><strong>Hide the macOS Dock.</strong> System Settings &gt; Desktop &amp; Dock &gt;
+Automatically hide and show the Dock: ON.</li>
+<li><strong>Hide the app sidebar.</strong> ChatGPT, Claude and Gemini all collapse
+theirs - collapse it before the first frame, not mid-take.</li>
+<li><strong>Hide the browser bookmarks bar.</strong> Cmd+Shift+B.</li>
+<li><strong>Hide the URL / address bar wherever possible.</strong> Full screen, or a
+distraction-free window. Where the URL has to be visible because it is the point,
+show only that one URL and nothing around it.</li>
+</ol>
+<p class="why">Why: the frame should show the work, not the machine. Every one of these
+is a leak path - open tabs, bookmarks, internal URLs, folder names and staff names have
+all reached a customer-facing frame before. Hiding them costs four seconds and removes
+the whole class of problem.</p>
+</div>
+
+<div class="card">
+<h2>The sheets</h2>
+<ul class="sheets">
+<li><a href="ai-copywriter.html"><span class="name">AI Copywriter</span>
+<span class="desc">Demo 1: the real AI Copywriter project on screen, no fake app.
+Demo 2: the AI Copywriter Master Trove opt-in.</span></a></li>
+<li><a href="ai-mentor.html"><span class="name">AI Mentor</span>
+<span class="desc">Demo 1: same file, two answers - the built three-screen walkthrough.
+Demo 2: the Ruleset Master Trove opt-in.</span></a></li>
+<li><a href="message-to-audience.html"><span class="name">Message to Audience</span>
+<span class="desc">Demo 1: one link on screen, research comes back.
+Demo 2: the Research Engine Master Trove opt-in.</span></a></li>
+<li><a href="claude-code-adoption.html"><span class="name">Claude Code Adoption</span>
+<span class="desc">Demo 1: the trophy case of in-house builds.
+Demo 2: The Hackathon Playbook opt-in (slug <code>hackathon-plan</code>) - it has
+no sheet of its own, it is this video's Trove.</span></a></li>
+</ul>
+</div>
+
+<div class="card warn">
+<h2>Read this before you use any sheet</h2>
+<ul>
+<li>Every sheet ends with <strong>OPEN QUESTIONS</strong>. Those are the things only
+you can answer. Answer them <em>before</em> filming day, not on it - several of them
+change what gets said on camera.</li>
+<li>Anything a sheet marks as unverified stays off screen and out of the voiceover
+until it has been checked. An unverified number on screen is a re-shoot.</li>
+<li>If the built demo and the script disagree, <strong>the built demo wins</strong> -
+show what actually exists and change the spoken line to match. The reverse has cost
+a re-shoot before.</li>
+</ul>
+</div>
+
+<div class="foot">Internal recording aid - The AI Shift. Not a customer-facing page.</div>
+</div>
+</body>
+</html>

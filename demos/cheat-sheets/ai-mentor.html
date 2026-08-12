@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>AI Mentor - Recording Cheat Sheet</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:#f8f7ff;color:#1a1a1a;padding:24px 16px;line-height:1.5;font-size:15px}
+.wrap{max-width:820px;margin:0 auto}
+.crumb{font-size:13px;color:#6b7280;margin-bottom:12px}
+.crumb a{color:#7c3aed;text-decoration:none}
+h1{color:#7c3aed;font-size:1.75em;margin-bottom:6px;line-height:1.2}
+.sub{color:#4b5563;font-size:14px;margin-bottom:22px}
+.card{background:#fff;border-radius:10px;padding:22px 24px;margin-bottom:18px;
+border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card.rules{border-left-color:#111827;background:#fffdf5}
+.card.warn{border-left-color:#d97706;background:#fffbeb}
+.card.q{border-left-color:#dc2626;background:#fef2f2}
+.card.trove{border-left-color:#059669}
+h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
+.card.rules h2{color:#111827}
+.card.warn h2{color:#b45309}
+.card.q h2{color:#b91c1c}
+.card.trove h2{color:#047857}
+h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
+letter-spacing:.6px;font-weight:700}
+h3:first-of-type{margin-top:0}
+ol,ul{margin:0 0 4px 20px}
+li{margin-bottom:8px}
+li:last-child{margin-bottom:0}
+p{margin-bottom:10px}
+p:last-child{margin-bottom:0}
+.why{font-size:13.5px;color:#4b5563;font-style:italic;margin-top:12px;
+border-top:1px dashed #d1d5db;padding-top:10px}
+.say{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px}
+.say::before{content:"SAY: ";font-weight:700;color:#7c3aed;font-size:12px;letter-spacing:.5px}
+.type{background:#111827;color:#f9fafb;border-radius:6px;padding:10px 12px;margin:8px 0;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;word-break:break-word}
+.type::before{content:"TYPE: ";font-weight:700;color:#a78bfa;font-family:inherit;
+font-size:11px;letter-spacing:.5px}
+.url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:8px 10px;
+display:block;margin:8px 0;word-break:break-all;color:#065f46}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+background:#f3f4f6;padding:1px 5px;border-radius:4px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+th{background:#f9fafb;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#6b7280}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+padding:2px 8px;border-radius:99px;background:#ede9fe;color:#5b21b6;vertical-align:middle}
+.tag.live{background:#d1fae5;color:#065f46}
+.tag.open{background:#fee2e2;color:#991b1b}
+.sheets{list-style:none;margin:0}
+.sheets li{margin-bottom:12px}
+.sheets a{display:block;background:#fff;border-radius:10px;padding:16px 18px;
+border-left:4px solid #7c3aed;text-decoration:none;color:#1a1a1a;
+box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sheets a:hover{background:#faf9ff}
+.sheets .name{display:block;font-weight:700;color:#7c3aed;font-size:1.05em}
+.sheets .desc{display:block;font-size:13.5px;color:#4b5563;margin-top:5px}
+.foot{font-size:12.5px;color:#6b7280;text-align:center;margin-top:26px}
+@media print{
+body{background:#fff;padding:0;font-size:11.5pt}
+.card{box-shadow:none;border:1px solid #d1d5db;border-left-width:4px;
+page-break-inside:avoid;margin-bottom:12px;padding:14px 16px}
+h1{font-size:1.4em}
+.type{background:#fff;color:#111;border:1px solid #9ca3af}
+.type::before{color:#4c1d95}
+.crumb,.foot{display:none}
+a{color:#111;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="crumb"><a href="/demos/cheat-sheets/">&larr; All recording cheat sheets</a></div>
+
+<h1>AI Mentor</h1>
+<p class="sub">Recording cheat sheet. Demo 1 is the built three-screen walkthrough.
+Demo 2 is the Ruleset Master Trove opt-in.</p>
+
+<div class="card rules">
+<h2>Standing recording rules - do these before you hit record</h2>
+<ol>
+<li><strong>Hide the macOS Dock.</strong> System Settings &gt; Desktop &amp; Dock &gt;
+Automatically hide and show the Dock: ON.</li>
+<li><strong>Hide the app sidebar.</strong> ChatGPT, Claude and Gemini all collapse
+theirs - collapse it before the first frame, not mid-take.</li>
+<li><strong>Hide the browser bookmarks bar.</strong> Cmd+Shift+B.</li>
+<li><strong>Hide the URL / address bar wherever possible.</strong> Full screen, or a
+distraction-free window. Where the URL has to be visible because it is the point,
+show only that one URL and nothing around it.</li>
+</ol>
+<p class="why">Why: the frame should show the work, not the machine. Every one of these
+is a leak path - open tabs, bookmarks, internal URLs, folder names and staff names have
+all reached a customer-facing frame before. Hiding them costs four seconds and removes
+the whole class of problem.</p>
+</div>
+
+
+<div class="card warn">
+<h2>Unlock the demo before you roll</h2>
+<p>The demo pages are password-gated. If you have not unlocked them, every page will
+bounce you to the home page mid-take. Open <code>/demos/</code> and sign in first,
+then confirm all three screens load before you start recording.</p>
+</div>
+
+<div class="card">
+<h2>Demo 1 - "Same file, two answers"</h2>
+<p><strong>What it is:</strong> a built walkthrough, shown as the real system. Three
+screens, clicked in order. <strong>Pre-record it and cut it - do not click through it
+live on camera.</strong></p>
+<span class="url">https://the-ai-shift-0.github.io/demos/ai-mentor/</span>
+
+<h3>Screen 1 - the dashboard (index)</h3>
+<ol>
+<li>Let the 1.2-second loading overlay finish before you start the take.</li>
+<li>Show the header: <strong>AI Mentor</strong>, and the two green status pills -
+"Standing rules loaded" and "Rechecks itself every 10 messages".</li>
+<li>Pass over the two charts (monthly net loss improving, cost per customer rising),
+the three stat cards, and the loaded-data chip.</li>
+<li><strong>Click the first question chip.</strong> That is the line the whole demo
+turns on:</li>
+</ol>
+<div class="say">I've spent a year turning this around and cut every cost. Can I save it?</div>
+<p>All three chips go to the same next screen, so click the first one - the other two
+are set dressing.</p>
+
+<h3>Screen 2 - the split answer (the wow)</h3>
+<ol>
+<li>Hold while the ticker runs (about 1.7 seconds).</li>
+<li>Show the two panels side by side. Left, standard AI with no rules loaded, says
+<strong>YES - keep going</strong>. Right, with the rules loaded, says
+<strong>NO - this isn't a cost problem</strong>.</li>
+<li><strong>Hold on the "Outside proof - not in your file" card.</strong> That card is
+the argument: the right-hand answer went and found something the file never contained.</li>
+<li>Click the purple button: <strong>"Ask the follow-up: so what do we do about it?"</strong></li>
+</ol>
+
+<h3>Screen 3 - the outcome</h3>
+<ol>
+<li>Left panel says shut it down. Right panel says <strong>don't shut it down - sell
+it</strong>, with the four-item asset list.</li>
+<li><strong>Hold on the outcome banner.</strong> That is the closing image of Demo 1.</li>
+<li>Note the caption already tells the viewer the buyer and unit names are blurred and
+the figures are real. Do not talk over it - let them read it.</li>
+</ol>
+</div>
+
+<div class="card warn">
+<h2>On screen: blur, show, never say</h2>
+<table>
+<tr><th>Blur</th><th>Show sharp - deliberately</th></tr>
+<tr><td>The business unit's real name, the parent revenue line, every client, customer
+and supplier name, the buyer's identity, the test email used for the download, any real
+personal name typed into the form, the bookmarks bar, other tabs, and the sidebar chat
+history in the fresh chat.</td>
+<td>The profit trend, the cost-per-customer line, the outside-proof chart, both outcome
+figures, all four form fields including the blunt one, the ten-message rule, and the
+full pushback exchange.</td></tr>
+</table>
+<p><strong>Rename the data file before you drag it.</strong> The filename is on screen
+during the drag.</p>
+<p><strong>Never say - and never let it appear in the interface either:</strong>
+system prompt, config file, context window, temperature, token. Two of these are
+currently spoken in the script and need re-voicing.</p>
+<p><strong>Record-day dependency:</strong> web search must be switched on in the
+assistant, or the outside-proof beat cannot happen.</p>
+</div>
+
+<div class="card trove">
+<h2>Demo 2 - the Ruleset Master Trove <span class="tag live">LIVE, VERIFIED 200</span></h2>
+<p><strong>The opt-in page you film:</strong></p>
+<span class="url">https://theaishift.biz/tools/ai-mentor/master-trove/</span>
+<p>Page heading on the live form reads <strong>Ruleset Master Trove</strong>, section
+heading <strong>The Decision You Are Weighing</strong>. This one may be filmed live.</p>
+
+<h3>The six fields that actually exist - all required, film all of them</h3>
+<ol>
+<li>Your Name</li>
+<li>Email Address</li>
+<li>What Decision Are You Trying to Make?</li>
+<li>What Are the Relevant Numbers?</li>
+<li>What Does Your Business Do?</li>
+<li><strong>What Answer Are You Hoping to Hear?</strong></li>
+</ol>
+<p>Field 6 is the one that makes the tool make sense. <strong>Do not soften it, do not
+skip past it, and do not paraphrase the label.</strong> Answer it honestly on camera -
+the honesty is the demonstration.</p>
+
+<h3>After the file arrives</h3>
+<ol>
+<li>Open the delivered file. It is one pasteable asset - five steps plus a three-part
+test section.</li>
+<li><strong>Hold on the ten-message re-read rule</strong> - it sits in its own boxed
+callout and has to be readable when the shot zooms.</li>
+<li>Paste the file into a fresh chat, then type:</li>
+</ol>
+<div class="type">Here's the decision I'm facing. Tell me what you actually think, not what I want to hear.</div>
+</div>
+
+<div class="card q">
+<h2>OPEN QUESTIONS - answer before filming</h2>
+<ol>
+<li><strong>The operating-data file premise: which version is true on camera?</strong>
+Is it dressed to look like a business that is recovering, or is it the data you actually
+had at the time? You own this story, so you decide - but the answer changes the
+voiceover, and the file itself has not been built yet.</li>
+<li><strong>Runtime.</strong> The current cut targets longer than the ceiling. What
+comes out?</li>
+<li><strong>Two banned terms are in your spoken script.</strong> Approve the replacement
+wording before the read, not during it.</li>
+<li><strong>The ten-message line.</strong> A rewording has been proposed that drops the
+"so it can't drift" clause. Yes or no?</li>
+<li><strong>Has this video's Ruleset content been build-verified end to end?</strong>
+Nobody has confirmed a real lead receives what this demo promises.</li>
+</ol>
+</div>
+
+<div class="foot">Internal recording aid - The AI Shift. Not a customer-facing page.</div>
+</div>
+</body>
+</html>
