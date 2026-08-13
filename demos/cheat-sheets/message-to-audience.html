@@ -20,11 +20,13 @@ border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .card.warn{border-left-color:#d97706;background:#fffbeb}
 .card.q{border-left-color:#dc2626;background:#fef2f2}
 .card.trove{border-left-color:#059669}
+.card.script{border-left-color:#2563eb;background:#eff6ff}
 h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
 .card.rules h2{color:#111827}
 .card.warn h2{color:#b45309}
 .card.q h2{color:#b91c1c}
 .card.trove h2{color:#047857}
+.card.script h2{color:#1d4ed8}
 h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
 letter-spacing:.6px;font-weight:700}
 h3:first-of-type{margin-top:0}
@@ -38,6 +40,13 @@ border-top:1px dashed #d1d5db;padding-top:10px}
 .say{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:10px 12px;
 margin:8px 0;font-size:15px}
 .say::before{content:"SAY: ";font-weight:700;color:#7c3aed;font-size:12px;letter-spacing:.5px}
+.was{background:#fff1f2;border:1px solid #fecdd3;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px;color:#881337}
+.was::before{content:"CURRENTLY: ";font-weight:700;color:#be123c;font-size:12px;letter-spacing:.5px}
+.card.script .say{background:#fff;border-color:#bfdbfe}
+.decide{font-size:13.5px;color:#1e3a8a;margin-top:10px;border-top:1px dashed #93c5fd;
+padding-top:10px}
+.decide::before{content:"THE CALL: ";font-weight:700;letter-spacing:.5px;font-size:12px}
 .type{background:#111827;color:#f9fafb;border-radius:6px;padding:10px 12px;margin:8px 0;
 font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;word-break:break-word}
 .type::before{content:"TYPE: ";font-weight:700;color:#a78bfa;font-family:inherit;
@@ -81,7 +90,7 @@ a{color:#111;text-decoration:none}
 
 <h1>Message to Audience</h1>
 <p class="sub">Recording cheat sheet. Demo 1 is the built four-screen walkthrough.
-Demo 2 is the Research Engine Master Trove opt-in.</p>
+Demo 2 is the Audience Messaging Expert Master Trove opt-in.</p>
 
 <div class="card rules">
 <h2>Standing recording rules - do these before you hit record</h2>
@@ -109,10 +118,13 @@ the whole class of problem.</p>
 Porterfield. It is <strong>named on screen and nothing is blurred</strong>. The show
 name, the host name and the URL all render sharp. Blurring them was considered and
 rejected.</li>
-<li><strong>Demo 2 is copy-paste, not a link.</strong> Settled 2026-08-11: the assistant
-cannot fetch the page itself, so the lead selects all, copies, and pastes. Demo 1 takes
-a link. Demo 2 takes a paste. These are different mechanics and the script must not
-blur them together.</li>
+<li><strong>Demo 2 is copy-paste, not a link.</strong> Demo 1 takes a link. Demo 2 takes
+a paste. These are different mechanics and the script must not blur them together.
+<strong>The reason has changed and the reason matters</strong> - this was settled on
+2026-08-11 on the basis that the assistant could not fetch anything at all, and that is
+no longer true. See SCRIPT WORDING below before you say anything on camera about what
+the AI can and cannot reach. The paste stays: it is the one path that works for every
+source. The old justification for it does not.</li>
 </ul>
 </div>
 
@@ -144,9 +156,16 @@ the plan at the end is the payoff and the demo does not work without it.</p>
 you to the home page mid-take.</p>
 
 <h3>Screen 1 - the link goes in</h3>
-<p>The built page shows the header "Research Engine - Appearance library loaded", the
-line <strong>"One link is all it needs"</strong>, and the question "Which room do you
-want to research?".</p>
+<p>The built page shows the header <strong>"Audience Message Research"</strong> with a
+status badge reading "Appearance library loaded", the line
+<strong>"One link is all it needs"</strong>, and a prompt asking which podcast you want
+to research.</p>
+<p class="why">Note the two names. The tool on screen in Demo 1 is called
+<strong>Audience Message Research</strong>. The deliverable in Demo 2 is the
+<strong>Audience Messaging Expert</strong>. They are close but not the same string, and
+one product name everywhere is a standing rule on this channel. Decide whether that is
+deliberate before you film - if the screen and your voiceover use different names, a
+viewer will assume they are two different things.</p>
 <p><strong>The link is pre-rendered in the field</strong> - you do not have to type it.
 If you want a typing shot, this is the exact link, character for character:</p>
 <div class="type">https://podcasts.apple.com/us/podcast/the-amy-porterfield-show/id594703545</div>
@@ -196,22 +215,24 @@ happened, and anything vaguer makes the demo look hypothetical.</p>
 </div>
 
 <div class="card trove">
-<h2>Demo 2 - the Research Engine Master Trove <span class="tag live">LIVE, VERIFIED 200</span></h2>
+<h2>Demo 2 - the Audience Messaging Expert Master Trove <span class="tag live">LIVE</span></h2>
 <p><strong>The opt-in page you film:</strong></p>
 <span class="url">https://theaishift.biz/tools/message-to-audience/master-trove/</span>
-<p>Page heading on the live form reads <strong>Research Engine Master Trove</strong>,
-section heading <strong>Your Audience Profile</strong>. Some internal notes still say
-this page does not exist - they are stale. It is live.</p>
+<p><strong>The product has been renamed to Audience Messaging Expert.</strong> It was
+called the Research Engine. Use the new name in the video, on the page, in the email, in
+the file and in the captions - one name everywhere, and the old one nowhere.</p>
+<p><strong>The rename is still landing across the live page, the email and the file.</strong>
+Open the opt-in page on the day and check the heading with your own eyes before you point
+a camera at it. If it still says the old name, stop and get it fixed - do not film a
+heading that contradicts what you are saying over it.</p>
 
-<h3>The six fields that actually exist - all required</h3>
-<ol>
-<li>Your Name</li>
-<li>Email Address</li>
-<li>What Do You Sell?</li>
-<li>Who Do You Want in the Room?</li>
-<li>What Do You Want Them to Do Afterwards?</li>
-<li>Which AI Tool Do You Mainly Use? (dropdown)</li>
-</ol>
+<h3>The form - what to do</h3>
+<p>Name, email, and a short set of questions about the room you want to be in: what you
+sell, who you want in front of you, and what you want them to do afterwards. Fill it as
+a real owner would, all the way through, and submit it on camera.</p>
+<p><strong>Do not read the labels off this sheet and do not name a number of fields in
+the voiceover.</strong> The forms are being edited right now, so anything written down
+here is stale by definition. Film what is on the live page.</p>
 
 <h3>The mechanic - say this carefully, it is the part that gets confused</h3>
 <p>Demo 1 took a link. <strong>Demo 2 does not.</strong> The lead opens the show's page,
@@ -227,6 +248,53 @@ visible - that flash of blue is what makes the instruction land.</li>
 <p>The select-all-and-copy instruction must be visible on screen <strong>and</strong> must
 be inside the delivered file's sourcing prompt. If it is only in one of the two places,
 the lead gets stuck at the first step.</p>
+</div>
+
+<div class="card script">
+<h2>SCRIPT WORDING - your call before filming</h2>
+<p>Each item is the current line, the suggested replacement, and why it matters.
+<strong>You take the call</strong> - and take it before the read, not during it.</p>
+
+<h3>1. "All the research and legwork"</h3>
+<div class="was">have it doing all the research and legwork for you by tomorrow</div>
+<div class="say">By tomorrow you can have it doing the heavy lifting - it goes and gets
+what it can reach on its own, and tells you exactly where to paste in the rest.</div>
+<p>Shorter, if the beat needs to move faster:</p>
+<div class="say">By tomorrow it's doing the legwork. It fetches what it can, and tells
+you exactly what to paste in for the rest.</div>
+<p class="why">Why it matters: the word is <strong>all</strong>. It was tested for real
+on 2026-08-13 in a live project, and the honest answer is "some, and it tells you about
+the rest". The assistant <strong>did</strong> reach an Apple Podcasts page unaided and
+quoted its rating straight back - "4.9 out of 5, 4,575 Ratings" - so the old blanket
+claim that it cannot fetch anything is dead too. But it is blocked from Spotify and from
+YouTube comments, and a raw feed comes back as unreadable soup.</p>
+<p class="why">A viewer who hears "all" tries the second source that evening, hits a
+wall, and concludes either that they did it wrong or that the video oversold it. Both
+outcomes cost more than the sentence buys. The replacement is also the setup for Demo 2:
+the copy-paste step exists precisely because some sources are closed, so promising full
+automation two minutes earlier makes your own demo look like a workaround for a broken
+tool instead of the correct method.</p>
+<p class="decide">Claim the heavy lifting. Never claim "all". "It fetches what it can and
+tells you where to paste the rest" is a promise the tool actually keeps.</p>
+
+<h3>2. The product name</h3>
+<div class="was">Research Engine</div>
+<div class="say">Audience Messaging Expert</div>
+<p class="why">Why it matters: the deliverable has been renamed. One product name across
+the video, the page, the email, the file and the captions is a standing rule here, and a
+name that only changed in some places is worse than not changing it. Sweep your read for
+the old name before the take, and check the on-screen tool name too - see the note under
+Demo 1, Screen 1.</p>
+
+<h3>3. Handing the viewer from link to paste</h3>
+<p>Still unwritten, and it is yours to write - Demo 1's screen says "One link is all it
+needs" and Demo 2 asks for a paste. Both are correct in their own place. A starting
+point, not a decision:</p>
+<div class="say">In my system it takes a link. In yours it takes thirty seconds of
+copy and paste - and it does the same job.</div>
+<p class="why">Why it matters: without an explicit handoff the viewer assumes Demo 2 is
+broken, or that you switched tools between the two demos. This is item 1 in OPEN
+QUESTIONS below and it cannot be resolved in the edit.</p>
 </div>
 
 <div class="card q">

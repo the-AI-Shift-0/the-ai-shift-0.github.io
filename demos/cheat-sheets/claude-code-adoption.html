@@ -20,11 +20,13 @@ border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .card.warn{border-left-color:#d97706;background:#fffbeb}
 .card.q{border-left-color:#dc2626;background:#fef2f2}
 .card.trove{border-left-color:#059669}
+.card.script{border-left-color:#2563eb;background:#eff6ff}
 h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
 .card.rules h2{color:#111827}
 .card.warn h2{color:#b45309}
 .card.q h2{color:#b91c1c}
 .card.trove h2{color:#047857}
+.card.script h2{color:#1d4ed8}
 h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
 letter-spacing:.6px;font-weight:700}
 h3:first-of-type{margin-top:0}
@@ -38,6 +40,13 @@ border-top:1px dashed #d1d5db;padding-top:10px}
 .say{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:10px 12px;
 margin:8px 0;font-size:15px}
 .say::before{content:"SAY: ";font-weight:700;color:#7c3aed;font-size:12px;letter-spacing:.5px}
+.was{background:#fff1f2;border:1px solid #fecdd3;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px;color:#881337}
+.was::before{content:"CURRENTLY: ";font-weight:700;color:#be123c;font-size:12px;letter-spacing:.5px}
+.card.script .say{background:#fff;border-color:#bfdbfe}
+.decide{font-size:13.5px;color:#1e3a8a;margin-top:10px;border-top:1px dashed #93c5fd;
+padding-top:10px}
+.decide::before{content:"THE CALL: ";font-weight:700;letter-spacing:.5px;font-size:12px}
 .type{background:#111827;color:#f9fafb;border-radius:6px;padding:10px 12px;margin:8px 0;
 font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;word-break:break-word}
 .type::before{content:"TYPE: ";font-weight:700;color:#a78bfa;font-family:inherit;
@@ -110,7 +119,9 @@ first name, not a school, not a location - for any of the children or the family
 The identification ceiling is the relationship and the age: "my eight-year-old son",
 "my ten-year-old nephew". That is as specific as it gets, on screen or spoken.</li>
 <li><strong>Where the built demo and the script disagree, the built demo wins.</strong>
-Two places below. Change the spoken line, not the product.</li>
+Change the spoken line, not the product. Every instance is collected in
+<strong>SCRIPT WORDING</strong> near the bottom of this sheet, with the replacement
+wording and the reason. Read that section before the shoot, not on the day.</li>
 </ul>
 </div>
 
@@ -183,8 +194,7 @@ copy is unflattering; the test email address and the whole inbox around it; the
 bookmarks bar; every other tab and window title; any real vendor or agency name typed
 into the form.</p>
 <p><strong>Never on camera:</strong> API, webhook, repo, terminal, CLI, deploy. Also
-"run-of-show" - it is currently spoken once and should become "the actual plan" or
-"the running order".</p>
+"run-of-show", which is spoken once - see SCRIPT WORDING for the replacement.</p>
 <p><strong>Per capture:</strong> Dock hidden, other windows closed, project and window
 titles renamed, clean browser profile. Then run a <strong>first-name sweep</strong>
 across every frame after the blur pass - that is a separate pass, not part of the blur
@@ -206,19 +216,15 @@ exist - they are stale. It is live. There is no page at
 <code>/tools/claude-code-adoption/</code> and there never will be, so do not type that
 one on camera.</p>
 
-<h3>Script vs form <span class="tag open">MISMATCH</span></h3>
-<p>The script walks the viewer through <strong>five</strong> questions. The live form
-asks <strong>four fields, two of them substantive</strong>. Show what exists:</p>
-<table>
-<tr><th>Field on the live form</th><th>Required</th></tr>
-<tr><td>Your Name</td><td>yes</td></tr>
-<tr><td>Email Address</td><td>yes</td></tr>
-<tr><td>How Many People Are Taking Part?</td><td>yes</td></tr>
-<tr><td>What Do You Currently Pay Other People to Do?</td><td>yes</td></tr>
-</table>
-<p><strong>Change the spoken line to match the form.</strong> Walking five fields over
-a form that shows two is the exact defect that gets spotted in comments. Two questions
-is also a better story than five - say so.</p>
+<h3>The form <span class="tag open">SCRIPT DISAGREES</span></h3>
+<p>It is the <strong>shortest form on the site</strong>, and that is the agreed design,
+not an accident. Your name, your email, and a small number of questions about the work
+you want to pull back in-house. Fill it as a real owner would and submit it on camera.</p>
+<p><strong>The script walks more questions than the form has.</strong> The fix is in
+SCRIPT WORDING below - and the fix is to the spoken line, never to the form.</p>
+<p><strong>Do not read the field labels off this sheet.</strong> Open the live page on
+the day, look at what is actually on it, and film that. The forms are being edited right
+now, so any list written down here is stale by definition.</p>
 
 <h3>What the lead receives</h3>
 <p>One bundled download: the plan (the teach section, the one-hour landing-page round,
@@ -227,6 +233,54 @@ rule in its own bordered block) plus the starter kit (setup, commands, configura
 and a "how to get unstuck" prompt).</p>
 <p><strong>The wow moment: hold on the penalty rule and read it aloud.</strong> It is
 the one line in the file that makes an owner realise the hackathon is real.</p>
+<p>The file is being edited right now. <strong>Generate a fresh copy on the day and
+read it before you film it</strong> - what is in it, and what order it is in, is not
+safe to quote from this sheet.</p>
+</div>
+
+<div class="card script">
+<h2>SCRIPT WORDING - your call before filming</h2>
+<p>Three lines in the script are wrong against what has actually been built. Each one
+below is the current line, the suggested replacement, and why it matters. <strong>You
+take the call on all three</strong> - none of them should be decided by anyone else, and
+none of them can be decided after the read.</p>
+
+<h3>1. The personalisation claim</h3>
+<div class="was">what comes back isn't the generic version - it's the hackathon plan
+calibrated to your team, your size, and the exact work you're trying to pull back
+in-house.</div>
+<div class="say">What comes back isn't a write-up of how a hackathon works. It's the
+actual plan we ran - the same week, the same scoring, the same rules - with your team
+and your own list of outsourced work written into it.</div>
+<p class="why">Why it matters: this was measured, not guessed. Across leads the
+generated file comes back <strong>98.11% identical</strong>. The answers a lead types in
+are echoed back into the plan, they do not reshape it. So "isn't the generic version" is
+not an overstatement, it is the precise opposite of what is true - said on camera, in a
+video whose entire premise is being honest about what AI does and does not do. One
+viewer comparing two copies ends the credibility of the channel, not just the video.</p>
+<p>The honest version is also the stronger one, and it is <strong>already in the script
+elsewhere</strong>: this is the real plan we actually ran, not a generated approximation
+of one. That is a better promise than personalisation, and it is true.</p>
+<p class="decide">It genuinely is customised to some degree, and we simply never say how
+much. Claim the plan is real. Do not claim it was rebuilt for them.</p>
+
+<h3>2. The number of questions you walk on camera</h3>
+<div class="was">[the script walks the viewer through five form fields, one at a time]</div>
+<div class="say">It asks you a couple of questions. That's the whole form. Then it emails
+you the plan.</div>
+<p class="why">Why it matters: filming the script as written means narrating fields that
+are not on the screen. That is the single defect viewers catch fastest, and it is
+unfixable in the edit - the form is in shot the whole time.</p>
+<p class="decide"><strong>Change the spoken line. Do NOT regrow the fields.</strong> The
+short form is the agreed simplification and it is the shortest form on the site - that is
+a selling point, so sell it. Read the actual questions off the live page on the day
+rather than from the script or from this sheet.</p>
+
+<h3>3. "Run-of-show"</h3>
+<div class="was">run-of-show</div>
+<div class="say">the actual plan</div>
+<p class="why">Why it matters: it is production jargon. The audience owns a business,
+they do not make television. "The running order" also works.</p>
 </div>
 
 <div class="card q">
