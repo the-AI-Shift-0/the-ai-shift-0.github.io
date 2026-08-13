@@ -20,11 +20,20 @@ border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .card.warn{border-left-color:#d97706;background:#fffbeb}
 .card.q{border-left-color:#dc2626;background:#fef2f2}
 .card.trove{border-left-color:#059669}
+.card.script{border-left-color:#2563eb;background:#eff6ff}
 h2{color:#7c3aed;font-size:1.15em;margin-bottom:14px;letter-spacing:.2px}
 .card.rules h2{color:#111827}
 .card.warn h2{color:#b45309}
 .card.q h2{color:#b91c1c}
 .card.trove h2{color:#047857}
+.card.script h2{color:#1d4ed8}
+.was{background:#fff1f2;border:1px solid #fecdd3;border-radius:6px;padding:10px 12px;
+margin:8px 0;font-size:15px;color:#881337}
+.was::before{content:"CURRENTLY: ";font-weight:700;color:#be123c;font-size:12px;letter-spacing:.5px}
+.card.script .say{background:#fff;border-color:#bfdbfe}
+.decide{font-size:13.5px;color:#1e3a8a;margin-top:10px;border-top:1px dashed #93c5fd;
+padding-top:10px}
+.decide::before{content:"THE CALL: ";font-weight:700;letter-spacing:.5px;font-size:12px}
 h3{font-size:.95em;margin:18px 0 8px;color:#374151;text-transform:uppercase;
 letter-spacing:.6px;font-weight:700}
 h3:first-of-type{margin-top:0}
@@ -192,9 +201,10 @@ https://the-ai-shift-0.github.io/demos/ai-mentor/l3.html</a>
 proof on the right. <code>l3.html</code> storyboards the recommendation - shut it down on
 the left, sell it on the right, with the asset list.</p>
 <p>They are password-gated, so unlock <code>/demos/</code> first if you want to read
-them. <strong>Known defect:</strong> both pages still carry a "Dashboard" link back to the
-deleted walkthrough. It is dead. Ignore it - and if you ever did film these pages, that
-dead link alone is a re-shoot.</p>
+them. The old dead "Dashboard" link back to the deleted walkthrough <strong>has been
+removed</strong> - checked on the live pages on 2026-08-13. Both now carry a back-link to
+this cheat sheet instead ("&larr; Cheat sheet" on l2, "&larr; Back to cheat sheet" on l3).
+That link is internal, which is one more reason these two pages never go in a frame.</p>
 </div>
 
 <div class="card warn">
@@ -266,6 +276,50 @@ Check where it actually sits in the PDF before you plan the shot.</li>
 contents and its order are not safe to quote from this sheet.</p>
 </div>
 
+<div class="card script">
+<h2>SCRIPT WORDING - your call before filming</h2>
+<p>Each item is the current line, the suggested replacement, and why it matters. You take
+the call, and take it <strong>before</strong> the read, not during it.</p>
+
+<h3>1. The two banned words you actually speak</h3>
+<p>Both offenders are in the same sentence, in WHAT YOU GET AT THE END. They are
+<strong>"system prompt"</strong> and <strong>"config file"</strong> - your own script's
+banned list forbids them, and your own script flags them as a live violation.</p>
+<div class="was">&hellip; I'll hand you the exact ruleset we run internally, a prompt plus
+a config file you paste straight into your own AI, so it starts telling you the truth on
+the very next decision you bring it.</div>
+<div class="say">&hellip; I'll hand you the exact ruleset we run internally - a set of
+prompts you paste in at the decision, plus the standing rules that sit underneath them -
+so it starts pushing back on the very next decision you bring it, and shows you its
+working, so you can check it.</div>
+<p class="why">Two separate reasons, one sentence. The first half removes the banned
+words and, as a bonus, describes what the Trove now actually is: a prompt pack plus a
+standing-rules file, not "a prompt plus a config file". The second half replaces
+"telling you the truth" - a claim about the model knowing the truth - with the behaviour
+a viewer can actually observe and check.</p>
+<p class="decide">Approve this sentence before the read. It is the only place the two
+banned words are spoken.</p>
+
+<h3>2. The ten-message rule - a known overclaim</h3>
+<p>This is the line flagged in OPEN QUESTIONS. The clause under review is
+<strong>"so it can't drift"</strong>.</p>
+<div class="was">So I added the fix that made the whole thing work: re-read these rules
+every ten messages and make sure you're still holding to them. That was the version that
+finally worked.</div>
+<div class="say">So I added the last piece, and it's the one people get wrong. I didn't
+ask it to police itself. It can't. I built the reminder into how I use it: every ten
+messages or so, the rules go back in front of it. And the moment it starts agreeing with
+me again, I don't argue with it. I start a clean conversation and put the rules back on
+top. That's the version that finally held.</div>
+<p class="why">The evidence says a model does not reliably police itself on a schedule,
+so "so it can't drift" promises something the file cannot deliver. The rule itself stays
+in the PDF and stays zoomable - what changes is who is doing the remembering. The
+replacement is also the more useful instruction: it tells the viewer what to do when the
+AI starts agreeing again, which is the moment they will actually hit.</p>
+<p class="decide">Do not record the "so it can't drift" clause without deciding this
+first. Longer read - check it against your runtime ceiling.</p>
+</div>
+
 <div class="card q">
 <h2>OPEN QUESTIONS - answer before filming</h2>
 <ol>
@@ -290,10 +344,11 @@ different products would need the narration to say so. Decide before you set the
 up, because it changes what "identical and visibly empty" means at the first frame.</li>
 <li><strong>Runtime.</strong> The current cut targets longer than the ceiling. What
 comes out?</li>
-<li><strong>Two banned terms are in your spoken script.</strong> Approve the replacement
-wording before the read, not during it.</li>
+<li><strong>Two banned terms are in your spoken script</strong> - "system prompt" and
+"config file", both in the same sentence. The replacement is written out in
+SCRIPT WORDING item 1 above. Approve it before the read, not during it.</li>
 <li><strong>The ten-message line.</strong> A rewording has been proposed that drops the
-"so it can't drift" clause. Yes or no?</li>
+"so it can't drift" clause. Both versions are in SCRIPT WORDING item 2 above. Yes or no?</li>
 <li><strong>Has this video's Ruleset content been build-verified end to end?</strong>
 Nobody has confirmed a real lead receives what this demo promises.</li>
 </ol>
