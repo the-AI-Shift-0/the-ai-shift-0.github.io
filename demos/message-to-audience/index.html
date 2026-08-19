@@ -14,6 +14,17 @@
   nudges the field instead of advancing, so a mis-timed click cannot
   jump the sequence forward.
   ═══════════════════════════════════════════════════════════════════
+  RECORDING NOTE - THE RESEARCH RUN TAKES ~16 SECONDS, DELIBERATELY.
+  Owner's decision, 2026-08-19: "it'll have to be edited so that this
+  research time takes longer than like a second." It used to resolve in
+  2.9 seconds, which read as an animation rather than as work. It now runs
+  16.0s end to end (measured, both 1400x1000 and 1280x800), one step at a
+  time, with a pulsing dot on the live step, what that step is doing on
+  the right, a tick when it clears, and an elapsed clock underneath. The
+  step durations are intentionally UNEVEN - an even cadence is what made
+  the old one read as fake. Talk over it; do not cut it back down. All the
+  timing lives in STEPS[] in the script at the foot of this file.
+  ═══════════════════════════════════════════════════════════════════
   RECORDING NOTE - NOTHING IS BLURRED. DO NOT REINSTATE THE BLUR.
   The show name, the host name and the show URL render SHARP on every
   page. Owner's decision, 2026-08-11: "Just take a real podcast, do not
@@ -167,20 +178,43 @@
         .loading-msg { font-size: 15px; color: #4b5563; font-weight: 600; }
         .loading-steps {
             display: flex; flex-direction: column; gap: 13px;
-            min-width: 340px;
+            width: 460px;
         }
         .loading-step {
             display: flex; align-items: center; gap: 13px;
             font-size: 13px; color: #9ca3af;
             transition: color 0.3s;
         }
+        .loading-step.active { color: #111827; font-weight: 600; }
         .loading-step.done { color: #4b5563; }
         .step-dot {
             width: 7px; height: 7px; border-radius: 50%;
             background: #e9d5ff; flex-shrink: 0;
-            transition: background 0.3s;
+            transition: background 0.3s, box-shadow 0.3s;
         }
-        .step-dot.done { background: #7c3aed; }
+        .step-dot.active {
+            background: #7c3aed;
+            box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.5);
+            animation: pulse 1.4s ease-out infinite;
+        }
+        @keyframes pulse {
+            70%  { box-shadow: 0 0 0 7px rgba(124, 58, 237, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+        }
+        .step-dot.done { background: #7c3aed; animation: none; box-shadow: none; }
+        .step-label { flex: 1; min-width: 0; }
+        /* Right-hand column: what it is doing right now, then a tick. Fixed
+           width so the labels never shift sideways as the run progresses. */
+        .step-side {
+            width: 178px; flex-shrink: 0; text-align: right;
+            font-size: 11px; font-weight: 500; color: #9ca3af;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .step-side.tick { color: #7c3aed; font-weight: 700; }
+        .loading-elapsed {
+            font-size: 11.5px; color: #b6b2c4; letter-spacing: 0.04em;
+            font-variant-numeric: tabular-nums;
+        }
 
         .header {
             display: flex;
@@ -274,15 +308,8 @@
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
         <div class="loading-msg">Reading the room...</div>
-        <div class="loading-steps">
-            <div class="loading-step" id="r1"><div class="step-dot" id="s1"></div><span>Where they came from</span></div>
-            <div class="loading-step" id="r2"><div class="step-dot" id="s2"></div><span>The pain under the pain</span></div>
-            <div class="loading-step" id="r3"><div class="step-dot" id="s3"></div><span>What actually drives them</span></div>
-            <div class="loading-step" id="r4"><div class="step-dot" id="s4"></div><span>What they are afraid of</span></div>
-            <div class="loading-step" id="r5"><div class="step-dot" id="s5"></div><span>What stories land</span></div>
-            <div class="loading-step" id="r6"><div class="step-dot" id="s6"></div><span>What winning looks like to them</span></div>
-            <div class="loading-step" id="r7"><div class="step-dot" id="s7"></div><span>Pulling the words they use themselves</span></div>
-        </div>
+        <div class="loading-steps" id="loadingSteps"></div>
+        <div class="loading-elapsed" id="elapsed">0:00 elapsed</div>
     </div>
 
     <div class="header">
@@ -350,17 +377,73 @@
 
             started = true;
             overlay.classList.add('showing');
+            runResearch();
+        }
 
-            var ids = ['1','2','3','4','5','6','7'];
-            ids.forEach(function (n, i) {
+        /* ══════════════════════════════════════════════════════════════
+           THE RESEARCH RUN TAKES ~15 SECONDS, ON PURPOSE.
+           Owner's decision, 2026-08-19: the old run resolved in 2.9s, which
+           reads as a canned animation rather than work. It now runs long
+           enough to be believable, and it shows what it is doing while it
+           runs - a pulsing dot on the live step, the detail of that step on
+           the right, a tick when it clears, and an elapsed clock. The step
+           durations are deliberately UNEVEN; an even cadence is the thing
+           that made it read as fake. Every count named on the right is a
+           real figure and matches l2.html exactly.
+           To shorten or lengthen the whole run, scale STEPS[].ms - nothing
+           else depends on the total.
+           ══════════════════════════════════════════════════════════════ */
+        var STEPS = [
+            { label: 'Where they came from',            detail: 'Reading 1,219 reviews',     ms: 1900 },
+            { label: 'The pain under the pain',         detail: 'Reading 123 comments',      ms: 2400 },
+            { label: 'What actually drives them',       detail: 'Discarding 53 of those',    ms: 1600 },
+            { label: 'What they are afraid of',         detail: 'Grouping what repeats',     ms: 2700 },
+            { label: 'What stories land',               detail: 'Ranking by how often',      ms: 2100 },
+            { label: 'What winning looks like to them', detail: 'Checking each against a quote', ms: 1800 },
+            { label: 'Pulling the words they use themselves', detail: 'Lifting them unedited', ms: 2600 }
+        ];
+
+        function runResearch() {
+            var wrap = document.getElementById('loadingSteps');
+            wrap.innerHTML = STEPS.map(function (st, i) {
+                return '<div class="loading-step" id="r' + i + '">' +
+                       '<div class="step-dot" id="s' + i + '"></div>' +
+                       '<span class="step-label">' + st.label + '</span>' +
+                       '<span class="step-side" id="d' + i + '"></span></div>';
+            }).join('');
+
+            var t0 = Date.now();
+            var clock = setInterval(function () {
+                var sec = Math.floor((Date.now() - t0) / 1000);
+                document.getElementById('elapsed').textContent =
+                    Math.floor(sec / 60) + ':' + ('0' + (sec % 60)).slice(-2) + ' elapsed';
+            }, 250);
+
+            var at = 0;
+            STEPS.forEach(function (st, i) {
                 setTimeout(function () {
-                    document.getElementById('s' + n).classList.add('done');
-                    document.getElementById('r' + n).classList.add('done');
-                }, 300 * (i + 1));
+                    document.getElementById('r' + i).classList.add('active');
+                    document.getElementById('s' + i).classList.add('active');
+                    document.getElementById('d' + i).textContent = st.detail;
+                }, at);
+                at += st.ms;
+                setTimeout(function () {
+                    var row = document.getElementById('r' + i);
+                    row.classList.remove('active');
+                    row.classList.add('done');
+                    var dot = document.getElementById('s' + i);
+                    dot.classList.remove('active');
+                    dot.classList.add('done');
+                    var side = document.getElementById('d' + i);
+                    side.classList.add('tick');
+                    side.innerHTML = '&#10003;';
+                }, at);
             });
+
             setTimeout(function () {
+                clearInterval(clock);
                 window.location.href = 'l2.html';
-            }, 300 * ids.length + 800);
+            }, at + 900);
         }
     </script>
 </body>

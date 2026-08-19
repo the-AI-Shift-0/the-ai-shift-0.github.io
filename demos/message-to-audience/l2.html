@@ -3,7 +3,32 @@
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
 <!--
   One screen, everything at once: the show and who actually listens, the six
-  things it works out, and the words that room uses itself. No scrolling.
+  things it works out, and - at the foot - the phrases that room uses beside
+  the typical demographics for it. No scrolling.
+
+  ═══════════════════════════════════════════════════════════════════
+  CHANGES MADE 2026-08-19, ALL OWNER-DECIDED ON THAT DAY'S CALL. Do not
+  revert any of them without going back to him first.
+   1. THE GRID IS 2 COLUMNS x 3 ROWS, not 3 x 2. "Just make them two, two,
+      two ... two columns and three rows. Correct." Reason given: easier on
+      the eyes, and "on my MacBook Air this will look even worse" at three
+      across. Verified rendered 2 across / 3 down at 1400x1000 and 1280x800.
+   2. EVERY CARD BODY WAS CUT to one short line. "It's just too much text."
+      Reading them aloud burned ~15 seconds a card. He ZOOMS IN and talks
+      about WHY each one matters instead of reading it, so a card only has
+      to be glanceable. KEEP THEM SHORT. If a body grows past ~18 words it
+      has regressed.
+   3. THE SIX QUOTE CARDS ARE GONE, and so is every "Their words, from an
+      Apple Podcasts review" footer. "Remove references to the quotes."
+      In their place: phrases on the LEFT, demographics on the RIGHT -
+      "it should be like words they use ... just a small list, like a
+      bullet list ... on the left. And there on the right is typical
+      demographics, female, age."
+   4. THE BUTTON SAYS "Compare to your past appearances". The old
+      "Compare to my best rooms" could not be parsed on camera: "what does
+      this mean compared to my best rooms? I don't know what that means."
+      l3.html's H1 and every back link say the same thing. One wording.
+  ═══════════════════════════════════════════════════════════════════
   See index.html for the recording note, the number model, and what is real
   vs simulated. NOTHING ON THIS PAGE IS BLURRED - the show name and the host
   name render SHARP, per the owner's decision of 2026-08-11. Quote text is
@@ -28,21 +53,21 @@
          threads:
            name, host, ratingValue, ratingCount, episodes, sinceYear,
            cadence, youtubeSubs, descriptionPhrase, reviewsRead,
-           commentsRead, videosRead, discarded, and every entry in
-           quotes[] - each quote verbatim, each re-confirmed on a second
-           independent fetch. Every published figure renders as a LINK to
+           commentsRead and videosRead. Every published figure renders as a LINK to
            the Apple show page or the YouTube channel it came from, so it
            can be verified on camera. reviewsRead and commentsRead are
            counts of THIS RUN'S OWN READING, not published figures, so
            they are labelled "read in this run" and carry no link - there
            is no external page to point at.
          SIMULATED: every panels[].text conclusion and every panels[].bars
-         strength reading. Each conclusion is written only from the quotes
-         actually shown on this page, so nothing on screen asserts an
-         audience insight the confirmed material does not carry.
+         strength reading. Each conclusion is written only from material
+         confirmed for this show, so nothing on screen asserts an audience
+         insight the confirmed material does not carry.
+         REAL AND PUBLISHED: every figure in demographics[] - full sourcing
+         sits in the comment directly above that array.
          NOTHING ON THIS PAGE IS BLURRED. name and host render SHARP.
          NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS ANYWHERE. Handles live
-         only in the INTERNAL ONLY JS comments beside each quote.
+         only in the INTERNAL ONLY JS comments beside each phrase.
          ══════════════════════════════════════════════════════════════ -->
     <script>
     var PROVISIONAL = {
@@ -70,88 +95,103 @@
         descriptionPhrase: "from struggling in your business to systemizing and growing your business",
         descriptionLead: "Who it is for, in the show's own description: online business owners going",
         descriptionTail: "- course creators, coaches and consultants.",
-        discarded: "53 of those comments were discarded before anything was read: 38 replies from the host herself, one from that episode's guest, and 14 from a single repeat commenter.",
 
         /* The six things it works out. text = SIMULATED conclusion, but
-           every clause is carried by a quote shown on this page.
-           source = NEUTRAL SOURCE LABEL ONLY. No handle, no name, no
-           initials, no per-person attribution renders anywhere.
+           every clause is carried by material confirmed for this show.
+           ⛔ ONE SHORT LINE EACH. Owner's decision 2026-08-19 - these were
+           34-45 words apiece and he could not use the screen. Each is now
+           at most ~18 words. Do not let them grow back.
+           NO `source` FIELD ANY MORE: the "Their words, from an Apple
+           Podcasts review" footers were removed with the quote cards.
            bars = 5-segment strength reading, SIMULATED. */
         panels: [
             { label: "Where they came from",
-              text: "Online business owners, course creators and consultants, and they announce their own status in the first clause - solopreneur, just starting, a clear vision and not much built yet. Most are still doing the work themselves rather than through other people.",
-              source: "an Apple Podcasts review", bars: 4 },
-              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 1 on this page (Questions with Pam Mills) */
+              text: "Online business owners and course creators. Still doing the work themselves, not through other people.",
+              bars: 4 },
             { label: "The pain under the pain",
-              text: "Not a strategy gap. A permission gap. They are not asking how to build the offer. They say out loud that they are afraid to charge for it, and the word they use for themselves is imposter.",
-              source: "an Apple Podcasts review", bars: 5 },
-              /* INTERNAL ONLY, NEVER RENDERED - rests on quotes 2 and 4 on this page (Btwinks, Daanos8) */
+              text: "Not a strategy gap. A permission gap. They can build the offer. They are afraid to charge for it.",
+              bars: 5 },
             { label: "What actually drives them",
-              text: "Income that has to fit a life which already has other people in it - kids, parents, a slower run at this than they planned for. Not status, and not scale for its own sake. Speak to the life the business is supposed to buy.",
-              source: "an Apple Podcasts review", bars: 4 },
-              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 3 on this page (Tara Rene) */
+              text: "Income that fits a life which already has kids and parents in it. Not status, not scale.",
+              bars: 4 },
             { label: "What they are afraid of",
-              text: "Two things, and they name both. Burning out, described as a clinical state rather than a scheduling problem. And being sold to - this room assumes free content is the top of somebody's funnel, and it says so in exactly those terms.",
-              source: "a YouTube comment", bars: 5 },
-              /* INTERNAL ONLY, NEVER RENDERED - rests on quotes 4 and 5 on this page (Daanos8, @albinatrachuk) */
+              text: "Burning out, and being sold to. They assume free content is the top of somebody's funnel.",
+              bars: 5 },
             { label: "What stories land",
-              text: "The one where the owner is carrying all of it alone and gets a piece of the week back. They state the bottleneck as isolation rather than workload, and they want the overwhelming part broken down into something they can actually start.",
-              source: "an Apple Podcasts review", bars: 5 },
-              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 6 on this page (Lindsey Bomgren) */
+              text: "The owner carrying all of it alone, and getting a piece of the week back.",
+              bars: 5 },
             { label: "What winning looks like to them",
-              text: "A business that runs on systems and a team instead of running on them. Their own words for it are resources and SOPs, so that growing does not mean carrying more of it personally.",
-              source: "an Apple Podcasts review", bars: 4 }
-              /* INTERNAL ONLY, NEVER RENDERED - rests on quote 6 on this page (Lindsey Bomgren) */
+              text: "A business that runs on systems and a team, instead of running on them.",
+              bars: 4 }
         ],
 
-        /* VERBATIM. Do not tidy, shorten or fix grammar. The double space
-           in quote 3 and the spacing around its exclamation mark are the
-           reviewer's own and must stay.
-           NO HANDLE RENDERS. `source` is a neutral label and is the only
-           attribution on screen. The real handle is recorded in the
-           INTERNAL ONLY comment above each quote so it can be re-verified
-           later; it is a JS comment and can never reach the page.
+        /* ══════════════════════════════════════════════════════════
+           LEFT: PHRASES THEY USE. Replaced the six full quote cards on
+           2026-08-19. Every entry below is a VERBATIM fragment lifted out
+           of a real public Apple Podcasts review or YouTube comment for
+           this show - the same confirmed pool the old quote cards drew
+           from, each re-confirmed on a second independent fetch on
+           2026-08-11. Nothing here is paraphrased, tidied or invented. The
+           reviewer handle is in the INTERNAL ONLY comment beside each one
+           and can never reach the page.
+           If one ever needs swapping: lift another fragment from the same
+           pool. NEVER write a phrase that nobody actually wrote.
+           ══════════════════════════════════════════════════════════ */
+        phrases: [
+            "just starting out as a solopreneur",          /* INTERNAL ONLY - Questions with Pam Mills, Apple, 2023-11-22 */
+            "still afraid to charge anyone yet",           /* INTERNAL ONLY - Btwinks, Apple, 2025-03-05 */
+            "imposter syndrome",                           /* INTERNAL ONLY - Daanos8, Apple, 2025-05-08 */
+            "burn out and depression",                     /* INTERNAL ONLY - Daanos8, Apple, 2025-05-08 */
+            "the entire video was just promoting a course",/* INTERNAL ONLY - @albinatrachuk, YouTube, ~2026-07-31 */
+            "bear the burden of doing it all alone"        /* INTERNAL ONLY - Lindsey Bomgren, Apple, 2025-10-29 */
+        ],
 
-           TWO CONFIRMED QUOTES WERE DROPPED 2026-08-11, not altered:
-             - "I am just starting and Amy is giving me such encouragement
-               in easy to take bites. Thank you for not overwhelming me!"
-               (fachafer, 2024-09-08)
-             - "Whenever I get stuck along the way as I plan this next
-               stage in my business, I can find the answer in the wealth of
-               information Amy has accumulated in these podcast archives."
-               (Victoria_Phipps, 2025-02-04)
-           Both name the host inside the verbatim text. We never edit a
-           quote to sanitise it, so they are simply not used. Replacements
-           came from the same confirmed pool.
-           THREE FURTHER CONFIRMED ITEMS WERE SKIPPED because their full
-           bodies name a third party or a named business (ImHereLA,
-           Muttervonzwei, jp4thewin), and one more (@theLifeEditStudios)
-           because a named software product sits in the same comment.
+        /* ══════════════════════════════════════════════════════════
+           RIGHT: TYPICAL DEMOGRAPHICS. Built 2026-08-19 - there was no
+           demographics element on this page before.
 
-           SELECTION TEST for any future swap: if the verbatim text
-           contains the show name, the host's name, or any third party's
-           name, DROP the quote and pick another confirmed one. Never edit
-           the words. */
-        quotes: [
-            /* INTERNAL ONLY, NEVER RENDERED - handle Questions with Pam Mills, Apple 5 stars, 2023-11-22 */
-            { text: "As someone who is just starting out as a solopreneur, I have a clear vision and it involves digital products.",
-              source: "Apple Podcasts review" },
-            /* INTERNAL ONLY, NEVER RENDERED - handle Btwinks, Apple 5 stars, 2025-03-05 */
-            { text: "I am starting to build an online business and although I'm still afraid to charge anyone yet, I am so pumped to get there with every podcast I listen to.",
-              source: "Apple Podcasts review" },
-            /* INTERNAL ONLY, NEVER RENDERED - handle Tara Rene, Apple 5 stars, 2024-03-18 */
-            { text: "My journey is slower and longer (mostly because of needs to take care of kids and aging parents).",
-              source: "Apple Podcasts review" },
-            /* INTERNAL ONLY, NEVER RENDERED - handle Daanos8, Apple 5 stars, 2025-05-08 */
-            { text: "As a Type A personality who is very hard on herself and suffers from imposter syndrome but also pushes to the max which leads me to burn out and depression, this episode was so helpful to me!",
-              source: "Apple Podcasts review" },
-            /* INTERNAL ONLY, NEVER RENDERED - handle @albinatrachuk, YouTube, ~2026-07-31 */
-            { text: "I spent 7 minutes watching this to learn how to build a system, only to realize at the end that the entire video was just promoting a course. Zero value.",
-              source: "YouTube comment" },
-            /* INTERNAL ONLY, NEVER RENDERED - handle Lindsey Bomgren, Apple 5 stars, 2025-10-29 */
-            { text: "Every time I listen I'm inspired to better my business to create resources and SOP's for my team so I don't have to bear the burden of doing it all alone as I grow my business.",
-              source: "Apple Podcasts review" }
-        ]
+           ⛔ EVERY FIGURE HERE IS REAL AND PUBLISHED. NONE IS INVENTED,
+           ROUNDED OR ADJUSTED. Owner's decision on the 2026-08-19 call:
+           derive them from something real or leave the line out.
+
+           SOURCE FOR ALL FIVE LINES - ONE SOURCE, DELIBERATELY:
+             Kit (ConvertKit), "State of the Creator Economy 2024",
+             n = 1,008 creators surveyed. First-party publisher research.
+             https://attachments.convertkitcdnh.com/108/63cbc0b1-4107-43da-9b63-213b54ebef26/sotce-report-2024.pdf
+               - 65% female / 33% male / 2% non-binary ......... p.5
+               - Millennial 41% · Gen X 38% ................... p.9
+               - 24% have not yet made their first dollar ..... p.29
+               - Female creators earning over $100k: 18% ...... p.5
+               - Entrepreneur 23% · Coach 19% · Educator 18% .. p.10
+
+           WHY THE NICHE AND NOT THE SHOW: this show publishes NO audience
+           demographics of its own. Checked 2026-08-19 - the Apple show
+           page, the RSS feed, the host's own site and her public posts
+           carry download and student counts but no gender, age, geography
+           or revenue split. Rephonic holds all four and paywalls every
+           one of them; Podchaser refuses the request. So the figures are
+           the closest real benchmark for this exact niche - course
+           creators, coaches and educators - and the block says so on
+           screen rather than passing them off as measured for this show.
+
+           NOT SOURCED, SO DELIBERATELY ABSENT: geography / country split.
+           The Kit report does not contain it and no free first-party
+           source publishes it for this show or this niche. A geography
+           line would have had to be invented, so there is not one.
+
+           ROUND FIGURES WERE DROPPED ON PURPOSE. The same report gives
+           "60% under $10k" and "30% made under $10k last year"; exact
+           trailing zeros read as fake on screen, so only the non-round
+           published figures are used. Nothing was nudged to achieve that.
+           ══════════════════════════════════════════════════════════ */
+        demographics: [
+            { fig: "65%",  txt: "female" },
+            { fig: "41%",  txt: "millennial, and 38% Gen X" },
+            { fig: "24%",  txt: "have not made their first dollar yet" },
+            { fig: "18%",  txt: "of the women clear six figures a year" },
+            { fig: "23%",  txt: "entrepreneurs, 19% coaches, 18% educators" }
+        ],
+        demographicsNote: "Course-creator benchmark, 2024. This show publishes none of its own."
     };
     </script>
 
@@ -251,11 +291,14 @@
         .identity-stat-src.plain { color: #d1d5db; font-weight: 500; }
         .identity-divider { width: 1px; align-self: stretch; background: #ede9fe; flex-shrink: 0; }
 
+        /* ⛔ 2 COLUMNS x 3 ROWS. Owner's decision, 2026-08-19 - it was
+           3 x 2 and he called it overwhelming, worse still on a MacBook
+           Air. Do not put it back to three across. */
         .panels-grid {
             flex-shrink: 0;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, auto);
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, auto);
             gap: clamp(7px, 1.4vh, 18px);
         }
         .panel {
@@ -276,13 +319,12 @@
             letter-spacing: 0.04em; color: #6b7280;
             display: flex; align-items: center; gap: 7px;
         }
-        .panel-text { font-size: clamp(10.5px, 1.16vh, 12.5px); line-height: 1.65; color: #374151; }
+        .panel-text { font-size: clamp(11.5px, 1.3vh, 13.5px); line-height: 1.6; color: #374151; }
         .panel-foot {
             margin-top: auto; padding-top: clamp(6px, 0.9vh, 12px); border-top: 1px solid #f3f0ff;
             display: flex; align-items: center; justify-content: space-between; gap: 8px;
-            font-size: 10px; color: #9ca3af;
+            font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em;
         }
-        .panel-src { color: #7c3aed; font-weight: 700; }
         .strength { display: flex; gap: 3px; align-items: center; }
         .sbar { width: 12px; height: 4px; border-radius: 2px; background: #ede9fe; }
         .sbar.on { background: #7c3aed; }
@@ -292,28 +334,43 @@
             background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
             padding: clamp(9px, 1.35vh, 18px) 22px clamp(10px, 1.5vh, 20px);
         }
-        .language-head {
-            display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
-            margin-bottom: clamp(6px, 1.3vh, 14px);
+        /* PHRASES LEFT, DEMOGRAPHICS RIGHT. Built 2026-08-19, replacing the
+           six full quote cards. Two equal columns with a hairline between,
+           so it reads as one block with two halves rather than two cards. */
+        .lang-split {
+            display: grid; grid-template-columns: 1fr 1px 1fr;
+            gap: clamp(14px, 2.2vh, 30px); align-items: start;
         }
-        .language-label {
-            font-size: 10.5px; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.06em; color: #7c3aed; flex-shrink: 0;
+        .lang-rule { align-self: stretch; background: #ddd6fe; }
+        .lang-col-title {
+            font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.07em; color: #7c3aed;
+            margin-bottom: clamp(6px, 1.0vh, 12px);
         }
-        .language-note { font-size: 10.5px; color: #9ca3af; text-align: right; line-height: 1.5; }
-        .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(6px, 1.3vh, 14px); }
-        .quote-card {
-            background: #ffffff; border: 1px solid #ddd6fe; border-radius: 9px;
-            padding: clamp(7px, 1.0vh, 15px) 17px;
-            display: flex; flex-direction: column; gap: clamp(5px, 0.93vh, 10px);
+        .phrase-list { display: flex; flex-direction: column; gap: clamp(4px, 0.8vh, 9px); }
+        .phrase {
+            font-size: clamp(11px, 1.22vh, 13px); line-height: 1.5; color: #374151;
+            padding-left: 15px; position: relative;
         }
-        .quote-text { font-size: clamp(10px, 1.06vh, 11.5px); line-height: 1.6; color: #374151; }
-        .quote-who {
-            margin-top: auto; font-size: 9.5px; color: #6b7280;
-            display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+        .phrase:before {
+            content: ""; position: absolute; left: 0; top: 0.55em;
+            width: 5px; height: 5px; border-radius: 50%; background: #a78bfa;
         }
-        .quote-handle { font-weight: 800; color: #111827; }
-        .quote-plat { color: #9ca3af; }
+        .demo-list { display: flex; flex-direction: column; gap: clamp(4px, 0.8vh, 9px); }
+        .demo-row {
+            display: flex; align-items: baseline; gap: 10px;
+            font-size: clamp(11px, 1.22vh, 13px); line-height: 1.5; color: #4b5563;
+        }
+        /* Fixed-width figure column so the labels line up down the page. */
+        .demo-fig {
+            width: 46px; flex-shrink: 0; text-align: right;
+            font-weight: 800; color: #7c3aed;
+            font-variant-numeric: tabular-nums;
+        }
+        .demo-note {
+            margin-top: clamp(6px, 1.0vh, 12px); font-size: 9.5px;
+            color: #9ca3af; line-height: 1.5;
+        }
 
         .cta-bar {
             flex-shrink: 0;
@@ -357,19 +414,30 @@
 
         <div class="panels-grid" id="panelsGrid"></div>
 
+        <!-- Phrases on the left, typical demographics on the right. This
+             block replaced "THE WORDS THEY USE THEMSELVES - NOT PARAPHRASED"
+             and its six quote cards on 2026-08-19. Every demographic figure
+             is real and published - see the sourcing block in the head. -->
         <div class="language-block">
-            <div class="language-head">
-                <div class="language-label">The words they use themselves - not paraphrased</div>
-                <div class="language-note" id="languageNote"></div>
+            <div class="lang-split">
+                <div>
+                    <div class="lang-col-title">Phrases they use</div>
+                    <div class="phrase-list" id="phraseList"></div>
+                </div>
+                <div class="lang-rule"></div>
+                <div>
+                    <div class="lang-col-title">Typical demographics</div>
+                    <div class="demo-list" id="demoList"></div>
+                    <div class="demo-note" id="demoNote"></div>
+                </div>
             </div>
-            <div class="quote-grid" id="quoteGrid"></div>
         </div>
 
         <!-- No hint text here. The presenter says the "anything can
              summarise a show" line out loud on camera; the page must not
              repeat his own narration back at him (owner, 2026-08-12). -->
         <div class="cta-bar">
-            <button class="cta-btn" onclick="window.location.href='l3.html'">Compare to my best rooms &nbsp;&rarr;</button>
+            <button class="cta-btn" onclick="window.location.href='l3.html'">Compare to your past appearances &nbsp;&rarr;</button>
         </div>
 
     </div>
@@ -424,20 +492,24 @@
             return '<div class="panel">' +
                 '<div class="panel-label"><span class="panel-num">' + (i + 1) + '</span>' + p.label + '</div>' +
                 '<div class="panel-text">' + p.text + '</div>' +
-                '<div class="panel-foot"><span>Their words, from <span class="panel-src">' + p.source + '</span></span>' +
+                '<div class="panel-foot"><span>Signal</span>' +
                 '<span class="strength">' + bars + '</span></div>' +
                 '</div>';
         }).join('');
 
-        document.getElementById('languageNote').textContent =
-            'Pulled from public reviews and comment threads on this show. Their words, not a summary of them. ' + P.discarded;
-
-        /* Neutral source label only. No handle, no name, no per-person
-           attribution is ever rendered - see the quotes block above. */
-        document.getElementById('quoteGrid').innerHTML = P.quotes.map(function (q) {
-            return '<div class="quote-card"><div class="quote-text">"' + q.text + '"</div>' +
-                '<div class="quote-who"><span class="quote-handle">' + q.source + '</span></div></div>';
+        /* Verbatim fragments, in quotation marks so it is visible they are
+           lifted rather than summarised. No handle, no name, no source
+           label - the whole point of the 2026-08-19 change was to stop
+           referencing the reviews on screen. */
+        document.getElementById('phraseList').innerHTML = P.phrases.map(function (t) {
+            return '<div class="phrase">"' + t + '"</div>';
         }).join('');
+
+        document.getElementById('demoList').innerHTML = P.demographics.map(function (d) {
+            return '<div class="demo-row"><span class="demo-fig">' + d.fig + '</span>' +
+                   '<span>' + d.txt + '</span></div>';
+        }).join('');
+        document.getElementById('demoNote').textContent = P.demographicsNote;
 
         setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');

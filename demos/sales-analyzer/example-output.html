@@ -534,7 +534,7 @@
                 <div style="background:#7c3aed;color:white;font-size:12px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
                 <div>
                     <div style="font-size:14px;font-weight:700;color:#1f2937;">Drop in a call transcript</div>
-                    <div style="font-size:13px;color:#6b7280;margin-top:2px;">Paste a sales call transcript and type "analyze this call." Your AI returns a structured coaching report: SPIN scores, objection analysis, what to fix, and a rep scorecard.</div>
+                    <div style="font-size:13px;color:#6b7280;margin-top:2px;">Paste a sales call transcript and type "analyze this call." Your AI returns a structured coaching report: a score on each of the five measures, objection analysis, what to fix, and a rep scorecard.</div>
                 </div>
             </div>
             <div style="display:flex;gap:12px;align-items:flex-start;">
@@ -559,10 +559,10 @@
         <div class="section-body">
             <p style="font-size:14px;color:#374151;margin-bottom:14px;">You are a world-class sales performance analyst. This system has been pre-loaded with:</p>
             <ul class="framework-list">
-                <li>SPIN Selling methodology (Rackham  -  Situation, Problem, Implication, Need-Payoff)</li>
-                <li>Challenger Sale framework (Dixon &amp; Adamson  -  teach, tailor, take control)</li>
-                <li>Sandler Sales System (pain, budget, decision frameworks)</li>
-                <li>3,400+ analyzed sales calls and objection response patterns</li>
+                <li>A five-dimension scoring scale, weighted: Rapport 25%, Objection Handling 30%, Clarity 20%, Needs Matching 15%, Authority and Frame 10%</li>
+                <li>Scoring anchors for every dimension, so each score is defended with a quote from the transcript</li>
+                <li>An original sales-analysis methodology reference, written from first principles</li>
+                <li>Objection mechanics: what each objection is really reporting, and the words that move it</li>
                 <li>Online coaching / education-specific buying patterns and objection library</li>
             </ul>
         </div>
@@ -660,82 +660,56 @@
         </div>
         <div class="section-body">
 
-            <!-- SPIN -->
             <div class="framework-block">
-                <h3>SPIN Scoring (score each 1–10 with evidence)</h3>
+                <h3>The Five Scoring Dimensions (score each 1–10 with evidence, then weight and combine)</h3>
 
                 <div class="score-item">
-                    <h4>Situation Questions</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the rep uncover current state before pitching?</p>
+                    <h4>Rapport – 25%</h4>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the buyer decide that being candid with this rep was safe?</p>
                     <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Asked 3+ situation questions before presenting anything</li>
-                        <li><strong>5–7:</strong> Asked some questions but moved to pitch too soon</li>
-                        <li><strong>1–4:</strong> Jumped straight to features and benefits</li>
-                    </ul>
-                </div>
-
-                <div class="score-item">
-                    <h4>Problem Questions</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did they surface the real pain or accept surface symptoms?</p>
-                    <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Dug beneath the stated problem to find the real business impact</li>
-                        <li><strong>5–7:</strong> Acknowledged the problem but didn't probe deeper</li>
-                        <li><strong>1–4:</strong> Took the prospect's first answer and moved on</li>
+                        <li><strong>8–10:</strong> Volunteered material information more than once, unprompted, including something awkward or political</li>
+                        <li><strong>5–7:</strong> Answered fully and added some context, but stayed inside the topics the rep raised</li>
+                        <li><strong>1–4:</strong> Correct, short, factual answers and no volunteered information</li>
                     </ul>
                 </div>
 
                 <div class="score-item">
-                    <h4>Implication Questions</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did they amplify the cost of inaction?</p>
+                    <h4>Objection Handling – 30%</h4>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the rep treat the objection as information, or as an attack?</p>
                     <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Made the prospect articulate what this problem is costing them</li>
-                        <li><strong>5–7:</strong> Mentioned consequences but didn't make the prospect feel them</li>
-                        <li><strong>1–4:</strong> Never established why solving this matters now</li>
+                        <li><strong>8–10:</strong> Played it back in the buyer's own words, isolated it, answered with evidence, then checked the answer landed</li>
+                        <li><strong>5–7:</strong> Answered the surface sentence competently but never found the mechanism underneath it</li>
+                        <li><strong>1–4:</strong> Rebutted instantly, or agreed and moved on with nothing resolved</li>
                     </ul>
                 </div>
 
                 <div class="score-item">
-                    <h4>Need-Payoff Questions</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the prospect sell themselves?</p>
+                    <h4>Clarity – 20%</h4>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Could the buyer restate the offer to a colleague after this call?</p>
                     <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Prospect said out loud why this solution matters to them</li>
-                        <li><strong>5–7:</strong> Rep told the prospect the value instead of drawing it out</li>
-                        <li><strong>1–4:</strong> Rep closed on features, not on prospect-stated needs</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Challenger -->
-            <div class="framework-block">
-                <h3>Challenger Dimensions (score each 1–10 with evidence)</h3>
-
-                <div class="score-item" style="border-left-color:#2563eb;">
-                    <h4>Teach</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the rep introduce a perspective the prospect hadn't considered?</p>
-                    <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Reframed how the prospect thinks about the problem</li>
-                        <li><strong>5–7:</strong> Shared some insight but it wasn't surprising or specific</li>
-                        <li><strong>1–4:</strong> Nodded along with what the prospect already believed</li>
+                        <li><strong>8–10:</strong> The buyer said the offer back in their own words, correctly</li>
+                        <li><strong>5–7:</strong> Explained clearly, but never tested against the buyer's understanding</li>
+                        <li><strong>1–4:</strong> A feature list, jargon, or three different descriptions of the same thing</li>
                     </ul>
                 </div>
 
-                <div class="score-item" style="border-left-color:#2563eb;">
-                    <h4>Tailor</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did they connect insights to this specific prospect's situation?</p>
+                <div class="score-item">
+                    <h4>Needs Matching – 15%</h4>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Is every benefit traceable to a need the buyer stated in this transcript?</p>
                     <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Every insight referenced something specific about this business</li>
-                        <li><strong>5–7:</strong> Generic framing with a few personalized details</li>
-                        <li><strong>1–4:</strong> Same pitch they give everyone</li>
+                        <li><strong>8–10:</strong> Every claim tied back to something the buyer said out loud</li>
+                        <li><strong>5–7:</strong> Mostly relevant, with some untethered capability talk</li>
+                        <li><strong>1–4:</strong> The standard pitch, delivered regardless of what was uncovered</li>
                     </ul>
                 </div>
 
-                <div class="score-item" style="border-left-color:#2563eb;">
-                    <h4>Take Control</h4>
-                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the rep lead the conversation, or follow?</p>
+                <div class="score-item">
+                    <h4>Authority and Frame – 10%</h4>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Did the rep own the process without pressuring the decision?</p>
                     <ul class="score-tiers">
-                        <li><strong>8–10:</strong> Drove agenda, redirected tangents, asked for commitment</li>
-                        <li><strong>5–7:</strong> Held direction most of the time but ceded ground on price/timeline</li>
-                        <li><strong>1–4:</strong> Prospect controlled the call</li>
+                        <li><strong>8–10:</strong> Set the structure, stated a real constraint plainly, left the decision entirely with the buyer</li>
+                        <li><strong>5–7:</strong> Led most of the call but ceded the process on price or timeline</li>
+                        <li><strong>1–4:</strong> Followed the buyer, or manufactured a deadline that was not real</li>
                     </ul>
                 </div>
             </div>
@@ -803,13 +777,12 @@
                 <hr class="divider">
                 <div><span class="label">SCORECARD:</span></div>
                 <div style="padding-left:16px;">
-                    <div>Situation Questions: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
-                    <div>Problem Questions: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
-                    <div>Implication Questions: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
-                    <div>Need-Payoff Questions: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
-                    <div>Teach: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
-                    <div>Tailor: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
-                    <div>Take Control: <span class="placeholder">X/10  -  [one line of evidence]</span></div>
+                    <div>Rapport (25%): <span class="placeholder">X/10  -  [one line of evidence]</span></div>
+                    <div>Objection Handling (30%): <span class="placeholder">X/10  -  [one line of evidence]</span></div>
+                    <div>Clarity (20%): <span class="placeholder">X/10  -  [one line of evidence]</span></div>
+                    <div>Needs Matching (15%): <span class="placeholder">X/10  -  [one line of evidence]</span></div>
+                    <div>Authority and Frame (10%): <span class="placeholder">X/10  -  [one line of evidence]</span></div>
+                    <div>Weighted Overall: <span class="placeholder">X/10</span></div>
                     <div>Talk Ratio: <span class="placeholder">X% rep / X% prospect</span></div>
                 </div>
                 <hr class="divider">

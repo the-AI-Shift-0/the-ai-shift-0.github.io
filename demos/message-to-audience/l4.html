@@ -5,8 +5,49 @@
   THE RUNNING ORDER - the script's final beat for Demo 1:
   "the 45 minutes built: open, story picks, the turn, the CTA, calibrated to
   that room." (docs/scripts/message-to-audience-script.md)
-  This beat was dropped from the previous build. It is the last screen.
+  This beat was dropped from a previous build. It is the last screen.
   The forbidden phrase for this beat is never written anywhere on screen.
+
+  ═══════════════════════════════════════════════════════════════════
+  THE PAGE STAYS. Owner, 2026-08-19, after proposing deletion and then
+  reversing it: "you can keep the page, but you can make it such that you
+  don't need to dwell on it" and "this should remain as it is, but you
+  don't dwell on it." So it is built to be SKIMMED on camera, never read
+  aloud. Everything below serves that.
+
+  1. OPENING / BODY / END. Three blocks, not four. "This is what you should
+     do in the opening. This is what you should do in the body. This is what
+     you should do at the end." The old four - open / story picks / the turn
+     / the call to action - collapsed into these three.
+     Opening 5 + Body 29 + End 11 = 45 minutes exactly.
+
+  2. ⛔ CONCEPTS ONLY. NEVER SCRIPTS, NEVER WRITTEN LINES. This is the
+     clearest "must not" in the whole call: "it's kind of impossible for it
+     to produce scripts and lines ... It should just produce concepts. So in
+     the opening, here are the points you want to hit the stories."
+     DELETED 2026-08-19, and they must not come back:
+       - under the open: `First line:` "I spent years walking off stages
+         that went great and produced nothing."
+       - under the turn: `Say it out loud:` "You are waiting to find out
+         what I am selling. So here is the whole thing, and you can go and
+         do it yourself on Monday."
+     Every beat is now labelled either "Points to hit" or "Story to use".
+     NOTHING ON THIS PAGE MAY BE IN QUOTATION MARKS AS SPEECH.
+
+  3. THE END BLOCK SAYS WHAT IT IS. He could not identify it: "I don't know
+     what this is. Call to action, position it like this for this audience."
+     It now names itself a recommended call to action and carries an
+     explicit "Position it for this room" line.
+
+  4. EVERY NUMBER FROM l3 IS GONE from the right rail - "Died in 3 of 9",
+     "Died in 2 of 9", and the "9 of your 41 past appearances" in BUILT
+     FROM. Owner deleted the whole statistic set on the same call.
+
+  5. THE QUOTED REVIEWS ARE GONE - all three, and the "Apple Podcasts
+     review" labels with them: "remove references to the quotes on there."
+     The "Their language, use it" rail stays: those are short phrases the
+     room uses, which is the thing he explicitly asked FOR.
+  ═══════════════════════════════════════════════════════════════════
 
   See index.html for the recording note and the number model.
   NOTHING ON THIS PAGE IS BLURRED - the show name and the host name render
@@ -14,8 +55,8 @@
   and unaltered, and NO REVIEWER HANDLE RENDERS - only a neutral source
   label. The real handle is in an internal-only comment beside the quote.
   SIMULATED: the whole running order and every timing.
-    Open 5 + Story picks 17 + The turn 12 + The call to action 11 = 45.
-  The two "do not use" items match l3.html exactly.
+    The opening 5 + The body 29 + The end 11 = 45.
+  The two "do not use" items match l3.html's "does not respond to" half.
 -->
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
@@ -25,100 +66,78 @@
     <!-- ══════════════════════════════════════════════════════════════
          SHOW DATA - every show-specific string on this page lives in this
          one object. Swap here if the show changes.
-         VERIFIED 2026-08-11: `name`, `host`, `episodes`, and every entry in
-         `evidence` (verbatim public reviews and comments, each re-confirmed
-         on a second independent fetch). Every phrase in `language` is
-         lifted word for word out of a quote shown on l2.html or this page.
-         SIMULATED: the running order, every timing and every count. Each
-         `why` is written only from confirmed material about this show.
+         VERIFIED 2026-08-11: `name`, `host`, `episodes`.
+         Every phrase in `language` is lifted word for word out of a real
+         public review or comment for this show and is shown on l2.html too.
+         SIMULATED: the running order and every timing.
+         NO QUOTED REVIEW, NO SOURCE LABEL AND NO COUNT RENDERS ANYWHERE.
          `name` and `host` render SHARP. Nothing on this page is blurred.
-         The quote text is never altered.
-         NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS.
          ══════════════════════════════════════════════════════════════ -->
     <script>
     var PROVISIONAL = {
         name: "The Amy Porterfield Show",
         host: "Amy Porterfield",
         episodes: "885",
-        /* VERBATIM, unaltered. No handle renders - `source` is a neutral
-           label and is the only attribution on screen. The real handles are
-           in the INTERNAL ONLY comments below so each quote can be
-           re-verified. Checked against the FULL body: none of these three
-           contains the show name, the host's name or any third party's
-           name. Note the double space and the spacing before the
-           exclamation mark in `ask` - both are the reviewer's own. */
-        evidence: {
-            /* INTERNAL ONLY, NEVER RENDERED - handle Kaybee13, Apple 5 stars, 2025-10-18 */
-            open: {
-                text: "I said yes to myself after 20 years and these help me squash the \"this'll never work\" and distraction monsters while positively reminding us that aren't afraid of hard things that we can even if we're afraid of that other thing, failure.",
-                source: "Apple Podcasts review"
-            },
-            /* INTERNAL ONLY, NEVER RENDERED - handle ChristineSponsel, Apple 5 stars, 2025-02-27 */
-            turn: {
-                text: "Many of her episodes give me a more simple route to the overwhelming parts of starting and running a business!",
-                source: "Apple Podcasts review"
-            },
-            /* INTERNAL ONLY, NEVER RENDERED - handle Primrose Interiors, Apple 5 stars, 2024-08-16 */
-            ask: {
-                text: "Truly real & relatable advice perfect for entrepreneurs, course creators and marketers  at ANY stage of business ! I'm just starting out my course creation angle",
-                source: "Apple Podcasts review"
-            }
-        },
+
+        /* ⛔ OPENING / BODY / END, and CONCEPTS ONLY.
+           Every beat is "Points to hit" or "Story to use". If a beat ever
+           needs quotation marks around speech, it is the wrong beat - see
+           point 2 of the head comment. Timings: 5 + 29 + 11 = 45. */
         blocks: [
-            { range: "0 - 5", len: "5 min · the open", name: "The open",
-              line: "Lead with the years of being bad at it. No credential, no number, no promise in the first two minutes.",
+            { range: "0 - 5", len: "5 min · the opening", name: "The opening",
+              line: "Open on the years of being bad at it. No credential, no number.",
               beats: [
-                "<strong>First line:</strong> \"I spent years walking off stages that went great and produced nothing.\"",
-                "<strong>Then:</strong> what you were actually doing wrong - the same talk to every room."
+                "<strong>Points to hit:</strong> the talks that went well and produced nothing.",
+                "<strong>Story to use:</strong> the first paid appearance you walked away from empty-handed."
               ],
-              why: "this room says imposter syndrome about itself, unprompted, in its own reviews. It is not asking whether you are good enough. Starting where you got it wrong is the fastest way past the question it is actually asking.",
-              evidence: "open" },
+              why: "this room names imposter syndrome about itself, unprompted." },
 
-            { range: "5 - 22", len: "17 min · story picks", name: "Story picks",
+            { range: "5 - 34", len: "29 min · the body", name: "The body",
+              line: "Two stories, then the method, then the number. In that order.",
+              beats: [
+                "<strong>Story to use:</strong> the catch-22 you built yourself - more clients, more cost.",
+                "<strong>Story to use:</strong> the Saturday you cancelled on your kids.",
+                "<strong>Points to hit:</strong> name the pitch before they do, then give the method away.",
+                "<strong>Point to hit:</strong> seven hours down to forty-five minutes. Time, not revenue."
+              ],
+              whyLabel: "Why this order:",
+              why: "it is scanning for the moment free content turns into a pitch." },
+
+            { range: "34 - 45", len: "11 min · the end", name: "The end",
               line: "",
+              isCta: true,
+              ctaLabel: "Recommended call to action",
+              cta: "The audience research tool itself. Free, one link, working by tomorrow.",
+              positionLabel: "Position it for this room",
               beats: [
-                "<strong>The catch-22 you built yourself (8 min).</strong> More clients, more fixed cost, more appearances to feed it. This room describes the same trap as carrying the whole thing alone while the business grows.",
-                "<strong>The Saturday you cancelled on your kids (9 min).</strong> The water park. Land it on the life the business was supposed to buy, not on the workload."
-              ],
-              whyLabel: "Why these two:",
-              why: "both landed in every comparable room, and this room fits its business around kids and aging parents rather than the other way round. Hold the fifteen million until after the turn - it died in 3 of 9 rooms like this one when it opened the talk." },
-
-            { range: "22 - 34", len: "12 min · the turn", name: "The turn",
-              line: "Name the pitch before they do, then give the method away in full.",
-              beats: [
-                "<strong>Say it out loud:</strong> \"You are waiting to find out what I am selling. So here is the whole thing, and you can go and do it yourself on Monday.\"",
-                "<strong>Then the method:</strong> the six things you work out about a room, and the seven hours it used to take.",
-                "<strong>Now the number:</strong> seven hours down to forty-five minutes. Time, not revenue."
-              ],
-              whyLabel: "Why here:",
-              why: "this room assumes free content is the top of a funnel and is scanning for the moment it turns, and it writes that down in public in exactly those words. Getting there first is the single highest-leverage move on this show. Then break the method into the smallest thing they can start.",
-              evidence: "turn" },
-
-            { range: "34 - 45", len: "11 min · the ask", name: "The call to action",
-              line: "One ask, no call booking, nothing that looks like a stage close.",
-              beats: [
-                /* Named for the tool as the header names it. One product
-                   name everywhere - "the research engine" was the old name
-                   and would contradict the header on this same screen. */
-                "<strong>The ask:</strong> the audience research tool itself, free, one link, working by tomorrow.",
-                "<strong>Invite the question:</strong> this room states its own stage unprompted - just starting, solopreneur, course creator. Ask them where they are and they will tell you.",
-                "<strong>Close on their outcome:</strong> the business grows on systems and a team, and they stop carrying all of it alone."
-              ],
-              evidence: "ask" }
+                "<strong>Not</strong> a call booking, and nothing that looks like a stage close.",
+                "<strong>Ask them where they are.</strong> This room states its own stage unprompted.",
+                "<strong>Close on their outcome:</strong> systems and a team, and they stop carrying it alone."
+              ] }
         ],
+
+        /* Matches l3.html's "does not respond to" half. NO COUNTS - the
+           "Died in 3 of 9" / "Died in 2 of 9" notes were deleted with every
+           other statistic on 2026-08-19. Do not reinstate them. */
         avoid: [
-            { name: "Opening with the fifteen million",
-              note: "Died in 3 of 9 comparable rooms. Save it for after the turn and attach the cost to it." },
-            { name: "Leading with the AI, not the hours",
-              note: "Died in 2 of 9. Nothing this room writes about itself is about a technology." }
+            { name: "A big money number up front", note: "Save it for after the turn, and attach the cost to it." },
+            { name: "Leading with the technology", note: "Nothing this room writes about itself is about a machine." }
         ],
+
+        /* Short phrases the room uses, verbatim. These STAY - he asked for
+           exactly this. They are the same fragments l2.html shows. */
         language: [
             "\"still afraid to charge anyone yet\"",
             "\"the overwhelming parts of starting and running a business\"",
             "\"just starting out as a solopreneur\"",
             "\"bear the burden of doing it all alone\""
         ],
-        languageNote: "Straight out of this show's own reviews and comments. Their words, not a summary of them."
+        languageNote: "Their words, not a summary of them.",
+
+        /* No counts. The old version read "1,219 written reviews and 123
+           comments across 24 videos - matched against 9 of your 41 past
+           appearances", every figure of which the owner deleted. */
+        builtFrom: "885 episodes of this show, what its audience says in public, and the transcripts of your past appearances."
     };
     </script>
 
@@ -168,14 +187,16 @@
         .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
         .header-back:hover { color: #6d28d9; }
 
+        /* Tightened 2026-08-19 - this page must be skimmable at a glance,
+           never read aloud. */
         .container {
-            flex: 1; padding: 44px 40px 64px;
+            flex: 1; padding: 30px 40px 34px;
             max-width: 1120px; margin: 0 auto; width: 100%;
         }
 
         .title-row {
             display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 22px;
         }
         .page-title { font-size: 26px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.5px; }
         .page-sub { font-size: 14px; color: #6b7280; line-height: 1.6; }
@@ -190,18 +211,18 @@
 
         .block {
             background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 13px;
-            padding: 24px 26px; margin-bottom: 18px;
-            display: grid; grid-template-columns: 100px 1fr; gap: 22px;
+            padding: 16px 22px; margin-bottom: 12px;
+            display: grid; grid-template-columns: 96px 1fr; gap: 20px;
         }
         .block-time { display: flex; flex-direction: column; gap: 5px; }
         .time-range { font-size: 14px; font-weight: 800; color: #7c3aed; }
         .time-len { font-size: 10.5px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.45; }
         .block-body { min-width: 0; }
-        .block-name { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 10px; }
-        .block-line { font-size: 13px; line-height: 1.65; color: #374151; margin-bottom: 14px; }
+        .block-name { font-size: 15.5px; font-weight: 700; color: #111827; margin-bottom: 7px; }
+        .block-line { font-size: 13px; line-height: 1.6; color: #374151; margin-bottom: 10px; }
         .beat {
             font-size: 13px; color: #4b5563; line-height: 1.65;
-            padding-left: 18px; position: relative; margin-bottom: 10px;
+            padding-left: 18px; position: relative; margin-bottom: 7px;
         }
         .beat:before {
             content: ""; position: absolute; left: 0; top: 8px;
@@ -209,22 +230,32 @@
         }
         .beat strong { color: #111827; font-weight: 700; }
         .why {
-            margin-top: 16px; font-size: 12.5px; color: #6b7280; line-height: 1.65;
-            border-top: 1px solid #f3f0ff; padding-top: 14px;
+            margin-top: 11px; font-size: 12.5px; color: #6b7280; line-height: 1.6;
+            border-top: 1px solid #f3f0ff; padding-top: 10px;
         }
         .why span { color: #7c3aed; font-weight: 700; }
 
-        .evidence {
-            margin-top: 14px; padding: 12px 15px;
-            background: #faf8ff; border-left: 3px solid #ddd6fe; border-radius: 0 7px 7px 0;
-            font-size: 12px; color: #4b5563; line-height: 1.6;
+        /* THE END BLOCK NAMES ITSELF. Owner, 2026-08-19: "I don't know what
+           this is. Call to action, position it like this for this audience."
+           The recommended ask is a labelled purple panel, and the bullets
+           under it are explicitly how to position it for this room. */
+        .cta-panel {
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px;
+            padding: 12px 15px; margin-bottom: 12px;
         }
-        .evidence .who { color: #111827; font-weight: 800; }
-        .evidence .plat { color: #9ca3af; font-weight: 500; }
+        .cta-panel-label {
+            font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.07em; color: #7c3aed; margin-bottom: 6px;
+        }
+        .cta-panel-text { font-size: 13.5px; color: #111827; font-weight: 600; line-height: 1.55; }
+        .position-label {
+            font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.07em; color: #6b7280; margin-bottom: 8px;
+        }
 
         .side-card {
             background: #ffffff; border: 1.5px solid #e9d5ff; border-radius: 13px;
-            padding: 20px 22px; margin-bottom: 18px;
+            padding: 17px 20px; margin-bottom: 14px;
         }
         .side-card.warn { background: #fff1f2; border-color: #fecdd3; }
         .side-title {
@@ -232,7 +263,7 @@
             letter-spacing: 0.07em; color: #6b7280; margin-bottom: 14px;
         }
         .side-card.warn .side-title { color: #dc2626; }
-        .side-item { font-size: 12.5px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
+        .side-item { font-size: 12.5px; color: #374151; line-height: 1.55; margin-bottom: 11px; }
         .side-item:last-child { margin-bottom: 0; }
         .side-item strong { display: block; color: #111827; font-weight: 700; margin-bottom: 4px; }
         .side-note { font-size: 11.5px; color: #9ca3af; line-height: 1.6; }
@@ -246,7 +277,38 @@
         }
         .btn-secondary { background: transparent; color: #7c3aed; border: 1px solid #ddd6fe; }
         .btn-secondary:hover { background: #f3f0ff; }
-        .back-row { display: flex; gap: 12px; margin-top: 14px; }
+        .back-row { display: flex; gap: 12px; margin-top: 8px; }
+
+        /* ── SHORT-SCREEN COMPACTION ──────────────────────────────────
+           The presenter films on a MacBook Air. At 1280x800 this page
+           overran the fold by 173px and he would have had to scroll to
+           reach the call-to-action block - the one block he could not
+           identify on camera in the first place. Everything below only
+           tightens spacing; no content is dropped, and the 1400x1000
+           layout above is untouched. Measured after: 1280x800 fits with
+           no scrollbar, 1400x1000 unchanged.
+           ────────────────────────────────────────────────────────────── */
+        @media (max-height: 900px), (max-width: 1366px) {
+            .container { padding: 16px 40px 12px; }
+            .title-row { margin-bottom: 14px; }
+            .page-title { font-size: 23px; margin-bottom: 5px; }
+            .page-sub { font-size: 13px; }
+            .total-pill { padding: 10px 18px; }
+            .total-num { font-size: 19px; }
+            .block { padding: 12px 18px; margin-bottom: 8px; gap: 16px; }
+            .block-name { font-size: 15px; margin-bottom: 5px; }
+            .block-line { font-size: 12.5px; margin-bottom: 7px; }
+            .beat { font-size: 12.5px; margin-bottom: 5px; }
+            .why { margin-top: 8px; padding-top: 8px; font-size: 12px; }
+            .cta-panel { padding: 10px 13px; margin-bottom: 9px; }
+            .cta-panel-text { font-size: 13px; }
+            .position-label { margin-bottom: 6px; }
+            .side-card { padding: 14px 17px; margin-bottom: 11px; }
+            .side-title { margin-bottom: 11px; }
+            .side-item { font-size: 12px; margin-bottom: 9px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .back-row { margin-top: 6px; }
+        }
     </style>
 </head>
 <body>
@@ -254,7 +316,7 @@
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
         <div class="loading-msg">Building the 45 minutes...</div>
-        <div class="loading-sub">Open · story picks · the turn · the call to action</div>
+        <div class="loading-sub">The opening · the body · the end</div>
     </div>
 
     <div class="header">
@@ -262,7 +324,7 @@
             <div class="header-dot"></div>
             <div class="header-logo">Audience Message Research</div>
         </div>
-        <div class="header-back" onclick="window.location.href='l3.html'">&larr; Your best rooms</div>
+        <div class="header-back" onclick="window.location.href='l3.html'">&larr; Your past appearances</div>
     </div>
 
     <div class="container">
@@ -298,7 +360,7 @@
         </div>
 
         <div class="back-row">
-            <button class="btn btn-secondary" onclick="window.location.href='l3.html'">&larr; Back to your best rooms</button>
+            <button class="btn btn-secondary" onclick="window.location.href='l3.html'">&larr; Back to your past appearances</button>
             <button class="btn btn-secondary" onclick="window.location.href='index.html'">Start new research</button>
         </div>
 
@@ -307,28 +369,31 @@
     <script>
         var P = PROVISIONAL;
 
+        /* One line, deliberately. It used to wrap to two and this page has
+           to be takeable in at a glance. */
         document.getElementById('pageSub').textContent =
             'Your 45 minutes on ' + P.name + ' with ' + P.host +
-            ', built from what this room responds to and what has already worked in rooms like it.';
+            ', built for what this room responds to.';
 
-        /* Neutral source label only - no handle is ever rendered. */
-        function evidenceHtml(key) {
-            var e = P.evidence[key];
-            return '<div class="evidence">"' + e.text + '"<br>' +
-                   '<span class="who">' + e.source + '</span></div>';
-        }
-
+        /* NO evidenceHtml() any more. All three quoted reviews and their
+           source labels were deleted on 2026-08-19. Do not add it back. */
         document.getElementById('blocks').innerHTML = P.blocks.map(function (b) {
+            var body = '<div class="block-name">' + b.name + '</div>';
+            if (b.line)  { body += '<div class="block-line">' + b.line + '</div>'; }
+            if (b.isCta) {
+                body += '<div class="cta-panel">' +
+                        '<div class="cta-panel-label">' + b.ctaLabel + '</div>' +
+                        '<div class="cta-panel-text">' + b.cta + '</div></div>' +
+                        '<div class="position-label">' + b.positionLabel + '</div>';
+            }
+            body += b.beats.map(function (t) { return '<div class="beat">' + t + '</div>'; }).join('');
+            if (b.why) {
+                body += '<div class="why"><span>' + (b.whyLabel || 'Why this room:') + '</span> ' + b.why + '</div>';
+            }
             return '<div class="block">' +
                 '<div class="block-time"><div class="time-range">' + b.range + '</div>' +
                 '<div class="time-len">' + b.len + '</div></div>' +
-                '<div class="block-body">' +
-                '<div class="block-name">' + b.name + '</div>' +
-                (b.line ? '<div class="block-line">' + b.line + '</div>' : '') +
-                b.beats.map(function (t) { return '<div class="beat">' + t + '</div>'; }).join('') +
-                (b.why ? '<div class="why"><span>' + (b.whyLabel || 'Why this room:') + '</span> ' + b.why + '</div>' : '') +
-                (b.evidence ? evidenceHtml(b.evidence) : '') +
-                '</div></div>';
+                '<div class="block-body">' + body + '</div></div>';
         }).join('');
 
         document.getElementById('avoidList').innerHTML = P.avoid.map(function (a) {
@@ -340,9 +405,7 @@
         }).join('');
 
         document.getElementById('languageNote').textContent = P.languageNote;
-
-        document.getElementById('builtFrom').textContent =
-            P.episodes + ' episodes and this show\'s public reviews and comment threads - 1,219 written reviews and 123 comments across 24 videos - matched against 9 of your 41 past appearances. Seven hours of work, done while you read the first page.';
+        document.getElementById('builtFrom').textContent = P.builtFrom;
 
         setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');

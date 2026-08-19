@@ -2,69 +2,76 @@
 <html lang="en">
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
 <!--
-  The drill-down: this room matched against Sai's best-converting appearances.
-  The wow moment is the FIRST block on the page - a hook that DIED in rooms
-  like this one. See index.html for the recording note and the number model.
-  NOTHING ON THIS PAGE IS BLURRED - the show name renders SHARP, per the
-  owner's decision of 2026-08-11. The quote text is verbatim and unaltered,
-  and NO REVIEWER HANDLE RENDERS - only a neutral source label.
-  SIMULATED here: the appearance library and every count - 41 base, 9
-  comparable, 7 hooks (5 landed, 2 died), every per-hook usage at or below 9.
-  Each `why` is written only from confirmed material about this show.
+  The drill-down: this room read against the transcripts of the presenter's
+  past appearances. Two plain halves - what this audience does NOT respond to,
+  and what it typically DOES.
+
+  ═══════════════════════════════════════════════════════════════════
+  EVERY STATISTIC ON THIS PAGE WAS DELETED. Owner's decision, 2026-08-19:
+  "I'll remove the numbers completely, the 41 appearances, nine comparable
+  rooms, all of that." Gone: the four stat tiles (41 / 9 / 5 / 2), the
+  "9 of your 41" subheading, every "Used in N of 9 ... died in all N" meta
+  line, the "+ 2 more hooks" note, and the "41 past appearances" loading
+  sub-line. DO NOT REINSTATE ANY OF THEM - not here and not on l4.html,
+  whose right rail carried copies.
+  In their place, at the top where the tiles were, a plain framing line:
+  the transcripts of your past appearances, then the insights.
+  ═══════════════════════════════════════════════════════════════════
+  ALSO REMOVED 2026-08-19: the quoted review / comment blocks and the
+  source labels that referenced them. The page states the insight; it no
+  longer quotes anyone to prove it.
+  ═══════════════════════════════════════════════════════════════════
+  "Best rooms" is dead wording everywhere - the presenter could not parse
+  it on camera. It is "your past appearances" on every page and in every
+  title, button and back link.
+  ═══════════════════════════════════════════════════════════════════
+  See index.html for the recording note. NOTHING ON THIS PAGE IS BLURRED -
+  the show name renders SHARP, per the owner's decision of 2026-08-11.
+  SIMULATED: every conclusion below. Each is written only from confirmed
+  material about this show's audience.
 -->
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audience Message Research - Compared to Your Best Rooms</title>
+    <title>Audience Message Research - Compared to Your Past Appearances</title>
 
     <!-- ══════════════════════════════════════════════════════════════
          SHOW DATA - every show-specific string on this page lives in this
          one object. Swap here if the show changes.
-         VERIFIED 2026-08-11: `name` and `evidence` (verbatim public
-         YouTube comment, re-confirmed on a second independent fetch).
-         SIMULATED: every count and every hook. Each `why` is written only
-         from confirmed material about this show's audience, so nothing on
-         screen asserts an insight the confirmed material does not carry.
-         `name` renders SHARP. Nothing on this page is blurred. The quote
-         text is never altered.
-         NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS.
+         VERIFIED 2026-08-11: `name`.
+         SIMULATED: every bullet below. Each is written only from confirmed
+         material about this show's audience, so nothing on screen asserts
+         an insight the confirmed material does not carry.
+         NO COUNTS, NO STATISTICS, NO QUOTES AND NO PER-PERSON ATTRIBUTION
+         RENDER ANYWHERE ON THIS PAGE. `name` renders SHARP.
          ══════════════════════════════════════════════════════════════ -->
     <script>
     var PROVISIONAL = {
         name: "The Amy Porterfield Show",
-        roomDescriptor: "rooms full of online business owners and course creators who are building it themselves and scanning for the pitch",
-        /* VERBATIM, unaltered. No handle renders - `source` is a neutral
-           label and is the only attribution on screen. The real handle is in
-           the INTERNAL ONLY comment below so the quote can be re-verified.
-           Checked against the FULL body: this text contains no show name,
-           no host name and no third party's name.
-           INTERNAL ONLY, NEVER RENDERED - handle @heygurikaur, YouTube,
-           ~2026-08-04 */
-        evidence: {
-            text: "the nuance of hustling without burning yourself out while still building real income is the tightrope so many women walk. Thanks for bringing on a guest who tells it straight.",
-            source: "YouTube comment"
-        },
-        died: [
-            { name: "Opening with the fifteen million",
-              meta: "Used in 3 of 9 comparable rooms · died in all 3",
-              why: "Your strongest credential is your weakest opener here. This room measures itself in first steps, not in millions, and it says so unprompted - just starting, still afraid to charge. A big number in the first two minutes is the exact signal it uses to decide it is being sold to. Hold it back until after the turn, and attach it to what it cost you." },
-            { name: "Leading with the AI, not the hours",
-              meta: "Used in 2 of 9 comparable rooms · died in both",
-              why: "Nothing this room writes about itself is about a technology. It is about being overwhelmed and about a week that will not stretch. The same material lands when the first sentence is seven hours down to forty-five minutes, and dies when the first sentence is about the machine that did it.",
-              evidence: true }
+        roomDescriptor: "online business owners and course creators, building it themselves and scanning for the pitch",
+
+        /* The framing line that replaced the four stat tiles. It sits where
+           they sat, at the top, and it is the whole explanation of where
+           these insights come from. */
+        framingLabel: "From your own transcripts",
+        framingLine: "Read every transcript from your past appearances, then read this room. These are the insights for this opportunity.",
+
+        /* TWO PLAIN HALVES. Bullets, never prose - each is a short lead in
+           bold and at most one short clause after it. If a bullet needs a
+           second sentence it is too long for this page. */
+        notRespond: [
+            { lead: "A big money number up front",   tail: "this room measures itself in first steps, not millions." },
+            { lead: "The technology",                tail: "nothing it writes about itself is about a machine." },
+            { lead: "Credentials before the story",  tail: "it is not asking whether you are good enough." },
+            { lead: "Free content that turns into a pitch", tail: "it says so, in public, in those words." }
         ],
-        landed: [
-            { name: "I was terrible at this for years",
-              meta: "Used in 6 of 9 comparable rooms · landed in all 6",
-              why: "This room names imposter syndrome about itself, without being asked. Opening by proving competence answers a question nobody here is asking. Leading with the years of getting it wrong answers the one they are." },
-            { name: "Seven hours down to forty-five minutes",
-              meta: "Used in 5 of 9 comparable rooms · landed in all 5",
-              why: "A number about time, not about revenue. This room is running a business around kids and aging parents, so it converts time saved straight into its own week without you doing the maths for it." },
-            { name: "The catch-22 I built myself",
-              meta: "Used in 4 of 9 comparable rooms · landed in all 4",
-              why: "More clients meant more fixed cost meant more appearances. This room describes the same trap as bearing the burden of doing it all alone while the business grows, and getting other people to carry part of it is the thing it is least sure about." }
-        ],
-        moreLanded: "+ 2 more hooks that landed in rooms like this one"
+        respond: [
+            { lead: "The years you got it wrong",    tail: "said first, before anything that worked." },
+            { lead: "Time saved, not revenue earned", tail: "seven hours down to forty-five minutes." },
+            { lead: "The trap you built yourself",   tail: "more clients, more fixed cost, more appearances." },
+            { lead: "The method given away in full", tail: "before they have to ask what the catch is." },
+            { lead: "The life the business was meant to buy", tail: "kids, parents, a Saturday you got back." }
+        ]
     };
     </script>
 
@@ -114,73 +121,62 @@
         .header-back { font-size: 12px; color: #7c3aed; cursor: pointer; font-weight: 600; }
         .header-back:hover { color: #6d28d9; }
 
+        /* Tightened 2026-08-19 so the whole page clears the fold on a
+             1280x800 MacBook Air - it overran by 87px before. Measured at
+             1400x1000 and 1280x800: scrollHeight == clientHeight at both. */
         .container {
-            flex: 1; padding: 44px 40px 64px;
+            flex: 1; padding: 30px 40px 28px;
             max-width: 1000px; margin: 0 auto; width: 100%;
         }
 
         .page-title { font-size: 26px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .page-sub { font-size: 14px; color: #6b7280; margin-bottom: 32px; line-height: 1.6; }
+        .page-sub { font-size: 14px; color: #6b7280; margin-bottom: 22px; line-height: 1.6; }
         .page-sub strong { color: #7c3aed; }
 
-        .stats-row {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-            margin-bottom: 36px;
+        /* The framing strip stands exactly where the four stat tiles stood.
+           Owner's decision, 2026-08-19 - every number on this page is gone
+           and this line is what replaced them. Do not put a figure in it. */
+        .framing {
+            background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
+            padding: 16px 24px; margin-bottom: 22px;
         }
-        .stat-card {
-            background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
-            padding: 20px 18px; text-align: center;
+        .framing-label {
+            font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.08em; color: #7c3aed; margin-bottom: 7px;
         }
-        .stat-num { font-size: 28px; font-weight: 800; color: #111827; letter-spacing: -0.5px; }
-        .stat-num.purple { color: #7c3aed; }
-        .stat-num.green { color: #16a34a; }
-        .stat-num.red { color: #dc2626; }
-        .stat-label { font-size: 11.5px; color: #9ca3af; margin-top: 6px; font-weight: 500; line-height: 1.4; }
+        .framing-line { font-size: 14.5px; color: #374151; line-height: 1.6; }
 
-        .section-label {
-            font-size: 12px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #6b7280; margin-bottom: 16px;
-            display: flex; align-items: center; gap: 8px;
-        }
-
-        .died-block {
-            background: #fff1f2; border: 1.5px solid #fecdd3;
-            border-radius: 14px; padding: 24px 26px; margin-bottom: 24px;
-        }
-        .died-title {
-            font-size: 12px; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #dc2626; margin-bottom: 16px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .hook-card {
-            background: #ffffff; border: 1px solid #fecdd3; border-radius: 10px;
-            padding: 18px 20px; margin-bottom: 14px;
-        }
-        .hook-card:last-child { margin-bottom: 0; }
-        .hook-name { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 5px; }
-        .hook-meta { font-size: 12.5px; color: #dc2626; font-weight: 600; margin-bottom: 9px; }
-        .hook-why { font-size: 13px; color: #6b7280; line-height: 1.65; }
-
-        .evidence {
-            margin-top: 14px; padding: 12px 15px;
-            background: #faf8ff; border-left: 3px solid #ddd6fe; border-radius: 0 7px 7px 0;
-            font-size: 12px; color: #4b5563; line-height: 1.6;
-        }
-        .evidence .who { color: #111827; font-weight: 800; }
-        .evidence .plat { color: #9ca3af; font-weight: 500; }
-
-        .landed-block {
+        /* TWO PLAIN HALVES, side by side. Replaced the old "died in rooms
+           like this one" / "landed in rooms like this one" panels, whose
+           wording the presenter could not read off the screen. */
+        .halves { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .half {
+            border-radius: 14px; padding: 22px 24px;
             background: #ffffff; border: 1.5px solid #e9d5ff;
-            border-radius: 14px; padding: 24px 26px; margin-bottom: 24px;
         }
-        .hook-card.landed { border-color: #bbf7d0; }
-        .hook-meta.landed { color: #16a34a; }
-        .more-note { font-size: 12.5px; color: #9ca3af; padding: 14px 4px 0; }
+        .half.no { background: #fff1f2; border-color: #fecdd3; }
+        .half-title {
+            font-size: 12.5px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.07em; color: #16a34a; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .half.no .half-title { color: #dc2626; }
+        .bullet {
+            font-size: 13.5px; color: #6b7280; line-height: 1.6;
+            padding-left: 19px; position: relative; margin-bottom: 13px;
+        }
+        .bullet:last-child { margin-bottom: 0; }
+        .bullet:before {
+            content: ""; position: absolute; left: 0; top: 8px;
+            width: 7px; height: 7px; border-radius: 50%; background: #bbf7d0;
+        }
+        .half.no .bullet:before { background: #fecdd3; }
+        .bullet strong { color: #111827; font-weight: 700; }
 
         .next-row {
             display: flex; align-items: center; justify-content: space-between; gap: 20px;
             background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
-            padding: 20px 24px; margin-bottom: 22px;
+            padding: 16px 24px; margin-bottom: 16px;
         }
         .next-hint { font-size: 13px; color: #4b5563; line-height: 1.6; }
         .btn {
@@ -199,8 +195,8 @@
 
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
-        <div class="loading-msg">Comparing against your appearance library...</div>
-        <div class="loading-sub">41 past appearances · matching on who is actually in the room</div>
+        <div class="loading-msg">Reading the transcripts of your past appearances...</div>
+        <div class="loading-sub">Matching on who is actually in the room</div>
     </div>
 
     <div class="header">
@@ -213,41 +209,29 @@
 
     <div class="container">
 
-        <div class="page-title">Compared to your best rooms</div>
+        <div class="page-title">Compared to your past appearances</div>
         <div class="page-sub" id="pageSub"></div>
 
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-num">41</div>
-                <div class="stat-label">Appearances in your library</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-num purple">9</div>
-                <div class="stat-label">Comparable rooms matched</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-num green">5</div>
-                <div class="stat-label">Hooks that landed</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-num red">2</div>
-                <div class="stat-label">Hooks that died</div>
-            </div>
+        <!-- The framing line, in the slot the four stat tiles used to fill.
+             NO NUMBER GOES BACK IN HERE. -->
+        <div class="framing">
+            <div class="framing-label" id="framingLabel"></div>
+            <div class="framing-line" id="framingLine"></div>
         </div>
 
-        <div class="died-block">
-            <div class="died-title">&#9888; Died in rooms like this one</div>
-            <div id="diedList"></div>
-        </div>
-
-        <div class="landed-block">
-            <div class="section-label">&#10003; Landed in rooms like this one</div>
-            <div id="landedList"></div>
-            <div class="more-note" id="moreNote"></div>
+        <div class="halves">
+            <div class="half no">
+                <div class="half-title">&#9888; This audience does not respond to</div>
+                <div id="notRespondList"></div>
+            </div>
+            <div class="half">
+                <div class="half-title">&#10003; This audience typically responds to</div>
+                <div id="respondList"></div>
+            </div>
         </div>
 
         <div class="next-row">
-            <div class="next-hint">That is what to say and what to avoid. The last step turns it into the actual 45 minutes.</div>
+            <div class="next-hint">The last step turns that into the actual 45 minutes.</div>
             <button class="btn btn-primary" onclick="window.location.href='l4.html'">Build the running order &nbsp;&rarr;</button>
         </div>
 
@@ -261,30 +245,17 @@
     <script>
         var P = PROVISIONAL;
 
-        document.getElementById('pageSub').innerHTML =
-            P.name + ' matched against <strong>9 of your 41</strong> past appearances - ' +
-            P.roomDescriptor + '.';
+        document.getElementById('pageSub').textContent = P.name + ' - ' + P.roomDescriptor + '.';
+        document.getElementById('framingLabel').textContent = P.framingLabel;
+        document.getElementById('framingLine').textContent  = P.framingLine;
 
-        /* Neutral source label only - no handle is ever rendered. */
-        function evidenceHtml() {
-            return '<div class="evidence">"' + P.evidence.text + '"<br>' +
-                   '<span class="who">' + P.evidence.source + '</span></div>';
+        function bullets(list) {
+            return list.map(function (b) {
+                return '<div class="bullet"><strong>' + b.lead + '</strong> - ' + b.tail + '</div>';
+            }).join('');
         }
-
-        function hookHtml(h, landed) {
-            return '<div class="hook-card' + (landed ? ' landed' : '') + '">' +
-                '<div class="hook-name">' + h.name + '</div>' +
-                '<div class="hook-meta' + (landed ? ' landed' : '') + '">' + h.meta + '</div>' +
-                '<div class="hook-why">' + h.why + '</div>' +
-                (h.evidence ? evidenceHtml() : '') +
-                '</div>';
-        }
-
-        document.getElementById('diedList').innerHTML =
-            P.died.map(function (h) { return hookHtml(h, false); }).join('');
-        document.getElementById('landedList').innerHTML =
-            P.landed.map(function (h) { return hookHtml(h, true); }).join('');
-        document.getElementById('moreNote').textContent = P.moreLanded;
+        document.getElementById('notRespondList').innerHTML = bullets(P.notRespond);
+        document.getElementById('respondList').innerHTML    = bullets(P.respond);
 
         setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');
