@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
+<!--
+  ===================================================================
+  AI SEO - "AI Search Audit" - Demo 2 (screen 1: the opt-in form)
+
+  PRODUCT SHAPE, corrected by the owner on 2026-08-19:
+    "they get a txt which specializes in ai seo best practices. a pdf
+     that tells them how to use the txt. and then they search for
+     whatever (their company) and it tells them exactly what they need
+     to do to improve their AI SEO results"
+
+  So this is the standard Master Trove shape, not an on-page calculator.
+  This page collects the opt-in. It does NOT compute an answer. The two
+  files land in the lead's inbox, and the payoff happens inside the
+  lead's OWN AI - which is what l2.html shows.
+
+  FIELDS ARE THE LIVE FORM'S FIELDS, not invented for the demo. Checked
+  2026-08-19 against the real opt-in page,
+  website/tools/ai-seo/master-trove/index.html, and against the backend
+  module railway-server/prompts/ai-seo.js which consumes them:
+    firstName  required  -> the filename of BOTH files
+    email      required  -> delivery
+    platform   required  -> multi-select. Picks the setup steps written
+                            into the PDF and the collection checklist
+                            inside the TXT
+    brandName  required  -> the profile block at the top of the TXT
+    website    OPTIONAL  -> the profile block. Optional on the live form,
+                            so it is optional here
+    offering   required  -> builds the unnamed category questions
+    buyerType  required  -> a FIXED five-option select, not free text.
+                            ai-seo.js keys its query-set lookup on it and
+                            console.warns on anything unmapped, so the
+                            options here are the live form's five, in the
+                            live form's own wording, exactly
+  Label wording is copied from the live page too. The viewer meets that
+  page after the video; a demo that shows different labels teaches the
+  wrong screen.
+
+  FILENAMES ARE PRODUCTION-ACCURATE. railway-server/r2.js builds them as
+  `${GUIDE_NAMES[tool]} for ${firstName}.txt` and
+  `${GUIDE_NAMES[tool]} Setup Guide for ${firstName}.pdf`, and
+  GUIDE_NAMES['ai-seo'] is "AI Search Audit". l2.html renders exactly
+  that. Do not invent a different filename on either page.
+
+  WHAT IS REAL
+    Coach Foundation is the owner's own business. Its self-description
+    here is from coachfoundation.com, read 2026-08-19. It builds the
+    whole coaching business and runs a referral system on top of it.
+    Audience: coaches and consultants.
+    Owner's constraint: "So I'll use ours as an example. I won't use
+    other people's." NO CLIENT BUSINESS APPEARS ANYWHERE.
+
+  WHAT IS SIMULATED
+    Everything on l2.html. No AI SEO audit of coachfoundation.com has
+    been run. Every figure there is illustrative and l2.html says so
+    on its face.
+
+  "Dana" is a placeholder first name, not a person. It exists only so
+  the filenames on l2.html are personalised on camera. No real person's
+  name, email or phone appears on any page in this directory.
+
+  NOTHING AUTO-ADVANCES. On load the page sits still with the first
+  field focused. An incomplete form nudges instead of advancing, so a
+  mis-timed click on camera cannot jump the sequence.
+
+  THE EXACT INPUT, word for word, so it is never guessed on the day:
+    Your Name ........ Dana
+    Email Address .... dana@coachfoundation.com
+    Which AI Tools ... ChatGPT  (any one is fine; one must be picked)
+    Business called .. Coach Foundation
+    Website .......... coachfoundation.com
+    What do you offer  We build coaching businesses and bring them
+                       clients through referrals
+    Trying to reach .. Small businesses
+  See walkthrough.html.
+  ===================================================================
+-->
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Search Audit</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8f7ff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Revealed only by start(). No timer reveals it. */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f8f7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .loading-overlay.showing { opacity: 1; pointer-events: auto; }
+        .spinner-lg {
+            width: 30px; height: 30px;
+            border: 3px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-msg { font-size: 15px; color: #4b5563; font-weight: 600; }
+        .loading-steps {
+            display: flex; flex-direction: column; gap: 13px;
+            min-width: 360px;
+        }
+        .loading-step {
+            display: flex; align-items: center; gap: 13px;
+            font-size: 13px; color: #9ca3af;
+            transition: color 0.3s;
+        }
+        .loading-step.done { color: #4b5563; }
+        .step-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #e9d5ff; flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .step-dot.done { background: #7c3aed; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #ddd6fe;
+            flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .header-dot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; }
+        .header-logo { font-weight: 700; font-size: 16px; color: #111827; letter-spacing: -0.3px; }
+        .header-note { font-size: 13px; color: #6b7280; }
+
+        .container {
+            flex: 1;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 34px 40px;
+        }
+        .content { max-width: 720px; width: 100%; }
+
+        .eyebrow {
+            font-size: 12px; font-weight: 700; color: #7c3aed;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            margin-bottom: 14px;
+        }
+        .prompt-title {
+            font-size: 28px; font-weight: 700; color: #111827;
+            line-height: 1.3; letter-spacing: -0.6px;
+            margin-bottom: 10px;
+        }
+        .prompt-sub {
+            font-size: 15px; color: #6b7280; line-height: 1.55;
+            margin-bottom: 26px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+        .field { margin-bottom: 16px; }
+        .field-label {
+            display: block;
+            font-size: 12px; font-weight: 700; color: #374151;
+            margin-bottom: 7px;
+        }
+        .field-label .req { color: #7c3aed; }
+        .field-label .opt { color: #9ca3af; font-weight: 600; text-transform: none; }
+        .field.half { max-width: 340px; }
+        select.text-input { appearance: none; -webkit-appearance: none; cursor: pointer;
+            background-image: linear-gradient(45deg, transparent 50%, #9ca3af 50%),
+                              linear-gradient(135deg, #9ca3af 50%, transparent 50%);
+            background-position: calc(100% - 19px) 19px, calc(100% - 14px) 19px;
+            background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+        .text-input {
+            display: block; width: 100%;
+            background: #ffffff;
+            border: 1.5px solid #ddd6fe;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 14px; font-family: inherit; color: #111827;
+            line-height: 1.4;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .text-input::placeholder { color: #b6b2c4; }
+        .text-input:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+        }
+        .text-input.nudge {
+            border-color: #f97316;
+            animation: nudge 0.42s ease;
+        }
+        @keyframes nudge {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            45% { transform: translateX(5px); }
+            70% { transform: translateX(-3px); }
+        }
+
+        .chips { display: flex; gap: 9px; }
+        .chip {
+            background: #ffffff;
+            border: 1.5px solid #ddd6fe;
+            border-radius: 10px;
+            padding: 11px 18px;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            color: #4b5563; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 9px;
+            transition: border-color 0.15s, background 0.15s, color 0.15s;
+        }
+        .chip .box {
+            width: 15px; height: 15px; border-radius: 4px;
+            border: 1.5px solid #ddd6fe; background: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 10px; color: #fff; line-height: 1;
+        }
+        .chip.on { border-color: #7c3aed; background: #f5f3ff; color: #4c1d95; }
+        .chip.on .box { background: #7c3aed; border-color: #7c3aed; }
+        .chips.nudge { animation: nudge 0.42s ease; }
+
+        .form-foot {
+            margin-top: 24px;
+            display: flex; align-items: center; gap: 20px;
+        }
+        .run-btn {
+            background: #7c3aed; color: #ffffff;
+            border: none; border-radius: 11px;
+            padding: 16px 28px; font-size: 16px; font-weight: 600;
+            font-family: inherit; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: background 0.15s, transform 0.1s;
+            flex-shrink: 0;
+        }
+        .run-btn:hover { background: #6d28d9; transform: translateY(-1px); }
+        .run-btn:active { transform: translateY(0); }
+        .field-note {
+            font-size: 13px; color: #9ca3af; line-height: 1.55;
+        }
+        .field-note.warn { color: #c2410c; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="overlay">
+        <div class="spinner-lg"></div>
+        <div class="loading-msg">Building your two files...</div>
+        <div class="loading-steps">
+            <div class="loading-step" id="r1"><div class="step-dot" id="s1"></div><span>Writing the questions your buyers actually ask</span></div>
+            <div class="loading-step" id="r2"><div class="step-dot" id="s2"></div><span>Writing in what works in AI search now</span></div>
+            <div class="loading-step" id="r3"><div class="step-dot" id="s3"></div><span>Setting the rule that stops it guessing</span></div>
+            <div class="loading-step" id="r4"><div class="step-dot" id="s4"></div><span>Writing your setup guide</span></div>
+            <div class="loading-step" id="r5"><div class="step-dot" id="s5"></div><span>Sending both to your inbox</span></div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-dot"></div>
+            <div class="header-logo">AI Search Audit</div>
+        </div>
+        <div class="header-note">Two files. Free. No card.</div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+
+            <div class="eyebrow">Get your files</div>
+            <h1 class="prompt-title">Tell us about your business. We build the file you load into your AI.</h1>
+            <p class="prompt-sub">You get a reference file and a short setup guide. Then you ask your own AI about your own company, and it tells you what to fix.</p>
+
+            <div class="grid-2">
+                <div class="field">
+                    <label class="field-label" for="firstName">Your Name <span class="req">*</span></label>
+                    <input class="text-input" id="firstName" type="text" autocomplete="off"
+                           spellcheck="false" placeholder="Dana">
+                </div>
+                <div class="field">
+                    <label class="field-label" for="email">Email Address <span class="req">*</span></label>
+                    <input class="text-input" id="email" type="text" autocomplete="off"
+                           spellcheck="false" placeholder="dana@coachfoundation.com">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-label">Which AI Tools Do You Use? <span class="req">*</span> <span class="opt">Select all that apply</span></label>
+                <div class="chips" id="chips">
+                    <button class="chip" type="button" data-p="ChatGPT"><span class="box">&check;</span>ChatGPT</button>
+                    <button class="chip" type="button" data-p="Claude"><span class="box">&check;</span>Claude</button>
+                    <button class="chip" type="button" data-p="Gemini"><span class="box">&check;</span>Gemini</button>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="field">
+                    <label class="field-label" for="bizName">What Is Your Business Called? <span class="req">*</span></label>
+                    <input class="text-input" id="bizName" type="text" autocomplete="off"
+                           spellcheck="false" placeholder="Coach Foundation">
+                </div>
+                <div class="field">
+                    <label class="field-label" for="bizSite">What Is Your Website? <span class="opt">Optional</span></label>
+                    <input class="text-input" id="bizSite" type="text" autocomplete="off"
+                           spellcheck="false" placeholder="coachfoundation.com">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="bizSell">What Do You Offer? <span class="req">*</span></label>
+                <input class="text-input" id="bizSell" type="text" autocomplete="off"
+                       spellcheck="false" placeholder="We build coaching businesses and bring them clients through referrals">
+            </div>
+
+            <div class="field half">
+                <label class="field-label" for="bizWho">Who Are You Trying to Reach? <span class="req">*</span></label>
+                <select class="text-input" id="bizWho">
+                    <option value="">-- Select --</option>
+                    <option value="Local consumers">Local consumers</option>
+                    <option value="National consumers">Consumers nationally</option>
+                    <option value="Small businesses">Small businesses</option>
+                    <option value="Mid-market">Mid-market companies</option>
+                    <option value="Enterprise">Enterprise</option>
+                </select>
+            </div>
+
+            <div class="form-foot">
+                <button class="run-btn" id="startBtn" type="button">Send me the two files &nbsp;&rarr;</button>
+                <div class="field-note" id="fieldNote">Both land in your inbox in under a minute.</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /* Nothing runs on load except focusing the first field. The
+           presenter drives the whole sequence. */
+        var fFirst = document.getElementById('firstName');
+        var fMail  = document.getElementById('email');
+        var fName  = document.getElementById('bizName');
+        var fSite  = document.getElementById('bizSite');
+        var fSell  = document.getElementById('bizSell');
+        var fWho   = document.getElementById('bizWho');
+        var chips  = document.getElementById('chips');
+        var note   = document.getElementById('fieldNote');
+        var overlay = document.getElementById('overlay');
+        var started = false;
+        var DEFAULT_NOTE = 'Both land in your inbox in under a minute.';
+        /* Website is optional on the live form, so it is optional here and
+           is deliberately absent from REQUIRED. */
+        var REQUIRED = [fFirst, fMail, fName, fSell, fWho];
+        var FIELDS   = [fFirst, fMail, fName, fSite, fSell, fWho];
+
+        fFirst.focus();
+
+        FIELDS.forEach(function (el) {
+            el.addEventListener('input', function () {
+                el.classList.remove('nudge');
+                resetNote();
+            });
+            el.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') { e.preventDefault(); start(); }
+            });
+        });
+        fWho.addEventListener('change', function () {
+            fWho.classList.remove('nudge');
+            resetNote();
+        });
+
+        Array.prototype.forEach.call(chips.querySelectorAll('.chip'), function (c) {
+            c.addEventListener('click', function () {
+                c.classList.toggle('on');
+                chips.classList.remove('nudge');
+                resetNote();
+            });
+        });
+
+        function resetNote() {
+            note.classList.remove('warn');
+            note.textContent = DEFAULT_NOTE;
+        }
+
+        function picked() {
+            return Array.prototype.map.call(chips.querySelectorAll('.chip.on'), function (c) {
+                return c.getAttribute('data-p');
+            });
+        }
+
+        document.getElementById('startBtn').addEventListener('click', start);
+
+        function start() {
+            if (started) { return; }
+
+            /* An incomplete form never advances. It nudges the first
+               empty field, so a stray click cannot skip ahead. */
+            var missing = REQUIRED.filter(function (el) { return !el.value.trim(); });
+            if (missing.length) {
+                var el = missing[0];
+                el.classList.remove('nudge');
+                void el.offsetWidth;
+                el.classList.add('nudge');
+                note.classList.add('warn');
+                note.textContent = 'Fill every field marked with a star.';
+                el.focus();
+                return;
+            }
+            if (!picked().length) {
+                chips.classList.remove('nudge');
+                void chips.offsetWidth;
+                chips.classList.add('nudge');
+                note.classList.add('warn');
+                note.textContent = 'Pick at least one AI. Your setup guide is written for it.';
+                return;
+            }
+
+            /* Carry what was typed through to the next screen, so the
+               files and the conversation use the presenter's own words. */
+            try {
+                sessionStorage.setItem('ais_seo_first', fFirst.value.trim());
+                sessionStorage.setItem('ais_seo_name',  fName.value.trim());
+                sessionStorage.setItem('ais_seo_site',  fSite.value.trim());
+                sessionStorage.setItem('ais_seo_sell',  fSell.value.trim());
+                sessionStorage.setItem('ais_seo_who',   fWho.value.trim());
+                sessionStorage.setItem('ais_seo_plat',  picked().join(', '));
+            } catch (e) {}
+
+            started = true;
+            overlay.classList.add('showing');
+
+            var ids = ['1','2','3','4','5'];
+            ids.forEach(function (n, i) {
+                setTimeout(function () {
+                    document.getElementById('s' + n).classList.add('done');
+                    document.getElementById('r' + n).classList.add('done');
+                }, 340 * (i + 1));
+            });
+            setTimeout(function () {
+                window.location.href = 'l2.html';
+            }, 340 * ids.length + 900);
+        }
+    </script>
+</body>
+</html>
