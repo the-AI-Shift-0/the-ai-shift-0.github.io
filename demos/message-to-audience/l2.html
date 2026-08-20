@@ -3,8 +3,8 @@
 <head><script>if(localStorage.getItem("ais_auth")!=="apurv"){try{sessionStorage.setItem("ais_next",location.pathname+location.search+location.hash)}catch(e){}location.replace("/");}</script>
 <!--
   One screen, everything at once: the show and who actually listens, the six
-  things it works out, and - at the foot - the phrases that room uses beside
-  the typical demographics for it. No scrolling.
+  things it works out, and - at the foot - the phrases that room uses.
+  No scrolling.
 
   ═══════════════════════════════════════════════════════════════════
   CHANGES MADE 2026-08-19, ALL OWNER-DECIDED ON THAT DAY'S CALL. Do not
@@ -20,10 +20,11 @@
       has regressed.
    3. THE SIX QUOTE CARDS ARE GONE, and so is every "Their words, from an
       Apple Podcasts review" footer. "Remove references to the quotes."
-      In their place: phrases on the LEFT, demographics on the RIGHT -
-      "it should be like words they use ... just a small list, like a
-      bullet list ... on the left. And there on the right is typical
-      demographics, female, age."
+      In their place: the phrases that room uses - "it should be like
+      words they use ... just a small list, like a bullet list". A
+      demographics column sat beside them from 2026-08-19 until
+      2026-08-20, when the owner removed it: the figures were a general
+      creator-economy benchmark, not this show."
    4. THE BUTTON SAYS "Compare to your past appearances". The old
       "Compare to my best rooms" could not be parsed on camera: "what does
       this mean compared to my best rooms? I don't know what that means."
@@ -63,8 +64,6 @@
          strength reading. Each conclusion is written only from material
          confirmed for this show, so nothing on screen asserts an audience
          insight the confirmed material does not carry.
-         REAL AND PUBLISHED: every figure in demographics[] - full sourcing
-         sits in the comment directly above that array.
          NOTHING ON THIS PAGE IS BLURRED. name and host render SHARP.
          NO HANDLE OR PER-PERSON ATTRIBUTION RENDERS ANYWHERE. Handles live
          only in the SOURCE comments beside each phrase - platform and date only, never a reviewer identity. This file is served publicly.
@@ -146,52 +145,24 @@
             "bear the burden of doing it all alone"        /* SOURCE: Apple review, 2025-10-29. Identity in the private repo only. */
         ],
 
-        /* ══════════════════════════════════════════════════════════
-           RIGHT: TYPICAL DEMOGRAPHICS. Built 2026-08-19 - there was no
-           demographics element on this page before.
-
-           ⛔ EVERY FIGURE HERE IS REAL AND PUBLISHED. NONE IS INVENTED,
-           ROUNDED OR ADJUSTED. Owner's decision on the 2026-08-19 call:
-           derive them from something real or leave the line out.
-
-           SOURCE FOR ALL FIVE LINES - ONE SOURCE, DELIBERATELY:
-             Kit (ConvertKit), "State of the Creator Economy 2024",
-             n = 1,008 creators surveyed. First-party publisher research.
-             https://attachments.convertkitcdnh.com/108/63cbc0b1-4107-43da-9b63-213b54ebef26/sotce-report-2024.pdf
-               - 65% female / 33% male / 2% non-binary ......... p.5
-               - Millennial 41% · Gen X 38% ................... p.9
-               - 24% have not yet made their first dollar ..... p.29
-               - Female creators earning over $100k: 18% ...... p.5
-               - Entrepreneur 23% · Coach 19% · Educator 18% .. p.10
-
-           WHY THE NICHE AND NOT THE SHOW: this show publishes NO audience
-           demographics of its own. Checked 2026-08-19 - the Apple show
-           page, the RSS feed, the host's own site and her public posts
-           carry download and student counts but no gender, age, geography
-           or revenue split. Rephonic holds all four and paywalls every
-           one of them; Podchaser refuses the request. So the figures are
-           the closest real benchmark for this exact niche - course
-           creators, coaches and educators - and the block says so on
-           screen rather than passing them off as measured for this show.
-
-           NOT SOURCED, SO DELIBERATELY ABSENT: geography / country split.
-           The Kit report does not contain it and no free first-party
-           source publishes it for this show or this niche. A geography
-           line would have had to be invented, so there is not one.
-
-           ROUND FIGURES WERE DROPPED ON PURPOSE. The same report gives
-           "60% under $10k" and "30% made under $10k last year"; exact
-           trailing zeros read as fake on screen, so only the non-round
-           published figures are used. Nothing was nudged to achieve that.
-           ══════════════════════════════════════════════════════════ */
-        demographics: [
-            { fig: "65%",  txt: "female" },
-            { fig: "41%",  txt: "millennial, and 38% Gen X" },
-            { fig: "24%",  txt: "have not made their first dollar yet" },
-            { fig: "18%",  txt: "of the women clear six figures a year" },
-            { fig: "23%",  txt: "entrepreneurs, 19% coaches, 18% educators" }
-        ],
-        demographicsNote: "Course-creator benchmark, 2024. This show publishes none of its own."
+        /* THE DEMOGRAPHICS COLUMN WAS REMOVED 2026-08-20, owner's decision.
+           It carried five percentages from Kit's "State of the Creator
+           Economy 2024" - the whole creator economy, not this show. His
+           objection: a benchmark about creators in general says nothing
+           about this room, and this demo's entire premise is that it reads
+           what THIS room says.
+           Checked before removing, so nobody re-derives it: no public,
+           measured, show-specific demographics exist. There is no media kit
+           or advertise page; Rephonic and Podchaser hold gender, age and
+           income but paywall every field and describe their own data as
+           PREDICTIVE, not measured; Listen Notes' country split is its own
+           site traffic, not her listeners. Our own review corpus cannot
+           carry a percentage either - 22 quoted items across a 13-year
+           archive, zero age disclosures, zero revenue figures, and coach
+           self-IDs at 1.2% against the benchmark's 19%.
+           DO NOT REINSTATE a demographics block from a niche benchmark.
+           If one is ever wanted, the only honest material is what the host
+           says about her own listeners in her own feed. */
     };
     </script>
 
@@ -334,20 +305,21 @@
             background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px;
             padding: clamp(9px, 1.35vh, 18px) 22px clamp(10px, 1.5vh, 20px);
         }
-        /* PHRASES LEFT, DEMOGRAPHICS RIGHT. Built 2026-08-19, replacing the
-           six full quote cards. Two equal columns with a hairline between,
-           so it reads as one block with two halves rather than two cards. */
-        .lang-split {
-            display: grid; grid-template-columns: 1fr 1px 1fr;
-            gap: clamp(14px, 2.2vh, 30px); align-items: start;
-        }
-        .lang-rule { align-self: stretch; background: #ddd6fe; }
+        /* The phrases list runs full width. The two-column split that put
+           demographics beside it was removed 2026-08-20. */
         .lang-col-title {
             font-size: 10px; font-weight: 800; text-transform: uppercase;
             letter-spacing: 0.07em; color: #7c3aed;
             margin-bottom: clamp(6px, 1.0vh, 12px);
         }
-        .phrase-list { display: flex; flex-direction: column; gap: clamp(4px, 0.8vh, 9px); }
+        /* Two columns so the six phrases fill the block. They ran full width
+           and stranded in the left third once the demographics column was
+           removed on 2026-08-20. */
+        .phrase-list {
+            display: grid; grid-template-columns: 1fr 1fr;
+            column-gap: clamp(20px, 3vw, 56px); row-gap: clamp(4px, 0.8vh, 9px);
+            align-items: start;
+        }
         .phrase {
             font-size: clamp(11px, 1.22vh, 13px); line-height: 1.5; color: #374151;
             padding-left: 15px; position: relative;
@@ -355,21 +327,6 @@
         .phrase:before {
             content: ""; position: absolute; left: 0; top: 0.55em;
             width: 5px; height: 5px; border-radius: 50%; background: #a78bfa;
-        }
-        .demo-list { display: flex; flex-direction: column; gap: clamp(4px, 0.8vh, 9px); }
-        .demo-row {
-            display: flex; align-items: baseline; gap: 10px;
-            font-size: clamp(11px, 1.22vh, 13px); line-height: 1.5; color: #4b5563;
-        }
-        /* Fixed-width figure column so the labels line up down the page. */
-        .demo-fig {
-            width: 46px; flex-shrink: 0; text-align: right;
-            font-weight: 800; color: #7c3aed;
-            font-variant-numeric: tabular-nums;
-        }
-        .demo-note {
-            margin-top: clamp(6px, 1.0vh, 12px); font-size: 9.5px;
-            color: #9ca3af; line-height: 1.5;
         }
 
         .cta-bar {
@@ -414,23 +371,12 @@
 
         <div class="panels-grid" id="panelsGrid"></div>
 
-        <!-- Phrases on the left, typical demographics on the right. This
-             block replaced "THE WORDS THEY USE THEMSELVES - NOT PARAPHRASED"
-             and its six quote cards on 2026-08-19. Every demographic figure
-             is real and published - see the sourcing block in the head. -->
+        <!-- The phrases this room uses, in its own words. The demographics
+             column that sat to the right of these was removed 2026-08-20 -
+             see the note in the head. -->
         <div class="language-block">
-            <div class="lang-split">
-                <div>
-                    <div class="lang-col-title">Phrases they use</div>
-                    <div class="phrase-list" id="phraseList"></div>
-                </div>
-                <div class="lang-rule"></div>
-                <div>
-                    <div class="lang-col-title">Typical demographics</div>
-                    <div class="demo-list" id="demoList"></div>
-                    <div class="demo-note" id="demoNote"></div>
-                </div>
-            </div>
+            <div class="lang-col-title">Phrases they use</div>
+            <div class="phrase-list" id="phraseList"></div>
         </div>
 
         <!-- No hint text here. The presenter says the "anything can
@@ -505,11 +451,6 @@
             return '<div class="phrase">"' + t + '"</div>';
         }).join('');
 
-        document.getElementById('demoList').innerHTML = P.demographics.map(function (d) {
-            return '<div class="demo-row"><span class="demo-fig">' + d.fig + '</span>' +
-                   '<span>' + d.txt + '</span></div>';
-        }).join('');
-        document.getElementById('demoNote').textContent = P.demographicsNote;
 
         setTimeout(function () {
             document.getElementById('overlay').classList.add('hidden');
