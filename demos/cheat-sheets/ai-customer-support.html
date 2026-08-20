@@ -78,29 +78,22 @@ a{color:#111;text-decoration:none}
 <div class="crumb"><a href="/demos/cheat-sheets/">&larr; All recording cheat sheets</a></div>
 
 <h1>AI Customer Support</h1>
-<p class="sub">Recording cheat sheet. Demo 1 is a whiteboard, then one real ticket.
-Demo 2 follows the AI Caller pattern.</p>
+<p class="sub">Demo 1: whiteboard, then one real ticket. Demo 2: the live opt-in page.</p>
 
 <div class="card rules">
-<h2>Standing recording rules - do these before you hit record</h2>
-<ol>
-<li><strong>Hide the macOS Dock.</strong> System Settings &gt; Desktop &amp; Dock &gt;
-Automatically hide and show the Dock: ON.</li>
-<li><strong>Hide the app sidebar.</strong> ChatGPT, Claude and Gemini all collapse
-theirs - collapse it before the first frame, not mid-take.</li>
-<li><strong>Hide the browser bookmarks bar.</strong> Cmd+Shift+B.</li>
-<li><strong>Hide the URL / address bar wherever possible.</strong> Full screen, or a
-distraction-free window. Where the URL has to be visible because it is the point,
-show only that one URL and nothing around it.</li>
-</ol>
-<p class="why">Raised again on the 2026-08-19 call as a repeat offence. Do it at capture,
-never in the edit - "the resolution becomes an issue" and it comes back not done.</p>
+<h2>Before you hit record</h2>
+<ul>
+<li>Dock hidden - auto-hide ON.</li>
+<li>App sidebar collapsed.</li>
+<li>Bookmarks bar off - Cmd+Shift+B.</li>
+<li>URL bar hidden. If a URL is the point, show that one alone.</li>
+</ul>
+<p class="why">At capture, not in the edit.</p>
 </div>
 
 <div class="card">
-<h2>Demo 1, first half - the whiteboard</h2>
-<p>Drawn by hand. No screen. Your rule for this one: <strong>if it's great, make it
-stupider.</strong></p>
+<h2>Demo 1a - the whiteboard</h2>
+<p>Hand-drawn, no screen. Rule: <strong>if it's great, make it stupider.</strong></p>
 <ol class="steps">
 <li>Ticket comes in.</li>
 <li>It logs in and checks the history.</li>
@@ -110,100 +103,77 @@ stupider.</strong></p>
 <li>Model two says no - it says what the problem is - it tries again.</li>
 <li>Good to go, send. Or no - escalate into Slack.</li>
 </ol>
-<p class="why">These are your own steps from the 2026-08-19 call, in your order. You are
-deriving the same list yourself from Mehak's transcript. Only come back to Apurv if that
-fails.</p>
+<ul>
+<li>Model two marks the reply against the knowledge base and the escalation rules: correct, incorrect, or escalation needed. A refund request is always escalated, never auto-answered.</li>
+</ul>
 </div>
 
 <div class="card">
-<h2>Demo 1, second half - one real ticket working</h2>
-<ol>
-<li>Show a ticket that has already come in and been answered.</li>
+<h2>Demo 1b - one real ticket</h2>
+<ul>
+<li>Show a ticket already answered.</li>
 <li>Show the drafted reply.</li>
-<li>Narrate the part nobody can see.</li>
-</ol>
-<p><strong>The approval step is backend. It cannot be shown, and that is accepted.</strong>
-You cover it in the voiceover:</p>
-<div class="say">Tickets come in from Jack. Jack has asked this. On your side you just see
-the AI has replied. What it actually did was go into the CRM, look at the history, look at
-the purchase history, write this reply, run it past a second model - and this reply is the
-end bit.</div>
-<p><strong>Live or replay is still unanswered.</strong> Apurv said the page will not
-generate at that time; you said "this is not a live stream, bro, I can wait". Until he
-confirms, <strong>plan for a ticket already handled</strong> and treat live as a bonus.</p>
-<h3>Blur list - this is a real support desk</h3>
-<p>Blur: customer names, email addresses, order and invoice numbers, company names,
-phone numbers, anything in the sidebar list of other tickets. Pick the ticket before the
-slot, not during it.</p>
+<li>Approval is backend - narrate it, do not show it.</li>
+<li>Blur: names, emails, order and invoice numbers, companies, phone numbers, the sidebar ticket list.</li>
+</ul>
+<div class="say">Tickets come in from Jack. You just see the AI has replied. What it did: went into the CRM, checked the history and the purchases, wrote this reply, ran it past a second model.</div>
 </div>
 
 <div class="card warn">
 <h2>&#9940; Demo 2 is a BLUEPRINT, not working software</h2>
-<p>Your own words on why:</p>
-<div class="say">There's nothing you can do in terms of "upload this thing to a project and
-then it will reply to your customer emails". Just, no. It is a full thing.</div>
-<p><strong>So what they get is a blueprint of what their setup should look like</strong> -
-the pieces it needs, how a ticket moves through them, and the checks that stop a bad reply
-going out. Something they build, or hand to a developer.</p>
-<p><strong>Never say or imply:</strong> they get a system that answers their emails; it
-works out of the box; upload this and you're done; we hand you the pipeline.</p>
-<p class="why">This exact defect shipped before. Copy implying the lead receives working
-software went out across 28 places in four repos on 2026-08-11 for AI Caller, and it was
-caught after the fact. It is bigger here, because this thing is a helpdesk, a CRM, two
-models and a Slack escalation. Say it wrong on camera and it cannot be fixed in the edit.</p>
+<ul>
+<li>No "upload this and it replies to your emails" version exists. It is a full system.</li>
+<li>They get a blueprint: the pieces, how a ticket moves, the checks that stop a bad reply.</li>
+<li>Never imply: it answers their emails, works out of the box, done on upload.</li>
+</ul>
+<p class="why">This shipped wrong on AI Caller. On camera it cannot be edited out.</p>
 </div>
 
 <div class="card trove">
-<h2>Demo 2 - what exists right now <span class="tag open">NOT BUILT YET</span></h2>
-<p><strong>There is nothing to film for this yet, as of 2026-08-19.</strong></p>
+<h2>Demo 2 - the opt-in page <span class="tag live">LIVE</span></h2>
+<span class="url">https://theaishift.biz/tools/ai-customer-support/master-trove/</span>
 <ul>
-<li><strong>No opt-in page.</strong> <code>theaishift.biz/tools/ai-customer-support/master-trove/</code>
-returns 404 - checked today. Every other tool has one; this one does not.</li>
-<li><strong>No built demo page</strong> under <code>/demos/</code> either.</li>
-<li>Apurv is building the mockup on the AI Caller pattern. Your brief: it only has to look
-good on camera, the real deliverable can differ, the editing backlog absorbs it.</li>
+<li>Heading <strong>AI Customer Support Master Trove</strong>. Button <strong>Get My AI Customer Support Blueprint</strong>.</li>
+<li>A real submission ran today - PDF and text file came back. Filmable end to end.</li>
+<li>Product name everywhere: <strong>AI Customer Support Blueprint</strong>.</li>
 </ul>
-<p><strong>Check it exists before the slot.</strong> If it is not there, film Demo 1 and
-move on - five videos out of six was agreed as fine.</p>
-<p><strong>Do not read a URL off this sheet.</strong> Open whatever has been built on the
-day and film that.</p>
-</div>
-
-<div class="card warn">
-<h2>Words that must not be said on camera</h2>
-<table>
-<tr><th>Never say</th><th>Say instead</th></tr>
-<tr><td>vector store, embeddings, retrieval, RAG</td>
-<td>"it looks up only the part of our knowledge that answers this question, not the whole
-manual"</td></tr>
-<tr><td>evaluator node, the second model scores the draft</td>
-<td>"a completely different AI reads it and marks it - right, wrong, or a human needs to
-see this"</td></tr>
-<tr><td>webhook, API, pipeline, workflow automation, the tool's brand name</td>
-<td>"it plugs into the helpdesk the team already uses"</td></tr>
-<tr><td>it hallucinates</td><td>"it makes things up, and that is what the second check is
-there to catch"</td></tr>
-</table>
-<p class="why">The viewer is an owner with a support team, not a builder. Naming the
-plumbing tells them this is not for them. Describe what it does.</p>
-</div>
-
-<div class="card q">
-<h2>OPEN QUESTIONS - answer before filming</h2>
+<h3>The fields, in order</h3>
 <ol>
-<li><strong>Can it generate live on camera?</strong> Apurv to confirm. It decides whether
-the second half of Demo 1 is a live run or a replay.</li>
-<li><strong>Does the blueprint arrive finished, or does their own AI interview them and
-write it?</strong> Both are on the table and only you can pick. Nothing downstream can be
-built until you do.</li>
-<li><strong>Which ticket do you show?</strong> It has to survive a frame-by-frame look for
-customer data. Choose it in advance.</li>
-<li><strong>The product name.</strong> This tool has no name yet, and the tease is spoken
-on camera, which freezes it. One name across the video, page, email, PDF and file.</li>
+<li>Your Name *</li>
+<li>Email Address *</li>
+<li>Where Do Your Customer Queries Land? *</li>
+<li>Tell Us Where They Land * - only if "Other" is picked</li>
+<li>Do You Have a CRM? *</li>
+<li>Which One? * - conditional</li>
+<li>Tell Us Which CRM * - conditional</li>
 </ol>
 </div>
 
-<div class="foot">Internal recording aid - The AI Shift. Not a customer-facing page.</div>
+<div class="card warn">
+<h2>Never say on camera</h2>
+<table>
+<tr><th>Never say</th><th>Say instead</th></tr>
+<tr><td>vector store, embeddings, retrieval, RAG</td>
+<td>"it looks up just the part of our knowledge that answers this"</td></tr>
+<tr><td>evaluator node, the second model scores the draft</td>
+<td>"a different AI marks it - right, wrong, or a human needs to see this"</td></tr>
+<tr><td>webhook, API, pipeline, workflow automation, tool brand names</td>
+<td>"it plugs into the helpdesk the team already uses"</td></tr>
+<tr><td>it hallucinates</td>
+<td>"it makes things up - the second check catches that"</td></tr>
+</table>
+<p class="why">The viewer is an owner, not a builder.</p>
+</div>
+
+<div class="card q">
+<h2>Answer before roll</h2>
+<ol>
+<li><strong>Live generation on camera, or a replay?</strong> The support lead and Sai are coordinating on whether the page can generate live. Confirm which it is before the slot.</li>
+<li><strong>Which ticket do you show?</strong> Choose in advance; it must survive a frame-by-frame look.</li>
+</ol>
+</div>
+
+<div class="foot">Internal recording aid.</div>
 </div>
 </body>
 </html>
