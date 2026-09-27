@@ -6,6 +6,8 @@
  *
  *   <span data-days-ago="1" data-date-format="ddd, MMM D">Sat, Sep 26</span>
  *
+ * Add data-weekdays-only to an event that must fall Monday to Friday.
+ *
  * Tokens: dddd (Thursday) ddd (Thu) MMMM (September) MMM (Sep) D (26)
  *         YYYY (2026) Q (3, the quarter). Everything else prints as-is.
  *
@@ -21,6 +23,21 @@
     var base = today ? new Date(today.getTime()) : new Date();
     // Build from calendar parts so a DST change never shifts the day.
     return new Date(base.getFullYear(), base.getMonth(), base.getDate() - n);
+  }
+
+  // An event that only happens on a business day (a booked session, a sales
+  // call) never lands on a weekend. It moves to the NEAREST weekday - Saturday
+  // back to Friday, Sunday on to Monday - so it shifts by one day at most and
+  // stays inside any window around it. If that would cross today (a past
+  // event becoming today or later, or the reverse) it goes the other way.
+  function resolve(n, weekdaysOnly, today) {
+    if (!weekdaysOnly) return daysAgo(n, today);
+    var day = daysAgo(n, today).getDay();
+    if (day !== 0 && day !== 6) return daysAgo(n, today);
+    var shift = day === 6 ? 1 : -1;            // in days-ago units: +1 = a day earlier
+    var m = n + shift;
+    if ((n > 0 && m <= 0) || (n < 0 && m >= 0)) m = n - 2 * shift;
+    return daysAgo(m, today);
   }
 
   function format(date, pattern) {
@@ -42,12 +59,13 @@
     for (var i = 0; i < els.length; i++) {
       var n = parseInt(els[i].getAttribute('data-days-ago'), 10);
       if (isNaN(n)) continue;
-      els[i].textContent = format(daysAgo(n, today), els[i].getAttribute('data-date-format'));
+      var d = resolve(n, els[i].hasAttribute('data-weekdays-only'), today);
+      els[i].textContent = format(d, els[i].getAttribute('data-date-format'));
     }
     return els.length;
   }
 
-  var api = { daysAgo: daysAgo, format: format, apply: apply };
+  var api = { daysAgo: daysAgo, resolve: resolve, format: format, apply: apply };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (root && root.document) apply(root.document);
 })(typeof window !== 'undefined' ? window : null);
