@@ -170,7 +170,7 @@
     <div class="loading-overlay" id="overlay">
         <div class="spinner-lg"></div>
         <div class="loading-msg">Analyzing call...</div>
-        <div class="loading-sub">May 8, 2026 · 34 min</div>
+        <div class="loading-sub"><span data-days-ago="4" data-date-format="MMM D, YYYY">Sep 23, 2026</span> · 34 min</div>
     </div>
 
     <div class="header">
@@ -183,7 +183,7 @@
 
         <div class="call-header">
             <div class="call-meta">
-                <div class="call-title">Discovery call  -  May 8, 2026 · 34 min</div>
+                <div class="call-title">Discovery call  -  <span data-days-ago="4" data-date-format="MMM D, YYYY">Sep 23, 2026</span> · 34 min</div>
                 <div class="call-sub">Rep: <span class="pii-blur">Kyle Brennan</span> &nbsp;·&nbsp; Prospect: <span style="filter:blur(4px);user-select:none;">Business Owner, e-commerce brand</span> &nbsp;·&nbsp; Deal size: <span class="pii-blur">$12K</span></div>
             </div>
             <div class="call-score-wrap">
@@ -282,7 +282,7 @@
 
             <div class="transcript-excerpt" id="t-112">
                 <div class="excerpt-quote">
-                    "Hey, appreciate you taking the call. So, quick thing before we dive in  -  how are you tracking against your Q2 targets right now?"
+                    "Hey, appreciate you taking the call. So, quick thing before we dive in  -  how are you tracking against your Q<span data-days-ago="4" data-date-format="Q">3</span> targets right now?"
                 </div>
                 <div class="excerpt-note">
                     <strong>Rep establishes friendly tone, but no authority frame.</strong> Prospect is conversational but has no reason yet to trust the rep's diagnosis of their situation.
@@ -346,5 +346,6 @@
             document.getElementById('overlay').classList.add('hidden');
         }, 1200);
     </script>
+<script src="../shared/relative-dates.js"></script>
 </body>
 </html>
